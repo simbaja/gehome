@@ -22,6 +22,7 @@ from gekitchen import (
     GeXmppClient,
     OvenCookSetting,
     async_do_full_xmpp_flow,
+    OVEN_COOK_MODE_MAP
 )
 from secrets import USERNAME, PASSWORD
 
@@ -48,7 +49,7 @@ async def detect_appliance_type(appliance: GeAppliance):
         _LOGGER.info('Turning on the oven!')
         await appliance.async_set_erd_value(
             ErdCode.UPPER_OVEN_COOK_MODE,
-            OvenCookSetting(ErdOvenCookMode.BAKE_NOOPTION, 350)
+            OvenCookSetting(OVEN_COOK_MODE_MAP[ErdOvenCookMode.BAKE_NOOPTION], 350)
         )
         _LOGGER.info('Set the timer!')
         await appliance.async_set_erd_value(ErdCode.UPPER_OVEN_KITCHEN_TIMER, timedelta(minutes=45))

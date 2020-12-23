@@ -6,15 +6,19 @@ __all__ = (
     "ErdRinseAgentConverter"
 )
 
+import logging
 from .abstract import ErdReadOnlyConverter, ErdValueConverter
 from .primitives import *
 from gekitchen.erd.values.dishwasher import *
+
+_LOGGER = logging.getLogger(__name__)
 
 class ErdCycleStateConverter(ErdReadOnlyConverter[ErdCycleState]):
     def erd_decode(self, value: str) -> ErdCycleState:
         """ Decodes the dishwasher cycle state """    
         try:
             raw = ErdCycleStateRaw(value)
+            _LOGGER.debug(f'Cycle State Value: {raw}')
             return CYCLE_STATE_RAW_MAP[raw]
         except (ValueError, KeyError):
             return ErdCycleState.NA
@@ -32,6 +36,7 @@ class ErdRinseAgentConverter(ErdReadOnlyConverter[ErdRinseAgent]):
         """ Decodes the dishwasher rinse agent status """
         try:
             raw = ErdRinseAgentRaw(value)
+            _LOGGER.debug(f'Rinse Agent Value: {raw}')
             return RINSE_AGENT_RAW_MAP[raw]
         except (ValueError, KeyError):
             return ErdRinseAgent.NA
