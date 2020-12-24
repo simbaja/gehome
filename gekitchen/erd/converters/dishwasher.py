@@ -19,7 +19,7 @@ class ErdCycleStateConverter(ErdReadOnlyConverter[ErdCycleState]):
         try:
             raw = ErdCycleStateRaw(value)
             _LOGGER.debug(f'Cycle State Value: {raw}')
-            return CYCLE_STATE_RAW_MAP[raw]
+            return ErdCycleState(CYCLE_STATE_RAW_MAP[raw])
         except (ValueError, KeyError):
             return ErdCycleState.NA
 
@@ -37,7 +37,7 @@ class ErdRinseAgentConverter(ErdReadOnlyConverter[ErdRinseAgent]):
         try:
             raw = ErdRinseAgentRaw(value)
             _LOGGER.debug(f'Rinse Agent Value: {raw}')
-            return RINSE_AGENT_RAW_MAP[raw]
+            return ErdRinseAgent(RINSE_AGENT_RAW_MAP[raw])
         except (ValueError, KeyError):
             return ErdRinseAgent.NA
 
