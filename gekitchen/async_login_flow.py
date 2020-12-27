@@ -16,7 +16,7 @@ from .const import (
     OAUTH2_CLIENT_SECRET,
     OAUTH2_REDIRECT_URI,
 )
-from .exc import GeAuthError, GeServerError
+from .exception import GeAuthFailedError, GeGeneralServerError
 
 from typing import Dict
 from urllib.parse import urlparse, parse_qs
@@ -35,9 +35,9 @@ async def async_get_oauth2_token(session: aiohttp.ClientSession, username: str, 
 
     async with session.get(f'{LOGIN_URL}/oauth2/auth', params=params) as resp:
         if 400 <= resp.status < 500:
-            raise GeAuthError(await resp.text())
+            raise GeAuthFailedError(await resp.text())
         if resp.status >= 500:
-            raise GeServerError(await resp.text())
+            raise GeGeneralServerError(await resp.text())
         resp_text = await resp.text()
 
     email_regex = (
@@ -57,9 +57,9 @@ async def async_get_oauth2_token(session: aiohttp.ClientSession, username: str, 
 
     async with session.post(f'{LOGIN_URL}/oauth2/g_authenticate', data=post_data, allow_redirects=False) as resp:
         if 400 <= resp.status < 500:
-            raise GeAuthError(await resp.text())
+            raise GeAuthFailedError(await resp.text())
         if resp.status >= 500:
-            raise GeServerError(await resp.text())
+            raise GeGeneralServerError(await resp.text())
         code = parse_qs(urlparse(resp.headers['Location']).query)['code'][0]
 
     post_data = {
@@ -72,14 +72,14 @@ async def async_get_oauth2_token(session: aiohttp.ClientSession, username: str, 
     auth = aiohttp.BasicAuth(OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SECRET)
     async with session.post(f'{LOGIN_URL}/oauth2/token', data=post_data, auth=auth) as resp:
         if 400 <= resp.status < 500:
-            raise GeAuthError(await resp.text())
+            raise GeAuthFailedError(await resp.text())
         if resp.status >= 500:
-            raise GeServerError(await resp.text())
+            raise GeGeneralServerError(await resp.text())
         oauth_token = await resp.json()
     try:
         return {'Authorization': 'Bearer ' + oauth_token['access_token']}
     except KeyError:
-        raise GeAuthError(f'Failed to get a token: {oauth_token}')
+        raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
 
 
 async def async_get_mobile_device_token(session: aiohttp.ClientSession, auth_header: Dict) -> str:
@@ -91,13 +91,13 @@ async def async_get_mobile_device_token(session: aiohttp.ClientSession, auth_hea
     }
     async with session.post(f'{API_URL}/v1/mdt', json=mdt_data, headers=auth_header) as resp:
         if resp.status != 200:
-            raise GeAuthError(await resp.text())
+            raise GeAuthFailedError(await resp.text())
         results = await resp.json()
 
     try:
         return results['mdt']
     except KeyError:
-        raise GeAuthError(f'Failed to get a mobile device token: {results}')
+        raise GeAuthFailedError(f'Failed to get a mobile device token: {results}')
 
 
 async def async_get_ge_token(session: aiohttp.ClientSession, auth_header: Dict, mobile_device_token: str) -> str:
@@ -109,15 +109,15 @@ async def async_get_ge_token(session: aiohttp.ClientSession, auth_header: Dict, 
     }
     async with session.post(f'{LOGIN_URL}/oauth2/getoken', params=params, headers=auth_header) as resp:
         if 400 <= resp.status < 500:
-            raise GeAuthError(await resp.text())
+            raise GeAuthFailedError(await resp.text())
         if resp.status >= 500:
-            raise GeServerError(await resp.text())
+            raise GeGeneralServerError(await resp.text())
         results = await resp.json()
 
     try:
         return results['access_token']
     except KeyError:
-        raise GeAuthError(f'Failed to get a GE token: {results}')
+        raise GeAuthFailedError(f'Failed to get a GE token: {results}')
 
 
 async def async_get_xmpp_credentials(session: aiohttp.ClientSession, ge_token: str) -> Dict:
@@ -126,9 +126,9 @@ async def async_get_xmpp_credentials(session: aiohttp.ClientSession, ge_token: s
     headers = {'Authorization': f'Bearer {ge_token}'}
     async with session.get(uri, headers=headers) as resp:
         if 400 <= resp.status < 500:
-            raise GeAuthError(await resp.text())
+            raise GeAuthFailedError(await resp.text())
         if resp.status >= 500:
-            raise GeServerError(await resp.text())
+            raise GeGeneralServerError(await resp.text())
         return await resp.json()
 
 
@@ -137,9 +137,9 @@ async def async_get_wss_credentials(session: aiohttp.ClientSession, auth_header:
     uri = f'{API_URL}/v1/websocket'
     async with session.get(uri, headers=auth_header) as resp:
         if 400 <= resp.status < 500:
-            raise GeAuthError(await resp.text())
+            raise GeAuthFailedError(await resp.text())
         if resp.status >= 500:
-            raise GeServerError(await resp.text())
+            raise GeGeneralServerError(await resp.text())
         return await resp.json()
 
 

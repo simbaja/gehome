@@ -159,6 +159,7 @@ class ErdEncoder:
         try:
             return self._registry[erd_code].erd_encode(value)
         except KeyError:
+            _LOGGER.error(f'Attempt to encode unregistered ERD code {erd_code}')
             raise
 
     def can_decode(self, erd_code: ErdCodeType) -> bool:

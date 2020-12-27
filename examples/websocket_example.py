@@ -34,7 +34,6 @@ async def log_state_change(data: Tuple[GeAppliance, Dict[ErdCodeType, Any]]):
     updated_keys = ', '.join([str(s) for s in state_changes])
     _LOGGER.debug(f'Appliance state change detected in {appliance}. Updated keys: {updated_keys}')
 
-
 async def detect_appliance_type(appliance: GeAppliance):
     """
     Detect the appliance type.
@@ -74,4 +73,4 @@ if __name__ == "__main__":
 
     session = aiohttp.ClientSession()
     asyncio.ensure_future(client.async_get_credentials_and_run(session), loop=loop)
-    loop.run_until_complete(asyncio.sleep(60))
+    loop.run_until_complete(asyncio.sleep(300))

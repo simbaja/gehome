@@ -1,4 +1,5 @@
 import asyncio
+import os
 import logging
 
 import slixmpp
@@ -23,6 +24,9 @@ except ImportError:
 
 _LOGGER = logging.getLogger(__name__)
 
+# If this isn't done, it'll throw a not implemented exception
+if os.name == 'nt':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 def _first_or_none(lst: list) -> Any:
     try:

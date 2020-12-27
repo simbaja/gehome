@@ -6,8 +6,8 @@ import logging
 from aiohttp import ClientSession
 from typing import Any, Callable, Dict, Optional, Tuple
 from ..const import EVENT_APPLIANCE_INITIAL_UPDATE
-from ..erd import ErdCode, ErdCodeType
-from ..exc import GeNotAuthedError
+from ..erd import ErdCode, ErdCodeType, ErdEncoder
+from ..exception import GeNotAuthenticatedError
 from ..ge_appliance import GeAppliance
 
 try:
@@ -45,7 +45,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         try:
             return self.credentials['userId']
         except (TypeError, KeyError):
-            raise GeNotAuthedError
+            raise GeNotAuthenticatedError
 
     @property
     def loop(self) -> asyncio.AbstractEventLoop:

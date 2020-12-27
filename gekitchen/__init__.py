@@ -13,7 +13,7 @@ from .async_login_flow import (
 from .clients import *
 from .const import *
 from .erd import *
-from .exc import *
+from .exception import *
 from .ge_appliance import GeAppliance
 from .login_flow import (
     do_full_xmpp_flow,

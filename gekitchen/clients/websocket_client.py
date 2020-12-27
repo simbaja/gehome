@@ -9,7 +9,7 @@ from aiohttp import ClientSession
 from .base_client import GeBaseClient
 
 from ..async_login_flow import async_do_full_wss_flow
-from ..exc import GeNotAuthedError
+from ..exception import GeNotAuthenticatedError
 from ..const import (
     API_URL,
     EVENT_ADD_APPLIANCE,
@@ -85,7 +85,7 @@ class GeWebsocketClient(GeBaseClient):
         try:
             return self.credentials['endpoint']
         except (TypeError, KeyError):
-            raise GeNotAuthedError
+            raise GeNotAuthenticatedError
 
     @property
     def event_handlers(self) -> Dict[str, List[Callable]]:

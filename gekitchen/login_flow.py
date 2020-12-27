@@ -15,7 +15,7 @@ from gekitchen.const import (
     OAUTH2_CLIENT_SECRET,
     OAUTH2_REDIRECT_URI,
 )
-from gekitchen.exc import GeAuthError
+from .exception import GeAuthFailedError
 
 from typing import Dict
 from urllib.parse import urlparse, parse_qs
@@ -67,7 +67,7 @@ def get_oauth2_token(session: requests.Session, username: str, password: str):
         session.headers.update({'Authorization': 'Bearer ' + oauth_token['access_token']})
     except KeyError:
         # TODO: make this better
-        raise GeAuthError(f'Failed to get a token: {oauth_token}')
+        raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
     return oauth_token
 
 
@@ -83,7 +83,7 @@ def get_mobile_device_token(session: requests.Session) -> str:
     try:
         return r.json()['mdt']
     except KeyError:
-        raise GeAuthError(f'Failed to get a mobile device token: {results}')
+        raise GeAuthFailedError(f'Failed to get a mobile device token: {results}')
 
 
 def get_wss_credentials(session: requests.Session) -> Dict:
@@ -104,7 +104,7 @@ def get_ge_token(session: requests.Session, mobile_device_token: str) -> str:
     try:
         return results['access_token']
     except KeyError:
-        raise GeAuthError(f'Failed to get a GE token: {results}')
+        raise GeAuthFailedError(f'Failed to get a GE token: {results}')
 
 
 def get_xmpp_credentials(ge_token: str) -> Dict:
