@@ -7,7 +7,7 @@ from gekitchen.exception import GeSetErdNotAllowedError
 T = TypeVar('T')
 
 class ErdValueConverter(Generic[T], ABC):
-    def __init__(self, can_decode: bool = True, can_encode: bool = True, erd_code: ErdCodeType = "Unknown"):
+    def __init__(self, erd_code: ErdCodeType = "Unknown", can_decode: bool = True, can_encode: bool = True):
         self.erd_code = erd_code
         self.can_decode = can_decode
         self.can_encode = can_encode
@@ -21,10 +21,10 @@ class ErdValueConverter(Generic[T], ABC):
 
 class ErdReadWriteConverter(Generic[T], ABC):
     def __init__(self, erd_code: ErdCodeType = "Unknown"):
-        super().__init__(True, True, erd_code)
+        ErdValueConverter.__init__(erd_code, True, True)
 
 class ErdReadOnlyConverter(ErdValueConverter[T]):
     def __init__(self, erd_code: ErdCodeType = "Unknown"):
-        super().__init__(True, False, erd_code)
+        ErdValueConverter.__init__(erd_code, True, False)
     def erd_encode(self, value: T) -> str:
         raise GeSetErdNotAllowedError(self.erd_code)

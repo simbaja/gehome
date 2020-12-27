@@ -11,7 +11,7 @@ class OperatingModeConverter(ErdReadOnlyConverter[OperatingMode]):
         """Decode the dishwasher operating state """
         try:
             om = ErdOperatingMode(value)
-            _LOGGER.debug(f'raw operating mode value: {raw}')
+            _LOGGER.debug(f'raw operating mode value: {om}')
             return OPERATING_MODE_MAP[om]
         except (KeyError, ValueError):
             return ErdOperatingMode.NA
