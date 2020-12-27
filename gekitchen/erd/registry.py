@@ -1,6 +1,6 @@
 from typing import TypedDict
 
-from .codes import ErdCode
+from .codes import ErdCode, ErdCodeType
 from .converters import *
 
 class ConverterRegistry(TypedDict):
@@ -75,7 +75,7 @@ _registry = ConverterRegistry({
     ErdCode.OVEN_CONFIGURATION: OvenConfigurationConverter(),
     ErdCode.OVEN_MODE_MIN_MAX_TEMP: OvenRangesConverter(),
 
-    ErdCode.COOKTOP_CONFIG: ErdOvenCooktopConfigConverter(),
+    ErdCode.COOKTOP_CONFIG: ErdCooktopConfigConverter(),
     ErdCode.COOKTOP_STATUS: CooktopStatusConverter(),
 
     ErdCode.PRECISION_COOKING_PROBE_CONTROL_MODE: ErdPrecisionCookingAppProbeControlModeConverter(),

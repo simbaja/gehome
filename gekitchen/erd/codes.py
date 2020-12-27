@@ -1,5 +1,6 @@
 """ERD Codes for GE appliances"""
 import enum
+from typing import Union
 
 @enum.unique
 class ErdCode(enum.Enum):
@@ -113,3 +114,6 @@ class ErdCode(enum.Enum):
     # Lots more in 0x5Cxx
 
     # Hood
+
+
+ErdCodeType = Union[ErdCode, str]
