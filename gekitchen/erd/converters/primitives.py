@@ -28,13 +28,15 @@ from .abstract import ErdValueConverter
 _LOGGER = logging.getLogger(__name__)
 
 class ErdIntConverter(ErdValueConverter[int]):
+    def __init__(self, length: int = 2):
+        self.length = length
     def erd_decode(self, value) -> int:
         """Decode an integer value sent as a hex encoded string."""
         return int(value, 16)
     def erd_encode(self, value) -> str:
         """Encode an integer value as a hex string."""
         value = int(value)
-        return value.to_bytes(2, 'big').hex()
+        return value.to_bytes(self.length, 'big').hex()
 
 class ErdSignedByteConverter(ErdValueConverter[int]):
     def erd_decode(self, value) -> int:
@@ -100,7 +102,7 @@ class ErdTimeSpanConverter(ErdValueConverter[Optional[timedelta]]):
             minutes = 65535
         else:
             minutes = value.seconds // 60
-        return minutes.to_bytes(2, 'big').hex()
+        return minutes.to_bytes(4, 'big').hex()
 
 _int_converter = ErdIntConverter()
 _signed_byte_converter = ErdSignedByteConverter()

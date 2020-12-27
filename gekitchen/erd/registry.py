@@ -75,11 +75,24 @@ _registry = ConverterRegistry({
     ErdCode.OVEN_CONFIGURATION: OvenConfigurationConverter(),
     ErdCode.OVEN_MODE_MIN_MAX_TEMP: OvenRangesConverter(),
 
+    ErdCode.COOKTOP_CONFIG: ErdOvenCooktopConfigConverter(),
+    ErdCode.COOKTOP_STATUS: CooktopStatusConverter(),
+
+    ErdCode.PRECISION_COOKING_PROBE_CONTROL_MODE: ErdPrecisionCookingAppProbeControlModeConverter(),
+    ErdCode.PRECISION_COOKING_PROBE_STATUS: ErdIntConverter(), #TODO: Figure out the two variables here
+    ErdCode.PRECISION_COOKING_PROBE_TEMP_TARGET: ErdIntConverter(4),
+    ErdCode.PRECISION_COOKING_PROBE_TEMP_CURRENT: ErdIntConverter(),
+    ErdCode.PRECISION_COOKING_PROBE_TIME_TARGET: ErdTimeSpanConverter(),
+    ErdCode.PRECISION_COOKING_START_SOUS_VIDE_TIMER_ACTIVE_STATUS: ErdPrecisionCookingStartSousVideTimerActiveStatusConverter(),
+    ErdCode.PRECISION_COOKING_PROBE_TIME_CURRENT: ErdTimeSpanConverter(),
+    ErdCode.PRECISION_COOKING_PROBE_TARGET_TIME_REACHED: ErdPrecisionCookingProbeTargetTimeReachedConverter(),
+    ErdCode.PRECISION_COOKING_PROBE_BATTERY_STATUS: ErdPrecisionCookingProbeBatteryStatusConverter(),
+
     # Dishwasher
     ErdCode.CYCLE_NAME: ErdStringConverter(),
     ErdCode.PODS_REMAINING_VALUE: ErdIntConverter(),
     ErdCode.TIME_REMAINING: ErdTimeSpanConverter(),
     ErdCode.CYCLE_STATE: ErdCycleStateConverter(),
-    ErdCode.OPERATING_MODE: ErdOperatingStateConverter(),
+    ErdCode.OPERATING_MODE: ErdOperatingModeConverter(),
     ErdCode.RINSE_AGENT: ErdRinseAgentConverter(),
 })
