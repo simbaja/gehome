@@ -98,7 +98,7 @@ class ErdEncoder:
         ErdCode.RINSE_AGENT: ErdRinseAgentConverter(ErdCode.RINSE_AGENT),
     }
 
-    def translate_erd_code(self, erd_code: ErdCodeType) -> ErdCodeType:
+    def translate_code(self, erd_code: ErdCodeType) -> ErdCodeType:
         """
         Try to resolve an ERD codes from string to ErdCode if possible.  If an ErdCode
         object is passed in, it will be returned.
@@ -117,10 +117,9 @@ class ErdEncoder:
         try:
             return ErdCode(erd_code.lower())
         except ValueError:
-            # raise UnknownErdCode(f"Unable to resolve erd_code '{erd_code}'")
             return erd_code
 
-    def decode_erd_value(self, erd_code: ErdCodeType, erd_value: str) -> Any:
+    def decode_value(self, erd_code: ErdCodeType, erd_value: str) -> Any:
         """
         Decode and ERD Code raw value into something useful.  If the erd_code is a string that
         cannot be resolved to a known ERD Code, the value will be treated as raw byte string.
@@ -133,7 +132,7 @@ class ErdEncoder:
         if erd_value == '':
             return None
 
-        erd_code = self.translate_erd_code(erd_code)
+        erd_code = self.translate_code(erd_code)
 
         if isinstance(erd_code, str):
             return erd_decode_bytes(erd_value)
@@ -143,7 +142,7 @@ class ErdEncoder:
         except KeyError:
             return erd_decode_int(erd_value)
 
-    def encode_erd_value(self, erd_code: ErdCodeType, value: Any) -> str:
+    def encode_value(self, erd_code: ErdCodeType, value: Any) -> str:
         """
         Encode an ERD Code value as a hex string.
         Only ERD Codes registered with self.erd_encoders will processed.  Otherwise an error will be returned.
@@ -155,9 +154,35 @@ class ErdEncoder:
         if value is None:
             return ''
 
-        erd_code = self.translate_erd_code(erd_code)
+        erd_code = self.translate_code(erd_code)
 
         try:
             return self._registry[erd_code].erd_encode(value)
         except KeyError:
             raise
+
+    def can_decode(self, erd_code: ErdCodeType) -> bool:
+        """ 
+        Indicates whether an ERD Code can be decoded. If the code
+        is not registered, defaults to true
+        """
+
+        erd_code = self.translate_code(erd_code)
+
+        try:
+            return self._registry[erd_code].can_decode()
+        except KeyError:
+            return True
+
+    def can_encode(self, erd_code: ErdCodeType) -> bool:
+        """ 
+        Indicates whether an ERD Code can be encoded. If the code
+        is not registered, defaults to false
+        """
+
+        erd_code = self.translate_code(erd_code)
+
+        try:
+            return self._registry[erd_code].can_encode()
+        except KeyError:
+            return False
