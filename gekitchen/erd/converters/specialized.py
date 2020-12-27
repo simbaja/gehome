@@ -10,7 +10,7 @@ __all__ = (
 
 from textwrap import wrap
 
-from .abstract import ErdValueConverter, ErdReadOnlyConverter
+from .abstract import ErdReadWriteConverter, ErdReadOnlyConverter
 from .primitives import *
 
 from gekitchen.erd.values import ErdApplianceType, ErdMeasurementUnits, ErdEndTone, ErdSoundLevel, ErdClockFormat
@@ -22,13 +22,13 @@ class ErdApplianceTypeConverter(ErdReadOnlyConverter[ErdApplianceType]):
         except ValueError:
             return ErdApplianceType.UNKNOWN
 
-class ErdMeasurementUnitsConverter(ErdValueConverter[ErdMeasurementUnits]):
+class ErdMeasurementUnitsConverter(ErdReadWriteConverter[ErdMeasurementUnits]):
     def erd_decode(self, value: str) -> ErdMeasurementUnits:
         return ErdMeasurementUnits(int(value))
     def erd_encode(self, value: ErdMeasurementUnits) -> str:
         return f'{value.value:02d}'
 
-class ErdEndToneConverter(ErdValueConverter[ErdEndTone]):
+class ErdEndToneConverter(ErdReadWriteConverter[ErdEndTone]):
     def erd_decode(self, value: str) -> ErdEndTone:
         try:
             return ErdEndTone(value)
@@ -39,14 +39,14 @@ class ErdEndToneConverter(ErdValueConverter[ErdEndTone]):
             raise ValueError("Invalid EndTone value")
         return value.value
 
-class ErdSoundLevelConverter(ErdValueConverter[ErdSoundLevel]):    
+class ErdSoundLevelConverter(ErdReadWriteConverter[ErdSoundLevel]):    
     def erd_decode(self, value: str) -> ErdSoundLevel:
         sound_level = erd_decode_int(value)
         return ErdSoundLevel(sound_level)
     def erd_encode(self, value: ErdSoundLevel) -> str:
         return erd_encode_int(value.value)
 
-class ErdClockFormatConverter(ErdValueConverter[ErdClockFormat]):
+class ErdClockFormatConverter(ErdReadWriteConverter[ErdClockFormat]):
     def erd_decode(self, value: str) -> ErdClockFormat:
         return ErdClockFormat(value)
     def erd_encode(self, value: ErdClockFormat) -> str:

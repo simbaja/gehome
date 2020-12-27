@@ -1,9 +1,9 @@
-from ..abstract import ErdValueConverter
+from ..abstract import ErdReadWriteConverter
 from ..primitives import *
 from gekitchen.erd.values.common import ErdOnOff
 from gekitchen.erd.values.fridge import IceMakerControlStatus
 
-class IceMakerControlStatusConverter(ErdValueConverter[IceMakerControlStatus]):
+class IceMakerControlStatusConverter(ErdReadWriteConverter[IceMakerControlStatus]):
     def erd_decode(self, value: str) -> IceMakerControlStatus:
         def parse_status(val: str) -> ErdOnOff:
             try:

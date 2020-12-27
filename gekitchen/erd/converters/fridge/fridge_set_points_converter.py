@@ -1,8 +1,8 @@
-from ..abstract import ErdValueConverter
+from ..abstract import ErdReadWriteConverter
 from ..primitives import *
 from gekitchen.erd.values.fridge import FridgeSetPoints
 
-class FridgeSetPointsConverter(ErdValueConverter[FridgeSetPoints]):
+class FridgeSetPointsConverter(ErdReadWriteConverter[FridgeSetPoints]):
     def erd_decode(self, value: str) -> FridgeSetPoints:
         return FridgeSetPoints(
             fridge=ErdSignedByteConverter.erd_decode(value[0:2]),

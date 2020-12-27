@@ -23,11 +23,11 @@ import logging
 from datetime import timedelta
 from typing import Optional
 
-from .abstract import ErdValueConverter
+from .abstract import ErdReadWriteConverter
 
 _LOGGER = logging.getLogger(__name__)
 
-class ErdIntConverter(ErdValueConverter[int]):
+class ErdIntConverter(ErdReadWriteConverter[int]):
     def __init__(self, length: int = 2):
         self.length = length
     def erd_decode(self, value) -> int:
@@ -38,7 +38,7 @@ class ErdIntConverter(ErdValueConverter[int]):
         value = int(value)
         return value.to_bytes(self.length, 'big').hex()
 
-class ErdSignedByteConverter(ErdValueConverter[int]):
+class ErdSignedByteConverter(ErdReadWriteConverter[int]):
     def erd_decode(self, value) -> int:
         """
         Convert a hex byte to a signed int.  Copied from GE's hextodec method.
@@ -56,7 +56,7 @@ class ErdSignedByteConverter(ErdValueConverter[int]):
             value = value + 256
         return value.to_bytes(1, "big").hex()
 
-class ErdBytesConverter(ErdValueConverter[bytes]):
+class ErdBytesConverter(ErdReadWriteConverter[bytes]):
     def erd_decode(self, value) -> bytes:
         """Decode a raw bytes ERD value sent as a hex encoded string."""
         return bytes.fromhex(value)
@@ -64,7 +64,7 @@ class ErdBytesConverter(ErdValueConverter[bytes]):
         """Encode a raw bytes ERD value."""
         return value.hex('big')
 
-class ErdBoolConverter(ErdValueConverter[Optional[bool]]):
+class ErdBoolConverter(ErdReadWriteConverter[Optional[bool]]):
     def erd_decode(self, value) -> Optional[bool]:
         if value == "FF":
             return None
@@ -74,7 +74,7 @@ class ErdBoolConverter(ErdValueConverter[Optional[bool]]):
             return "FF"
         return "01" if value else "00"    
 
-class ErdStringConverter(ErdValueConverter[str]):
+class ErdStringConverter(ErdReadWriteConverter[str]):
     def erd_decode(self, value) -> str:
         """
         Decode an string value sent as a hex encoded string.
@@ -90,7 +90,7 @@ class ErdStringConverter(ErdValueConverter[str]):
         raw_bytes = value.encode('ascii')
         return bytes.hex(raw_bytes)
 
-class ErdTimeSpanConverter(ErdValueConverter[Optional[timedelta]]):
+class ErdTimeSpanConverter(ErdReadWriteConverter[Optional[timedelta]]):
     def erd_decode(self, value: str) -> Optional[timedelta]:
         minutes = int(value, 16)
         if minutes == 65535:

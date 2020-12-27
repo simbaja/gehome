@@ -1,8 +1,8 @@
-from ..abstract import ErdValueConverter
+from ..abstract import ErdReadWriteConverter
 from ..primitives import *
 from gekitchen.erd.values.oven import OvenCookSetting, ErdOvenCookMode, OVEN_COOK_MODE_MAP
 
-class OvenCookModeConverter(ErdValueConverter[OvenCookSetting]):
+class OvenCookModeConverter(ErdReadWriteConverter[OvenCookSetting]):
     def erd_decode(self, value: str) -> OvenCookSetting:
         """
         Get the cook mode and temperature.
