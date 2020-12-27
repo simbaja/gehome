@@ -2,8 +2,8 @@
 
 __all__ = (
     "ErdCycleStateConverter",
-    "ErdOperatingModeConverter",
-    "ErdRinseAgentConverter"
+    "ErdRinseAgentConverter",
+    "OperatingModeConverter"
 )
 
 import logging
@@ -18,17 +18,19 @@ class ErdCycleStateConverter(ErdReadOnlyConverter[ErdCycleState]):
         """ Decodes the dishwasher cycle state """    
         try:
             raw = ErdCycleStateRaw(value)
-            _LOGGER.debug(f'Cycle State Value: {raw}')
+            _LOGGER.debug(f'raw cycle state value: {raw}')
             return ErdCycleState(CYCLE_STATE_RAW_MAP[raw])
         except (ValueError, KeyError):
             return ErdCycleState.NA
 
-class ErdOperatingModeConverter(ErdReadOnlyConverter[ErdOperatingMode]):
-    def erd_decode(self, value: str) -> ErdOperatingMode:
+class OperatingModeConverter(ErdReadOnlyConverter[OperatingMode]):
+    def erd_decode(self, value: str) -> OperatingMode:
         """Decode the dishwasher operating state """
         try:
-            return ErdOperatingMode(value)
-        except ValueError:
+            om = ErdOperatingMode(value)
+            _LOGGER.debug(f'raw operating mode value: {raw}')
+            return OPERATING_MODE_MAP[om]
+        except (KeyError, ValueError):
             return ErdOperatingMode.NA
 
 class ErdRinseAgentConverter(ErdReadOnlyConverter[ErdRinseAgent]):
@@ -36,7 +38,7 @@ class ErdRinseAgentConverter(ErdReadOnlyConverter[ErdRinseAgent]):
         """ Decodes the dishwasher rinse agent status """
         try:
             raw = ErdRinseAgentRaw(value)
-            _LOGGER.debug(f'Rinse Agent Value: {raw}')
+            _LOGGER.debug(f'raw rinse agent value: {raw}')
             return ErdRinseAgent(RINSE_AGENT_RAW_MAP[raw])
         except (ValueError, KeyError):
             return ErdRinseAgent.NA

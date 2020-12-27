@@ -93,6 +93,6 @@ _registry = ConverterRegistry({
     ErdCode.PODS_REMAINING_VALUE: ErdIntConverter(),
     ErdCode.TIME_REMAINING: ErdTimeSpanConverter(),
     ErdCode.CYCLE_STATE: ErdCycleStateConverter(),
-    ErdCode.OPERATING_MODE: ErdOperatingModeConverter(),
+    ErdCode.OPERATING_MODE: OperatingModeConverter(),
     ErdCode.RINSE_AGENT: ErdRinseAgentConverter(),
 })
