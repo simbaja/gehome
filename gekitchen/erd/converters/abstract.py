@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, Optional
 
-from gekitchen.erd.codes import ErdCodeType
+from gekitchen.erd.erd_codes import ErdCodeType
 from gekitchen.exception import GeSetErdNotAllowedError
 
 T = TypeVar('T')

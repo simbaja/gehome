@@ -3,7 +3,7 @@ import logging
 from datetime import timedelta
 from typing import Optional
 
-from ..abstract import ErdReadWriteConverter
+from ..abstract import ErdReadWriteConverter, ErdReadOnlyConverter
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -29,3 +29,8 @@ class ErdTimeSpanConverter(ErdReadWriteConverter[Optional[timedelta]]):
     def erd_encode(self, value: Optional[timedelta]) -> str:
         """ Encodes a time span as an erd integer, None is encoded as 65535. """
         return erd_encode_timespan(value)
+
+class ErdReadOnlyTimeSpanConverter(ErdReadOnlyConverter[Optional[timedelta]]):
+    def erd_decode(self, value: str) -> Optional[timedelta]:
+        """ Decodes a raw integer as a time span, 65535 is treated as None. """
+        return erd_decode_timespan(value)

@@ -1,5 +1,5 @@
 from typing import Optional
-from ..abstract import ErdReadWriteConverter
+from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
 
 def erd_decode_bool(value: any) -> Optional[bool]:
     """ Decodes a raw value to a bool, FF is considered None """
@@ -19,3 +19,7 @@ class ErdBoolConverter(ErdReadWriteConverter[Optional[bool]]):
     def erd_encode(self, value: Optional[bool]) -> str:
         """ Encodes a raw value to a bool, None is encoded as FF """
         return erd_encode_bool(value)
+class ErdReadOnlyBoolConverter(ErdReadOnlyConverter[Optional[bool]]):
+    def erd_decode(self, value: str) -> Optional[bool]:
+        """ Decodes a raw value to a bool, FF is considered None """
+        return erd_decode_bool(value)

@@ -115,5 +115,4 @@ class ErdCode(enum.Enum):
 
     # Hood
 
-
 ErdCodeType = Union[ErdCode, str]

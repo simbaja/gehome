@@ -1,4 +1,4 @@
-from ..abstract import ErdReadWriteConverter
+from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
 
 def erd_decode_signed_byte(value: any) -> int:
     """
@@ -28,3 +28,10 @@ class ErdSignedByteConverter(ErdReadWriteConverter[int]):
         Convert a hex byte to a signed int.  Copied from GE's hextodec method.
         """
         return erd_encode_signed_byte(value)
+
+class ErdReadOnlySignedByteConverter(ErdReadOnlyConverter[int]):
+    def erd_decode(self, value: str) -> int:
+        """
+        Convert a hex byte to a signed int.  Copied from GE's hextodec method.
+        """
+        return erd_decode_signed_byte(value)

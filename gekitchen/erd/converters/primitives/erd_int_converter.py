@@ -1,4 +1,5 @@
-from ..abstract import ErdReadWriteConverter
+from gekitchen.erd.converters.abstract import ErdReadWriteConverter, ErdReadOnlyConverter
+from gekitchen.erd.erd_codes import ErdCodeType
 
 def erd_decode_int(value: str) -> int:
     """Decode an integer value sent as a hex encoded string."""
@@ -9,7 +10,8 @@ def erd_encode_int(value: any, length: int = 2) -> str:
     return value.to_bytes(length, 'big').hex()
 
 class ErdIntConverter(ErdReadWriteConverter[int]):
-    def __init__(self, length: int = 2):
+    def __init__(self, erd_code: ErdCodeType = "Unknown", length: int = 2):
+        super().__init__(erd_code)
         self.length = length
     def erd_decode(self, value: str) -> int:
         """Decode an integer value sent as a hex encoded string."""
@@ -17,3 +19,8 @@ class ErdIntConverter(ErdReadWriteConverter[int]):
     def erd_encode(self, value) -> str:
         """Encode an integer value as a hex string."""
         return erd_encode_int(value)
+
+class ErdReadOnlyIntConverter(ErdReadOnlyConverter[int]):
+    def erd_decode(self, value: str) -> int:
+        """Decode an integer value sent as a hex encoded string."""
+        return erd_decode_int(value)

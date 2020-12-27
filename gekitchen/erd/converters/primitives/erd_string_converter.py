@@ -1,4 +1,4 @@
-from ..abstract import ErdReadWriteConverter
+from ..abstract import ErdReadWriteConverter, ErdReadOnlyConverter
 
 def erd_decode_string(value: str) -> str:
     """
@@ -26,3 +26,11 @@ class ErdStringConverter(ErdReadWriteConverter[str]):
         Encode an string value to a hex encoded string.
         """
         return erd_encode_string(value)
+
+class ErdReadOnlyStringConverter(ErdReadOnlyConverter[str]):
+    def erd_decode(self, value: str) -> str:
+        """
+        Decode an string value sent as a hex encoded string.
+        """
+        return erd_decode_string(value)
+        
