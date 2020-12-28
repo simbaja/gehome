@@ -1,4 +1,5 @@
 import enum
+from typing import Optional
 
 @enum.unique
 class ErdFilterStatus(enum.Enum):
@@ -8,3 +9,8 @@ class ErdFilterStatus(enum.Enum):
     UNFILTERED = "03"
     LEAK_DETECTED = "04"
     NA = "FF"
+
+    def stringify(self, **kwargs) -> Optional[str]:
+        if(self.value == ErdFilterStatus.NA):
+            return "N/A"
+        return self.name.title()

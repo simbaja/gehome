@@ -167,7 +167,7 @@ class GeAppliance:
 
         return state_changes
 
-    def stringify_erd_value(self, erd_code: ErdCodeType, **kwargs) -> str:
+    def stringify_erd_value(self, erd_code: ErdCodeType, **kwargs) -> Optional[str]:
         """
         Stringifies a code value if possible.  If it can't be stringified, returns none.
         """

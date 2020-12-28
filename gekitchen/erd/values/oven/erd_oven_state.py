@@ -1,4 +1,7 @@
 import enum
+from typing import Optional
+
+from .const import *
 
 @enum.unique
 class ErdOvenState(enum.Enum):
@@ -55,3 +58,8 @@ class ErdOvenState(enum.Enum):
     OVEN_STATE_STEAM_START = "oven_state_steam_start"
     OVEN_STATE_WARM = "oven_state_warm"
     STATUS_DASH = "status_dash"
+
+    def stringify(self, **kwargs) -> Optional[str]:
+        OVEN_DISPLAY_STATE_MAP.get(self.value, STATE_OVEN_UNKNOWN)
+    def __str__(self) -> str:
+        return self.stringify() or STATE_OVEN_UNKNOWN        

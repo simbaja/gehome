@@ -13,3 +13,8 @@ class ErdDoorStatus(enum.Enum):
         if self.value == ErdDoorStatus.NA:
             return None
         return self.value == ErdDoorStatus.OPEN
+
+    def stringify(self, **kwargs) -> Optional[str]:
+        if self.value == ErdDoorStatus.NA:
+            return None
+        return self.name.title()

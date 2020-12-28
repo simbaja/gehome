@@ -1,4 +1,4 @@
-from typing import NamedTuple
+from typing import NamedTuple, Optional
 from .erd_door_status import ErdDoorStatus
 
 class FridgeDoorStatus(NamedTuple):
@@ -7,3 +7,9 @@ class FridgeDoorStatus(NamedTuple):
     freezer: ErdDoorStatus
     drawer: ErdDoorStatus
     status: str
+
+    def stringify(self, **kwargs) -> Optional[str]:
+        return self.status
+    
+    def __str__(self) -> str:
+        return self.status
