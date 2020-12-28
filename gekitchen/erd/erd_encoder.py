@@ -1,3 +1,4 @@
+from gekitchen.erd.erd_code_class import ErdCodeClass
 import logging
 from typing import Any
 
@@ -58,6 +59,20 @@ class ErdEncoder:
         except KeyError:
             return erd_decode_int(erd_value)
 
+    def get_code_class(self, erd_code: ErdCodeType) -> ErdCodeClass:
+        """
+        Gets the code class for a given ErdCode.  Returns GENERAL if not
+        available.
+        """
+        erd_code = self.translate_code(erd_code)
+        if isinstance(erd_code, str):
+            return ErdCodeClass.GENERAL
+        
+        try:
+            return self._registry[erd_code].code_class
+        except KeyError:
+            return ErdCodeClass.GENERAL
+    
     def encode_value(self, erd_code: ErdCodeType, value: Any) -> str:
         """
         Encode an ERD Code value as a hex string.

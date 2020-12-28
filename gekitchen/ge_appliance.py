@@ -1,5 +1,6 @@
 """Data model for GE kitchen appliances"""
 
+from gekitchen.erd.erd_code_class import ErdCodeClass
 import logging
 from weakref import WeakValueDictionary
 from typing import Any, Dict, Optional, Set, TYPE_CHECKING, Union
@@ -116,6 +117,12 @@ class GeAppliance:
         """
         erd_code = self._encoder.translate_code(erd_code)
         return self._property_cache[erd_code]
+
+    def get_erd_code_class(self, erd_code: ErdCodeType) -> ErdCodeClass:
+        """
+        Get the classification for a given ErdCode
+        """
+        return self._encoder.get_code_class(erd_code)
 
     async def async_set_erd_value(self, erd_code: ErdCodeType, value: Any):
         """
