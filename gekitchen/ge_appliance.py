@@ -174,7 +174,7 @@ class GeAppliance:
 
         return state_changes
 
-    def stringify_erd_value(self, erd_code: ErdCodeType, **kwargs) -> Optional[str]:
+    def stringify_erd_value(self, erd_code: ErdCodeType, value: Any, **kwargs) -> Optional[str]:
         """
         Stringifies a code value if possible.  If it can't be stringified, returns none.
         """
@@ -182,8 +182,6 @@ class GeAppliance:
         erd_code = self._encoder.translate_code(erd_code)
 
         try:
-            value = self._property_cache[erd_code]
-            
             if not value:
                 return None
 
@@ -195,7 +193,7 @@ class GeAppliance:
         except (ValueError, KeyError):
             return None
 
-    def boolify_erd_value(self, erd_code: ErdCodeType) -> Optional[bool]:
+    def boolify_erd_value(self, erd_code: ErdCodeType, value: Any) -> Optional[bool]:
         """
         Boolifies a code value if possible.  If it can't be boolified, returns none
         """
@@ -206,12 +204,10 @@ class GeAppliance:
             return None
 
         try:
-            value = self._property_cache[erd_code]
-
-            if isinstance(value, bool):
-                return value
             if not value:
                 return None
+            if isinstance(value, bool):
+                return value
 
             boolify_op = getattr(value, "boolify", None)
             if callable(boolify_op):
