@@ -10,7 +10,6 @@ from .converters import *
 _LOGGER = logging.getLogger(__name__)
 
 class ErdEncoder:
-    # Create the converter registry for all known types
     def __init__(self) -> None:
         super().__init__()
         self._registry = dict((k.erd_code, k) for k in _configuration)
@@ -78,25 +77,6 @@ class ErdEncoder:
         except KeyError:
             _LOGGER.error(f'Attempt to encode unregistered ERD code {erd_code}')
             raise
-
-    def boolify_value(self, erd_code: ErdCodeType) -> bool:
-        """
-        Boolifies a code if possible
-        """
-
-        erd_code = self.translate_code(erd_code)
-
-        if not self.can_boolify(erd_code):
-            raise GeUnsupportedOperationError
-
-        try:
-            value = self.decode_value(erd_code)
-            if isinstance(value, bool):
-                return value
-            else:
-                value.boolify()
-        except:
-            raise GeUnsupportedOperationError
 
     def can_decode(self, erd_code: ErdCodeType) -> bool:
         """ 

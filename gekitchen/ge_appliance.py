@@ -6,6 +6,7 @@ from typing import Any, Dict, Optional, Set, TYPE_CHECKING, Union
 from slixmpp import JID
 
 from .erd import ErdCode, ErdCodeType, ErdApplianceType, ErdEncoder
+from .exception import *
 
 if TYPE_CHECKING:
     from .clients import GeBaseClient
@@ -77,6 +78,12 @@ class GeAppliance:
     @property
     def appliance_type(self) -> Optional[ErdApplianceType]:
         return self._property_cache.get(ErdCode.APPLIANCE_TYPE)
+
+    def translate_erd_code(self, erd_code: ErdCodeType) -> ErdCodeType:
+        """
+        Translates a code to it's native value or a string if it is not known.
+        """
+        return self._encoder.translate_code(erd_code)
 
     def decode_erd_value(self, erd_code: ErdCodeType, erd_value: str) -> Any:
         """
@@ -159,6 +166,53 @@ class GeAppliance:
         }
 
         return state_changes
+
+    def stringify_erd_value(self, erd_code: ErdCodeType, **kwargs) -> str:
+        """
+        Stringifies a code value if possible.  If it can't be stringified, returns none.
+        """
+
+        erd_code = self._encoder.translate_code(erd_code)
+
+        try:
+            value = self._property_cache[erd_code]
+            
+            if not value:
+                return None
+
+            stringify_op = getattr(value, "stringify", None)
+            if callable(stringify_op):
+                return value.stringify(kwargs)
+            else:
+                return str(value)
+        except (ValueError, KeyError):
+            return None
+
+    def boolify_erd_value(self, erd_code: ErdCodeType) -> Optional[bool]:
+        """
+        Boolifies a code value if possible.  If it can't be boolified, returns none
+        """
+
+        erd_code = self.translate_code(erd_code)
+
+        if not self._encoder.can_boolify(erd_code):
+            return None
+
+        try:
+            value = self._property_cache[erd_code]
+
+            if isinstance(value, bool):
+                return value
+            if not value:
+                return None
+
+            boolify_op = getattr(value, "boolify", None)
+            if callable(boolify_op):
+                return value.boolify()
+            else:
+                return None
+        except:
+            return None
 
     def __str__(self):
         appliance_type = self.appliance_type
