@@ -9,3 +9,4 @@ from .fridge_set_point_limits import FridgeSetPointLimits
 from .fridge_set_points import FridgeSetPoints
 from .hot_water_status import HotWaterStatus
 from .ice_maker_control_status import IceMakerControlStatus
+from .fridge_model_info import FridgeModelInfo
