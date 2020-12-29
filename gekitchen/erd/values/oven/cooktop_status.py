@@ -1,3 +1,5 @@
+from gekitchen.erd.values.oven import burner
+from gekitchen.erd.values.oven.burner import Burner
 from gekitchen.erd.values.oven.erd_cooktop_status import ErdCooktopStatus
 from typing import NamedTuple, Optional
 
@@ -9,3 +11,48 @@ class CooktopStatus(NamedTuple):
     @classmethod
     def DEFAULT(cls):
         return cls(ErdCooktopStatus.DASH, {}, None)
+
+    @property
+    def left_front(self) -> Optional[Burner]:
+        try:
+            return self.burners["leftFront"]
+        except(KeyError):
+            return None
+
+    @property
+    def left_rear(self) -> Optional[Burner]:
+        try:
+            return self.burners["leftRear"]
+        except(KeyError):
+            return None
+    
+    @property
+    def center_front(self) -> Optional[Burner]:
+        try:
+            return self.burners["centerFront"]
+        except(KeyError):
+            return None
+
+    @property
+    def center_rear(self) -> Optional[Burner]:
+        try:
+            return self.burners["centerRear"]
+        except(KeyError):
+            return None
+
+    @property
+    def right_front(self) -> Optional[Burner]:
+        try:
+            return self.burners["rightFront"]
+        except(KeyError):
+            return None
+    
+    @property
+    def right_rear(self) -> Optional[Burner]:
+        try:
+            return self.burners["rightRear"]
+        except(KeyError):
+            return None
+
+    def boolify(self):
+        return self.status == ErdCooktopStatus.BURNERS_ON
