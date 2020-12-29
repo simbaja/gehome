@@ -17,4 +17,4 @@ class FridgeDoorStatus(NamedTuple):
         return self.status
     
     def __str__(self) -> str:
-        return self.status
+        return self.status or ""

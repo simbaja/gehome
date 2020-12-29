@@ -1,5 +1,3 @@
-from typing import NamedTuple, Optional
-
 #not sure where this is used, but I found these mappings
 #0x5778 = burner1
 #0x5779 = burner2

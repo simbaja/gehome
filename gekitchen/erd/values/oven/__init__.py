@@ -11,8 +11,8 @@ from .oven_cook_mode import OvenCookMode
 from .oven_cook_mode_mapping import OVEN_COOK_MODE_MAP
 from .oven_cook_setting import OvenCookSetting
 from .oven_ranges import OvenRanges
-from .cooktop_status import CooktopStatus
 from .burner import Burner
+from .cooktop_status import CooktopStatus
 from .erd_precision_cooking_probe_battery_status import ErdPrecisionCookingProbeBatteryStatus
 from .erd_precision_cooking_start_sous_vide_timer_active_status import ErdPrecisionCookingStartSousVideTimerActiveStatus
 from .erd_precision_cooking_probe_target_time_reached import ErdPrecisionCookingProbeTargetTimeReached

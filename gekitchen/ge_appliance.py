@@ -187,7 +187,7 @@ class GeAppliance:
 
             stringify_op = getattr(value, "stringify", None)
             if callable(stringify_op):
-                return value.stringify(kwargs)
+                return value.stringify(**kwargs)
             elif isinstance(value, enum.Enum):
                 return value.name.replace("_"," ").title()
             else:

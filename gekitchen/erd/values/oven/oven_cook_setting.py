@@ -26,7 +26,7 @@ class OvenCookSetting(NamedTuple):
 
         temp_str = f" ({self.temperature}{units})" if self.temperature > 0 else ""
         modifier_str = f" ({', '.join(modifiers)})" if modifiers else ""
-        display_state = cook_state.stringify(kwargs)
+        display_state = cook_state.stringify(**kwargs)
         return f"{display_state}{temp_str}{modifier_str}"
     def __str__(self) -> str:
-        return self.stringify or ""
+        return self.stringify() or ""
