@@ -24,7 +24,7 @@ from gekitchensdk import (
     async_do_full_xmpp_flow,
     OVEN_COOK_MODE_MAP
 )
-from gekitchensdk.secrets import USERNAME, PASSWORD
+from .secrets import USERNAME, PASSWORD
 
 
 _LOGGER = logging.getLogger(__name__)
