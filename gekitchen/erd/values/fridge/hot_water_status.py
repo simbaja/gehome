@@ -13,3 +13,8 @@ class HotWaterStatus(NamedTuple):
     brew_module: ErdPresent
     pod_status: ErdPodStatus
 
+    @property
+    def faulted(self) -> Optional[bool]:
+        if self.status in [ErdHotWaterStatus.FAULT_NEED_CLEARED, ErdHotWaterStatus.FAULT_LOCKED_OUT]:
+            return True
+        return False

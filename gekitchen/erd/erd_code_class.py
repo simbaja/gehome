@@ -1,16 +1,24 @@
 import enum
+from enum import auto
 
 @enum.unique
 class ErdCodeClass(enum.IntFlag):
-    NONE = 0
-    GENERAL = 1
-    CLOCK = 2
-    TIMER = 4
-    NON_ZERO_TEMPERATURE = 8
-    RAW_TEMPERATURE = 16
-    DOOR = 32
-    LOCK_CONTROL = 64
-    SABBATH_CONTROL = 128 
-
-    TEMPERATURE = NON_ZERO_TEMPERATURE | RAW_TEMPERATURE
-    
+    NONE = auto()
+    GENERAL = auto()
+    CLOCK = auto()
+    TIMER = auto()
+    COUNTER = auto()
+    NON_ZERO_TEMPERATURE = auto()
+    RAW_TEMPERATURE = auto()
+    DOOR = auto()
+    BATTERY = auto()
+    LOCK_CONTROL = auto()
+    SABBATH_CONTROL = auto()
+    COOLING_CONTROL = auto()
+    TEMPERATURE_CONTROL = auto()
+    OVEN_SENSOR = auto()
+    FRIDGE_SENSOR = auto()
+    FREEZER_SENSOR = auto()
+    DISPENSER_SENSOR = auto()
+    DISHWASHER_SENSOR = auto() 
+ 
