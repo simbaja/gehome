@@ -10,8 +10,8 @@ import asyncio
 import logging
 from datetime import timedelta
 from typing import Any, Dict, Tuple
-from gekitchen.secrets import USERNAME, PASSWORD
-from gekitchen import (
+from gekitchensdk.secrets import USERNAME, PASSWORD
+from gekitchensdk import (
     EVENT_ADD_APPLIANCE,
     EVENT_APPLIANCE_STATE_CHANGE,
     EVENT_APPLIANCE_INITIAL_UPDATE,

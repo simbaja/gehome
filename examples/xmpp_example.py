@@ -10,7 +10,7 @@ import asyncio
 import logging
 from datetime import timedelta
 from typing import Any, Dict, Tuple
-from gekitchen import (
+from gekitchensdk import (
     EVENT_ADD_APPLIANCE,
     EVENT_APPLIANCE_STATE_CHANGE,
     EVENT_APPLIANCE_INITIAL_UPDATE,
@@ -24,7 +24,7 @@ from gekitchen import (
     async_do_full_xmpp_flow,
     OVEN_COOK_MODE_MAP
 )
-from gekitchen.secrets import USERNAME, PASSWORD
+from gekitchensdk.secrets import USERNAME, PASSWORD
 
 
 _LOGGER = logging.getLogger(__name__)

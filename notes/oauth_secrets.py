@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives import padding
 
 # These constants were lifted directly from the config.properties in the Android APK
 # Yes, the encryption really was stored in the same file.  Yes, they really should be embarrassed.
-CRYPT_KEY = "geKitchenAndroid".encode('ascii')
+CRYPT_KEY = "gekitchensdkAndroid".encode('ascii')
 
 # Client id
 CLIENT_ID_PRODUCTION = bytes.fromhex(
