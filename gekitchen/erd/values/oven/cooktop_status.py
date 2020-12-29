@@ -1,7 +1,5 @@
-from gekitchen.erd.values.oven import burner
-from gekitchen.erd.values.oven.burner import Burner
-from gekitchen.erd.values.oven.erd_cooktop_status import ErdCooktopStatus
 from typing import NamedTuple, Optional
+from gekitchen.erd.values.oven import ErdCooktopStatus, Burner
 
 class CooktopStatus(NamedTuple):
     status: ErdCooktopStatus
