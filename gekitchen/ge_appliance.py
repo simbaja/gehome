@@ -1,12 +1,12 @@
 """Data model for GE kitchen appliances"""
 
-from gekitchen.erd.erd_code_class import ErdCodeClass
+import enum
 import logging
 from weakref import WeakValueDictionary
 from typing import Any, Dict, Optional, Set, TYPE_CHECKING, Union
 from slixmpp import JID
 
-from .erd import ErdCode, ErdCodeType, ErdApplianceType, ErdEncoder
+from .erd import ErdCode, ErdCodeType, ErdCodeClass, ErdApplianceType, ErdEncoder
 from .exception import *
 
 if TYPE_CHECKING:
@@ -174,12 +174,12 @@ class GeAppliance:
 
         return state_changes
 
-    def stringify_erd_value(self, erd_code: ErdCodeType, value: Any, **kwargs) -> Optional[str]:
+    def stringify_erd_value(self, value: Any, **kwargs) -> Optional[str]:
         """
         Stringifies a code value if possible.  If it can't be stringified, returns none.
+        By default, enums are stringified using their title-cased name (after replacing 
+        underscores)
         """
-
-        erd_code = self._encoder.translate_code(erd_code)
 
         try:
             if not value:
@@ -188,20 +188,17 @@ class GeAppliance:
             stringify_op = getattr(value, "stringify", None)
             if callable(stringify_op):
                 return value.stringify(kwargs)
+            elif isinstance(value, enum.Enum):
+                return value.name.replace("_"," ").title()
             else:
                 return str(value)
         except (ValueError, KeyError):
             return None
 
-    def boolify_erd_value(self, erd_code: ErdCodeType, value: Any) -> Optional[bool]:
+    def boolify_erd_value(self, value: Any) -> Optional[bool]:
         """
         Boolifies a code value if possible.  If it can't be boolified, returns none
         """
-
-        erd_code = self.translate_code(erd_code)
-
-        if not self._encoder.can_boolify(erd_code):
-            return None
 
         try:
             if not value:
