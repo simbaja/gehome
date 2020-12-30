@@ -61,6 +61,6 @@ class ErdOvenState(enum.Enum):
 
     def stringify(self, **kwargs) -> Optional[str]:
         from .oven_display_state_mapping import OVEN_DISPLAY_STATE_MAP
-        return OVEN_DISPLAY_STATE_MAP.get(self.value, STATE_OVEN_UNKNOWN)
+        return OVEN_DISPLAY_STATE_MAP.get(self, STATE_OVEN_UNKNOWN)
     def __str__(self) -> str:
         return self.stringify() or STATE_OVEN_UNKNOWN        
