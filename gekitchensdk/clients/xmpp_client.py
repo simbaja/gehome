@@ -1,3 +1,6 @@
+#TODO:  make this have the same signatures as websocket so they are fully interchangable
+#       it might need to be restructured slightly so that the two superclasses play nicely
+#       or make the xmpp client a class member
 import asyncio
 import os
 import logging

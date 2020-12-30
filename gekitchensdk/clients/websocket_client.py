@@ -53,12 +53,10 @@ class GeWebsocketClient(GeBaseClient):
         self._endpoint = None  # type: Optional[str]
         self._socket = None  # type: Optional[websockets.client.WebSocketClientProtocol]
         self._pending_erds = {}  # type: Dict[Tuple[str, str], str]
-        self._event_handlers = defaultdict(list)  # type: Dict[str, List[Callable]]
         self.username = username
         self.password = password
         self._keepalive_fut = None  # type: Optional[asyncio.Future]
-
-        self.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, self.maybe_trigger_appliance_init_event)
+        self._initialize_event_handlers()
 
     def _apply_default_login(self, username: Optional[str] = None, password: Optional[str] = None) -> Tuple[str, str]:
         if username is None:
@@ -88,22 +86,35 @@ class GeWebsocketClient(GeBaseClient):
             raise GeNotAuthenticatedError
 
     @property
+    def websocket(self):
+        return self._socket
+
+    @property
     def event_handlers(self) -> Dict[str, List[Callable]]:
         return self._event_handlers
-
-    def add_event_handler(self, event: str, callback: Callable, disposable: bool = False):
-        if disposable:
-            raise NotImplementedError('Support for disposable callbacks not yet implemented')
-        self.event_handlers[event].append(callback)
 
     async def async_event(self, event: str, *args, **kwargs):
         """Trigger event callbacks sequentially"""
         for cb in self.event_handlers[event]:
             asyncio.ensure_future(cb(*args, **kwargs), loop=self.loop)
 
-    @property
-    def websocket(self):
-        return self._socket
+    def add_event_handler(self, event: str, callback: Callable, disposable: bool = False):
+        if disposable:
+            raise NotImplementedError('Support for disposable callbacks not yet implemented')
+        self.event_handlers[event].append(callback)
+
+    def remove_event_handler(self, event: str, callback: Callable):
+        try:
+            self.event_handlers[event].remove(callable)
+        except:
+            _LOGGER.warn(f"could not remove event handler {event}-{callable}")
+
+    def clear_event_handlers(self):
+        self._initialize_event_handlers()
+
+    def _initialize_event_handlers(self):
+        self._event_handlers = defaultdict(list)  # type: Dict[str, List[Callable]]
+        self.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, self.maybe_trigger_appliance_init_event)
 
     async def _process_pending_erd(self, message_id: str):
         id_parts = message_id.split("-")
@@ -263,7 +274,8 @@ class GeWebsocketClient(GeBaseClient):
     async def disconnect(self):
         """Disconnect and cleanup."""
         _LOGGER.info("Disconnecting")
-        await self.websocket.close()
+        if self.websocket and not self.websocket.closed:
+            await self.websocket.close()
         await self.async_event(EVENT_DISCONNECTED, self._socket)
 
     async def async_get_credentials_and_run(

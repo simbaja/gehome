@@ -4,9 +4,11 @@ import abc
 import asyncio
 import logging
 from aiohttp import ClientSession
-from typing import Any, Callable, Dict, Optional, Tuple
-from ..const import EVENT_APPLIANCE_INITIAL_UPDATE
-from ..erd import ErdCode, ErdCodeType, ErdEncoder
+from typing import Any, Dict, Optional, Tuple
+from ..const import (
+    EVENT_APPLIANCE_INITIAL_UPDATE,
+)
+from ..erd import ErdCode, ErdCodeType
 from ..exception import GeNotAuthenticatedError
 from ..ge_appliance import GeAppliance
 
@@ -27,6 +29,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         self._loop = event_loop
         self._appliances = {}  # type: Dict[str, GeAppliance]
         self._credentials = None  # type: Optional[Dict]
+        self._initialize_event_handlers()
 
     @property
     def credentials(self) -> Optional[Dict]:
@@ -71,15 +74,6 @@ class GeBaseClient(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def async_get_credentials(self, session: ClientSession, username: str, password: str):
         """Get updated credentials"""
-        pass
-
-    @abc.abstractmethod
-    async def async_event(self, event: str, data: Any = None):
-        """Trigger an event."""
-        pass
-
-    @abc.abstractmethod
-    def add_event_handler(self, event: str, callback: Callable, disposable: bool):
         pass
 
     async def maybe_trigger_appliance_init_event(self, data: Tuple[GeAppliance, Dict[ErdCodeType, Any]]):
