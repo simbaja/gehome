@@ -15,3 +15,6 @@ class ErdRinseAgent(enum.Enum):
     RINSE_AGENT_GOOD = "00"
     RINSE_AGENT_LOW = "01"
 
+    def stringify(self, **kwargs):
+        return self.name.replace("RINSE_AGENT_","").replace("_"," ").title()
+

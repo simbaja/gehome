@@ -108,7 +108,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.PRECISION_COOKING_PROBE_BATTERY_STATUS, ErdPrecisionCookingProbeBatteryStatusConverter(), ErdCodeClass.BATTERY),
 
     # Dishwasher
-    ErdConfigurationEntry(ErdCode.CYCLE_NAME, ErdReadOnlyStringConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.CYCLE_NAME, CycleNameConverter(), ErdCodeClass.DISHWASHER_SENSOR),
     ErdConfigurationEntry(ErdCode.PODS_REMAINING_VALUE, ErdIntConverter(), ErdCodeClass.COUNTER),
     ErdConfigurationEntry(ErdCode.TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.CYCLE_STATE, ErdCycleStateConverter(), ErdCodeClass.DISHWASHER_SENSOR),

@@ -8,3 +8,6 @@ class OperatingMode(enum.Enum):
     STATUS_DELAY = "status_delay"
     STATUS_PAUSED = "status_paused"
     CONTROL_LOCKED = "control_locked"
+    
+    def stringify(self, **kwargs):
+        return self.name.replace("STATUS_","").replace("_"," ").title()
