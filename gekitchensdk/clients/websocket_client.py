@@ -201,6 +201,7 @@ class GeWebsocketClient(GeBaseClient):
             online = item['online'].upper() == "ONLINE"
 
             #if we already have the appliance, just update it's online status
+            #TODO: probably should make these events?
             if mac_addr in self.appliances:
                 if online:
                     self.appliances[mac_addr].set_available()
