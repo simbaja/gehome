@@ -198,9 +198,16 @@ class GeWebsocketClient(GeBaseClient):
         items = body["items"]
         for item in items:
             mac_addr = item["applianceId"].upper()
-            if mac_addr in self.appliances:
-                continue
             online = item['online'].upper() == "ONLINE"
+
+            #if we already have the appliance, just update it's online status
+            if mac_addr in self.appliances:
+                if online:
+                    self.appliances[mac_addr].set_available()
+                else:
+                    self.appliances[mac_addr].set_unavailable()
+                continue
+
             await self.add_appliance(mac_addr, online)
         await self.async_event(EVENT_GOT_APPLIANCE_LIST, items)
 
