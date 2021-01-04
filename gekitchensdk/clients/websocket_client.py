@@ -298,25 +298,31 @@ class GeWebsocketClient(GeBaseClient):
 
     async def async_run_client(self, appliances: Optional[List[GeAppliance]] = None, keepalive: Optional[int] = 30):
         """Run the client."""
-        async with websockets.connect(self.endpoint) as socket:
-            self._socket = socket
-            if keepalive:
-                self._keepalive_fut = asyncio.ensure_future(self.keep_alive(keepalive), loop=self.loop)
-            if not appliances:
-                await self.subscribe_all()
-            else:
-                await self.subscribe_appliances(appliances)
-            await self.get_appliance_list()
-            await self.async_event(EVENT_CONNECTED, None)
-            try:
-                async for message in socket:
-                    await self.process_message(message)
-            except websockets.WebSocketException:
-                _LOGGER.error("Unknown error reading socket")
-        _LOGGER.info("Disconnected")
-        if self._keepalive_fut is not None:
-            self._keepalive_fut.cancel()
-        await self.async_event(EVENT_DISCONNECTED, None)
+        try:
+            async with websockets.connect(self.endpoint) as socket:
+                self._socket = socket
+                if keepalive:
+                    self._keepalive_fut = asyncio.ensure_future(self.keep_alive(keepalive), loop=self.loop)
+                if not appliances:
+                    await self.subscribe_all()
+                else:
+                    await self.subscribe_appliances(appliances)
+                await self.get_appliance_list()
+                await self.async_event(EVENT_CONNECTED, None)
+                try:
+                    async for message in socket:
+                        try:
+                            await self.process_message(message)
+                        except GeRequestError as err:
+                            _LOGGER.error(err)
+                except websockets.WebSocketException:
+                    _LOGGER.error("Unknown error reading socket")
+        finally:
+            # make sure we clean up no matter what
+            _LOGGER.info("Disconnected")
+            if self._keepalive_fut is not None:
+                self._keepalive_fut.cancel()
+            await self.async_event(EVENT_DISCONNECTED, None)
 
     async def send_dict(self, msg_dict: Dict[str, Any]):
         """JSON encode a dictionary and send it."""
