@@ -148,8 +148,9 @@ class GeWebsocketClient(GeBaseClient):
         except KeyError:
             return
 
-        if message_dict.get("code") != 200:
-            raise GeRequestError(message, message_dict["code"], message_dict["reason"])
+        #if we have a response that indicates success, check it
+        if message_dict.get("success", True) != True or message_dict.get("code", 200) != 200:
+            raise GeRequestError(message, message_dict.get("code"), message_dict.get("reason"))
 
         if kind.lower() == "publish#erd":
             await self.process_erd_update(message_dict)
