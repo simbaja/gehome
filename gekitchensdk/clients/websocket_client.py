@@ -9,7 +9,7 @@ from aiohttp import ClientSession
 from .base_client import GeBaseClient
 
 from ..async_login_flow import async_do_full_wss_flow
-from ..exception import GeNotAuthenticatedError
+from ..exception import GeNotAuthenticatedError, GeRequestError
 from ..const import (
     API_URL,
     EVENT_ADD_APPLIANCE,
@@ -148,6 +148,9 @@ class GeWebsocketClient(GeBaseClient):
         except KeyError:
             return
 
+        if message_dict.get("code") != 200:
+            raise GeRequestError(message, message_dict["code"], message_dict["reason"])
+
         if kind.lower() == "publish#erd":
             await self.process_erd_update(message_dict)
         elif kind.lower() == "websocket#api":
@@ -157,11 +160,11 @@ class GeWebsocketClient(GeBaseClient):
                 return
             if message_id == LIST_APPLIANCES:
                 await self.process_appliance_list(message_dict)
-            elif f"-{SET_ERD}-" in message_id and message_dict.get("code") == 200:
+            elif f"-{SET_ERD}-" in message_id:
                 await self._process_pending_erd(message_id)
             elif f"-{SET_ERD}-" in message_id:
                 await self._failed_set_erd(message_dict)
-            elif f"-{ALL_ERD}" in message_id and message_dict.get("code") == 200:
+            elif f"-{ALL_ERD}" in message_id:
                 await self.process_cache_update(message_dict)
 
     async def process_appliance_list(self, message_dict: Dict):
