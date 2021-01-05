@@ -2,24 +2,28 @@ import enum
 
 @enum.unique
 class ErdCycleStateRaw(enum.Enum):
-    STATE_01 = "01"
-    STATE_02 = "02"
-    STATE_03 = "03"
-    STATE_04 = "04"
-    STATE_05 = "05"
-    STATE_06 = "06"
-    STATE_07 = "07"
-    STATE_08 = "08"
-    STATE_09 = "09"
-    STATE_10 = "10"
-    STATE_11 = "11"
-    STATE_12 = "12"
-    STATE_13 = "13"
-    STATE_14 = "14"
-    STATE_15 = "15"
-    STATE_16 = "16"
-    STATE_17 = "17"
-    STATE_18 = "18"
+    NO_CHANGE = 0
+    PREWASH = 1
+    SENSING = 2
+    MAIN_WASH = 3
+    DRYING = 4
+    SANITIZING = 5
+    TURNIDITY_CAL = 6
+    DIVERTER_CAL = 7
+    PAUSE = 8
+    RINSING = 9
+    PREWASH1 = 10
+    FINAL_RINSE = 11
+    END_PREWASH1 = 12
+    AUTO_HOT_START1 = 13
+    AUTO_HOT_START2 = 14
+    AUTO_HOT_START3 = 15
+    FINAL_RINSE_FILL = 16
+    STATE_17 = 17
+    STATE_18 = 18
+    CYCLE_INACTIVE = 26
+    MAX = 27
+    INVALID = 255
 
 @enum.unique
 class ErdCycleState(enum.Enum):

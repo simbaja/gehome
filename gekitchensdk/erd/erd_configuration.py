@@ -108,10 +108,10 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.PRECISION_COOKING_PROBE_BATTERY_STATUS, ErdPrecisionCookingProbeBatteryStatusConverter(), ErdCodeClass.BATTERY),
 
     # Dishwasher
-    ErdConfigurationEntry(ErdCode.CYCLE_NAME, CycleNameConverter(), ErdCodeClass.DISHWASHER_SENSOR),
-    ErdConfigurationEntry(ErdCode.PODS_REMAINING_VALUE, ErdIntConverter(), ErdCodeClass.COUNTER),
-    ErdConfigurationEntry(ErdCode.TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER),
-    ErdConfigurationEntry(ErdCode.CYCLE_STATE, ErdCycleStateConverter(), ErdCodeClass.DISHWASHER_SENSOR),
-    ErdConfigurationEntry(ErdCode.OPERATING_MODE, OperatingModeConverter(), ErdCodeClass.DISHWASHER_SENSOR),
-    ErdConfigurationEntry(ErdCode.RINSE_AGENT, ErdRinseAgentConverter(), ErdCodeClass.DISHWASHER_SENSOR)
+    ErdConfigurationEntry(ErdCode.DISHWASHER_CYCLE_NAME, CycleNameConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_PODS_REMAINING_VALUE, ErdIntConverter(), ErdCodeClass.COUNTER),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_CYCLE_STATE, ErdCycleStateConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_OPERATING_MODE, OperatingModeConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_RINSE_AGENT, ErdRinseAgentConverter(), ErdCodeClass.DISHWASHER_SENSOR)
 ]

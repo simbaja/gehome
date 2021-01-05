@@ -2,19 +2,19 @@ import enum
 
 @enum.unique
 class ErdOperatingMode(enum.Enum):
-    NA = "FF"
-    PAUSE = "04"
-    LOW_POWER = "00"
-    POWER_UP = "01"
-    STANDBY = "02"
-    DELAY_START = "03"
-    CYCLE_ACTIVE = "05"
-    EOC = "06"
-    DOWNLOAD_MODE = "07"
-    SENSOR_CHECK_MODE = "08"
-    LOAD_ACTIVATION_MODE = "09"
-    MC_ONLY_MODE = "11"
-    WARNING_MODE = "12"
-    CONTROL_LOCKED = "13"
-    CSM_TRIPPED = "14"
+    LOW_POWER = 0
+    POWER_UP = 1
+    STANDBY = 2
+    DELAY_START = 3
+    PAUSE = 4
+    CYCLE_ACTIVE = 5
+    EOC = 6
+    DOWNLOAD_MODE = 7
+    SENSOR_CHECK_MODE = 8
+    LOAD_ACTIVATION_MODE = 9
+    MC_ONLY_MODE = 17
+    WARNING_MODE = 18
+    CONTROL_LOCKED = 19
+    CSM_TRIPPED = 20
+    INVALID = 255
 
