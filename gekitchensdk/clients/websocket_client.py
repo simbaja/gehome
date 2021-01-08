@@ -4,24 +4,18 @@ import websockets
 from collections import defaultdict
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from aiohttp import ClientSession
+from ..erd import ErdCode, ErdCodeType
+from ..exception import *
+from ..ge_appliance import GeAppliance
 
 from .base_client import GeBaseClient
-
-from ..async_login_flow import async_do_full_wss_flow
-from ..exception import GeNotAuthenticatedError, GeRequestError
-from ..const import (
+from .const import (
     API_URL,
-    EVENT_ADD_APPLIANCE,
+    EVENT_ADD_APPLIANCE, 
     EVENT_APPLIANCE_STATE_CHANGE,
     EVENT_APPLIANCE_UPDATE_RECEIVED,
-    EVENT_CONNECTED,
-    EVENT_DISCONNECTED,
     EVENT_GOT_APPLIANCE_LIST,
 )
-from ..erd import ErdCode, ErdCodeType
-from ..ge_appliance import GeAppliance
-from ..login_flow import do_full_wss_flow
 
 try:
     import ujson as json
@@ -33,51 +27,57 @@ API_HOST = API_URL[8:]  # Drop the https://
 CALLBACK_TIMEOUT = 0.05
 LIST_APPLIANCES = "List-appliances"
 SET_ERD = "setErd"
-_LOGGER = logging.getLogger(__name__)
 
+KEEPALIVE_TIMEOUT = 30
+LIST_APPLIANCES_FREQUENCY = 600
+
+_LOGGER = logging.getLogger(__name__)
 
 class GeWebsocketClient(GeBaseClient):
     """
     Client for GE's Websocket pseudo-MQTT API.
-
-    TODO:
-      Handle re-auth
-      Better error handling in general
-      Probably a ton of other stuff?
     """
     client_priority = 2  # This should be the primary client
 
-    def __init__(self, event_loop: Optional[asyncio.AbstractEventLoop] = None,
-                 username: Optional[str] = None, password: Optional[str] = None):
-        super().__init__(event_loop)
+    def __init__(self, username: str, password: str, event_loop: Optional[asyncio.AbstractEventLoop] = None, keepalive: Optional[int] = KEEPALIVE_TIMEOUT, list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY):
+        super().__init__(username, password, event_loop)
         self._endpoint = None  # type: Optional[str]
         self._socket = None  # type: Optional[websockets.client.WebSocketClientProtocol]
         self._pending_erds = {}  # type: Dict[Tuple[str, str], str]
-        self.username = username
-        self.password = password
+        self._keepalive_timeout = keepalive
         self._keepalive_fut = None  # type: Optional[asyncio.Future]
-        self._initialize_event_handlers()
+        self._list_frequency = list_frequency
+        self._list_fut = None # type: Optional[asyncio.Future]
 
-    def _apply_default_login(self, username: Optional[str] = None, password: Optional[str] = None) -> Tuple[str, str]:
-        if username is None:
-            username = self.username
-        if password is None:
-            password = self.password
-        if username is None or password is None:
-            raise RuntimeError('username and password must be specified')
-        return username, password
+    async def async_do_full_login_flow(self) -> Dict[str,str]:
+        """Perform a complete login flow, returning credentials."""
 
-    async def async_get_credentials(self, session: ClientSession, username: Optional[str] = None,
-                                    password: Optional[str] = None):
-        username, password = self._apply_default_login(username, password)
-        wss_credentials = await async_do_full_wss_flow(session, username, password)
-        self.credentials = wss_credentials
+        _LOGGER.debug('Getting OAuth2 token')
+        await self._async_get_oauth2_token()
 
-    def get_credentials(self, username: Optional[str] = None, password: Optional[str] = None):
-        username, password = self._apply_default_login(username, password)
-        wss_credentials = do_full_wss_flow(username, password)
-        self.credentials = wss_credentials
+        _LOGGER.debug('Getting WS credentials')
+        return await self._async_get_wss_credentials()
+    
+    async def async_do_refresh_login_flow(self) -> Dict[str, str]:
+        """Perform a refresh login flow, returning credentials"""
 
+        _LOGGER.debug('Refreshing OAuth2 token')
+        await self._async_refresh_oauth2_token()
+
+        _LOGGER.debug('Getting WS credentials')
+        return await self._async_get_wss_credentials()
+
+    async def _async_get_wss_credentials(self) -> Dict[str,str]:
+        """Get WSS credentials"""
+        uri = f'{API_URL}/v1/websocket'
+        auth_header = { 'Authorization': 'Bearer ' + self._access_token }
+        async with self._session.get(uri, headers=auth_header) as resp:
+            if 400 <= resp.status < 500:
+                raise GeAuthFailedError(await resp.text())
+            if resp.status >= 500:
+                raise GeGeneralServerError(await resp.text())
+            return await resp.json()
+        
     @property
     def endpoint(self) -> str:
         try:
@@ -89,32 +89,96 @@ class GeWebsocketClient(GeBaseClient):
     def websocket(self):
         return self._socket
 
-    @property
-    def event_handlers(self) -> Dict[str, List[Callable]]:
-        return self._event_handlers
-
-    async def async_event(self, event: str, *args, **kwargs):
-        """Trigger event callbacks sequentially"""
-        for cb in self.event_handlers[event]:
-            asyncio.ensure_future(cb(*args, **kwargs), loop=self.loop)
-
-    def add_event_handler(self, event: str, callback: Callable, disposable: bool = False):
-        if disposable:
-            raise NotImplementedError('Support for disposable callbacks not yet implemented')
-        self.event_handlers[event].append(callback)
-
-    def remove_event_handler(self, event: str, callback: Callable):
-        try:
-            self.event_handlers[event].remove(callable)
-        except:
-            _LOGGER.warn(f"could not remove event handler {event}-{callable}")
-
-    def clear_event_handlers(self):
-        self._initialize_event_handlers()
-
     def _initialize_event_handlers(self):
         self._event_handlers = defaultdict(list)  # type: Dict[str, List[Callable]]
-        self.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, self.maybe_trigger_appliance_init_event)
+        self.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, self._maybe_trigger_appliance_init_event)
+
+    async def _async_run_client(self):
+        """Run the client."""
+        try:
+            async with websockets.connect(self.endpoint) as socket:
+                self._socket = socket
+                self._setup_futures()
+                await self._subscribe_all()
+                await self._set_connected()
+                await self._get_appliance_list()
+                try:
+                    async for message in socket:
+                        try:
+                            if self._disconnect_requested:
+                                break
+                            await self._process_message(message)
+                        except GeNeedsReauthenticationError:
+                            _LOGGER.info('Reauthentication needed')
+                        except GeRequestError as err:
+                            _LOGGER.error(err)                        
+                except websockets.WebSocketException:
+                    _LOGGER.error("Unknown error reading socket")
+        finally:
+            self._teardown_futures()
+            self._disconnect()
+
+    async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any):
+        if isinstance(erd_code, ErdCode):
+            raw_erd_code = erd_code.value
+        else:
+            raw_erd_code = erd_code
+        raw_erd_code = raw_erd_code.upper().replace("0X", "0x")
+
+        mac_addr = appliance.mac_addr
+
+        request_body = {
+            "kind": "appliance#erdListEntry",
+            "userId": self.user_id,
+            "applianceId": appliance.mac_addr,
+            "erd": raw_erd_code,
+            "value": erd_value,
+            "ackTimeout": 10,
+            "delay": 0,
+        }
+
+        msg_dict = {
+            "kind": "websocket#api",
+            "action": "api",
+            "host": API_HOST,
+            "method": "POST",
+            "path": f"/v1/appliance/{mac_addr}/erd/{raw_erd_code}",
+            "id": f"{mac_addr}-{SET_ERD}-{raw_erd_code}",
+            "body": request_body,
+        }
+        self._pending_erds[(mac_addr, raw_erd_code)] = erd_value
+        await self._send_dict(msg_dict)
+
+    async def async_request_update(self, appliance: GeAppliance):
+        """Request an appliance send a full update."""
+        _LOGGER.debug(f"Requesting update for client {appliance.mac_addr}")
+        msg_dict = {
+            "kind": "websocket#api",
+            "action": "api",
+            "host": API_HOST,
+            "method": "GET",
+            "path": f"/v1/appliance/{appliance.mac_addr}/erd",
+            "id": f"{appliance.mac_addr}-{ALL_ERD}"
+        }
+        await self._send_dict(msg_dict)
+
+    def _setup_futures(self):
+        if self._keepalive_timeout:
+            self._keepalive_fut = asyncio.ensure_future(self._keep_alive(self._keepalive_timeout), loop=self.loop)
+        if self._list_frequency:
+            self._list_fut = asyncio.ensure_future(self._refresh_appliances(self._list_frequency), loop=self.loop)
+
+    def _teardown_futures(self):
+        if self._keepalive_fut is not None:
+            self._keepalive_fut.cancel()
+        if self._list_fut is not None:
+            self._list_fut.cancel()
+
+    async def _disconnect(self):
+        """Disconnect and cleanup."""
+        if self._socket and not self._socket.closed:
+            await self._socket.close()
+        self._socket = None
 
     async def _process_pending_erd(self, message_id: str):
         id_parts = message_id.split("-")
@@ -130,15 +194,7 @@ class GeWebsocketClient(GeBaseClient):
             except KeyError:
                 pass
 
-    @staticmethod
-    async def _failed_set_erd(message_dict: dict):
-        """Failed to set an ERD value."""
-        body = message_dict.get("body", {})
-        message = body.get("message")
-        reason = body.get("reason")
-        _LOGGER.error(f"ERD update failure!\nMessage: {message}.\nReason: {reason}")
-
-    async def process_message(self, message: str):
+    async def _process_message(self, message: str):
         """
         Process an incoming message.
         """
@@ -150,25 +206,25 @@ class GeWebsocketClient(GeBaseClient):
 
         #if we have a response that indicates success, check it
         if message_dict.get("success", True) != True or message_dict.get("code", 200) != 200:
+            if message_dict.get("code") in [401,403] or message_dict.reason == "Access token expired":
+                raise GeNeedsReauthenticationError
             raise GeRequestError(message, message_dict.get("code"), message_dict.get("reason"))
 
         if kind.lower() == "publish#erd":
-            await self.process_erd_update(message_dict)
+            await self._process_erd_update(message_dict)
         elif kind.lower() == "websocket#api":
             try:
                 message_id = message_dict["id"]
             except KeyError:
                 return
             if message_id == LIST_APPLIANCES:
-                await self.process_appliance_list(message_dict)
+                await self._process_appliance_list(message_dict)
             elif f"-{SET_ERD}-" in message_id:
                 await self._process_pending_erd(message_id)
-            elif f"-{SET_ERD}-" in message_id:
-                await self._failed_set_erd(message_dict)
             elif f"-{ALL_ERD}" in message_id:
-                await self.process_cache_update(message_dict)
+                await self._process_cache_update(message_dict)
 
-    async def process_appliance_list(self, message_dict: Dict):
+    async def _process_appliance_list(self, message_dict: Dict):
         """
         Process the appliance list.
 
@@ -205,18 +261,14 @@ class GeWebsocketClient(GeBaseClient):
             online = item['online'].upper() == "ONLINE"
 
             #if we already have the appliance, just update it's online status
-            #TODO: probably should make these events?
             if mac_addr in self.appliances:
-                if online:
-                    self.appliances[mac_addr].set_available()
-                else:
-                    self.appliances[mac_addr].set_unavailable()
+                await self._set_appliance_availability(self.appliances[mac_addr], online)
                 continue
 
-            await self.add_appliance(mac_addr, online)
+            await self._add_appliance(mac_addr, online)
         await self.async_event(EVENT_GOT_APPLIANCE_LIST, items)
 
-    async def process_cache_update(self, message_dict: Dict):
+    async def _process_cache_update(self, message_dict: Dict):
         """
         Process an appliance's full cache update.
         
@@ -247,7 +299,7 @@ class GeWebsocketClient(GeBaseClient):
         updates = {i["erd"]: i["value"] for i in body["items"]}
         await self._update_appliance_state(mac_addr, updates)
 
-    async def process_erd_update(self, message_dict: Dict):
+    async def _process_erd_update(self, message_dict: Dict):
         """
         Process an ERD update (pseudo-HTTP PUBLISH).
 
@@ -283,49 +335,7 @@ class GeWebsocketClient(GeBaseClient):
             await self.async_event(EVENT_APPLIANCE_STATE_CHANGE, [appliance, state_changes])
         await self.async_event(EVENT_APPLIANCE_UPDATE_RECEIVED, [appliance, updates])
 
-    async def disconnect(self):
-        """Disconnect and cleanup."""
-        _LOGGER.info("Disconnecting")
-        if self.websocket and not self.websocket.closed:
-            await self.websocket.close()
-        await self.async_event(EVENT_DISCONNECTED, self._socket)
-
-    async def async_get_credentials_and_run(
-            self, session: ClientSession, username: Optional[str] = None, password: Optional[str] = None,
-            appliances: Optional[List[GeAppliance]] = None, keepalive: Optional[int] = 30):
-        """Do a full login flow and run the client."""
-        await self.async_get_credentials(session, username, password)
-        await self.async_run_client(appliances, keepalive)
-
-    async def async_run_client(self, appliances: Optional[List[GeAppliance]] = None, keepalive: Optional[int] = 30):
-        """Run the client."""
-        try:
-            async with websockets.connect(self.endpoint) as socket:
-                self._socket = socket
-                if keepalive:
-                    self._keepalive_fut = asyncio.ensure_future(self.keep_alive(keepalive), loop=self.loop)
-                if not appliances:
-                    await self.subscribe_all()
-                else:
-                    await self.subscribe_appliances(appliances)
-                await self.get_appliance_list()
-                await self.async_event(EVENT_CONNECTED, None)
-                try:
-                    async for message in socket:
-                        try:
-                            await self.process_message(message)
-                        except GeRequestError as err:
-                            _LOGGER.error(err)
-                except websockets.WebSocketException:
-                    _LOGGER.error("Unknown error reading socket")
-        finally:
-            # make sure we clean up no matter what
-            _LOGGER.info("Disconnected")
-            if self._keepalive_fut is not None:
-                self._keepalive_fut.cancel()
-            await self.async_event(EVENT_DISCONNECTED, None)
-
-    async def send_dict(self, msg_dict: Dict[str, Any]):
+    async def _send_dict(self, msg_dict: Dict[str, Any]):
         """JSON encode a dictionary and send it."""
         payload = json.dumps(msg_dict)
         try:
@@ -333,76 +343,37 @@ class GeWebsocketClient(GeBaseClient):
         except websockets.ConnectionClosed:
             _LOGGER.info("Tried to send a message, but connection already closed.")
 
-    async def keep_alive(self, keepalive: int = 30):
+    async def _keep_alive(self, keepalive: int = KEEPALIVE_TIMEOUT):
         """Send periodic pings to keep the connection alive."""
         while not self.websocket.closed:
             await asyncio.sleep(keepalive)
-            _LOGGER.debug("Sending keepalive ping")
-            await self.send_ping()
+            if not self.websocket.closed:
+                _LOGGER.debug("Sending keepalive ping")
+                await self._send_ping()
 
-    async def subscribe_all(self):
+    async def _refresh_appliances(self, frequency: int = LIST_APPLIANCES_FREQUENCY):
+        """Send periodic pings to keep the connection alive."""
+        while not self.websocket.closed:
+            await asyncio.sleep(frequency)
+            if not self.websocket.closed:
+                _LOGGER.debug("Refreshing appliance list/state")
+                await self._get_appliance_list()
+
+    async def _subscribe_all(self):
         """Subscribe to all appliances."""
         msg_dict = {"kind": "websocket#subscribe", "action": "subscribe", "resources": ["/appliance/*/erd/*"]}
-        await self.send_dict(msg_dict)
+        await self._send_dict(msg_dict)
 
-    async def subscribe_appliances(self, appliances: List[GeAppliance]):
+    async def _subscribe_appliances(self, appliances: List[GeAppliance]):
         """Subscribe to a list of appliances."""
         msg_dict = {
             "kind": "websocket#subscribe",
             "action": "subscribe",
             "resources": [f"/appliance/{appliance.mac_addr}/erd/*" for appliance in appliances]
         }
-        await self.send_dict(msg_dict)
+        await self._send_dict(msg_dict)
 
-    async def subscribe_appliance(self, appliance: GeAppliance):
-        """Subscribe to a single appliance."""
-        await self.subscribe_appliances([appliance])
-
-    async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any):
-        if isinstance(erd_code, ErdCode):
-            raw_erd_code = erd_code.value
-        else:
-            raw_erd_code = erd_code
-        raw_erd_code = raw_erd_code.upper().replace("0X", "0x")
-
-        mac_addr = appliance.mac_addr
-
-        request_body = {
-            "kind": "appliance#erdListEntry",
-            "userId": self.user_id,
-            "applianceId": appliance.mac_addr,
-            "erd": raw_erd_code,
-            "value": erd_value,
-            "ackTimeout": 10,
-            "delay": 0,
-        }
-
-        msg_dict = {
-            "kind": "websocket#api",
-            "action": "api",
-            "host": API_HOST,
-            "method": "POST",
-            "path": f"/v1/appliance/{mac_addr}/erd/{raw_erd_code}",
-            "id": f"{mac_addr}-{SET_ERD}-{raw_erd_code}",
-            "body": request_body,
-        }
-        self._pending_erds[(mac_addr, raw_erd_code)] = erd_value
-        await self.send_dict(msg_dict)
-
-    async def async_request_update(self, appliance: GeAppliance):
-        """Request an appliance send a full update."""
-        _LOGGER.debug(f"Requesting update for client {appliance.mac_addr}")
-        msg_dict = {
-            "kind": "websocket#api",
-            "action": "api",
-            "host": API_HOST,
-            "method": "GET",
-            "path": f"/v1/appliance/{appliance.mac_addr}/erd",
-            "id": f"{appliance.mac_addr}-{ALL_ERD}"
-        }
-        await self.send_dict(msg_dict)
-
-    async def get_appliance_list(self):
+    async def _get_appliance_list(self):
         """Request the list of appliances on this account."""
         msg_dict = {
             "kind": "websocket#api",
@@ -412,23 +383,22 @@ class GeWebsocketClient(GeBaseClient):
             "path": "/v1/appliance",
             "id": LIST_APPLIANCES,
         }
-        await self.send_dict(msg_dict)
+        await self._send_dict(msg_dict)
 
-    async def send_ping(self):
+    async def _send_ping(self):
         """Send a ping."""
         msg_dict = {
             "kind": "websocket#ping",
             "id": "keepalive-ping",
             "action": "ping",
         }
-        await self.send_dict(msg_dict)
+        await self._send_dict(msg_dict)
 
-    async def add_appliance(self, mac_addr: str, set_online: bool = True):
+    async def _add_appliance(self, mac_addr: str, set_online: bool = True):
         """Add an appliance to the registry and request an update."""
         mac_addr = mac_addr.upper()
         if mac_addr in self.appliances:
-            # TODO: Make this a package-specific exception
-            raise RuntimeError('Trying to add duplicate appliance')
+            raise GeDuplicateApplianceError(f'Trying to add duplicate appliance {mac_addr}')
         new_appliance = GeAppliance(mac_addr, self)
         if set_online:
             new_appliance.set_available()

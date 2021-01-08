@@ -11,6 +11,7 @@ import logging
 from datetime import timedelta
 from typing import Any, Dict, Tuple
 from examples.secrets import USERNAME, PASSWORD
+
 from gekitchensdk import (
     EVENT_ADD_APPLIANCE,
     EVENT_APPLIANCE_STATE_CHANGE,
@@ -66,11 +67,11 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format='%(levelname)-8s %(message)s')
 
     loop = asyncio.get_event_loop()
-    client = GeWebsocketClient(loop, USERNAME, PASSWORD)
+    client = GeWebsocketClient(USERNAME, PASSWORD, loop)
     client.add_event_handler(EVENT_APPLIANCE_INITIAL_UPDATE, detect_appliance_type)
     client.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, log_state_change)
     client.add_event_handler(EVENT_ADD_APPLIANCE, do_periodic_update)
 
     session = aiohttp.ClientSession()
     asyncio.ensure_future(client.async_get_credentials_and_run(session), loop=loop)
-    loop.run_until_complete(asyncio.sleep(300))
+    loop.run_until_complete(asyncio.sleep(7400))

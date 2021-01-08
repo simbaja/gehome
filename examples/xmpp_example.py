@@ -45,16 +45,16 @@ async def detect_appliance_type(appliance: GeAppliance):
     Also, let's turn on ovens!
     """
     _LOGGER.debug(f'Appliance state change detected in {appliance}')
-    if appliance.appliance_type == ErdApplianceType.OVEN:
-        _LOGGER.info('Turning on the oven!')
-        await appliance.async_set_erd_value(
-            ErdCode.UPPER_OVEN_COOK_MODE,
-            OvenCookSetting(OVEN_COOK_MODE_MAP[ErdOvenCookMode.BAKE_NOOPTION], 350)
-        )
-        _LOGGER.info('Set the timer!')
-        await appliance.async_set_erd_value(ErdCode.UPPER_OVEN_KITCHEN_TIMER, timedelta(minutes=45))
-        pass
-
+#    if appliance.appliance_type == ErdApplianceType.OVEN:
+#        _LOGGER.info('Turning on the oven!')
+#        await appliance.async_set_erd_value(
+#            ErdCode.UPPER_OVEN_COOK_MODE,
+#            OvenCookSetting(OVEN_COOK_MODE_MAP[ErdOvenCookMode.BAKE_NOOPTION], 350)
+#        )
+#        _LOGGER.info('Set the timer!')
+#        await appliance.async_set_erd_value(ErdCode.UPPER_OVEN_KITCHEN_TIMER, timedelta(minutes=45))
+#        pass
+    pass
 
 async def do_periodic_update(appliance: GeAppliance):
     """Request a full state update every minute forever"""

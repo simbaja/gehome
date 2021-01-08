@@ -76,6 +76,7 @@ async def async_get_oauth2_token(session: aiohttp.ClientSession, username: str, 
         if resp.status >= 500:
             raise GeGeneralServerError(await resp.text())
         oauth_token = await resp.json()
+        print(oauth_token)
     try:
         return {'Authorization': 'Bearer ' + oauth_token['access_token']}
     except KeyError:
@@ -93,7 +94,7 @@ async def async_get_mobile_device_token(session: aiohttp.ClientSession, auth_hea
         if resp.status != 200:
             raise GeAuthFailedError(await resp.text())
         results = await resp.json()
-
+        print(results)
     try:
         return results['mdt']
     except KeyError:
@@ -113,7 +114,7 @@ async def async_get_ge_token(session: aiohttp.ClientSession, auth_header: Dict, 
         if resp.status >= 500:
             raise GeGeneralServerError(await resp.text())
         results = await resp.json()
-
+        print(results)
     try:
         return results['access_token']
     except KeyError:
@@ -160,14 +161,3 @@ async def async_do_full_xmpp_flow(session: aiohttp.ClientSession, username: str,
 
     return xmpp_credentials
 
-
-async def async_do_full_wss_flow(session: aiohttp.ClientSession, username: str, password: str) -> Dict:
-    """Perform a complete login flow, returning WSS credentials."""
-
-    _LOGGER.debug('Getting oauth2 token')
-    auth_header = await async_get_oauth2_token(session, username, password)
-
-    _LOGGER.debug('Getting mobile device token')
-    wss_credentials = await async_get_wss_credentials(session, auth_header)
-
-    return wss_credentials
