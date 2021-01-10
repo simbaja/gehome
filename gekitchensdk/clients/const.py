@@ -11,6 +11,7 @@ API_URL = "https://api.brillion.geappliances.com"
 SECURE_URL = "https://secure.brillion.geappliances.com"
 
 MAX_RETRIES = 3
+RETRY_INTERVAL = 2
 
 EVENT_ADD_APPLIANCE = "add_appliance"
 EVENT_APPLIANCE_INITIAL_UPDATE = "appliance_got_type"

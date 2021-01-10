@@ -50,6 +50,11 @@ class GeWebsocketClient(GeBaseClient):
         self._list_frequency = list_frequency
         self._list_fut = None # type: Optional[asyncio.Future]
 
+    @property
+    def available(self) -> bool:
+        """ Indicates whether the client is available for sending/receiving commands """
+        return super().available and self._socket and not self._socket.closed
+
     async def async_do_full_login_flow(self) -> Dict[str,str]:
         """Perform a complete login flow, returning credentials."""
 
@@ -113,10 +118,7 @@ class GeWebsocketClient(GeBaseClient):
                             if self._disconnect_requested:
                                 break
                             await self._process_message(message)
-                        except GeNeedsReauthenticationError:
-                            _LOGGER.info('Reauthentication needed')
-                        except GeRequestError as err:
-                            _LOGGER.error(err)                        
+
                 except websockets.WebSocketException:
                     _LOGGER.error("Unknown error reading socket")
         finally:

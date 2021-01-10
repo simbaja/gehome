@@ -21,6 +21,7 @@ from .const import (
     EVENT_DISCONNECTED, 
     EVENT_STATE_CHANGED,
     MAX_RETRIES, 
+    RETRY_INTERVAL,
     LOGIN_URL, 
     OAUTH2_CLIENT_ID, 
     OAUTH2_CLIENT_SECRET,
@@ -136,20 +137,25 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         _LOGGER.info('Starting GE Appliances client')
         while not self._disconnect_requested:
             if self._retries_since_last_connect > MAX_RETRIES:
+                _LOGGER.debug(f'Tried auto-reconnecting {MAX_RETRIES} times, giving up.')
                 break
             try:
                 await self._async_run_client()
+            except GeNeedsReauthenticationError:
+                _LOGGER.info('Reauthentication needed')
+            except GeRequestError as err:
+                _LOGGER.warn(err)
             except Exception as err:
                 if(self._retries_since_last_connect == -1):
                     _LOGGER.warn(f'Unhandled exception on first connect attempt: {err}, disconnecting')
                     break
                 _LOGGER.info(f'Unhandled exception while running client: {err}, ignoring and restarting')  
             finally:
-                await self._set_state(GeClientState.DROPPED)
                 if not self._disconnect_requested:
+                    await self._set_state(GeClientState.DROPPED)
                     await self._set_state(GeClientState.WAITING)
                     _LOGGER.debug('Waiting before reconnecting')
-                    asyncio.sleep(5)
+                    asyncio.sleep(RETRY_INTERVAL)
                     _LOGGER.debug('Refreshing authentication before reconnecting')
                     try:
                         await self.async_do_refresh_login_flow()
@@ -327,7 +333,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         _LOGGER.info("Disconnecting")
         await self._set_state(GeClientState.DISCONNECTING)         
         self._disconnect_requested = True
-        self._disconnect()
+        await self._disconnect()
         await self._set_state(GeClientState.DISCONNECTED) 
 
     async def _set_connected(self):
@@ -335,5 +341,5 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         await self._set_state(GeClientState.CONNECTED)
 
     @abc.abstractmethod
-    def _disconnect(self) -> None:
+    async def _disconnect(self) -> None:
         pass
