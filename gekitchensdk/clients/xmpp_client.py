@@ -79,7 +79,7 @@ class GeXmppClient(GeBaseClient):
 
     async def _async_get_mobile_device_token(self) -> str:
         """Get a mobile device token"""
-        self._set_state(GeClientState.AUTHORIZING_CLIENT)
+        await self._set_state(GeClientState.AUTHORIZING_CLIENT)
 
         mdt_data = {
             'kind': 'mdt#login',
@@ -112,7 +112,7 @@ class GeXmppClient(GeBaseClient):
             if resp.status >= 500:
                 raise GeGeneralServerError(await resp.text())
             results = await resp.json()
-            print(results)
+
         try:
             return results['access_token']
         except KeyError:
@@ -134,8 +134,8 @@ class GeXmppClient(GeBaseClient):
         try:
             await self._set_state(GeClientState.CONNECTING)
             address = (self._credentials['address'], self._credentials['port'])
-            _client = self._get_xmpp_client()
-            _client.connect(address=address)
+            self._client = self._get_xmpp_client()
+            self._client.connect(address=address)
             #run the loop
             await asyncio.ensure_future(self._client.disconnected, loop=self.loop)
         #TODO: better exception handling
@@ -146,7 +146,7 @@ class GeXmppClient(GeBaseClient):
 
     async def _disconnect(self) -> None:
         if self._client:
-            self._client.disconnect()
+            await self._client.disconnect()
         self._client = None
 
     async def _add_appliance(self, jid: str):
@@ -177,7 +177,7 @@ class GeXmppClient(GeBaseClient):
         if jid == self._client.boundjid.bare:
             return
         try:
-            self._set_appliance_availability(self.appliances[jid], True)            
+            await self._set_appliance_availability(self.appliances[jid], True)            
         except KeyError:
             await self._add_appliance(jid)
             self.appliances[jid].set_available()
@@ -223,25 +223,28 @@ class GeXmppClient(GeBaseClient):
         """Make a complete jid from a username"""
         if "@" in jid:
             return jid
-        return f"{jid}@{self.boundjid.host}"
+        return f"{jid}@{self._client.boundjid.host}"
 
     def _get_appliance_jid(self, appliance: GeAppliance) -> str:
-        return self.complete_jid(f"{appliance.mac_addr}_{self.user_id}")
+        return self._complete_jid(f"{appliance.mac_addr}_{self.user_id}")
 
     def _send_raw_message(self, mto: slixmpp.JID, mbody: str, mtype: str = 'chat', msg_id: Optional[str] = None):
         """TODO: Use actual xml for this instead of hacking it.  Then again, this is what GE does in the app."""
-        if msg_id is None:
-            msg_id = self.new_id()
-        raw_message = (
-            f'<message type="{mtype}" from="{self.boundjid.bare}" to="{mto}" id="{msg_id}">'
-            f'<body>{mbody}</body>'
-            f'</message>'
-        )
+        try:
+            if not self._client:
+                raise RuntimeError('Client connection is not available')
 
-        if self._client:
+            if msg_id is None:
+                msg_id = self._client.new_id()
+            raw_message = (
+                f'<message type="{mtype}" from="{self._client.boundjid.bare}" to="{mto}" id="{msg_id}">'
+                f'<body>{mbody}</body>'
+                f'</message>'
+            )
+            
             self._client.send_raw(raw_message)
-        else:
-            raise RuntimeError('Client not initialized')
+        except Exception as err:
+            raise GeRequestError from err
 
     def _send_request(
             self, appliance: GeAppliance, method: str, uri: str, key: Optional[str] = None,
@@ -259,7 +262,7 @@ class GeXmppClient(GeBaseClient):
             raise RuntimeError('Values can only be set in a POST request')
 
         if message_id is None:
-            message_id = self.new_id()
+            message_id = self._client.new_id()
         message_body = self._format_request(message_id, uri, method, key, value)
         jid = slixmpp.JID(self._get_appliance_jid(appliance))
         self._send_raw_message(jid, message_body)

@@ -21,7 +21,6 @@ from gekitchensdk import (
     GeAppliance,
     GeXmppClient,
     OvenCookSetting,
-    async_do_full_xmpp_flow,
     OVEN_COOK_MODE_MAP
 )
 from examples.secrets import USERNAME, PASSWORD
@@ -45,16 +44,15 @@ async def detect_appliance_type(appliance: GeAppliance):
     Also, let's turn on ovens!
     """
     _LOGGER.debug(f'Appliance state change detected in {appliance}')
-#    if appliance.appliance_type == ErdApplianceType.OVEN:
-#        _LOGGER.info('Turning on the oven!')
-#        await appliance.async_set_erd_value(
-#            ErdCode.UPPER_OVEN_COOK_MODE,
-#            OvenCookSetting(OVEN_COOK_MODE_MAP[ErdOvenCookMode.BAKE_NOOPTION], 350)
-#        )
-#        _LOGGER.info('Set the timer!')
-#        await appliance.async_set_erd_value(ErdCode.UPPER_OVEN_KITCHEN_TIMER, timedelta(minutes=45))
-#        pass
-    pass
+    if appliance.appliance_type == ErdApplianceType.OVEN:
+        _LOGGER.info('Turning on the oven!')
+        await appliance.async_set_erd_value(
+            ErdCode.UPPER_OVEN_COOK_MODE,
+            OvenCookSetting(OVEN_COOK_MODE_MAP[ErdOvenCookMode.BAKE_NOOPTION], 350)
+        )
+        _LOGGER.info('Set the timer!')
+        await appliance.async_set_erd_value(ErdCode.UPPER_OVEN_KITCHEN_TIMER, timedelta(minutes=45))
+        pass
 
 async def do_periodic_update(appliance: GeAppliance):
     """Request a full state update every minute forever"""
@@ -64,25 +62,15 @@ async def do_periodic_update(appliance: GeAppliance):
         _LOGGER.debug(f'Requesting update for {appliance:s}')
         await appliance.async_request_update()
 
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG, format='%(levelname)-8s %(message)s')
 
-async def start_client(evt_loop: asyncio.AbstractEventLoop, username: str, password: str):
-    """Authenticate and launch the client."""
-    session = aiohttp.ClientSession()
-    _LOGGER.debug('Logging in')
-    xmpp_credentials = await async_do_full_xmpp_flow(session, username, password)
-    await session.close()
-
-    client = GeXmppClient(xmpp_credentials, event_loop=evt_loop)
+    loop = asyncio.get_event_loop()
+    client = GeXmppClient(USERNAME, PASSWORD, loop)
     client.add_event_handler(EVENT_APPLIANCE_INITIAL_UPDATE, detect_appliance_type)
     client.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, log_state_change)
     client.add_event_handler(EVENT_ADD_APPLIANCE, do_periodic_update)
-    _LOGGER.debug('Connecting')
-    client.connect()
-    _LOGGER.debug('Processing')
-    asyncio.ensure_future(client.process_in_running_loop(), loop=evt_loop)
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG, format='%(levelname)-8s %(message)s')
-    loop = asyncio.get_event_loop()
-    asyncio.ensure_future(start_client(loop, USERNAME, PASSWORD), loop=loop)
-    loop.run_until_complete(asyncio.sleep(300))
+    session = aiohttp.ClientSession()
+    asyncio.ensure_future(client.async_get_credentials_and_run(session), loop=loop)
+    loop.run_until_complete(asyncio.sleep(7400))

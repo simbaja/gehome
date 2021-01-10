@@ -157,7 +157,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                     await self._set_state(GeClientState.DROPPED)
                     await self._set_state(GeClientState.WAITING)
                     _LOGGER.debug('Waiting before reconnecting')
-                    asyncio.sleep(RETRY_INTERVAL)
+                    await asyncio.sleep(RETRY_INTERVAL)
                     _LOGGER.debug('Refreshing authentication before reconnecting')
                     try:
                         await self.async_do_refresh_login_flow()
