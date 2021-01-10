@@ -57,7 +57,6 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         self._token_expiration_time = datetime.now()
 
         self._state = GeClientState.INITIALIZING
-        self._connected = False
         self._disconnect_requested = False
         self._retries_since_last_connect = -1
         self._loop = event_loop
@@ -328,7 +327,6 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         _LOGGER.info("Disconnecting")
         await self._set_state(GeClientState.DISCONNECTING)         
         self._disconnect_requested = True
-        self._connected = False
         self._disconnect()
         await self._set_state(GeClientState.DISCONNECTED) 
 
