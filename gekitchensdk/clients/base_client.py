@@ -312,10 +312,10 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     def _initialize_event_handlers(self):
         self._event_handlers = defaultdict(list)  # type: Dict[str, List[Callable]]
-        self.add_event_handler(EVENT_STATE_CHANGED, self._state_change_handler)
+        self.add_event_handler(EVENT_STATE_CHANGED, self._on_state_change)
         pass
 
-    async def _state_change_handler(self, old_state: GeClientState, new_state: GeClientState):
+    async def _on_state_change(self, old_state: GeClientState, new_state: GeClientState):
         _LOGGER.debug(f'Client changed state: {old_state} to {new_state}')
 
         if new_state == GeClientState.CONNECTED:
