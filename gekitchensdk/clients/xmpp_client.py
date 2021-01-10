@@ -268,7 +268,10 @@ class GeXmppClient(GeBaseClient):
         self._send_raw_message(jid, message_body)
 
     async def async_request_update(self, appliance: GeAppliance):
-        """Request a full update from the appliance."""
+        """
+        Request a full update from the appliance.
+        TODO: This doesn't seem to do a full request.  Need to investigate if this is possible.
+        """
         self._send_request(appliance, 'GET', '/UUID/cache')
 
     async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any):
