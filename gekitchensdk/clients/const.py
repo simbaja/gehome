@@ -21,4 +21,4 @@ EVENT_APPLIANCE_UPDATE_RECEIVED = "appliance_updated_received"
 EVENT_CONNECTED = "connected"
 EVENT_DISCONNECTED = "disconnected"
 EVENT_GOT_APPLIANCE_LIST = "got_appliance_list"
-
+EVENT_STATE_CHANGED = "state_changed"

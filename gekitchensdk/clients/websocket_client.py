@@ -1,8 +1,8 @@
 import asyncio
+
 import logging
 import websockets
-from collections import defaultdict
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from ..erd import ErdCode, ErdCodeType
 from ..exception import *
@@ -16,6 +16,7 @@ from .const import (
     EVENT_APPLIANCE_UPDATE_RECEIVED,
     EVENT_GOT_APPLIANCE_LIST,
 )
+from .states import GeClientState
 
 try:
     import ujson as json
@@ -69,6 +70,9 @@ class GeWebsocketClient(GeBaseClient):
 
     async def _async_get_wss_credentials(self) -> Dict[str,str]:
         """Get WSS credentials"""
+
+        await self._set_state(GeClientState.AUTHORIZING_CLIENT)
+
         uri = f'{API_URL}/v1/websocket'
         auth_header = { 'Authorization': 'Bearer ' + self._access_token }
         async with self._session.get(uri, headers=auth_header) as resp:
@@ -90,12 +94,13 @@ class GeWebsocketClient(GeBaseClient):
         return self._socket
 
     def _initialize_event_handlers(self):
-        self._event_handlers = defaultdict(list)  # type: Dict[str, List[Callable]]
+        super()._initialize_event_handlers()
         self.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, self._maybe_trigger_appliance_init_event)
 
     async def _async_run_client(self):
         """Run the client."""
         try:
+            await self._set_state(GeClientState.CONNECTING)
             async with websockets.connect(self.endpoint) as socket:
                 self._socket = socket
                 self._setup_futures()

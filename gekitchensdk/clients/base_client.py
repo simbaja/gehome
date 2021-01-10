@@ -3,27 +3,30 @@
 import abc
 from aiohttp import BasicAuth, ClientSession
 import asyncio
+from collections import defaultdict
 from datetime import datetime, timedelta
 import logging
 from lxml import etree
 from typing import Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import urlparse, parse_qs
 
+from ..erd import ErdCode, ErdCodeType
+from ..exception import *
+from ..ge_appliance import GeAppliance
 from .const import (
     EVENT_APPLIANCE_INITIAL_UPDATE,
     EVENT_APPLIANCE_AVAILABLE,
     EVENT_APPLIANCE_UNAVAILABLE, 
     EVENT_CONNECTED, 
-    EVENT_DISCONNECTED,
+    EVENT_DISCONNECTED, 
+    EVENT_STATE_CHANGED,
     MAX_RETRIES, 
     LOGIN_URL, 
     OAUTH2_CLIENT_ID, 
     OAUTH2_CLIENT_SECRET,
     OAUTH2_REDIRECT_URI
 )
-from ..erd import ErdCode, ErdCodeType
-from ..exception import *
-from ..ge_appliance import GeAppliance
+from .states import GeClientState
 
 try:
     import re2 as re
@@ -53,6 +56,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         self._refresh_token = None
         self._token_expiration_time = datetime.now()
 
+        self._state = GeClientState.INITIALIZING
         self._connected = False
         self._disconnect_requested = False
         self._retries_since_last_connect = -1
@@ -80,6 +84,10 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             raise GeNotAuthenticatedError
 
     @property
+    def state(self) -> GeClientState:
+        return self._state
+
+    @property
     def loop(self) -> asyncio.AbstractEventLoop:
         if self._loop is None:
             self._loop = asyncio.get_event_loop()
@@ -87,7 +95,13 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     @property
     def connected(self) -> bool:
-        return self._connected
+        """ Indicates whether the client is in a connected state """
+        return self._state not in [GeClientState.DISCONNECTING, GeClientState.DISCONNECTED]
+    
+    @property
+    def available(self) -> bool:
+        """ Indicates whether the client is available for sending/receiving commands """
+        return self._state == GeClientState.CONNECTED
 
     @property
     def event_handlers(self) -> Dict[str, List[Callable]]:
@@ -110,7 +124,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             _LOGGER.warn(f"could not remove event handler {event}-{callable}")
 
     def clear_event_handlers(self):
-        self._initialize_event_handlers()       
+        self._initialize_event_handlers()
 
     async def async_get_credentials_and_run(self, session: ClientSession):
         """Do a full login flow and run the client."""
@@ -132,7 +146,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                     break
                 _LOGGER.info(f'Unhandled exception while running client: {err}, ignoring and restarting')  
             finally:
+                await self._set_state(GeClientState.DROPPED)
                 if not self._disconnect_requested:
+                    await self._set_state(GeClientState.WAITING)
                     _LOGGER.debug('Waiting before reconnecting')
                     asyncio.sleep(5)
                     _LOGGER.debug('Refreshing authentication before reconnecting')
@@ -181,6 +197,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     async def _async_get_oauth2_token(self):
         """Hackily get an oauth2 token until I can be bothered to do this correctly"""
+
+        await self._set_state(GeClientState.AUTHORIZING_OAUTH)
+
         params = {
             'client_id': OAUTH2_CLIENT_ID,
             'response_type': 'code',
@@ -240,6 +259,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     async def _async_refresh_oauth2_token(self, session: ClientSession):
         """ Refreshes an OAuth2 Token based on a refresh token """
+
+        await self._set_state(GeClientState.AUTHORIZING_OAUTH)
+
         post_data = {
             'redirect_uri': OAUTH2_REDIRECT_URI,
             'grant_type': 'refresh_token',
@@ -279,23 +301,40 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             appliance.set_unavailable()
             await self.async_event(EVENT_APPLIANCE_UNAVAILABLE, appliance)
 
+    async def _set_state(self, new_state: GeClientState) -> bool:
+        """ Indicate that the state changed and raise an event """
+        if self._state != new_state:
+            old_state = self._state
+            self._state = new_state
+            await self.async_event(EVENT_STATE_CHANGED, old_state, new_state)
+            return True
+        return False            
+
     def _initialize_event_handlers(self):
+        self._event_handlers = defaultdict(list)  # type: Dict[str, List[Callable]]
+        self.add_event_handler(EVENT_STATE_CHANGED, self._state_change_handler)
         pass
+
+    async def _state_change_handler(self, old_state: GeClientState, new_state: GeClientState):
+        _LOGGER.debug(f'Client changed state: {old_state} to {new_state}')
+
+        if new_state == GeClientState.CONNECTED:
+            await self.async_event(EVENT_CONNECTED)
+        if new_state == GeClientState.DISCONNECTED:
+            await self.async_event(EVENT_DISCONNECTED)
 
     async def disconnect(self):
         """Disconnect and cleanup."""
         _LOGGER.info("Disconnecting")
+        await self._set_state(GeClientState.DISCONNECTING)         
         self._disconnect_requested = True
         self._connected = False
         self._disconnect()
-        await self.async_event(EVENT_DISCONNECTED)    
+        await self._set_state(GeClientState.DISCONNECTED) 
 
     async def _set_connected(self):
-        was_connected = self._connected
-        self._connected = True
         self._retries_since_last_connect = -1
-        if not was_connected:
-            await self.async_event(EVENT_CONNECTED)
+        await self._set_state(GeClientState.CONNECTED)
 
     @abc.abstractmethod
     def _disconnect(self) -> None:
