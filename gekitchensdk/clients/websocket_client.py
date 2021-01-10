@@ -8,6 +8,7 @@ from ..erd import ErdCode, ErdCodeType
 from ..exception import *
 from ..ge_appliance import GeAppliance
 
+from .async_helpers import CancellableAsyncIterator
 from .base_client import GeBaseClient
 from .const import (
     API_URL,
@@ -53,7 +54,7 @@ class GeWebsocketClient(GeBaseClient):
     @property
     def available(self) -> bool:
         """ Indicates whether the client is available for sending/receiving commands """
-        return super().available and self._socket and not self._socket.closed
+        return self._socket and not self._socket.closed
 
     async def async_do_full_login_flow(self) -> Dict[str,str]:
         """Perform a complete login flow, returning credentials."""
@@ -113,17 +114,18 @@ class GeWebsocketClient(GeBaseClient):
                 await self._set_connected()
                 await self._get_appliance_list()
                 try:
-                    async for message in socket:
-                        try:
-                            if self._disconnect_requested:
-                                break
-                            await self._process_message(message)
-
+                    async for message in CancellableAsyncIterator(socket, self._disconnect_requested):
+                        await self._process_message(message)
                 except websockets.WebSocketException:
                     _LOGGER.error("Unknown error reading socket")
+                except RuntimeError as err:
+                    #do nothing if it's a StopAsyncIteration, we just stopped the iteration
+                    #as part of the disconnect
+                    if not isinstance(err.__cause__, StopAsyncIteration):
+                        raise
         finally:
             self._teardown_futures()
-            self._disconnect()
+            await self._disconnect()
 
     async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any):
         if isinstance(erd_code, ErdCode):
@@ -346,23 +348,27 @@ class GeWebsocketClient(GeBaseClient):
         """JSON encode a dictionary and send it."""
         payload = json.dumps(msg_dict)
         try:
+            #if there's no socket, assume the connection is closed
+            if not self.websocket:
+                raise websockets.ConnectionClosedOK(1001, 'Socket disconnected')    
+
             await self.websocket.send(payload)
         except websockets.ConnectionClosed:
             _LOGGER.info("Tried to send a message, but connection already closed.")
 
     async def _keep_alive(self, keepalive: int = KEEPALIVE_TIMEOUT):
         """Send periodic pings to keep the connection alive."""
-        while not self.websocket.closed:
+        while self.available:
             await asyncio.sleep(keepalive)
-            if not self.websocket.closed:
+            if self.available:
                 _LOGGER.debug("Sending keepalive ping")
                 await self._send_ping()
 
     async def _refresh_appliances(self, frequency: int = LIST_APPLIANCES_FREQUENCY):
         """Send periodic pings to keep the connection alive."""
-        while not self.websocket.closed:
+        while self.available:
             await asyncio.sleep(frequency)
-            if not self.websocket.closed:
+            if self.available:
                 _LOGGER.debug("Refreshing appliance list/state")
                 await self._get_appliance_list()
 

@@ -58,8 +58,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         self._token_expiration_time = datetime.now()
 
         self._state = GeClientState.INITIALIZING
-        self._disconnect_requested = False
+        self._disconnect_requested = asyncio.Event()
         self._retries_since_last_connect = -1
+        self._has_successful_connect = False
         self._loop = event_loop
         self._appliances = {}  # type: Dict[str, GeAppliance]
         self._initialize_event_handlers()
@@ -132,10 +133,11 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         await self.async_run_client()
 
     async def async_run_client(self):
-        self._disconnect_requested = False
+        #reset the disconnect event
+        self._disconnect_requested.clear()
 
         _LOGGER.info('Starting GE Appliances client')
-        while not self._disconnect_requested:
+        while not self._disconnect_requested.is_set():
             if self._retries_since_last_connect > MAX_RETRIES:
                 _LOGGER.debug(f'Tried auto-reconnecting {MAX_RETRIES} times, giving up.')
                 break
@@ -146,12 +148,12 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             except GeRequestError as err:
                 _LOGGER.warn(err)
             except Exception as err:
-                if(self._retries_since_last_connect == -1):
+                if not self._has_successful_connect:
                     _LOGGER.warn(f'Unhandled exception on first connect attempt: {err}, disconnecting')
                     break
                 _LOGGER.info(f'Unhandled exception while running client: {err}, ignoring and restarting')  
             finally:
-                if not self._disconnect_requested:
+                if not self._disconnect_requested.is_set():
                     await self._set_state(GeClientState.DROPPED)
                     await self._set_state(GeClientState.WAITING)
                     _LOGGER.debug('Waiting before reconnecting')
@@ -164,7 +166,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                 self._retries_since_last_connect += 1
 
         #initiate the disconnection            
-        self.disconnect()
+        await self.disconnect()
 
     @abc.abstractmethod
     async def _async_run_client(self):
@@ -330,14 +332,16 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     async def disconnect(self):
         """Disconnect and cleanup."""
-        _LOGGER.info("Disconnecting")
-        await self._set_state(GeClientState.DISCONNECTING)         
-        self._disconnect_requested = True
-        await self._disconnect()
-        await self._set_state(GeClientState.DISCONNECTED) 
+        if not self._disconnect_requested.is_set():
+            _LOGGER.info("Disconnecting")
+            await self._set_state(GeClientState.DISCONNECTING)         
+            self._disconnect_requested.set()
+            await self._disconnect()
+            await self._set_state(GeClientState.DISCONNECTED) 
 
     async def _set_connected(self):
         self._retries_since_last_connect = -1
+        self._has_successful_connect = True
         await self._set_state(GeClientState.CONNECTED)
 
     @abc.abstractmethod
