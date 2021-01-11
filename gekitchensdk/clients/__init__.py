@@ -10,7 +10,8 @@ from .const import (
     EVENT_APPLIANCE_UPDATE_RECEIVED,
     EVENT_CONNECTED,
     EVENT_DISCONNECTED,
-    EVENT_GOT_APPLIANCE_LIST 
+    EVENT_GOT_APPLIANCE_LIST,
+    EVENT_STATE_CHANGED 
 )
 from .base_client import GeBaseClient
 from .websocket_client import GeWebsocketClient
