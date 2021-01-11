@@ -1,14 +1,13 @@
 """Base client for GE ERD APIs"""
 
 import abc
-from aiohttp import BasicAuth, ClientSession
+from gekitchensdk.clients.async_login_flows import async_get_oauth2_token, async_refresh_oauth2_token
+from aiohttp import ClientSession
 import asyncio
 from collections import defaultdict
 from datetime import datetime, timedelta
 import logging
-from lxml import etree
 from typing import Any, Callable, Dict, List, Optional, Tuple
-from urllib.parse import urlparse, parse_qs
 
 from ..erd import ErdCode, ErdCodeType
 from ..exception import *
@@ -22,25 +21,10 @@ from .const import (
     EVENT_STATE_CHANGED,
     MAX_RETRIES, 
     RETRY_INTERVAL,
-    LOGIN_URL, 
-    OAUTH2_CLIENT_ID, 
-    OAUTH2_CLIENT_SECRET,
-    OAUTH2_REDIRECT_URI
 )
 from .states import GeClientState
 
-try:
-    import re2 as re
-except ImportError:
-    import re
-
-try:
-    import ujson as json
-except ImportError:
-    import json
-
 _LOGGER = logging.getLogger(__name__)
-
 
 class GeBaseClient(metaclass=abc.ABCMeta):
     """Abstract base class for GE ERD APIs"""
@@ -205,60 +189,12 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         pass    
 
     async def _async_get_oauth2_token(self):
-        """Hackily get an oauth2 token until I can be bothered to do this correctly"""
+        """Get the OAuth2 token based on the username and password"""
 
         await self._set_state(GeClientState.AUTHORIZING_OAUTH)
 
-        params = {
-            'client_id': OAUTH2_CLIENT_ID,
-            'response_type': 'code',
-            'access_type': 'offline',
-            'redirect_uri': OAUTH2_REDIRECT_URI,
-        }
+        oauth_token = await async_get_oauth2_token(self._session, self.account_username, self.account_password)
 
-        async with self._session.get(f'{LOGIN_URL}/oauth2/auth', params=params) as resp:
-            if 400 <= resp.status < 500:
-                raise GeAuthFailedError(await resp.text())
-            if resp.status >= 500:
-                raise GeGeneralServerError(await resp.text())
-            resp_text = await resp.text()
-
-        email_regex = (
-            r'^\s*(\w+(?:(?:-\w+)|(?:\.\w+)|(?:\+\w+))*\@'
-            r'[A-Za-z0-9]+(?:(?:\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9][A-Za-z0-9]+)\s*$'
-        )
-        clean_username = re.sub(email_regex, r'\1', self.account_username)
-
-        etr = etree.HTML(resp_text)
-        post_data = {
-            i.attrib['name']: i.attrib['value']
-            for i in etr.xpath("//form[@id = 'frmsignin']//input")
-            if 'value' in i.keys()
-        }
-        post_data['username'] = clean_username
-        post_data['password'] = self.account_password
-
-        async with self._session.post(f'{LOGIN_URL}/oauth2/g_authenticate', data=post_data, allow_redirects=False) as resp:
-            if 400 <= resp.status < 500:
-                raise GeAuthFailedError(await resp.text())
-            if resp.status >= 500:
-                raise GeGeneralServerError(await resp.text())
-            code = parse_qs(urlparse(resp.headers['Location']).query)['code'][0]
-
-        post_data = {
-            'code': code,
-            'client_id': OAUTH2_CLIENT_ID,
-            'client_secret': OAUTH2_CLIENT_SECRET,
-            'redirect_uri': OAUTH2_REDIRECT_URI,
-            'grant_type': 'authorization_code',
-        }
-        auth = BasicAuth(OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SECRET)
-        async with self._session.post(f'{LOGIN_URL}/oauth2/token', data=post_data, auth=auth) as resp:
-            if 400 <= resp.status < 500:
-                raise GeAuthFailedError(await resp.text())
-            if resp.status >= 500:
-                raise GeGeneralServerError(await resp.text())
-            oauth_token = await resp.json()
         try:
             self._access_token = oauth_token['access_token']
             self._token_expiration_time = datetime.now() + timedelta(seconds=(oauth_token['expires_in'] - 120))
@@ -271,20 +207,8 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
         await self._set_state(GeClientState.AUTHORIZING_OAUTH)
 
-        post_data = {
-            'redirect_uri': OAUTH2_REDIRECT_URI,
-            'client_id': OAUTH2_CLIENT_ID,
-            'client_secret': OAUTH2_CLIENT_SECRET,
-            'grant_type': 'refresh_token',
-            'refresh_token': self._refresh_token
-        }
-        auth = BasicAuth(OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SECRET)
-        async with self._session.post(f'{LOGIN_URL}/oauth2/token', data=post_data, auth=auth) as resp:
-            if 400 <= resp.status < 500:
-                raise GeAuthFailedError(await resp.text())
-            if resp.status >= 500:
-                raise GeGeneralServerError(await resp.text())
-            oauth_token = await resp.json()
+        oauth_token = await async_refresh_oauth2_token(self._session, self._refresh_token)
+
         try:
             self._access_token = oauth_token['access_token']
             self._token_expiration_time = datetime.now() + timedelta(seconds=(oauth_token['expires_in'] - 120))

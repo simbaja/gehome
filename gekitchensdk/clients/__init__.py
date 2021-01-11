@@ -15,6 +15,7 @@ from .const import (
 )
 from .base_client import GeBaseClient
 from .websocket_client import GeWebsocketClient
+from .async_login_flows import async_get_oauth2_token, async_refresh_oauth2_token
 
 _LOGGER = logging.getLogger(__name__)
 
