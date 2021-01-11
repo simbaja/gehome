@@ -54,7 +54,7 @@ class GeWebsocketClient(GeBaseClient):
         """ Indicates whether the client is available for sending/receiving commands """
         return self._socket and not self._socket.closed
 
-    async def async_do_full_login_flow(self) -> Dict[str,str]:
+    async def _async_do_full_login_flow(self) -> Dict[str,str]:
         """Perform a complete login flow, returning credentials."""
 
         _LOGGER.debug('Getting OAuth2 token')
@@ -63,7 +63,7 @@ class GeWebsocketClient(GeBaseClient):
         _LOGGER.debug('Getting WS credentials')
         return await self._async_get_wss_credentials()
     
-    async def async_do_refresh_login_flow(self) -> Dict[str, str]:
+    async def _async_do_refresh_login_flow(self) -> Dict[str, str]:
         """Perform a refresh login flow, returning credentials"""
 
         _LOGGER.debug('Refreshing OAuth2 token')

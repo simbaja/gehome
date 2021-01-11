@@ -176,17 +176,27 @@ class GeBaseClient(metaclass=abc.ABCMeta):
     async def async_get_credentials(self, session: ClientSession):
         """Get updated credentials"""
         self._session = session
-        self.credentials = await self.async_do_full_login_flow()
+        await self.async_do_full_login_flow()
         
-    @abc.abstractmethod
     async def async_do_full_login_flow(self) -> Dict[str, str]:
         """Do the full login flow for this client"""
-        pass
+        self.credentials = await self._async_do_full_login_flow()
+        return self.credentials
 
     @abc.abstractmethod
+    async def _async_do_full_login_flow(self) -> Dict[str, str]:
+        """Internal full login flow"""
+        pass
+
     async def async_do_refresh_login_flow(self) -> Dict[str, str]:
         """Do the refresh login flow for this client"""
-        pass    
+        self.credentials = await self._async_do_refresh_login_flow()
+        return self.credentials
+
+    @abc.abstractmethod
+    async def _async_do_refresh_login_flow(self) -> Dict[str, str]:
+        """Internal refresh login flow"""
+        pass
 
     async def _async_get_oauth2_token(self):
         """Get the OAuth2 token based on the username and password"""

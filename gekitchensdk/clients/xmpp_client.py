@@ -47,7 +47,7 @@ class GeXmppClient(GeBaseClient):
 
         return client
 
-    async def async_do_full_login_flow(self) -> Dict[str,str]:
+    async def _async_do_full_login_flow(self) -> Dict[str,str]:
         """Perform a complete login flow, returning credentials."""
 
         _LOGGER.debug('Getting OAuth2 token')
@@ -62,7 +62,7 @@ class GeXmppClient(GeBaseClient):
         _LOGGER.debug('Getting XMPP credentials')
         return await self._async_get_xmpp_credentials(ge_token)
     
-    async def async_do_refresh_login_flow(self) -> Dict[str, str]:
+    async def _async_do_refresh_login_flow(self) -> Dict[str, str]:
         """Perform a refresh login flow, returning credentials"""
 
         _LOGGER.debug('Refreshing OAuth2 token')
