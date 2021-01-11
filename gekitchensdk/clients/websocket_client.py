@@ -1,5 +1,4 @@
 import asyncio
-
 import logging
 import websockets
 from typing import Any, Dict, List, Optional, Tuple
@@ -26,7 +25,6 @@ except ImportError:
 
 ALL_ERD = "allErd"
 API_HOST = API_URL[8:]  # Drop the https://
-CALLBACK_TIMEOUT = 0.05
 LIST_APPLIANCES = "List-appliances"
 SET_ERD = "setErd"
 
@@ -215,7 +213,7 @@ class GeWebsocketClient(GeBaseClient):
 
         #if we have a response that indicates success, check it
         if message_dict.get("success", True) != True or message_dict.get("code", 200) != 200:
-            if message_dict.get("code") in [401,403] or message_dict.reason == "Access token expired":
+            if message_dict.get("code") in [401,403] or message_dict.get("reason") == "Access token expired":
                 raise GeNeedsReauthenticationError
             raise GeRequestError(message, message_dict.get("code"), message_dict.get("reason"))
 

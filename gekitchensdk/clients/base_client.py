@@ -146,7 +146,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             except GeNeedsReauthenticationError:
                 _LOGGER.info('Reauthentication needed')
             except GeRequestError as err:
-                _LOGGER.warn(err)
+                _LOGGER.info(f'Error executing request {err}')
             except Exception as err:
                 if not self._has_successful_connect:
                     _LOGGER.warn(f'Unhandled exception on first connect attempt: {err}, disconnecting')
@@ -161,7 +161,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                     _LOGGER.debug('Refreshing authentication before reconnecting')
                     try:
                         await self.async_do_refresh_login_flow()
-                    except:
+                    except Exception as err:
+                        #if there was an error refreshing the authentication, break the loop and kill the client
+                        _LOGGER.warn(f'Error refreshing authentication: {err}')
                         break
                 self._retries_since_last_connect += 1
 
@@ -264,13 +266,15 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         except KeyError:
             raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
 
-    async def _async_refresh_oauth2_token(self, session: ClientSession):
+    async def _async_refresh_oauth2_token(self):
         """ Refreshes an OAuth2 Token based on a refresh token """
 
         await self._set_state(GeClientState.AUTHORIZING_OAUTH)
 
         post_data = {
             'redirect_uri': OAUTH2_REDIRECT_URI,
+            'client_id': OAUTH2_CLIENT_ID,
+            'client_secret': OAUTH2_CLIENT_SECRET,
             'grant_type': 'refresh_token',
             'refresh_token': self._refresh_token
         }

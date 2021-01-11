@@ -27,7 +27,6 @@ from gekitchensdk import (
 )
 
 _LOGGER = logging.getLogger(__name__)
-messages = 0
 
 async def log_state_change(data: Tuple[GeAppliance, Dict[ErdCodeType, Any]]):
     """Log changes in appliance state"""
@@ -35,11 +34,6 @@ async def log_state_change(data: Tuple[GeAppliance, Dict[ErdCodeType, Any]]):
     updated_keys = ', '.join([str(s) for s in state_changes])
     _LOGGER.debug(f'Appliance state change detected in {appliance}. Updated keys: {updated_keys}')
     
-    global messages
-    messages += 1
-    if messages >= 5:
-        await client.disconnect()
-
 async def detect_appliance_type(appliance: GeAppliance):
     """
     Detect the appliance type.
