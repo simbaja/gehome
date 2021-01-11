@@ -254,9 +254,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         _LOGGER.debug(f'Client changed state: {old_state} to {new_state}')
 
         if new_state == GeClientState.CONNECTED:
-            await self.async_event(EVENT_CONNECTED)
+            await self.async_event(EVENT_CONNECTED, None)
         if new_state == GeClientState.DISCONNECTED:
-            await self.async_event(EVENT_DISCONNECTED)
+            await self.async_event(EVENT_DISCONNECTED, None)
 
     async def disconnect(self):
         """Disconnect and cleanup."""
