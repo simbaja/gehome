@@ -21,8 +21,8 @@ class HotWaterStatusConverter(ErdReadOnlyConverter[HotWaterStatus]):
         except ValueError:
             status = ErdHotWaterStatus.NA
 
-        time_until_ready = timedelta(minutes=ErdIntConverter.erd_decode(value[2:6]))
-        current_temp = ErdIntConverter.erd_decode(value[6:8])
+        time_until_ready = timedelta(minutes=erd_decode_int(value[2:6]))
+        current_temp = erd_decode_int(value[6:8])
 
         try:
             tank_full = ErdFullNotFull(value[8:10])

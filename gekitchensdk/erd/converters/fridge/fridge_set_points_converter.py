@@ -5,9 +5,9 @@ from gekitchensdk.erd.values.fridge import FridgeSetPoints
 class FridgeSetPointsConverter(ErdReadWriteConverter[FridgeSetPoints]):
     def erd_decode(self, value: str) -> FridgeSetPoints:
         return FridgeSetPoints(
-            fridge=ErdSignedByteConverter.erd_decode(value[0:2]),
-            freezer=ErdSignedByteConverter.erd_decode(value[2:4]),
+            fridge=erd_decode_signed_byte(value[0:2]),
+            freezer=erd_decode_signed_byte(value[2:4]),
         )
     @staticmethod    
     def erd_encode(value: FridgeSetPoints):
-        return ErdSignedByteConverter.erd_encode(value.fridge) + ErdSignedByteConverter.erd_encode(value.freezer)
+        return erd_encode_signed_byte(value.fridge) + erd_encode_signed_byte(value.freezer)

@@ -8,7 +8,7 @@ class FridgeIceBucketStatusConverter(ErdReadOnlyConverter[FridgeIceBucketStatus]
         if not value:
             n = 0
         else:
-            n = ErdIntConverter.erd_decode(value)
+            n = erd_decode_int(value)
 
         is_present_ff = bool(n & 1)
         is_present_fz = bool(n & 2)
