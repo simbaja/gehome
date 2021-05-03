@@ -2,7 +2,7 @@ from .erd_drynessnew_level import ErdDrynessNewLevel
 from .drynessnew_level import DrynessNewLevel
 
 DRYNESSNEW_LEVEL_MAP = {
-    ErdDrynessNewLevel.DAMP: DrynessLevel.DAMP,
+    ErdDrynessNewLevel.DAMP: DrynessNewLevel.DAMP,
     ErdDrynessNewLevel.LESS_DRY: DrynessNewLevel.LESS_DRY,
     ErdDrynessNewLevel.DRY_DRY: DrynessNewLevel.DRY,
     ErdDrynessNewLevel.MORE_DRY: DrynessNewLevel.MORE_DRY,
