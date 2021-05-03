@@ -3,7 +3,8 @@ import enum
 @enum.unique
 class MachineState(enum.Enum):
     STATUS_DASH = "---"
-    STATUS_IDLE = "Idle"
+    STATUS_OFF = "Off"
+    STATUS_STANDBY = "Standby"
     STATUS_RUN = "Run"
     STATUS_CYCLE_COMPLETE = "Finished"
     STATUS_PAUSED = "Paused"

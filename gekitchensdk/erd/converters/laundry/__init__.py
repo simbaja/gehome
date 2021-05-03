@@ -7,6 +7,8 @@ from .machine_subcycle_converter import MachineSubCycleConverter
 from .rinse_option_converter import RinseOptionConverter
 from .temperature_option_converter import TemperatureOptionConverter
 from .washtemp_level_converter import WashTempLevelConverter
+from .dryness_level_converter import DrynessLevelConverter
+from .drynessnew_level_converter import DrynessNewLevelConverter
 from .spintime_level_converter import SpinTimeLevelConverter
 from .soil_level_converter import SoilLevelConverter
 from .erd_time_remaining_converter import ErdTimeRemainingConverter

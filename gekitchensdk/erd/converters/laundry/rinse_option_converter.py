@@ -8,10 +8,8 @@ _LOGGER = logging.getLogger(__name__)
 
 class RinseOptionConverter(ErdReadOnlyConverter[RinseOption]):
     def erd_decode(self, value: str) -> RinseOption:
-        """Decode the dishwasher operating state """
         try:
             om = ErdRinseOption(erd_decode_int(value))
-            ###_LOGGER.debug(f'raw operating mode value: {om}')
             return RINSE_OPTION_MAP[om].value
         except (KeyError, ValueError):
             return ErdRinseOption.NA

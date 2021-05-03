@@ -126,6 +126,8 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_END_OF_CYCLE, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_RINSE_OPTION, RinseOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHTEMP_LEVEL, WashTempLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYNESS_LEVEL, DrynessLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYNESSNEW_LEVEL, DrynessNewLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_SPINTIME_LEVEL, SpinTimeLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_SOIL_LEVEL, SoilLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_TIME_REMAINING, ErdTimeRemainingConverter(), ErdCodeClass.TIMER)

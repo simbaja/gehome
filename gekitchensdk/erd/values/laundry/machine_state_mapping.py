@@ -2,8 +2,8 @@ from .erd_machine_state import ErdMachineState
 from .machine_state import MachineState
 
 MACHINE_STATE_MAP = {
-    ErdMachineState.IDLE: MachineState.STATUS_DASH,
-    ErdMachineState.STANDBY: MachineState.STATUS_IDLE,
+    ErdMachineState.IDLE: MachineState.STATUS_OFF,
+    ErdMachineState.STANDBY: MachineState.STATUS_STANDBY,
     ErdMachineState.RUN: MachineState.STATUS_RUN,
     ErdMachineState.PAUSE: MachineState.STATUS_PAUSED,
     ErdMachineState.END_OF_CYCLE: MachineState.STATUS_CYCLE_COMPLETE,

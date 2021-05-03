@@ -8,10 +8,8 @@ _LOGGER = logging.getLogger(__name__)
 
 class LaundryDoorStatusConverter(ErdReadOnlyConverter[LaundryDoorStatus]):
     def erd_decode(self, value: str) -> LaundryDoorStatus:
-        """Decode the dishwasher operating state """
         try:
             om = ErdLaundryDoorStatus(erd_decode_int(value))
-            ###_LOGGER.debug(f'raw operating mode value: {om}')
             return LAUNDRY_DOOR_STATUS_MAP[om].value
         except (KeyError, ValueError):
             return ErdLaundryDoorStatus.NA

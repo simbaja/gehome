@@ -8,10 +8,8 @@ _LOGGER = logging.getLogger(__name__)
 
 class TemperatureOptionConverter(ErdReadOnlyConverter[TemperatureOption]):
     def erd_decode(self, value: str) -> TemperatureOption:
-        """Decode the dishwasher operating state """
         try:
             om = ErdTemperatureOption(erd_decode_int(value))
-            ###_LOGGER.debug(f'raw operating mode value: {om}')
             return TEMPERATURE_OPTION_MAP[om].value
         except (KeyError, ValueError):
             return ErdTemperatureOption.NA

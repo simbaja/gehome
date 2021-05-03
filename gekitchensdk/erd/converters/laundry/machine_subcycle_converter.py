@@ -8,10 +8,8 @@ _LOGGER = logging.getLogger(__name__)
 
 class MachineSubCycleConverter(ErdReadOnlyConverter[MachineSubCycle]):
     def erd_decode(self, value: str) -> MachineSubCycle:
-        """Decode the dishwasher operating state """
         try:
             om = ErdMachineSubCycle(erd_decode_int(value))
-            ###_LOGGER.debug(f'raw operating mode value: {om}')
             return MACHINE_SUBCYCLE_MAP[om].value
         except (KeyError, ValueError):
             return ErdMachineSubCycle.NA

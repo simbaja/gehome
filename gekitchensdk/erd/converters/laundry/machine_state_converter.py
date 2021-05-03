@@ -8,10 +8,8 @@ _LOGGER = logging.getLogger(__name__)
 
 class MachineStateConverter(ErdReadOnlyConverter[MachineState]):
     def erd_decode(self, value: str) -> MachineState:
-        """Decode the dishwasher operating state """
         try:
             om = ErdMachineState(erd_decode_int(value))
-            ###_LOGGER.debug(f'raw operating mode value: {om}')
             return MACHINE_STATE_MAP[om].value
         except (KeyError, ValueError):
             return ErdMachineState.NA
