@@ -2,7 +2,7 @@ from .erd_laundry_cycle import ErdLaundryCycle
 from .laundry_cycle import LaundryCycle
 
 LAUNDRY_CYCLE_MAP = {
-    ErdLaundryCycle.INVALID: LaundryCycle.CYCLE_INVALID,
+    ErdLaundryCycle.INVALID: LaundryCycle.CYCLE_DASH,
     ErdLaundryCycle.BASKET_CLEAN: LaundryCycle.CYCLE_BASKET_CLEAN,
     ErdLaundryCycle.DRAIN_AND_SPIN: LaundryCycle.CYCLE_DRAIN_AND_SPIN,
     ErdLaundryCycle.QUICK_RINSE: LaundryCycle.CYCLE_QUICK_RINSE,

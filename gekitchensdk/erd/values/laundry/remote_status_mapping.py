@@ -1,10 +1,8 @@
-from .erd_soil_level import ErdLaundrySoilLevel
-from .soil_level import LaundrySoilLevel
+from .erd_remote_status import ErdRemoteStatus
+from .remote_status import RemoteStatus
 
-LAUNDRY_SOIL_LEVEL_MAP = {
-    ErdLaundrySoilLevel.EXTRA_LIGHT: LaundrySoilLevel.SOIL_EXTRA_LIGHT,
-    ErdLaundrySoilLevel.LIGHT: LaundrySoilLevel.SOIL_LIGHT,
-    ErdLaundrySoilLevel.NORMAL: LaundrySoilLevel.SOIL_NORMAL,
-    ErdLaundrySoilLevel.HEAVY: LaundrySoilLevel.SOIL_HEAVY,
-    ErdLaundrySoilLevel.EXTRA_HEAVY: LaundrySoilLevel.SOIL_EXTRA_HEAVY
+REMOTE_STATUS_MAP = {
+    ErdRemoteStatus.DISABLE: RemoteStatus.STATUS_DISABLE,
+    ErdRemoteStatus.ENABLED: RemoteStatus.STATUS_ENABLED,
+    ErdRemoteStatus.NOT_SUPPORTED: RemoteStatus.STATUS_NOT_SUPPORTED
 }

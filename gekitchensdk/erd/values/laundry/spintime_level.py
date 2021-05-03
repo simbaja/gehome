@@ -3,6 +3,7 @@ import enum
 @enum.unique
 class SpinTimeLevel(enum.Enum):
     DASH = "---"
+    NO_SPIN = "No Spin"
     LOW = "Low"
     MEDIUM = "Medium"
     HIGH = "High"

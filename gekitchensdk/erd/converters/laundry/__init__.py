@@ -2,6 +2,7 @@ from .laundry_cycle_converter import LaundryCycleConverter
 from .machine_state_converter import MachineStateConverter
 from .laundry_door_status_converter import LaundryDoorStatusConverter
 from .laundry_door_lock_status_converter import LaundryDoorLockStatusConverter
+from .remote_status_converter import RemoteStatusConverter
 from .machine_subcycle_converter import MachineSubCycleConverter
 from .rinse_option_converter import RinseOptionConverter
 from .temperature_option_converter import TemperatureOptionConverter

@@ -28,3 +28,6 @@ from .spintime_level_mapping import SPINTIME_LEVEL_MAP
 from .erd_soil_level import ErdSoilLevel
 from .soil_level import SoilLevel
 from .soil_level_mapping import SOIL_LEVEL_MAP
+from .erd_remote_status import ErdRemoteStatus
+from .remote_status import RemoteStatus
+from .remote_status_mapping import REMOTE_STATUS_MAP
