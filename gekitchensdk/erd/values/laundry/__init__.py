@@ -22,12 +22,9 @@ from .temperature_option_mapping import TEMPERATURE_OPTION_MAP
 from .erd_washtemp_level import ErdWashTempLevel
 from .washtemp_level import WashTempLevel
 from .washtemp_level_mapping import WASHTEMP_LEVEL_MAP
-from .erd_dryness_level import ErdDrynessLevel
+from .erd_dryness_level import ErdDrynessLevel, ErdDrynessNewLevel
 from .dryness_level import DrynessLevel
 from .dryness_level_mapping import DRYNESS_LEVEL_MAP
-from .erd_drynessnew_level import ErdDrynessNewLevel
-from .drynessnew_level import DrynessNewLevel
-from .drynessnew_level_mapping import DRYNESSNEW_LEVEL_MAP
 from .erd_spintime_level import ErdSpinTimeLevel
 from .spintime_level import SpinTimeLevel
 from .spintime_level_mapping import SPINTIME_LEVEL_MAP

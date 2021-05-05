@@ -2,7 +2,7 @@ import logging
 
 from gekitchensdk.erd.converters.abstract import ErdReadOnlyConverter
 from gekitchensdk.erd.converters.primitives import *
-from gekitchensdk.erd.values.laundry import ErdDrynessLevel, DrynessLevel, DRYNESS_LEVEL_MAP
+from gekitchensdk.erd.values.laundry import ErdDrynessLevel, ErdDrynessNewLevel, DrynessLevel, DRYNESS_LEVEL_MAP
 
 _LOGGER = logging.getLogger(__name__)
 
