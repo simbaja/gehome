@@ -7,7 +7,10 @@ DRYNESS_LEVEL_MAP = {
     ErdDrynessLevel.DRY_DRY: DrynessLevel.DRY,
     ErdDrynessLevel.MORE_DRY: DrynessLevel.MORE_DRY,
     ErdDrynessLevel.EXTRA_DRY: DrynessLevel.EXTRA_DRY,
-    ErdDrynessLevel.INVALID: DrynessLevel.DASH,
+    ErdDrynessLevel.INVALID: DrynessLevel.DASH
+}
+
+DRYNESSNEW_LEVEL_MAP = {
     ErdDrynessNewLevel.DAMP: DrynessLevel.DAMP,
     ErdDrynessNewLevel.LESS_DRY: DrynessLevel.LESS_DRY,
     ErdDrynessNewLevel.DRY_DRY: DrynessLevel.DRY,
