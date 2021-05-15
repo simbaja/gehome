@@ -6,3 +6,4 @@ from .specialized import *
 from .oven import *
 from .fridge import *
 from .dishwasher import *
+from .laundry import *

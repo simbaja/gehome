@@ -1,0 +1,7 @@
+from .erd_laundry_door_status import ErdLaundryDoorStatus
+from .laundry_door_status import LaundryDoorStatus
+
+LAUNDRY_DOOR_STATUS_MAP = {
+    ErdLaundryDoorStatus.OPEN: LaundryDoorStatus.STATUS_OPEN,
+    ErdLaundryDoorStatus.CLOSED: LaundryDoorStatus.STATUS_CLOSED
+}
