@@ -16,9 +16,9 @@ from .laundry_cycle_mapping import LAUNDRY_CYCLE_MAP
 from .erd_rinse_option import ErdRinseOption
 from .rinse_option import RinseOption
 from .rinse_option_mapping import RINSE_OPTION_MAP
-from .erd_temperature_option import ErdTemperatureOption
+from .erd_temperature_option import ErdTemperatureOption, ErdTemperatureNewOption
 from .temperature_option import TemperatureOption
-from .temperature_option_mapping import TEMPERATURE_OPTION_MAP
+from .temperature_option_mapping import TEMPERATURE_OPTION_MAP, TEMPERATURENEW_OPTION_MAP
 from .erd_washtemp_level import ErdWashTempLevel
 from .washtemp_level import WashTempLevel
 from .washtemp_level_mapping import WASHTEMP_LEVEL_MAP
@@ -34,3 +34,9 @@ from .soil_level_mapping import SOIL_LEVEL_MAP
 from .erd_remote_status import ErdRemoteStatus
 from .remote_status import RemoteStatus
 from .remote_status_mapping import REMOTE_STATUS_MAP
+from .erd_tank_status import ErdTankStatus
+from .tank_status import TankStatus
+from .tank_status_mapping import TANK_STATUS_MAP
+from .erd_tank_selected import ErdTankSelected
+from .tank_selected import TankSelected
+from .tank_selected_mapping import TANK_SELECTED_MAP
