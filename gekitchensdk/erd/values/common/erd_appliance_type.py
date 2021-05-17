@@ -25,6 +25,7 @@ class ErdApplianceType(enum.Enum):
     PORTABLE_AIR_CONDITIONER = "16"
     COMBINATION_WASHER_DRYER = "17"
     ZONELINE = "14"
-    DELEVERY_BOX = "12"
+    DELIVERY_BOX = "12"
     CAFE_COFFEE_MAKER = "1A"
-
+    OPAL_ICE_MAKER = "1b"
+    DEHUMIDIFIER = "1d"
