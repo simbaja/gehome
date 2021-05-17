@@ -1,6 +1,6 @@
 """Test ERD value decoders and encoders."""
-from gekitchensdk import erd_utils
-from gekitchensdk.erd_utils import (
+from gehomesdk import erd_utils
+from gehomesdk.erd_utils import (
     decode_signed_byte, encode_signed_byte
 )
 

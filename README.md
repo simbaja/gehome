@@ -1,16 +1,12 @@
-# gekitchensdk
-Python SDK for GE WiFi-enabled kitchen appliances.
+# gehomesdk
+Python SDK for GE WiFi-enabled appliances.
 The primary goal is to use this to power integrations for [Home Assistant](https://www.home-assistant.io/), though that
 will probably need to wait on some new entity types.   
 
-**Forked from Andrew Mark's [repository](https://github.com/ajmarks/gekitchen).**
-
-This version incorporates numerous improvements to allow additional functionality in Home Assistant.  It's mainly for testing purposes at this point since Home Assistant will pull down all dependencies automatically and won't pull the right one if it's not done (as far as I can tell).
-
-**Do not rely on this version, it will likely be merged back into Andrew's repository.**
+**Forked from Andrew Mark's [repository](https://github.com/ajmarks/gehome).**
 
 ## Installation
-```pip install gekitchensdk```
+```pip install gehomesdk```
 
 ## Usage
 ### Simple example
@@ -20,8 +16,8 @@ to update appliances every five minutes and to turn on our oven the first time w
 import aiohttp
 import asyncio
 import logging
-from gekitchensdk.secrets import USERNAME, PASSWORD
-from gekitchensdk import GeWebsocketClient
+from gehomesdk.secrets import USERNAME, PASSWORD
+from gehomesdk import GeWebsocketClient
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -44,7 +40,7 @@ if __name__ == "__main__":
 The authentication process has a few steps.  First, for both the websocket and XMPP APIs, we use Oauth2 to authenticate
 to the HTTPS API.  From there, we can either get a websocket endpoint with `access_token` or proceed with the XMPP login
 flow.  For XMPP, we get a mobile device token, which in turn be used to get a new `Bearer` token, which, finally,
-is used to get XMPP credentials to authenticate to the Jabber server.  In `gekitchensdk`, going from username/password
+is used to get XMPP credentials to authenticate to the Jabber server.  In `gehomesdk`, going from username/password
 to XMPP credentials is handled by `do_full_xmpp_flow(username, password)`.
 
 ## Useful functions
@@ -147,7 +143,7 @@ Representation of a single appliance
 
 The GE SmartHQ app communicates with devices through (at least) three different APIs: XMPP, HTTP REST, and what they 
 seem to call MQTT (though that's not really accurate).  All of them are based around sending (pseudo-)HTTP requests
-back and forth.  Device properties are represented by hex codes (represented by `ErdCode` objects in `gekitchensdk`), and 
+back and forth.  Device properties are represented by hex codes (represented by `ErdCode` objects in `gehomesdk`), and 
 values are sent as hexadecimal strings without leading `"0x"`, then json encoded as a dictionary.  One thing that is
 important to note is that not all appliances support every API.
 
@@ -156,7 +152,7 @@ important to note is that not all appliances support every API.
  to know exactly when a timer finishes. This API is not directly supported.
 2. Websocket "MQTT" - The WSS "MQTT" API is basically a wrapper around the REST API with the ability to subscribe to a
  device, meaning that we can treat it as (in Home Assistant lingo) IoT Cloud Push instead of IoT Cloud Polling.  In 
- `gekitchensdk`, support for the websocket API is provided by the `GeWebsocketClient` class. 
+ `gehomesdk`, support for the websocket API is provided by the `GeWebsocketClient` class. 
 2. XMPP - As far as I can tell, there seems to be little, if any, benefit to the XMPP API except that it will notify
  the client if a new device becomes available.  I suspect that this can be achieved with websocket API as well via
  subscriptions, but have not yet tested.  Support for the XMPP API is provided by the `GeXmppClient` class, based on
@@ -164,7 +160,7 @@ important to note is that not all appliances support every API.
 
 ### XMPP API
 The device informs the client of a state change by sending a `PUBLISH` message like this, informing us that the value of
-property 0x5205 (`ErdCode.LOWER_OVEN_KITCHEN_TIMER` in `gekitchensdk`) is now "002d" (45 minutes):
+property 0x5205 (`ErdCode.LOWER_OVEN_KITCHEN_TIMER` in `gehomesdk`) is now "002d" (45 minutes):
 
 ```xml
 <body>
@@ -186,7 +182,7 @@ Similarly, we can set the timer to 45 minutes by `POST`ing to the same "endpoint
     </request>
 </body>
 ``` 
-In `gekitchensdk`, that would handled by the `GeAppliance.set_erd_value` method:
+In `gehomesdk`, that would handled by the `GeAppliance.set_erd_value` method:
 ```python
 appliance.async_set_erd_value(ErdCode.LOWER_OVEN_KITCHEN_TIMER, timedelta(minutes=45))
 ```

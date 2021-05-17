@@ -6,7 +6,7 @@ try:
 except ImportError:
     import re
 
-base_package = "gekitchensdk"
+base_package = "gehomesdk"
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
@@ -23,12 +23,12 @@ except IndexError:
 
 # This call to setup() does all the work
 setup(
-    name="gekitchensdk",
+    name="gehomesdk",
     version=version,
-    description="Python SDK for GE Kitchen Appliances",
+    description="Python SDK for GE Home Appliances",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/simbaja/gekitchen",
+    url="https://github.com/simbaja/gehome",
     author="Jack Simbach",
     author_email="jack.simbach@gmail.com",
     license="MIT",

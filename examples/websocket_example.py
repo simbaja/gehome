@@ -12,7 +12,7 @@ from datetime import timedelta
 from typing import Any, Dict, Tuple
 from examples.secrets import USERNAME, PASSWORD
 
-from gekitchensdk import (
+from gehomesdk import (
     EVENT_ADD_APPLIANCE,
     EVENT_APPLIANCE_STATE_CHANGE,
     EVENT_APPLIANCE_INITIAL_UPDATE,
