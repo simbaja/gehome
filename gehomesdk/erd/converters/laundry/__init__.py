@@ -1,7 +1,7 @@
 from .laundry_cycle_converter import LaundryCycleConverter
 from .machine_state_converter import MachineStateConverter
 from .laundry_door_status_converter import LaundryDoorStatusConverter
-from .machine_subcycle_converter import MachineSubCycleConverter
+from .laundry_sub_cycle_converter import LaundrySubCycleConverter
 from .rinse_option_converter import RinseOptionConverter
 from .temperature_option_converter import TemperatureOptionConverter, TemperatureNewOptionConverter
 from .washtemp_level_converter import WashTempLevelConverter
@@ -11,3 +11,4 @@ from .soil_level_converter import SoilLevelConverter
 from .erd_time_remaining_converter import ErdTimeRemainingConverter
 from .tank_status_converter import TankStatusConverter
 from .tank_selected_converter import TankSelectedConverter
+from .tumble_status_converter import TumbleStatusConverter
