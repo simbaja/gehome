@@ -173,6 +173,10 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         """Request the appliance send a full state update"""
         pass
 
+    async def async_request_features(self, appliance: GeAppliance):
+        """Request the appliance send a features state update"""
+        pass
+
     async def async_get_credentials(self, session: ClientSession):
         """Get updated credentials"""
         self._session = session
