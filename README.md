@@ -1,5 +1,5 @@
 # gehomesdk
-Python SDK for GE WiFi-enabled appliances.
+Python SDK for GE WiFi-enabled (SmartHQ) appliances.
 The primary goal is to use this to power integrations for [Home Assistant](https://www.home-assistant.io/), though that
 will probably need to wait on some new entity types.   
 
