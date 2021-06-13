@@ -1,3 +1,5 @@
+from gehomesdk.erd.converters.advantium.erd_advantium_cook_status_converter import ErdAdvantiumCookStatusConverter
+from gehomesdk.erd.values.advantium.erd_advantium_kitchen_timer_min_max import ErdAdvantiumKitchenTimerMinMax
 from typing import Any
 from .erd_code_class import ErdCodeClass
 from .erd_codes import ErdCode
@@ -134,5 +136,23 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYNESSNEW_LEVEL, DrynessNewLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_SPINTIME_LEVEL, SpinTimeLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_SOIL_LEVEL, SoilLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_TIME_REMAINING, ErdTimeRemainingConverter(), ErdCodeClass.TIMER)
+    ErdConfigurationEntry(ErdCode.LAUNDRY_TIME_REMAINING, ErdTimeRemainingConverter(), ErdCodeClass.TIMER),
+
+    # Microwave
+    ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR),
+    
+    # Advantium
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_TYPE, ErdAdvantiumTypeConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_REMAINING, ErdAdvantiumCookTimeRemainingConverter(), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_ADJUST, ErdAdvantiumCookTimeAdjustConverter() , ErdCodeClass.ADVANTIUM_SENSOR),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_REMOTE_COOK_MODE_CONFIG, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_STATUS, ErdAdvantiumCookStatusConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_CONTROL, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_VERSION, ErdStringConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIMER_MIN_MAX, ErdAdvantiumKitchenTimerMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_MIN_MAX, ErdAdvantiumPrecisionMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_MICROWAVE_MIN_MAX, ErdAdvantiumMicrowaveMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_MIN_MAX, ErdAdvantiumCookTimeMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
+    
 ]
