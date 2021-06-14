@@ -2,8 +2,10 @@ import enum
 
 @enum.unique
 class ErdUnitType(enum.Enum):
-    UNKNOWN = "00"
-    TYPE_120V_CAFE = "01"
-    TYPE_120V_MONOGRAM = "02"
-    TYPE_240V_MONOGRAM = "09"
-    TYPE_240V_CAFE = "10"
+    UNKNOWN = 0
+    TYPE_120V_CAFE = 1
+    TYPE_120V_MONOGRAM = 2
+    TYPE_UNKNOWN03 = 3
+    TYPE_UNKNOWN04 = 4
+    TYPE_240V_MONOGRAM = 5
+    TYPE_240V_CAFE = 6

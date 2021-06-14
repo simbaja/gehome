@@ -45,6 +45,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LCD_SW_VERSION_AVAILABLE, ErdSoftwareVersionConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.WIFI_MODULE_SW_VERSION, ErdSoftwareVersionConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.WIFI_MODULE_SW_VERSION_AVAILABLE, ErdSoftwareVersionConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.UNIT_TYPE, ErdUnitTypeConverter(), ErdCodeClass.GENERAL),
 
     #Fridge
     ErdConfigurationEntry(ErdCode.HOT_WATER_SET_TEMP, ErdIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE),
@@ -143,13 +144,12 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURE_OPTION, TemperatureOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TUMBLENEW_STATUS, TumbleStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURENEW_OPTION, TemperatureNewOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_WASHERLINK_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR)
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_WASHERLINK_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
 
     # Microwave
     ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR),
     
     # Advantium
-    ErdConfigurationEntry(ErdCode.ADVANTIUM_TYPE, ErdAdvantiumTypeConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_REMAINING, ErdAdvantiumCookTimeRemainingConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_ADJUST, ErdAdvantiumCookTimeAdjustConverter() , ErdCodeClass.ADVANTIUM_SENSOR),

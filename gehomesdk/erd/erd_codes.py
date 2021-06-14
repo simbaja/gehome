@@ -17,6 +17,7 @@ class ErdCode(enum.Enum):
     SOUND_LEVEL = "0x000a"
     TEMPERATURE_UNIT = "0x0007"
     USER_INTERFACE_LOCKED = "0x0004"
+    UNIT_TYPE = "0x0035"
 
     # Low-level-type things
     WIFI_MODULE_SW_VERSION = "0x0100"
@@ -156,7 +157,6 @@ class ErdCode(enum.Enum):
     # Hood
 
     # Advantium
-    ADVANTIUM_TYPE = "0x0035"
     ADVANTIUM_KITCHEN_TIME_REMAINING = "0x0050"
     # ADVANTIUM_MIN_MAX_TEMP = "0x5008" #See: OVEN_MODE_MIN_MAX_TEMP
     # ADVANTIUM_DISPLAY_TEMP = "0x5109"  #See: UPPER_OVEN_DISPLAY_TEMPERATURE
