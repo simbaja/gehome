@@ -1,7 +1,7 @@
 import enum
 
 @enum.unique
-class ErdMachineSubCycle(enum.Enum):
+class ErdLaundrySubCycle(enum.Enum):
     NA = 0
     FILL = 1
     SOAK = 2

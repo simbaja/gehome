@@ -15,6 +15,7 @@ from .const import (
     EVENT_APPLIANCE_STATE_CHANGE,
     EVENT_APPLIANCE_UPDATE_RECEIVED,
     EVENT_GOT_APPLIANCE_LIST,
+    EVENT_GOT_APPLIANCE_FEATURES,
 )
 from .states import GeClientState
 
@@ -26,6 +27,7 @@ except ImportError:
 ALL_ERD = "allErd"
 API_HOST = API_URL[8:]  # Drop the https://
 LIST_APPLIANCES = "List-appliances"
+REQUEST_FEATURES = "Request-features"
 SET_ERD = "setErd"
 
 KEEPALIVE_TIMEOUT = 30
@@ -169,6 +171,19 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
+    async def async_request_features(self, appliance: GeAppliance):
+        """Request an appliance send features."""
+        _LOGGER.debug(f"Requesting features for client {appliance.mac_addr}")
+        msg_dict = {
+            "kind": "websocket#api",
+            "action": "api",
+            "host": API_HOST,
+            "method": "GET",
+            "path": f"/v1/appliance/{appliance.mac_addr}/feature",
+            "id": f"{REQUEST_FEATURES}"
+        }
+        await self._send_dict(msg_dict)
+
     def _setup_futures(self):
         if self._keepalive_timeout:
             self._keepalive_fut = asyncio.ensure_future(self._keep_alive(self._keepalive_timeout), loop=self.loop)
@@ -226,6 +241,8 @@ class GeWebsocketClient(GeBaseClient):
                 return
             if message_id == LIST_APPLIANCES:
                 await self._process_appliance_list(message_dict)
+            elif message_id == REQUEST_FEATURES:
+                await self._process_appliance_features(message_dict)
             elif f"-{SET_ERD}-" in message_id:
                 await self._process_pending_erd(message_id)
             elif f"-{ALL_ERD}" in message_id:
@@ -274,6 +291,48 @@ class GeWebsocketClient(GeBaseClient):
 
             await self._add_appliance(mac_addr, online)
         await self.async_event(EVENT_GOT_APPLIANCE_LIST, items)
+
+    async def _process_appliance_features(self, message_dict: Dict):
+        """
+        Process the appliance features.
+
+        These messages should take the form::
+
+            {"kind": "websocket#api",
+             "id": "Request-features",
+             "request":{...},
+             "success": True,
+             "code": 200,
+             "body": {
+                "kind": "appliance#applianceFeature",
+                "userId": "USER_ID",
+                "applianceId": "APPLIANCE_MAC",
+                "features":[
+                    {"CLOTHES_WASHER_V1_SMART_DISPENSE",
+                     "CLOTHES_WASHER_V1_WASHER_LINK",
+                     "MORE_FEATURES_IF_AVAILABLE"
+                    },
+                ],
+            }
+
+        :param message_dict:
+        """
+        body = message_dict["body"]
+        if body.get("kind") != "appliance#applianceFeature":
+            raise ValueError("Not an applianceFeature")
+        items = body["features"]
+        mac_addr = body["applianceId"].upper()
+        for item in items:
+     #       online = item['online'].upper() == "ONLINE"
+                _LOGGER.debug(f'Received feature {item} for {mac_addr}')
+
+            #if we already have the appliance, just update it's online status
+    #        if mac_addr in self.appliances:
+   #             await self._set_appliance_availability(self.appliances[mac_addr], online)
+  #              continue
+
+ #           await self._add_appliance(mac_addr, online)
+        await self.async_event(EVENT_GOT_APPLIANCE_FEATURES, items)
 
     async def _process_cache_update(self, message_dict: Dict):
         """
@@ -418,3 +477,4 @@ class GeWebsocketClient(GeBaseClient):
         self.appliances[mac_addr] = new_appliance
         await self.async_event(EVENT_ADD_APPLIANCE, new_appliance)
         await self.async_request_update(new_appliance)
+        await self.async_request_features(new_appliance)
