@@ -16,7 +16,7 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
             
             return ErdAdvantiumCookStatus(
                 cook_action = CookAction(int_values[1]),
-                cook_mode = CookAction(int_values[2]),
+                cook_mode = CookMode(int_values[2]),
                 termination_reason = TerminationReason(int_values[3]),
                 preheat_status = PreheatStatus(int_values[4]),
                 temperature = erd_decode_int(values[5] + values[6]),
