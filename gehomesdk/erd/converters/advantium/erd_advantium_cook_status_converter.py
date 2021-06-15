@@ -25,7 +25,8 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
                 sensing_active = SensingActive(int_values[12]),
                 cooling_fan_status = CoolingFanStatus(int_values[13]),
                 oven_light_status = OvenLightStatus(int_values[14]),
-                warm_status = WarmStatus(int_values[15])
+                warm_status = WarmStatus(int_values[15]),
+                raw_value=value
             )
         except:
             return ErdAdvantiumCookStatus()
