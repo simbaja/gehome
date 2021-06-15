@@ -64,6 +64,10 @@ class GeAppliance:
         """Request the appliance send a full state update"""
         await self.client.async_request_update(self)
 
+    async def async_request_features(self):
+        """Request the appliance send a full state update"""
+        await self.client.async_request_update(self)
+
     def set_available(self):
         _LOGGER.debug(f'{self.mac_addr} marked available')
         self._available = True

@@ -1,7 +1,7 @@
 import enum
 
 @enum.unique
-class MachineSubCycle(enum.Enum):
+class LaundrySubCycle(enum.Enum):
     DASH = "---"
     FILL = "Fill"
     SOAK = "Soak"

@@ -7,9 +7,9 @@ from .laundry_door_status_mapping import LAUNDRY_DOOR_STATUS_MAP
 from .erd_laundry_door_lock_status import ErdLaundryDoorLockStatus
 from .laundry_door_lock_status import LaundryDoorLockStatus
 from .laundry_door_lock_status_mapping import LAUNDRY_DOOR_LOCK_STATUS_MAP
-from .erd_machine_subcycle import ErdMachineSubCycle
-from .machine_subcycle import MachineSubCycle
-from .machine_subcycle_mapping import MACHINE_SUBCYCLE_MAP
+from .erd_laundry_sub_cycle import ErdLaundrySubCycle
+from .laundry_sub_cycle import LaundrySubCycle
+from .laundry_sub_cycle_mapping import LAUNDRY_SUB_CYCLE_MAP
 from .erd_laundry_cycle import ErdLaundryCycle
 from .laundry_cycle import LaundryCycle
 from .laundry_cycle_mapping import LAUNDRY_CYCLE_MAP
@@ -25,6 +25,9 @@ from .washtemp_level_mapping import WASHTEMP_LEVEL_MAP
 from .erd_dryness_level import ErdDrynessLevel, ErdDrynessNewLevel
 from .dryness_level import DrynessLevel
 from .dryness_level_mapping import DRYNESS_LEVEL_MAP, DRYNESSNEW_LEVEL_MAP
+from .erd_tumble_status import ErdTumbleStatus, ErdTumbleStatus
+from .tumble_status import TumbleStatus
+from .tumble_status_mapping import TUMBLE_STATUS_MAP
 from .erd_spintime_level import ErdSpinTimeLevel
 from .spintime_level import SpinTimeLevel
 from .spintime_level_mapping import SPINTIME_LEVEL_MAP

@@ -45,6 +45,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LCD_SW_VERSION_AVAILABLE, ErdSoftwareVersionConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.WIFI_MODULE_SW_VERSION, ErdSoftwareVersionConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.WIFI_MODULE_SW_VERSION_AVAILABLE, ErdSoftwareVersionConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.UNIT_TYPE, ErdUnitTypeConverter(), ErdCodeClass.GENERAL),
 
     #Fridge
     ErdConfigurationEntry(ErdCode.HOT_WATER_SET_TEMP, ErdIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE),
@@ -119,30 +120,36 @@ _configuration = [
 
     # Laundry
     ErdConfigurationEntry(ErdCode.LAUNDRY_MACHINE_STATE, MachineStateConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_MACHINE_SUBCYCLE, MachineSubCycleConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_CYCLE, LaundryCycleConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_DOOR, LaundryDoorStatusConverter(), ErdCodeClass.DOOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_DOOR_LOCK, ErdReadOnlyBoolConverter(), ErdCodeClass.LOCK_CONTROL),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_REMOTE_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_TANK_STATUS, TankStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_TANK_SELECTED, TankSelectedConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_DELAY_TIME_REMAINING, ErdTimeRemainingConverter(), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_SUB_CYCLE, LaundrySubCycleConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_END_OF_CYCLE, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_RINSE_OPTION, RinseOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHTEMP_LEVEL, WashTempLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_TEMPERATURE_OPTION, TemperatureOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_TEMPERATURENEW_OPTION, TemperatureNewOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYNESS_LEVEL, DrynessLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYNESSNEW_LEVEL, DrynessNewLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_SPINTIME_LEVEL, SpinTimeLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_SOIL_LEVEL, SoilLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_TIME_REMAINING, ErdTimeRemainingConverter(), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DELAY_TIME_REMAINING, ErdTimeRemainingConverter(), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DOOR, LaundryDoorStatusConverter(), ErdCodeClass.DOOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_CYCLE, LaundryCycleConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_REMOTE_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+
+    # Laundry - Washer
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_DOOR_LOCK, ErdReadOnlyBoolConverter(), ErdCodeClass.LOCK_CONTROL),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_TANK_STATUS, TankStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_TANK_SELECTED, TankSelectedConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_SOIL_LEVEL, SoilLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_WASHTEMP_LEVEL, WashTempLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_SPINTIME_LEVEL, SpinTimeLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_RINSE_OPTION, RinseOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+
+    # Laundry - Dryer
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_DRYNESS_LEVEL, DrynessLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TUMBLE_STATUS, TumbleStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_DRYNESSNEW_LEVEL, DrynessNewLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURE_OPTION, TemperatureOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TUMBLENEW_STATUS, TumbleStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURENEW_OPTION, TemperatureNewOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_WASHERLINK_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
 
     # Microwave
     ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR),
     
     # Advantium
-    ErdConfigurationEntry(ErdCode.ADVANTIUM_TYPE, ErdAdvantiumTypeConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_REMAINING, ErdAdvantiumCookTimeRemainingConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_ADJUST, ErdAdvantiumCookTimeAdjustConverter() , ErdCodeClass.ADVANTIUM_SENSOR),

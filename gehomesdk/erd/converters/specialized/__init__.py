@@ -5,3 +5,4 @@ from .erd_measurement_units_converter import ErdMeasurementUnitsConverter
 from .erd_model_serial_converter import ErdModelSerialConverter
 from .erd_software_version_converter import ErdSoftwareVersionConverter
 from .erd_sound_level_converter import ErdSoundLevelConverter
+from .erd_unit_type_converter import ErdUnitTypeConverter
