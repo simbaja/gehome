@@ -11,6 +11,7 @@ from .const import (
     EVENT_CONNECTED,
     EVENT_DISCONNECTED,
     EVENT_GOT_APPLIANCE_LIST,
+    EVENT_GOT_APPLIANCE_FEATURES,
     EVENT_STATE_CHANGED 
 )
 from .base_client import GeBaseClient

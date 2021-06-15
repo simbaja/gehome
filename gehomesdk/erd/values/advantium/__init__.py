@@ -1,4 +1,3 @@
-from .erd_advantium_type import ErdAdvantiumType
 from .erd_advantium_cook_status import ErdAdvantiumCookStatus
 from .erd_advantium_kitchen_timer_min_max import ErdAdvantiumKitchenTimerMinMax
 from .erd_advantium_precision_min_max import ErdAdvantiumPrecisionMinMax

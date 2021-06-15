@@ -12,7 +12,7 @@ class DrynessLevelConverter(ErdReadOnlyConverter[DrynessLevel]):
             om = ErdDrynessLevel(erd_decode_int(value))
             return DRYNESS_LEVEL_MAP[om].value
         except (KeyError, ValueError):
-            return ErdDrynessLevel.NA
+            return ErdDrynessLevel.INVALID
 
 class DrynessNewLevelConverter(ErdReadOnlyConverter[DrynessLevel]):
     def erd_decode(self, value: str) -> DrynessLevel:
@@ -20,4 +20,4 @@ class DrynessNewLevelConverter(ErdReadOnlyConverter[DrynessLevel]):
             om = ErdDrynessNewLevel(erd_decode_int(value))
             return DRYNESSNEW_LEVEL_MAP[om].value
         except (KeyError, ValueError):
-            return ErdDrynessLevel.NA
+            return ErdDrynessLevel.INVALID
