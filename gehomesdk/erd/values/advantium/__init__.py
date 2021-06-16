@@ -3,3 +3,4 @@ from .erd_advantium_kitchen_timer_min_max import ErdAdvantiumKitchenTimerMinMax
 from .erd_advantium_precision_min_max import ErdAdvantiumPrecisionMinMax
 from .erd_advantium_microwave_min_max import ErdAdvantiumMicrowaveMinMax
 from .erd_advantium_cook_time_min_max import ErdAdvantiumCookTimeMinMax
+from .erd_advantium_remote_cook_mode_config import ErdAdvantiumRemoteCookModeConfig

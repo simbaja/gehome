@@ -153,7 +153,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_REMAINING, ErdAdvantiumCookTimeRemainingConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_ADJUST, ErdAdvantiumCookTimeAdjustConverter() , ErdCodeClass.ADVANTIUM_SENSOR),
-    ErdConfigurationEntry(ErdCode.ADVANTIUM_REMOTE_COOK_MODE_CONFIG, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_REMOTE_COOK_MODE_CONFIG, ErdAdvantiumRemoteCookModeConfigConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_STATUS, ErdAdvantiumCookStatusConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_CONTROL, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
     ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_VERSION, ErdStringConverter(), ErdCodeClass.ADVANTIUM_SENSOR),

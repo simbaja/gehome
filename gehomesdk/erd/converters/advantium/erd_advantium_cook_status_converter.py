@@ -29,4 +29,4 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
                 raw_value=value
             )
         except:
-            return ErdAdvantiumCookStatus()
+            return ErdAdvantiumCookStatus(raw_value=value)
