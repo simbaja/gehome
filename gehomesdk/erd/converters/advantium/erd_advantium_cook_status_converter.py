@@ -1,8 +1,11 @@
+import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
 from gehomesdk.erd.values.advantium import ErdAdvantiumCookStatus
 from gehomesdk.erd.values.advantium.advantium_enums import *
+
+_LOGGER = logging.getLogger(__name__)
 
 class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatus]):
     def erd_decode(self, value: str) -> ErdAdvantiumCookStatus:
@@ -28,5 +31,6 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
                 warm_status = WarmStatus(int_values[15]),
                 raw_value=value
             )
-        except:
+        except Exception as ex: 
+            _LOGGER.exception("Could not construct cook status, using default.")
             return ErdAdvantiumCookStatus(raw_value=value)
