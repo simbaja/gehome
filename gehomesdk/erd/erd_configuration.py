@@ -156,7 +156,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.ADVANTIUM_REMOTE_COOK_MODE_CONFIG, ErdAdvantiumRemoteCookModeConfigConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_STATUS, ErdAdvantiumCookStatusConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_CONTROL, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
-    ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_VERSION, ErdStringConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_VERSION, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIMER_MIN_MAX, ErdAdvantiumKitchenTimerMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_MIN_MAX, ErdAdvantiumPrecisionMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_MICROWAVE_MIN_MAX, ErdAdvantiumMicrowaveMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
