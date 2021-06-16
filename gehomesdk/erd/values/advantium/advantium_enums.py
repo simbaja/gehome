@@ -7,17 +7,17 @@ class CoolingFanStatus(enum.Enum):
 
 @enum.unique
 class TerminationReason(enum.Enum):
-    UNKNOWN = 0,
-    COOK_TIME_COMPLETE = 1,
-    USER_CANCELED = 2,
-    MAX_TIME_SHUTOFF = 3,
-    DOOR_OPENENED_WHILE_SENSING = 4,
+    UNKNOWN = 0
+    COOK_TIME_COMPLETE = 1
+    USER_CANCELED = 2
+    MAX_TIME_SHUTOFF = 3
+    DOOR_OPENENED_WHILE_SENSING = 4
     FAULT = 5
 
 @enum.unique
 class WarmStatus(enum.Enum):
-    OFF = 0,
-    CRISP = 1,
+    OFF = 0
+    CRISP = 1
     MOIST = 2
 
 @enum.unique
@@ -27,27 +27,27 @@ class DoorStatus(enum.Enum):
 
 @enum.unique
 class CookAction(enum.Enum):
-    STOP = 0,
-    START = 1,
-    UPDATED = 2,
-    PAUSE = 3,
+    STOP = 0
+    START = 1
+    UPDATED = 2
+    PAUSE = 3
     RESUME = 4
 
 @enum.unique
 class CookMode(enum.Enum):
-    NO_MODE = 0,
-    CONVECTION_BAKE = 1,
-    BROIL = 2,
-    MICROWAVE = 3,
-    MICROWAVE_SENSOR = 4,
-    MICROWAVE_STAGED = 5,
-    PRECISION_COOK = 6,
-    PRECISION_COOK_STAGED = 7,
-    PRECISION_COOK_CUSTOM = 8,
-    WARM = 9,
-    PROOF = 10,
-    TOAST = 11,
-    STEAM_CLEAN = 12,
+    NO_MODE = 0
+    CONVECTION_BAKE = 1
+    BROIL = 2
+    MICROWAVE = 3
+    MICROWAVE_SENSOR = 4
+    MICROWAVE_STAGED = 5
+    PRECISION_COOK = 6
+    PRECISION_COOK_STAGED = 7
+    PRECISION_COOK_CUSTOM = 8
+    WARM = 9
+    PROOF = 10
+    TOAST = 11
+    STEAM_CLEAN = 12
     MICROWAVE_SLOW_COOK = 13
 
 @enum.unique
@@ -57,11 +57,11 @@ class OvenLightStatus(enum.Enum):
 
 @enum.unique
 class PreheatStatus(enum.Enum):
-    NO_PREHEAT = 0,
-    PREHEAT_ACTIVE = 1,
+    NO_PREHEAT = 0
+    PREHEAT_ACTIVE = 1
     PREHEAT_COMPLETE = 2
 
 @enum.unique
 class SensingActive(enum.Enum):
-    INACTIVE = 0,
+    INACTIVE = 0
     ACTIVE = 1
