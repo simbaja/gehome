@@ -13,7 +13,7 @@ class ErdAdvantiumRemoteCookModeConfigConverter(ErdReadOnlyConverter[ErdAdvantiu
         
         try:
             # break the string into two character segments
-            values = [value[i:i + 2] for i in range(0, len(value), 2)]
+            values = [erd_decode_int(value[i:i + 2]) for i in range(0, len(value), 2)]
 
             return ErdAdvantiumRemoteCookModeConfig(values, value)
         except:

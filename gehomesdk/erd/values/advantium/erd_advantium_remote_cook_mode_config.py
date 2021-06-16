@@ -45,7 +45,7 @@ class ErdAdvantiumRemoteCookModeConfig:
         self.raw_value = raw_value
 
         if values == None:
-            pass
+            return
 
         self.check_convection_bake(values[0])
         self.check_broil(values[1])
