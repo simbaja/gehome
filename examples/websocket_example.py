@@ -63,7 +63,7 @@ async def do_periodic_update(appliance: GeAppliance):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG, format='%(levelname)-8s %(message)s')
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)-8s %(message)s')
 
     loop = asyncio.get_event_loop()
     client = GeWebsocketClient(USERNAME, PASSWORD, loop)
