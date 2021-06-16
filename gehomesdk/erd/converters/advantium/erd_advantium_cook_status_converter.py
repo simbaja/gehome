@@ -12,7 +12,7 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
         try:
             # break the string into two character segments
             values = [value[i:i + 2] for i in range(0, len(value), 2)]
-            int_values = map(erd_decode_int, values)
+            int_values = list(map(erd_decode_int, values))
             
             return ErdAdvantiumCookStatus(
                 cook_action = CookAction(int_values[1]),
