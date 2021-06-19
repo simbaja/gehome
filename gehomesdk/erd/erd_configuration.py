@@ -118,6 +118,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.DISHWASHER_OPERATING_MODE, OperatingModeConverter(), ErdCodeClass.DISHWASHER_SENSOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_RINSE_AGENT, ErdRinseAgentConverter(), ErdCodeClass.DISHWASHER_SENSOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_DOOR_STATUS, ErdDishwasherDoorStatusConverter(), ErdCodeClass.DOOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_USER_SETTING, ErdUserSettingConverter(), ErdCodeClass.DISHWASHER_SENSOR),
 
     # Laundry
     ErdConfigurationEntry(ErdCode.LAUNDRY_MACHINE_STATE, MachineStateConverter(), ErdCodeClass.LAUNDRY_SENSOR),
