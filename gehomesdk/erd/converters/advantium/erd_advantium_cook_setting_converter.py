@@ -27,7 +27,7 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
                 i=int_values[6],
                 power_level=int_values[7],
                 k=int_values[8],
-                cook_time_remaining=erd_decode_timespan(values[9] + values[10]),
+                cook_time_remaining=erd_decode_timespan_seconds(values[9] + values[10]),
                 m=int_values[11],
                 n=int_values[12],
                 o=int_values[13],
