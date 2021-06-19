@@ -40,7 +40,7 @@ class ErdEncoder:
         """
         Decode and ERD Code raw value into something useful.  If the erd_code is a string that
         cannot be resolved to a known ERD Code, the value will be treated as raw byte string.
-        Unregistered ERD Codes will be translated as ints.
+        Unregistered ERD Codes will be translated as a byte string.
 
         :param erd_code: ErdCode or str, the ERD Code the value of which we want to decode
         :param erd_value: The raw ERD code value, usually a hex string without leading "0x"
@@ -57,7 +57,7 @@ class ErdEncoder:
         try:
             return self._registry[erd_code].erd_decode(erd_value)
         except KeyError:
-            return erd_decode_int(erd_value)
+            return erd_decode_bytes(erd_value)
 
     def get_code_class(self, erd_code: ErdCodeType) -> ErdCodeClass:
         """
