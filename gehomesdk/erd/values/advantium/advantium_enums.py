@@ -18,7 +18,8 @@ class TerminationReason(enum.Enum):
 class WarmStatus(enum.Enum):
     OFF = 0
     CRISP = 1
-    MOIST = 2
+    MOIST = 2,
+    UNKNOWN = 255
 
 @enum.unique
 class DoorStatus(enum.Enum):
@@ -31,7 +32,8 @@ class CookAction(enum.Enum):
     START = 1
     UPDATED = 2
     PAUSE = 3
-    RESUME = 4
+    RESUME = 4,
+    UNKNOWN = 255
 
 @enum.unique
 class CookMode(enum.Enum):
@@ -48,7 +50,8 @@ class CookMode(enum.Enum):
     PROOF = 10
     TOAST = 11
     STEAM_CLEAN = 12
-    MICROWAVE_SLOW_COOK = 13
+    MICROWAVE_SLOW_COOK = 13,
+    UNKNOWN = 255
 
 @enum.unique
 class OvenLightStatus(enum.Enum):
