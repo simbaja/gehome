@@ -146,6 +146,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_DRYNESSNEW_LEVEL, DrynessNewLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURE_OPTION, TemperatureOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_SHEET_USAGE_CONFIGURATION, SheetUsageConfigurationConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_SHEET_INVENTORY, ErdIntConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TUMBLENEW_STATUS, TumbleStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURENEW_OPTION, TemperatureNewOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_ECODRY_STATUS, EcoDryStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
