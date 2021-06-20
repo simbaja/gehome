@@ -1,8 +1,7 @@
-import enum
+from enum import Enum
 from typing import NamedTuple, Optional
 
-@enum.unique
-class UserSetting(enum):
+class UserSetting(Enum):
     DISABLE = 0
     ENABLE = 1
     INVALID = 255
