@@ -5,4 +5,4 @@ class ErdSheetUsageConfiguration (NamedTuple):
     LargeLoadSize: int = 0
     mediumLoadSize: int = 0
     timedDryerSheetsLoadSize: int = 0
-    raw_value: Optional[bytes] = None
+    raw_value: Optional[str] = None
