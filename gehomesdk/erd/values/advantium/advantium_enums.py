@@ -1,9 +1,13 @@
 import enum
+from typing import Optional
 
 @enum.unique
 class CoolingFanStatus(enum.Enum):
     OFF = 0
     ON = 1
+
+    def boolify(self) -> Optional[bool]:
+        return self.value == CoolingFanStatus.ON
 
 @enum.unique
 class TerminationReason(enum.Enum):
@@ -25,6 +29,9 @@ class WarmStatus(enum.Enum):
 class DoorStatus(enum.Enum):
     OPEN = 0
     CLOSED = 1
+
+    def boolify(self) -> Optional[bool]:
+        return self.value == DoorStatus.OPEN    
 
 @enum.unique
 class CookAction(enum.Enum):
@@ -58,6 +65,9 @@ class OvenLightStatus(enum.Enum):
     OFF = 0
     ON = 1
 
+    def boolify(self) -> Optional[bool]:
+        return self.value == OvenLightStatus.ON    
+
 @enum.unique
 class PreheatStatus(enum.Enum):
     NO_PREHEAT = 0
@@ -68,3 +78,6 @@ class PreheatStatus(enum.Enum):
 class SensingActive(enum.Enum):
     INACTIVE = 0
     ACTIVE = 1
+
+    def boolify(self) -> Optional[bool]:
+        return self.value == SensingActive.ACTIVE    
