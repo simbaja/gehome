@@ -5,4 +5,3 @@ from .erd_waterfilter_leak_validity import ErdWaterFilterLeakValidity
 from .erd_waterfilter_life import ErdWaterFilterLifeRemaining
 from .erd_waterfilter_manual_mode import ErdWaterFilterManualMode
 from .erd_waterfilter_mode import ErdWaterFilterMode
-from .erd_waterfilter_water_day_use import ErdWaterFilterDayUsage
