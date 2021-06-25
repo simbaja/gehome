@@ -167,5 +167,14 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_MIN_MAX, ErdAdvantiumPrecisionMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_MICROWAVE_MIN_MAX, ErdAdvantiumMicrowaveMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_MIN_MAX, ErdAdvantiumCookTimeMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
-    
+
+    # Water Filter
+    ErdConfigurationEntry(ErdCode.WH_FILTER_FLOW_RATE, ErdWaterFilterFlowConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_FILTER_MODE, ErdFilterModeConverter(), ErdCodeClass.WATERFILTER_SENSOR),    
+    ErdConfigurationEntry(ErdCode.WH_FILTER_DAY_USAGE, ErdWaterFilterUsageConverter(), ErdCodeClass.WATERFILTER_SENSOR),    
+    ErdConfigurationEntry(ErdCode.WH_FILTER_FLOW_ALERT, ErdFilterAlertStateConverter(), ErdCodeClass.WATERFILTER_SENSOR),    
+    ErdConfigurationEntry(ErdCode.WH_FILTER_FLOW_ALERT_SETTINGS, ErdWaterFilterAlertSettingsConverter(), ErdCodeClass.WATERFILTER_SENSOR),    
+    ErdConfigurationEntry(ErdCode.WH_FILTER_LEAK_VALIDITY, ErdFilterLeakValidityConverter(), ErdCodeClass.WATERFILTER_SENSOR),    
+    ErdConfigurationEntry(ErdCode.WH_FILTER_MANUAL_MODE, ErdFilterManualModeConverter(), ErdCodeClass.WATERFILTER_SENSOR),    
+    ErdConfigurationEntry(ErdCode.WH_FILTER_LIFE_REMAINING, ErdWaterFilterLifeRemainingConverter(), ErdCodeClass.WATERFILTER_SENSOR),
 ]

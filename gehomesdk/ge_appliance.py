@@ -60,6 +60,9 @@ class GeAppliance:
     def known_properties(self) -> Set[ErdCodeType]:
         return set(self._property_cache)
 
+    async def get_messages(self):
+        await self.client.async_request_message(self)
+
     async def async_request_update(self):
         """Request the appliance send a full state update"""
         await self.client.async_request_update(self)

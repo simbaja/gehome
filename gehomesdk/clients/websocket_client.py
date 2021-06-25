@@ -171,6 +171,19 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
+    async def async_request_message(self, appliance: GeAppliance):
+        """Request an appliance get notification history"""
+        _LOGGER.debug(f"Requesting update for client {appliance.mac_addr}")
+        msg_dict = {
+            "kind": "websocket#api",
+            "action": "api",
+            "host": API_HOST,
+            "method": "GET",
+            "path": f"/v1/appliance/{appliance.mac_addr}/message",
+            "id": f"{appliance.mac_addr}"
+        }
+        await self._send_dict(msg_dict)
+
     async def async_request_features(self, appliance: GeAppliance):
         """Request an appliance send features."""
         _LOGGER.debug(f"Requesting features for client {appliance.mac_addr}")

@@ -24,3 +24,4 @@ class ErdCodeClass(enum.IntFlag):
     LAUNDRY_SENSOR = auto() 
     MICROWAVE_SENSOR = auto()
     ADVANTIUM_SENSOR = auto()
+    WATERFILTER_SENSOR = auto()

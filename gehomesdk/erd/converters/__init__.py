@@ -8,3 +8,4 @@ from .fridge import *
 from .dishwasher import *
 from .laundry import *
 from .advantium import *
+from .waterfilter import *
