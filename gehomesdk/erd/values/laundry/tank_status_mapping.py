@@ -1,4 +1,4 @@
-from .erd_tank_status import ErdTankStatus
+from .laundry_enums import ErdTankStatus
 from .tank_status import TankStatus
 
 TANK_STATUS_MAP = {

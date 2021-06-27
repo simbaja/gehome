@@ -1,4 +1,4 @@
-from .erd_laundry_sub_cycle import ErdLaundrySubCycle
+from .laundry_enums import *
 from .laundry_sub_cycle import LaundrySubCycle
 
 LAUNDRY_SUB_CYCLE_MAP = {

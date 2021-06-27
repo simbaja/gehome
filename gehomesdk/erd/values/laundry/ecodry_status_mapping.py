@@ -1,4 +1,4 @@
-from .erd_ecodry_status import ErdEcoDryStatus
+from .laundry_enums import ErdEcoDryStatus
 from .ecodry_status import EcoDryStatus
 
 ECODRY_STATUS_MAP = {

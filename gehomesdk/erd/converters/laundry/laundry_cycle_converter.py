@@ -12,4 +12,4 @@ class LaundryCycleConverter(ErdReadOnlyConverter[LaundryCycle]):
             om = ErdLaundryCycle(erd_decode_int(value))
             return LAUNDRY_CYCLE_MAP[om].value
         except (KeyError, ValueError):
-            return ErdLaundryCycle.NA
+            return ErdLaundryCycle.INVALID

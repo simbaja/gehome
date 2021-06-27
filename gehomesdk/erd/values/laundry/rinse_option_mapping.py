@@ -1,4 +1,4 @@
-from .erd_rinse_option import ErdRinseOption
+from .laundry_enums import ErdRinseOption
 from .rinse_option import RinseOption
 
 RINSE_OPTION_MAP = {

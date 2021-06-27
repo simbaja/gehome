@@ -12,4 +12,4 @@ class WashTempLevelConverter(ErdReadOnlyConverter[WashTempLevel]):
             om = ErdWashTempLevel(erd_decode_int(value))
             return WASHTEMP_LEVEL_MAP[om].value
         except (KeyError, ValueError):
-            return ErdWashTempLevel.NA
+            return ErdWashTempLevel.INVALID

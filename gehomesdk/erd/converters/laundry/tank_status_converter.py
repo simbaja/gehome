@@ -12,4 +12,4 @@ class TankStatusConverter(ErdReadOnlyConverter[TankStatus]):
             om = ErdTankStatus(erd_decode_int(value))
             return TANK_STATUS_MAP[om].value
         except (KeyError, ValueError):
-            return ErdTankStatus.NA
+            return ErdTankStatus.EMPTY

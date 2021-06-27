@@ -1,4 +1,4 @@
-from .erd_soil_level import ErdSoilLevel
+from .laundry_enums import ErdSoilLevel
 from .soil_level import SoilLevel
 
 SOIL_LEVEL_MAP = {

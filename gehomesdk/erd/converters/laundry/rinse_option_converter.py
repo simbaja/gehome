@@ -12,4 +12,4 @@ class RinseOptionConverter(ErdReadOnlyConverter[RinseOption]):
             om = ErdRinseOption(erd_decode_int(value))
             return RINSE_OPTION_MAP[om].value
         except (KeyError, ValueError):
-            return ErdRinseOption.NA
+            return ErdRinseOption.INVALID

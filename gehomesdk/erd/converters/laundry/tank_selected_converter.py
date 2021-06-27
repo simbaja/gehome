@@ -12,4 +12,4 @@ class TankSelectedConverter(ErdReadOnlyConverter[TankSelected]):
             om = ErdTankSelected(erd_decode_int(value))
             return TANK_SELECTED_MAP[om].value
         except (KeyError, ValueError):
-            return ErdTankSelected.NA
+            return ErdTankSelected.INVALID

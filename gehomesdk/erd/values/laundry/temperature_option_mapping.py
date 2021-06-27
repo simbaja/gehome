@@ -1,4 +1,4 @@
-from .erd_temperature_option import ErdTemperatureOption, ErdTemperatureNewOption
+from .laundry_enums import ErdTemperatureOption, ErdTemperatureNewOption
 from .temperature_option import TemperatureOption
 
 TEMPERATURE_OPTION_MAP = {

@@ -12,4 +12,4 @@ class LaundryDoorStatusConverter(ErdReadOnlyConverter[LaundryDoorStatus]):
             om = ErdLaundryDoorStatus(erd_decode_int(value))
             return LAUNDRY_DOOR_STATUS_MAP[om].value
         except (KeyError, ValueError):
-            return ErdLaundryDoorStatus.NA
+            return ErdLaundryDoorStatus.CLOSED

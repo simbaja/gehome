@@ -1,4 +1,4 @@
-from .erd_dryness_level import ErdDrynessLevel, ErdDrynessNewLevel
+from .laundry_enums import ErdDrynessLevel, ErdDrynessNewLevel
 from .dryness_level import DrynessLevel
 
 DRYNESS_LEVEL_MAP = {
