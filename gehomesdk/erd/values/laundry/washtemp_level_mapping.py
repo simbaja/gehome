@@ -1,4 +1,4 @@
-from .erd_washtemp_level import ErdWashTempLevel
+from .laundry_enums import ErdWashTempLevel
 from .washtemp_level import WashTempLevel
 
 WASHTEMP_LEVEL_MAP = {

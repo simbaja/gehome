@@ -1,4 +1,4 @@
-from .erd_spintime_level import ErdSpinTimeLevel
+from .laundry_enums import ErdSpinTimeLevel
 from .spintime_level import SpinTimeLevel
 
 SPINTIME_LEVEL_MAP = {

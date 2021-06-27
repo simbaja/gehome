@@ -12,4 +12,4 @@ class SoilLevelConverter(ErdReadOnlyConverter[SoilLevel]):
             om = ErdSoilLevel(erd_decode_int(value))
             return SOIL_LEVEL_MAP[om].value
         except (KeyError, ValueError):
-            return ErdSoilLevel.NA
+            return ErdSoilLevel.INVALID

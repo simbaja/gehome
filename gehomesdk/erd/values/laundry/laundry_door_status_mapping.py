@@ -1,4 +1,4 @@
-from .erd_laundry_door_status import ErdLaundryDoorStatus
+from .laundry_enums import ErdLaundryDoorStatus
 from .laundry_door_status import LaundryDoorStatus
 
 LAUNDRY_DOOR_STATUS_MAP = {

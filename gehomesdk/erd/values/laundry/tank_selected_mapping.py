@@ -1,4 +1,4 @@
-from .erd_tank_selected import ErdTankSelected
+from .laundry_enums import ErdTankSelected
 from .tank_selected import TankSelected
 
 TANK_SELECTED_MAP = {

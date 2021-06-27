@@ -1,4 +1,4 @@
-from .erd_tumble_status import ErdTumbleStatus
+from .laundry_enums import ErdTumbleStatus
 from .tumble_status import TumbleStatus
 
 TUMBLE_STATUS_MAP = {

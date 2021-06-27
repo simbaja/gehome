@@ -1,4 +1,4 @@
-from .erd_machine_state import ErdMachineState
+from .laundry_enums import ErdMachineState
 from .machine_state import MachineState
 
 MACHINE_STATE_MAP = {

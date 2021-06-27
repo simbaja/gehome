@@ -12,4 +12,4 @@ class SpinTimeLevelConverter(ErdReadOnlyConverter[SpinTimeLevel]):
             om = ErdSpinTimeLevel(erd_decode_int(value))
             return SPINTIME_LEVEL_MAP[om].value
         except (KeyError, ValueError):
-            return ErdSpinTimeLevel.NA
+            return ErdSpinTimeLevel.NO_SPIN

@@ -1,4 +1,4 @@
-from .erd_remote_status import ErdRemoteStatus
+from .laundry_enums import ErdRemoteStatus
 from .remote_status import RemoteStatus
 
 REMOTE_STATUS_MAP = {
