@@ -3,6 +3,7 @@ from ..primitives import *
 
 from gehomesdk.erd.values.waterfilter import ErdWaterFilterManualMode
 
+
 class ErdFilterManualModeConverter(ErdReadOnlyConverter[ErdWaterFilterManualMode]):
     def erd_decode(self, value) -> ErdWaterFilterManualMode:
         try:
