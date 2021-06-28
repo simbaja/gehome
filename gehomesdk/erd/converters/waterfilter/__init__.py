@@ -4,5 +4,4 @@ from .erd_alert_state_converter import ErdFilterAlertStateConverter
 from .erd_filter_manual_mode_converter import ErdFilterManualModeConverter
 from .erd_filter_mode_converter import ErdFilterModeConverter
 from .erd_leak_validity_converter import ErdFilterLeakValidityConverter
-from .erd_waterfilter_day_usage import ErdWaterFilterUsageConverter
 from .erd_waterfilter_life import ErdWaterFilterLifeRemainingConverter
