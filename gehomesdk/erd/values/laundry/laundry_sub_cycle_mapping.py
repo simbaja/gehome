@@ -2,7 +2,7 @@ from .laundry_enums import ErdLaundrySubCycle
 from .laundry_sub_cycle import LaundrySubCycle
 
 LAUNDRY_SUB_CYCLE_MAP = {
-    ErdLaundrySubCycle.NA: LaundrySubCycle.DASH,
+    ErdLaundrySubCycle.CYCLE_NONE: LaundrySubCycle.DASH,
     ErdLaundrySubCycle.FILL: LaundrySubCycle.FILL,
     ErdLaundrySubCycle.SOAK: LaundrySubCycle.SOAK,
     ErdLaundrySubCycle.WASH: LaundrySubCycle.WASH,
