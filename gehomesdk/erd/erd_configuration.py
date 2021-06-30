@@ -19,12 +19,12 @@ class ErdConfigurationEntry:
     @property
     def can_encode(self) -> bool:
         return self.converter.can_encode
-        
+
     def erd_decode(self, value: str) -> Any:
         return self.converter.erd_decode(value)
     def erd_encode(self, value: Any) -> str:
         return self.converter.erd_encode(value)
-        
+
 _configuration = [
     #Universal
     ErdConfigurationEntry(ErdCode.APPLIANCE_TYPE, ErdApplianceTypeConverter(), ErdCodeClass.GENERAL),
@@ -62,7 +62,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.CURRENT_TEMPERATURE, FridgeSetPointsConverter(), ErdCodeClass.RAW_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.TEMPERATURE_SETTING, FridgeSetPointsConverter(), ErdCodeClass.RAW_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.FRIDGE_MODEL_INFO, FridgeModelInfoConverter(), ErdCodeClass.GENERAL),
-    
+
     #Oven
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_PROBE_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_REMOTE_ENABLED, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR),
@@ -147,6 +147,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURE_OPTION, TemperatureOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_SHEET_USAGE_CONFIGURATION, SheetUsageConfigurationConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_SHEET_INVENTORY, ErdIntConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TUMBLENEW_STATUS, TumbleStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURENEW_OPTION, TemperatureNewOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_ECODRY_STATUS, EcoDryStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
@@ -154,18 +155,29 @@ _configuration = [
 
     # Microwave
     ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR),
-    
+
     # Advantium
     ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanSecondsConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_REMAINING, ErdAdvantiumCookTimeRemainingConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_ADJUST, ErdAdvantiumCookTimeAdjustConverter() , ErdCodeClass.ADVANTIUM_SENSOR),
-    ErdConfigurationEntry(ErdCode.ADVANTIUM_REMOTE_COOK_MODE_CONFIG, ErdAdvantiumRemoteCookModeConfigConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_REMOTE_COOK_MODE_CONFIG, ErdAdvantiumRemoteCookModeConfigConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_STATUS, ErdAdvantiumCookStatusConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
-    ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_SETTING, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),    
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_SETTING, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_VERSION, ErdReadOnlyBytesConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIMER_MIN_MAX, ErdAdvantiumKitchenTimerMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_PRECISION_MIN_MAX, ErdAdvantiumPrecisionMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_MICROWAVE_MIN_MAX, ErdAdvantiumMicrowaveMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_MIN_MAX, ErdAdvantiumCookTimeMinMaxConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
-    
+
+    # Water Filter
+    ErdConfigurationEntry( ErdCode.WH_FILTER_FLOW_RATE, ErdWaterFilterFlowConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_VALVE_STATE, ErdFilterValveStateConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_MODE, ErdFilterModeConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_DAY_USAGE, ErdReadOnlyIntConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_FLOW_ALERT, ErdFilterAlertStateConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_FLOW_ALERT_SETTINGS, ErdWaterFilterAlertSettingsConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_LEAK_VALIDITY, ErdFilterLeakValidityConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_MANUAL_MODE, ErdFilterManualModeConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_LIFE_REMAINING, ErdWaterFilterLifeRemainingConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_POSITION, ErdFilterPositionConverter(), ErdCodeClass.WATERFILTER_SENSOR),
 ]
