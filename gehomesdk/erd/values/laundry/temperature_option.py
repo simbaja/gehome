@@ -10,4 +10,4 @@ class TemperatureOption(enum.Enum):
     HIGH = "High"
     
     def stringify(self, **kwargs):
-        return self.name.replace("STATUS_","").replace("_"," ").title()
+        return self.value

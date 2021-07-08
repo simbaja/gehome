@@ -2,14 +2,13 @@ import logging
 
 from gehomesdk.erd.converters.abstract import ErdReadOnlyConverter
 from gehomesdk.erd.converters.primitives import *
-from gehomesdk.erd.values.laundry import ErdLaundrySubCycle, LaundrySubCycle, LAUNDRY_SUB_CYCLE_MAP
+from gehomesdk.erd.values.laundry import ErdLaundrySubCycle
 
 _LOGGER = logging.getLogger(__name__)
 
-class LaundrySubCycleConverter(ErdReadOnlyConverter[LaundrySubCycle]):
-    def erd_decode(self, value: str) -> LaundrySubCycle:
+class LaundrySubCycleConverter(ErdReadOnlyConverter[ErdLaundrySubCycle]):
+    def erd_decode(self, value: str) -> ErdLaundrySubCycle:
         try:
-            om = ErdLaundrySubCycle(erd_decode_int(value))
-            return LAUNDRY_SUB_CYCLE_MAP[om].value
+            return ErdLaundrySubCycle(erd_decode_int(value))
         except (KeyError, ValueError):
             return ErdLaundrySubCycle.CYCLE_NONE

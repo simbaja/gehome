@@ -10,4 +10,4 @@ class DrynessLevel(enum.Enum):
     EXTRA_DRY = "Extra Dry"
     
     def stringify(self, **kwargs):
-        return self.name.replace("STATUS_","").replace("_"," ").title()
+        return self.value

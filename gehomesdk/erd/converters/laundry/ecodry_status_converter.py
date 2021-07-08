@@ -12,4 +12,4 @@ class EcoDryStatusConverter(ErdReadOnlyConverter[EcoDryStatus]):
             om = ErdEcoDryStatus(erd_decode_int(value))
             return ECODRY_STATUS_MAP[om].value
         except (KeyError, ValueError):
-            return ErdEcoDryStatus.UNKNOWN
+            return EcoDryStatus.STATUS_UNKNOWN

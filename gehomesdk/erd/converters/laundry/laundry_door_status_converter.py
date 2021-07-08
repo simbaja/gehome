@@ -6,10 +6,9 @@ from gehomesdk.erd.values.laundry import ErdLaundryDoorStatus, LaundryDoorStatus
 
 _LOGGER = logging.getLogger(__name__)
 
-class LaundryDoorStatusConverter(ErdReadOnlyConverter[LaundryDoorStatus]):
-    def erd_decode(self, value: str) -> LaundryDoorStatus:
+class LaundryDoorStatusConverter(ErdReadOnlyConverter[ErdLaundryDoorStatus]):
+    def erd_decode(self, value: str) -> ErdLaundryDoorStatus:
         try:
-            om = ErdLaundryDoorStatus(erd_decode_int(value))
-            return LAUNDRY_DOOR_STATUS_MAP[om].value
+            return ErdLaundryDoorStatus(erd_decode_int(value))
         except (KeyError, ValueError):
-            return ErdLaundryDoorStatus.CLOSED
+            return ErdLaundryDoorStatus.UNKNOWN

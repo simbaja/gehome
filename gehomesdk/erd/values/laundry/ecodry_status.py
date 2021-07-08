@@ -7,4 +7,4 @@ class EcoDryStatus(enum.Enum):
     STATUS_DISABLE = "Disabled"
     
     def stringify(self, **kwargs):
-        return self.name.replace("STATUS_","").replace("_"," ").title()
+        return self.value

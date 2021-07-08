@@ -16,4 +16,4 @@ class MachineState(enum.Enum):
     STATUS_CLEAN_SPEAK = "Clean Speak"
     
     def stringify(self, **kwargs):
-        return self.name.replace("STATUS_","").replace("_"," ").title()
+        return self.value

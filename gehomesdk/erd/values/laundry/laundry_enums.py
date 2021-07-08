@@ -84,18 +84,19 @@ class ErdLaundryCycle(enum.Enum):
     WASHER_LINK = 148
     AUTO_DAMP_DRY = 149
 
-@enum.unique
-class ErdLaundryDoorLockStatus(enum.Enum):
-    LOCKED = 1
-    UNLOCKED = 0
-
-    def boolify(self) -> Optional[bool]:
-        return self.value == ErdLaundryDoorLockStatus.LOCKED
+    def stringify(self, **kwargs):
+        if self.value == ErdLaundryCycle.INVALID:
+            return "---"
+        return self.name.replace("_"," ").title()      
 
 @enum.unique
 class ErdLaundryDoorStatus(enum.Enum):
     OPEN = 0
     CLOSED = 1
+    UNKNOWN = 255
+
+    def stringify(self, **kwargs):
+        return self.value.title()      
 
     def boolify(self) -> Optional[bool]:
         return self.value == ErdLaundryDoorStatus.OPEN
@@ -120,6 +121,11 @@ class ErdLaundrySubCycle(enum.Enum):
     DAMP = 132
     AIR_FLUFF = 133
 
+    def stringify(self, **kwargs):
+        if self.value == ErdLaundrySubCycle.CYCLE_NONE:
+            return "---"
+        return self.name.replace("_"," ").title()    
+
 @enum.unique
 class ErdMachineState(enum.Enum):
     IDLE = 0
@@ -136,15 +142,6 @@ class ErdMachineState(enum.Enum):
     CLEAN_SPEAK = 128
 
 @enum.unique
-class ErdRemoteStatus(enum.Enum):
-    DISABLE = 0
-    ENABLED = 1
-    NOT_SUPPORTED = 255
-
-    def boolify(self) -> Optional[bool]:
-        return self.value == ErdRemoteStatus.ENABLED
-
-@enum.unique
 class ErdRinseOption(enum.Enum):
     INVALID = 0
     NORMAL = 1
@@ -152,6 +149,11 @@ class ErdRinseOption(enum.Enum):
     MAX = 3
     HEAVY = 4
     EXTRA_HEAVY = 5
+
+    def stringify(self, **kwargs):
+        if self.value == ErdRinseOption.INVALID:
+            return "---"
+        return self.name.replace("_"," ").title()        
 
 class ErdSheetUsageConfiguration (NamedTuple):
     extraLargeLoadSize: int = 0
@@ -170,6 +172,11 @@ class ErdSoilLevel(enum.Enum):
     EXTRA_HEAVY = 4
     INVALID = 5
 
+    def stringify(self, **kwargs):
+        if self.value == ErdSoilLevel.INVALID:
+            return "---"
+        return self.name.replace("_"," ").title()      
+
 @enum.unique
 class ErdSpinTimeLevel(enum.Enum):
     NO_SPIN = 0
@@ -179,6 +186,11 @@ class ErdSpinTimeLevel(enum.Enum):
     EXTRA_HIGH = 4
     DISABLE = 5
 
+    def stringify(self, **kwargs):
+        if self.value == ErdSpinTimeLevel.DISABLE:
+            return "---"        
+        return self.name.replace("_"," ").title()        
+
 @enum.unique
 class ErdTankSelected(enum.Enum):
     DETERGENT = 0
@@ -186,6 +198,11 @@ class ErdTankSelected(enum.Enum):
     BLEACH = 2
     OTHER = 3
     INVALID = 4
+
+    def stringify(self, **kwargs):
+        if self.value == ErdTankSelected.INVALID:
+            return "---"           
+        return self.name.title()        
 
 @enum.unique
 class ErdTankStatus(enum.Enum):
@@ -219,14 +236,13 @@ class ErdTumbleStatus(enum.Enum):
     ENABLE = 1
     DISABLE = 0
 
+    def stringify(self, **kwargs):
+        if self.value == ErdTumbleStatus.NOT_AVAILABLE:
+            return "N/A"
+        return self.name.replace("_"," ").title()         
+
     def boolify(self) -> Optional[bool]:
         return self.value == ErdTumbleStatus.ENABLE
-
-@enum.unique
-class ErdTumbleType(enum.Enum):
-    INVALID = 255
-    LEGACY = 1
-    NEW = 0
 
 @enum.unique
 class ErdWashTempLevel(enum.Enum):
@@ -234,7 +250,7 @@ class ErdWashTempLevel(enum.Enum):
     COLD_1 = 1
     WARM_1 = 2
     HOT_1 = 3
-    EXTRAHOT__1 = 4
+    EXTRAHOT_1 = 4
     INVALID = 6
     TAP_COLD_2 = 16
     COLD_2 = 17

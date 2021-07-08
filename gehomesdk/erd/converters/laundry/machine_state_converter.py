@@ -12,4 +12,4 @@ class MachineStateConverter(ErdReadOnlyConverter[MachineState]):
             om = ErdMachineState(erd_decode_int(value))
             return MACHINE_STATE_MAP[om].value
         except (KeyError, ValueError):
-            return ErdMachineState.IDLE
+            return MachineState.STATUS_OFF

@@ -2,14 +2,13 @@ import logging
 
 from gehomesdk.erd.converters.abstract import ErdReadOnlyConverter
 from gehomesdk.erd.converters.primitives import *
-from gehomesdk.erd.values.laundry import ErdTankSelected, TankSelected, TANK_SELECTED_MAP
+from gehomesdk.erd.values.laundry import ErdTankSelected
 
 _LOGGER = logging.getLogger(__name__)
 
-class TankSelectedConverter(ErdReadOnlyConverter[TankSelected]):
-    def erd_decode(self, value: str) -> TankSelected:
+class TankSelectedConverter(ErdReadOnlyConverter[ErdTankSelected]):
+    def erd_decode(self, value: str) -> ErdTankSelected:
         try:
-            om = ErdTankSelected(erd_decode_int(value))
-            return TANK_SELECTED_MAP[om].value
+            return ErdTankSelected(erd_decode_int(value))
         except (KeyError, ValueError):
             return ErdTankSelected.INVALID

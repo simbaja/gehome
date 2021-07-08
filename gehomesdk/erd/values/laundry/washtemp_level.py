@@ -12,4 +12,4 @@ class WashTempLevel(enum.Enum):
     EXTRA_HOT = "Extra Hot"
     
     def stringify(self, **kwargs):
-        return self.name.replace("STATUS_","").replace("_"," ").title()
+        return self.value

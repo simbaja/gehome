@@ -6,7 +6,7 @@ WASHTEMP_LEVEL_MAP = {
     ErdWashTempLevel.COLD_1: WashTempLevel.COLD,
     ErdWashTempLevel.WARM_1: WashTempLevel.WARM,
     ErdWashTempLevel.HOT_1: WashTempLevel.HOT,
-    ErdWashTempLevel.EXTRAHOT__1: WashTempLevel.EXTRA_HOT,
+    ErdWashTempLevel.EXTRAHOT_1: WashTempLevel.EXTRA_HOT,
     ErdWashTempLevel.INVALID: WashTempLevel.DASH,
     ErdWashTempLevel.TAP_COLD_2: WashTempLevel.TAP_COLD,
     ErdWashTempLevel.COLD_2: WashTempLevel.COLD,
