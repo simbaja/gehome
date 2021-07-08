@@ -1,7 +1,6 @@
 import enum
 from typing import Optional
 
-
 @enum.unique
 class ErdWaterFilterValveState(enum.Enum):
     BYPASS = 0
@@ -13,4 +12,4 @@ class ErdWaterFilterValveState(enum.Enum):
     INVALID = 6
 
     def stringify(self, **kwargs) -> Optional[str]:
-        return self.name
+        return self.name.replace("_"," ").title()

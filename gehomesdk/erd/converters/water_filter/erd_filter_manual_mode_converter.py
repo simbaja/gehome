@@ -1,7 +1,7 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
-from gehomesdk.erd.values.water_filter import ErdWaterFilterManualMode
+from gehomesdk.erd.values import ErdWaterFilterManualMode
 
 
 class ErdFilterManualModeConverter(ErdReadOnlyConverter[ErdWaterFilterManualMode]):

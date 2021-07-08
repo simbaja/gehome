@@ -1,7 +1,6 @@
 from datetime import timedelta
 from typing import NamedTuple, Optional
 
-
 class ErdWaterFilterAlertState(NamedTuple):
     value: int
 
@@ -18,5 +17,5 @@ class ErdWaterFilterAlertState(NamedTuple):
 
     def stringify(self, **kwargs) -> Optional[str]:
         if self.has_alert():
-            return "ON"
-        return "OFF"
+            return "On"
+        return "Off"

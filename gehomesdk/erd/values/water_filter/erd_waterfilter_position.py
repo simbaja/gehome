@@ -1,7 +1,6 @@
 import enum
 from typing import Optional
 
-
 @enum.unique
 class ErdWaterFilterPosition(enum.Enum):
     BYPASS = 0
@@ -11,4 +10,4 @@ class ErdWaterFilterPosition(enum.Enum):
     UNKNOWN = -1
 
     def stringify(self, **kwargs) -> Optional[str]:
-        return self.name
+        return self.name.title()

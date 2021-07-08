@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.water_filter import ErdWaterFilterFlowRate
+from gehomesdk.erd.values import ErdWaterFilterFlowRate
 
 
 class ErdWaterFilterFlowConverter(ErdReadOnlyConverter[ErdWaterFilterFlowRate]):

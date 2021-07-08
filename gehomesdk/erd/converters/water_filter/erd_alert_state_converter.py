@@ -1,7 +1,7 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
-from gehomesdk.erd.values.water_filter import ErdWaterFilterAlertState
+from gehomesdk.erd.values import ErdWaterFilterAlertState
 
 
 class ErdFilterAlertStateConverter(ErdReadOnlyConverter[ErdWaterFilterAlertState]):
