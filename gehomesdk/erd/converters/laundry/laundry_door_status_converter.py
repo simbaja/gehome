@@ -2,7 +2,7 @@ import logging
 
 from gehomesdk.erd.converters.abstract import ErdReadOnlyConverter
 from gehomesdk.erd.converters.primitives import *
-from gehomesdk.erd.values.laundry import ErdLaundryDoorStatus, LaundryDoorStatus, LAUNDRY_DOOR_STATUS_MAP
+from gehomesdk.erd.values.laundry import ErdLaundryDoorStatus
 
 _LOGGER = logging.getLogger(__name__)
 
