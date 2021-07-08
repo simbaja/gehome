@@ -2,7 +2,7 @@ from gehomesdk.exception.ge_set_erd_not_allowed_error import GeSetErdNotAllowedE
 from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
 from ..primitives import *
 
-from gehomesdk.erd.values.waterfilter import ErdWaterFilterPosition
+from gehomesdk.erd.values.water_filter import ErdWaterFilterPosition
 
 
 class ErdFilterPositionConverter(ErdReadWriteConverter[ErdWaterFilterPosition]):

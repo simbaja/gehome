@@ -17,6 +17,7 @@ class ErdCodeClass(enum.IntFlag):
     COOLING_CONTROL = auto()
     TEMPERATURE_CONTROL = auto()
     PERCENTAGE = auto()
+    FLOW_RATE = auto()
     OVEN_SENSOR = auto()
     FRIDGE_SENSOR = auto()
     FREEZER_SENSOR = auto()
