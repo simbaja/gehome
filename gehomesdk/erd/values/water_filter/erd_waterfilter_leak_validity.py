@@ -2,9 +2,9 @@ import enum
 from typing import Optional
 
 @enum.unique
-class ErdWaterFilterLeakDetected(enum.Enum):
+class ErdWaterFilterLeakValidity(enum.Enum):
     HAS_LEAK = "01"
     NO_LEAK = "00"
 
     def boolify(self) -> Optional[bool]:
-        return self.value == ErdWaterFilterLeakDetected.HAS_LEAK
+        return self.value == ErdWaterFilterLeakValidity.HAS_LEAK

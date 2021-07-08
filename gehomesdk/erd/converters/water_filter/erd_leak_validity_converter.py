@@ -1,12 +1,12 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
-from gehomesdk.erd.values import ErdWaterFilterLeakDetected
+from gehomesdk.erd.values import ErdWaterFilterLeakValidity
 
 
-class ErdFilterLeakDetectedConverter(ErdReadOnlyConverter[ErdWaterFilterLeakDetected]):
-    def erd_decode(self, value) -> ErdWaterFilterLeakDetected:
+class ErdFilterLeakValidityConverter(ErdReadOnlyConverter[ErdWaterFilterLeakValidity]):
+    def erd_decode(self, value) -> ErdWaterFilterLeakValidity:
         try:
-            return ErdWaterFilterLeakDetected(value)
+            return ErdWaterFilterLeakValidity(value)
         except ValueError:
-            return ErdWaterFilterLeakDetected.NO_LEAK
+            return ErdWaterFilterLeakValidity.NO_LEAK
