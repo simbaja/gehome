@@ -7,7 +7,5 @@ from .washtemp_level import WashTempLevel
 from .washtemp_level_mapping import WASHTEMP_LEVEL_MAP
 from .dryness_level import DrynessLevel
 from .dryness_level_mapping import DRYNESS_LEVEL_MAP, DRYNESSNEW_LEVEL_MAP
-from .tank_status import TankStatus
-from .tank_status_mapping import TANK_STATUS_MAP
 from .ecodry_status import EcoDryStatus
 from .ecodry_status_mapping import ECODRY_STATUS_MAP
