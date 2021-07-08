@@ -175,7 +175,7 @@ _configuration = [
     ErdConfigurationEntry( ErdCode.WH_FILTER_DAY_USAGE, ErdReadOnlyIntConverter(), ErdCodeClass.WATERFILTER_SENSOR),
     ErdConfigurationEntry( ErdCode.WH_FILTER_FLOW_ALERT, ErdFilterAlertStateConverter(), ErdCodeClass.WATERFILTER_SENSOR),
     ErdConfigurationEntry( ErdCode.WH_FILTER_FLOW_ALERT_SETTINGS, ErdWaterFilterAlertSettingsConverter(), ErdCodeClass.WATERFILTER_SENSOR),
-    ErdConfigurationEntry( ErdCode.WH_FILTER_LEAK_VALIDITY, ErdFilterLeakValidityConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+    ErdConfigurationEntry( ErdCode.WH_FILTER_LEAK_VALIDITY, ErdFilterLeakDetectedConverter(), ErdCodeClass.WATERFILTER_SENSOR),
     ErdConfigurationEntry( ErdCode.WH_FILTER_MANUAL_MODE, ErdFilterManualModeConverter(), ErdCodeClass.WATERFILTER_SENSOR),
     ErdConfigurationEntry( ErdCode.WH_FILTER_LIFE_REMAINING, ErdWaterFilterLifeRemainingConverter(), ErdCodeClass.PERCENTAGE),
     ErdConfigurationEntry( ErdCode.WH_FILTER_POSITION, ErdFilterPositionConverter(), ErdCodeClass.WATERFILTER_SENSOR),
