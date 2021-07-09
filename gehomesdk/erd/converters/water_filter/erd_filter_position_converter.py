@@ -1,9 +1,8 @@
-from gehomesdk.exception.ge_set_erd_not_allowed_error import GeSetErdNotAllowedError
 from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
 from ..primitives import *
 
 from gehomesdk.erd.values import ErdWaterFilterPosition
-
+from gehomesdk.exception import GeSetErdNotAllowedError
 
 class ErdFilterPositionConverter(ErdReadWriteConverter[ErdWaterFilterPosition]):
     def erd_decode(self, value) -> ErdWaterFilterPosition:
