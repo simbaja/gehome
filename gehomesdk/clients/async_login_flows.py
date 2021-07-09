@@ -1,6 +1,7 @@
 from aiohttp import BasicAuth, ClientSession
 from lxml import etree
 from urllib.parse import urlparse, parse_qs
+import logging
 
 from ..exception import *
 from .const import (
@@ -14,6 +15,8 @@ try:
     import re2 as re
 except ImportError:
     import re
+
+_LOGGER = logging.getLogger(__name__)    
 
 async def async_get_oauth2_token(session: ClientSession, account_username: str, account_password: str):
     """Hackily get an oauth2 token until I can be bothered to do this correctly"""
@@ -52,7 +55,11 @@ async def async_get_oauth2_token(session: ClientSession, account_username: str, 
             raise GeAuthFailedError(await resp.text())
         if resp.status >= 500:
             raise GeGeneralServerError(await resp.text())
-        code = parse_qs(urlparse(resp.headers['Location']).query)['code'][0]
+        try:
+            code = parse_qs(urlparse(resp.headers['Location']).query)['code'][0]
+        except:
+            _LOGGER.exception(f"There was a problem getting the authorization code, full response: {resp}")
+            raise GeAuthFailedError(f'Could not obtain authorization code')
 
     post_data = {
         'code': code,
@@ -61,18 +68,22 @@ async def async_get_oauth2_token(session: ClientSession, account_username: str, 
         'redirect_uri': OAUTH2_REDIRECT_URI,
         'grant_type': 'authorization_code',
     }
-    auth = BasicAuth(OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SECRET)
-    async with session.post(f'{LOGIN_URL}/oauth2/token', data=post_data, auth=auth) as resp:
-        if 400 <= resp.status < 500:
-            raise GeAuthFailedError(await resp.text())
-        if resp.status >= 500:
-            raise GeGeneralServerError(await resp.text())
-        oauth_token = await resp.json()
     try:
-        access_token = oauth_token['access_token']
-        return oauth_token
-    except KeyError:
-        raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
+        auth = BasicAuth(OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SECRET)
+        async with session.post(f'{LOGIN_URL}/oauth2/token', data=post_data, auth=auth) as resp:
+            if 400 <= resp.status < 500:
+                raise GeAuthFailedError(await resp.text())
+            if resp.status >= 500:
+                raise GeGeneralServerError(await resp.text())
+            oauth_token = await resp.json()
+        try:
+            access_token = oauth_token['access_token']
+            return oauth_token
+        except KeyError:
+            raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
+    except:
+        _LOGGER.exception("Could not get OAuth token")
+        raise GeAuthFailedError(f'Could not get OAuth token')
 
 async def async_refresh_oauth2_token(session: ClientSession, refresh_token: str):
     """ Refreshes an OAuth2 Token based on a refresh token """
