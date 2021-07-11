@@ -321,10 +321,10 @@ class GeWebsocketClient(GeBaseClient):
                 "userId": "USER_ID",
                 "applianceId": "APPLIANCE_MAC",
                 "features":[
-                    {"CLOTHES_WASHER_V1_SMART_DISPENSE",
+                    "CLOTHES_WASHER_V1_SMART_DISPENSE",
                      "CLOTHES_WASHER_V1_WASHER_LINK",
                      "MORE_FEATURES_IF_AVAILABLE"
-                    },
+                    ],
                 ],
             }
 
@@ -335,16 +335,10 @@ class GeWebsocketClient(GeBaseClient):
             raise ValueError("Not an applianceFeature")
         items = body["features"]
         mac_addr = body["applianceId"].upper()
-        for item in items:
-     #       online = item['online'].upper() == "ONLINE"
-                _LOGGER.debug(f'Received feature {item} for {mac_addr}')
+        _LOGGER.debug(f'Received features {items} for {mac_addr}')
+        if mac_addr in self.appliances:
+            await self._set_appliance_features(self.appliances[mac_addr], items)        
 
-            #if we already have the appliance, just update it's online status
-    #        if mac_addr in self.appliances:
-   #             await self._set_appliance_availability(self.appliances[mac_addr], online)
-  #              continue
-
- #           await self._add_appliance(mac_addr, online)
         await self.async_event(EVENT_GOT_APPLIANCE_FEATURES, items)
 
     async def _process_cache_update(self, message_dict: Dict):

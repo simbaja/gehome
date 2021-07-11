@@ -254,6 +254,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             appliance.set_unavailable()
             await self.async_event(EVENT_APPLIANCE_UNAVAILABLE, appliance)
 
+    async def _set_appliance_features(self, appliance: GeAppliance, features: List[str]):
+        appliance.features = features
+
     async def _set_state(self, new_state: GeClientState) -> bool:
         """ Indicate that the state changed and raise an event """
         if self._state != new_state:

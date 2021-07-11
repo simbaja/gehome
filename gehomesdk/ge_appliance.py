@@ -3,7 +3,7 @@
 import enum
 import logging
 from weakref import WeakValueDictionary
-from typing import Any, Dict, Optional, Set, TYPE_CHECKING, Union
+from typing import Any, List, Dict, Optional, Set, TYPE_CHECKING, Union
 from slixmpp import JID
 
 from .erd import ErdCode, ErdCodeType, ErdCodeClass, ErdApplianceType, ErdEncoder
@@ -48,6 +48,7 @@ class GeAppliance:
         self._mac_addr = mac_addr.upper()
         self._message_id = 0
         self._property_cache = {}  # type: Dict[ErdCodeType, Any]
+        self._features = []
         self.client = client
         self.initialized = False
         self._encoder = ErdEncoder()
@@ -59,6 +60,15 @@ class GeAppliance:
     @property
     def known_properties(self) -> Set[ErdCodeType]:
         return set(self._property_cache)
+
+    @property
+    def features(self) -> List[str]:
+        return List(self._features)
+
+    @features.setter
+    def set_features(self, features: List[str]):
+        """Sets the features for this appliance"""
+        self._features = List(features)        
 
     async def get_messages(self):
         await self.client.async_request_message(self)
@@ -180,7 +190,7 @@ class GeAppliance:
         }
 
         return state_changes
-
+        
     def stringify_erd_value(self, value: Any, **kwargs) -> Optional[str]:
         """
         Stringifies a code value if possible.  If it can't be stringified, returns none.
