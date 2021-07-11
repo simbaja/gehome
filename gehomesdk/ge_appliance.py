@@ -63,12 +63,12 @@ class GeAppliance:
 
     @property
     def features(self) -> List[str]:
-        return List(self._features)
+        return list(self._features)
 
     @features.setter
-    def set_features(self, features: List[str]):
+    def features(self, value: List[str]):
         """Sets the features for this appliance"""
-        self._features = List(features)        
+        self._features = list(value)        
 
     async def get_messages(self):
         await self.client.async_request_message(self)

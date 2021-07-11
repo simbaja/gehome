@@ -325,7 +325,7 @@ class GeWebsocketClient(GeBaseClient):
                      "CLOTHES_WASHER_V1_WASHER_LINK",
                      "MORE_FEATURES_IF_AVAILABLE"
                     ],
-                ],
+                },
             }
 
         :param message_dict:
