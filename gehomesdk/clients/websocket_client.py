@@ -115,7 +115,10 @@ class GeWebsocketClient(GeBaseClient):
                 await self._get_appliance_list()
                 try:
                     async for message in CancellableAsyncIterator(socket, self._disconnect_requested):
-                        await self._process_message(message)
+                        try:
+                            await self._process_message(message)
+                        except GeRequestError as err:
+                            _LOGGER.exception("Could not process request")
                 except websockets.WebSocketException:
                     _LOGGER.error("Unknown error reading socket")
                 except RuntimeError as err:
@@ -173,7 +176,7 @@ class GeWebsocketClient(GeBaseClient):
 
     async def async_request_message(self, appliance: GeAppliance):
         """Request an appliance get notification history"""
-        _LOGGER.debug(f"Requesting update for client {appliance.mac_addr}")
+        _LOGGER.debug(f"Requesting notification history for client {appliance.mac_addr}")
         msg_dict = {
             "kind": "websocket#api",
             "action": "api",
@@ -237,6 +240,7 @@ class GeWebsocketClient(GeBaseClient):
         try:
             kind = message_dict['kind']
         except KeyError:
+            _LOGGER.debug(f"Could not get message kind, skipping message: {message_dict}")
             return
 
         #if we have a response that indicates success, check it
@@ -260,6 +264,8 @@ class GeWebsocketClient(GeBaseClient):
                 await self._process_pending_erd(message_id)
             elif f"-{ALL_ERD}" in message_id:
                 await self._process_cache_update(message_dict)
+            else:
+                _LOGGER.debug(f"Unknown message received: {message_dict}")
 
     async def _process_appliance_list(self, message_dict: Dict):
         """
@@ -429,7 +435,7 @@ class GeWebsocketClient(GeBaseClient):
                 await self._send_ping()
 
     async def _refresh_appliances(self, frequency: int = LIST_APPLIANCES_FREQUENCY):
-        """Send periodic pings to keep the connection alive."""
+        """Refresh the appliances list to detect changes over time."""
         while self.available:
             await asyncio.sleep(frequency)
             if self.available:
@@ -439,7 +445,7 @@ class GeWebsocketClient(GeBaseClient):
     async def _subscribe_all(self):
         """Subscribe to all appliances."""
         msg_dict = {"kind": "websocket#subscribe", "action": "subscribe", "resources": ["/appliance/*/erd/*"]}
-        await self._send_dict(msg_dict)
+        await self._send_dict(msg_dict)   
 
     async def _subscribe_appliances(self, appliances: List[GeAppliance]):
         """Subscribe to a list of appliances."""
