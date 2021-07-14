@@ -21,7 +21,7 @@ class SheetUsageConfigurationConverter(ErdReadOnlyConverter[ErdSheetUsageConfigu
                 LargeLoadSize = int_values[1],
                 mediumLoadSize = int_values[2],
                 smallLoadSize = int_values[3],
-                timedDryerSheetsLoadSize = int_vaules[4],
+                timedDryerSheetsLoadSize = int_values[4],
                 raw_value=value
             )
         except Exception as ex: 
