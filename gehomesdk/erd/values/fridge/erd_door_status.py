@@ -10,11 +10,11 @@ class ErdDoorStatus(enum.Enum):
     NA = "FF"
 
     def boolify(self) -> Optional[bool]:
-        if self.value == ErdDoorStatus.NA:
+        if self == ErdDoorStatus.NA:
             return None
         return self.value == ErdDoorStatus.OPEN
 
     def stringify(self, **kwargs) -> Optional[str]:
-        if self.value == ErdDoorStatus.NA:
+        if self == ErdDoorStatus.NA:
             return None
         return self.name.title()

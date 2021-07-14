@@ -10,11 +10,11 @@ class ErdDishwasherDoorStatus(enum.Enum):
     NA = 255
 
     def boolify(self) -> Optional[bool]:
-        if self.value == ErdDishwasherDoorStatus.NA:
+        if self == ErdDishwasherDoorStatus.NA:
             return None
         return self.value == ErdDishwasherDoorStatus.OPEN
 
     def stringify(self, **kwargs) -> Optional[str]:
-        if self.value == ErdDishwasherDoorStatus.NA:
+        if self == ErdDishwasherDoorStatus.NA:
             return None
         return self.name.title()

@@ -85,9 +85,9 @@ class ErdLaundryCycle(enum.Enum):
     AUTO_DAMP_DRY = 149
 
     def stringify(self, **kwargs):
-        if self.value == ErdLaundryCycle.INVALID:
+        if self == ErdLaundryCycle.INVALID:
             return "---"
-        return self.name.replace("_"," ").title()      
+        return self.name.replace("_"," ").replace("2", "").title()      
 
 @enum.unique
 class ErdLaundryDoorStatus(enum.Enum):
@@ -122,7 +122,7 @@ class ErdLaundrySubCycle(enum.Enum):
     AIR_FLUFF = 133
 
     def stringify(self, **kwargs):
-        if self.value == ErdLaundrySubCycle.CYCLE_NONE:
+        if self == ErdLaundrySubCycle.CYCLE_NONE:
             return "---"
         return self.name.replace("_"," ").title()    
 
@@ -151,7 +151,7 @@ class ErdRinseOption(enum.Enum):
     EXTRA_HEAVY = 5
 
     def stringify(self, **kwargs):
-        if self.value == ErdRinseOption.INVALID:
+        if self == ErdRinseOption.INVALID:
             return "---"
         return self.name.replace("_"," ").title()        
 
@@ -189,7 +189,7 @@ class ErdSoilLevel(enum.Enum):
     INVALID = 5
 
     def stringify(self, **kwargs):
-        if self.value == ErdSoilLevel.INVALID:
+        if self == ErdSoilLevel.INVALID:
             return "---"
         return self.name.replace("_"," ").title()      
 
@@ -203,7 +203,7 @@ class ErdSpinTimeLevel(enum.Enum):
     DISABLE = 5
 
     def stringify(self, **kwargs):
-        if self.value == ErdSpinTimeLevel.DISABLE:
+        if self == ErdSpinTimeLevel.DISABLE:
             return "---"        
         return self.name.replace("_"," ").title()        
 
@@ -216,7 +216,7 @@ class ErdTankSelected(enum.Enum):
     INVALID = 4
 
     def stringify(self, **kwargs):
-        if self.value == ErdTankSelected.INVALID:
+        if self == ErdTankSelected.INVALID:
             return "---"           
         return self.name.title()        
 
@@ -253,7 +253,7 @@ class ErdTumbleStatus(enum.Enum):
     DISABLE = 0
 
     def stringify(self, **kwargs):
-        if self.value == ErdTumbleStatus.NOT_AVAILABLE:
+        if self == ErdTumbleStatus.NOT_AVAILABLE:
             return "N/A"
         return self.name.replace("_"," ").title()         
 
@@ -275,3 +275,8 @@ class ErdWashTempLevel(enum.Enum):
     WARM_2 = 20
     HOT_2 = 21
     EXTRA_HOT_2 = 22
+
+    def stringify(self, **kwargs):
+        if self == ErdWashTempLevel.INVALID:
+            return "---"
+        return self.name.replace("_"," ").title()         
