@@ -275,8 +275,3 @@ class ErdWashTempLevel(enum.Enum):
     WARM_2 = 20
     HOT_2 = 21
     EXTRA_HOT_2 = 22
-
-    def stringify(self, **kwargs):
-        if self == ErdWashTempLevel.INVALID:
-            return "---"
-        return self.name.replace("_"," ").title()         
