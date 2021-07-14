@@ -12,3 +12,4 @@ from .tank_selected_converter import TankSelectedConverter
 from .tumble_status_converter import TumbleStatusConverter
 from .sheet_usage_configuration_converter import SheetUsageConfigurationConverter
 from .ecodry_status_converter import EcoDryStatusConverter
+from .smart_dispense_converter import SmartDispenseConverter

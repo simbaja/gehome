@@ -163,6 +163,22 @@ class ErdSheetUsageConfiguration (NamedTuple):
     timedDryerSheetsLoadSize: int = 0
     raw_value: Optional[str] = None
 
+class ErdSmartDispense (NamedTuple):
+    setting: str = None
+    raw_value: Optional[str] = None
+
+@enum.unique
+class ErdSmartDispenseSetting(enum.Enum):
+    PREWASH_MORE = 3
+    PREWASH_AUTO = 4
+    MORE = 6
+    PREWASH_LESS = 7
+    AUTO_OFF = 8
+    LESS = 14
+
+    def stringify(self, **kwargs):
+        return self.name.replace("PREWASH_"," ").title()      
+
 @enum.unique
 class ErdSoilLevel(enum.Enum):
     EXTRA_LIGHT = 0
