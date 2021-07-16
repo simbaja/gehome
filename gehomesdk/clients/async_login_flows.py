@@ -58,7 +58,7 @@ async def async_get_oauth2_token(session: ClientSession, account_username: str, 
         try:
             code = parse_qs(urlparse(resp.headers['Location']).query)['code'][0]
         except:
-            _LOGGER.exception(f"There was a problem getting the authorization code, full response: {resp}")
+            _LOGGER.exception(f"There was a problem getting the authorization code, full response: {resp.__dict__}")
             raise GeAuthFailedError(f'Could not obtain authorization code')
 
     post_data = {
