@@ -11,6 +11,6 @@ class ErdFilterStatus(enum.Enum):
     NA = "FF"
 
     def stringify(self, **kwargs) -> Optional[str]:
-        if(self.value == ErdFilterStatus.NA):
+        if(self == ErdFilterStatus.NA):
             return "N/A"
         return self.name.title()

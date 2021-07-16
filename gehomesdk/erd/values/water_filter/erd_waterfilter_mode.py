@@ -10,6 +10,6 @@ class ErdWaterFilterMode(enum.Enum):
     UNKNOWN = -1
 
     def stringify(self, **kwargs) -> Optional[str]:
-        if self.value == ErdWaterFilterMode.UNKNOWN:
+        if self == ErdWaterFilterMode.UNKNOWN:
             return None
         return self.name.title()
