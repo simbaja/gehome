@@ -14,5 +14,5 @@ class AdvantiumCookSetting(NamedTuple):
     target_temperature_120v_f: Optional[int] = None
     target_temperature_240v_f: Optional[int] = None
     target_power_level: Optional[int] = None
-    default_cook_time: int = 60
+    default_cook_time: int = 0
     allow_temperature_set: bool = False
