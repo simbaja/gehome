@@ -199,7 +199,7 @@ class GeAppliance:
         """
 
         try:
-            if not value:
+            if value is None:
                 return None
 
             stringify_op = getattr(value, "stringify", None)
@@ -218,7 +218,7 @@ class GeAppliance:
         """
 
         try:
-            if not value:
+            if value is None:
                 return None
             if isinstance(value, bool):
                 return value
