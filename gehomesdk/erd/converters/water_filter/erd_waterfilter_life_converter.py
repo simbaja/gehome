@@ -9,12 +9,13 @@ class ErdWaterFilterLifeRemainingConverter(
 ):
     def erd_decode(self, value: str) -> ErdWaterFilterLifeRemaining:
         # TODO:what are value[8:24]?
-        # It looks like this is a bigint in the SmartHQ application... maybe nothing else needed here?
-        # Left it as a named tuple in case we need to do more.
+        # From the comfort app, it looks like it's breaking it into two
+        # parts, each 8 characters.  It looks like a max lifetime and used
+        # lifetime, but the math doesn't work right
         try:
-            seconds = erd_decode_int(value[0:8])
+            pct = erd_decode_int(value[0:8])
             return ErdWaterFilterLifeRemaining(
-                life_remaining=timedelta(seconds=seconds)
+                life_remaining=pct
             )            
         except:
             return ErdWaterFilterLifeRemaining()
