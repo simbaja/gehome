@@ -18,7 +18,7 @@ class ErdIntConverter(ErdReadWriteConverter[int]):
         return erd_decode_int(value)
     def erd_encode(self, value) -> str:
         """Encode an integer value as a hex string."""
-        return erd_encode_int(value)
+        return erd_encode_int(value, self.length)
 
 class ErdReadOnlyIntConverter(ErdReadOnlyConverter[int]):
     def erd_decode(self, value: str) -> int:
