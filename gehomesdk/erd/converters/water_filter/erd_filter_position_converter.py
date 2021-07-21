@@ -14,4 +14,4 @@ class ErdFilterPositionConverter(ErdReadWriteConverter[ErdWaterFilterPosition]):
     def erd_encode(self, new_position: ErdWaterFilterPosition) -> str:
         if new_position == ErdWaterFilterPosition.UNKNOWN:
             raise GeSetErdNotAllowedError(new_position)
-        return erd_encode_int(new_position.value)
+        return erd_encode_int(new_position.value, 1)

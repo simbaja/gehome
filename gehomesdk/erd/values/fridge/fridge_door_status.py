@@ -8,6 +8,7 @@ class FridgeDoorStatus(NamedTuple):
     drawer: ErdDoorStatus
     status: str
 
+    @property
     def any_open(self) -> Optional[bool]:
         if self.status.lower().endswith("open"):
             return True
