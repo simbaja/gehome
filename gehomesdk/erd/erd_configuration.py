@@ -129,6 +129,8 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DOOR, LaundryDoorStatusConverter(), ErdCodeClass.DOOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_CYCLE, LaundryCycleConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_REMOTE_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_REMOTE_DELAY_CONTROL, ErdIntConverter(length=2), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_REMOTE_POWER_CONTROL, ErdIntConverter(length=1), ErdCodeClass.LAUNDRY_SENSOR),
 
     # Laundry - Washer
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_DOOR_LOCK, ErdReadOnlyBoolConverter(), ErdCodeClass.LOCK_CONTROL),
@@ -138,6 +140,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_WASHTEMP_LEVEL, WashTempLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_SPINTIME_LEVEL, SpinTimeLevelConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_RINSE_OPTION, RinseOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_SMART_DISPENSE_TANK_STATUS, SmartDispenseTankStatusConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_SMART_DISPENSE, SmartDispenseConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_TIMESAVER, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_POWERSTEAM, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
