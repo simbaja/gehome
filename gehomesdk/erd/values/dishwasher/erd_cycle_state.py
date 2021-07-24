@@ -35,3 +35,8 @@ class ErdCycleState(enum.Enum):
     SANITIZING = 5
     RINSING = 6
     PAUSE = 7
+
+    def stringify(self, **kwargs):
+        if self == ErdCycleState.NA:
+            return "N/A"
+        return self.name.replace("_"," ").title()    

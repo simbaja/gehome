@@ -11,4 +11,6 @@ class OperatingMode(enum.Enum):
     CONTROL_LOCKED = "control_locked"
     
     def stringify(self, **kwargs):
+        if self == OperatingMode.STATUS_DASH:
+            return "None"
         return self.name.replace("STATUS_","").replace("_"," ").title()
