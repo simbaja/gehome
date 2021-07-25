@@ -6,9 +6,22 @@ will probably need to wait on some new entity types.
 **Forked from Andrew Mark's [repository](https://github.com/ajmarks/gekitchen).**
 
 ## Installation
+
 ```pip install gehomesdk```
 
 ## Usage
+
+### Credentials
+
+Create a `secrets.py` and place in the `examples` directory.  It should contain the following:
+
+```
+USERNAME = "your@email.com"
+PASSWORD = "supersecret"
+```
+
+You will need to replace the username/password values with your credentials.  After that, you can run the `websocket_example.py` (**preferred**) or `xmpp_example.py` sample files.  These will generate information about your appliances and are useful if you'd like to help implement more functionality.
+
 ### Simple example
 Here we're going to run the client in a pre-existing event loop.  We're also going to register some event callbacks
 to update appliances every five minutes and to turn on our oven the first time we see it.  Because that is safe!
