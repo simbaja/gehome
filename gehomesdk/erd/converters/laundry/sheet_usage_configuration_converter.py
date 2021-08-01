@@ -17,11 +17,11 @@ class SheetUsageConfigurationConverter(ErdReadOnlyConverter[ErdSheetUsageConfigu
             int_values = list(map(erd_decode_int, values))
             
             return ErdSheetUsageConfiguration(
-                extraLargeLoadSize = int_values[0],
-                LargeLoadSize = int_values[1],
-                mediumLoadSize = int_values[2],
-                smallLoadSize = int_values[3],
-                timedDryerSheetsLoadSize = int_values[4],
+                extra_large_load_size = int_values[0],
+                large_load_size = int_values[1],
+                medium_load_size = int_values[2],
+                small_load_size = int_values[3],
+                timed_dryer_sheets_load_size = int_values[4],
                 raw_value=value
             )
         except Exception as ex: 

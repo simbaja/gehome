@@ -156,12 +156,15 @@ class ErdRinseOption(enum.Enum):
         return self.name.replace("_"," ").title()        
 
 class ErdSheetUsageConfiguration (NamedTuple):
-    extraLargeLoadSize: int = 0
-    LargeLoadSize: int = 0
-    mediumLoadSize: int = 0
-    smallLoadSize: int = 0
-    timedDryerSheetsLoadSize: int = 0
+    extra_large_load_size: int = 0
+    large_load_size: int = 0
+    medium_load_size: int = 0
+    small_load_size: int = 0
+    timed_dryer_sheets_load_size: int = 0
     raw_value: Optional[str] = None
+
+    def stringify(self, **kwargs):
+        return f"S:{self.small_load_size}, M:{self.medium_load_size}, L:{self.large_load_size}, XL:{self.extra_large_load_size}, Timed:{self.timed_dryer_sheets_load_size}"
 
 class ErdSmartDispense (NamedTuple):
     loads_left: int = 0
