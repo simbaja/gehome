@@ -1,5 +1,3 @@
-from gehomesdk.erd.converters.advantium.erd_advantium_cook_status_converter import ErdAdvantiumCookStatusConverter
-from gehomesdk.erd.values.advantium.erd_advantium_kitchen_timer_min_max import ErdAdvantiumKitchenTimerMinMax
 from typing import Any
 from .erd_code_class import ErdCodeClass
 from .erd_codes import ErdCode
@@ -156,7 +154,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_TEMPERATURENEW_OPTION, TemperatureNewOptionConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_LEVEL_SENSOR_DISABLED, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_SHEET_USAGE_CONFIGURATION, SheetUsageConfigurationConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_SHEET_INVENTORY, ErdIntConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_SHEET_INVENTORY, ErdIntConverter(), ErdCodeClass.COUNTER),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_ECODRY_STATUS, EcoDryStatusConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_WASHERLINK_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR),
 
@@ -187,4 +185,14 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.WH_FILTER_MANUAL_MODE, ErdFilterManualModeConverter(), ErdCodeClass.WATERFILTER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_FILTER_LIFE_REMAINING, ErdWaterFilterLifeRemainingConverter(), ErdCodeClass.PERCENTAGE),
     ErdConfigurationEntry(ErdCode.WH_FILTER_POSITION, ErdFilterPositionConverter(), ErdCodeClass.WATERFILTER_SENSOR),
+
+    #Window AC
+    ErdConfigurationEntry(ErdCode.WAC_TARGET_TEMPERATURE, ErdTargetTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
+    ErdConfigurationEntry(ErdCode.WAC_FAN_SETTING, ErdFanSettingConverter(), ErdCodeClass.WAC_SENSOR),
+    ErdConfigurationEntry(ErdCode.WAC_OPERATION_MODE, ErdWacOperationModeConverter(), ErdCodeClass.WAC_SENSOR),
+    ErdConfigurationEntry(ErdCode.WAC_AMBIENT_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
+    ErdConfigurationEntry(ErdCode.WAC_FILTER_STATUS, ErdWacFilterStatusConverter(), ErdCodeClass.WAC_SENSOR),
+    ErdConfigurationEntry(ErdCode.WAC_POWER_STATUS, ErdOnOffConverter(), ErdCodeClass.WAC_SENSOR),
+    ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_POWER, ErdWacDemandResponsePowerConverter(), ErdCodeClass.PERCENTAGE),
+    ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_STATE, ErdWacDemandResponseStateConverter(), ErdCodeClass.WAC_SENSOR),
 ]

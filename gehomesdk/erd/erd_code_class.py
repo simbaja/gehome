@@ -30,3 +30,4 @@ class ErdCodeClass(enum.IntFlag):
     MICROWAVE_SENSOR = auto()
     ADVANTIUM_SENSOR = auto()
     WATERFILTER_SENSOR = auto()
+    WAC_SENSOR = auto()
