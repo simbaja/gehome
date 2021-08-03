@@ -186,13 +186,21 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.WH_FILTER_LIFE_REMAINING, ErdWaterFilterLifeRemainingConverter(), ErdCodeClass.PERCENTAGE),
     ErdConfigurationEntry(ErdCode.WH_FILTER_POSITION, ErdFilterPositionConverter(), ErdCodeClass.WATERFILTER_SENSOR),
 
+    #AC
+    ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
+    ErdConfigurationEntry(ErdCode.AC_FAN_SETTING, ErdAcFanSettingConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.AC_OPERATION_MODE, ErdAcOperationModeConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.AC_AMBIENT_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
+    ErdConfigurationEntry(ErdCode.AC_FILTER_STATUS, ErdAcFilterStatusConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.AC_POWER_STATUS, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
+    
     #Window AC
-    ErdConfigurationEntry(ErdCode.WAC_TARGET_TEMPERATURE, ErdTargetTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
-    ErdConfigurationEntry(ErdCode.WAC_FAN_SETTING, ErdFanSettingConverter(), ErdCodeClass.WAC_SENSOR),
-    ErdConfigurationEntry(ErdCode.WAC_OPERATION_MODE, ErdWacOperationModeConverter(), ErdCodeClass.WAC_SENSOR),
-    ErdConfigurationEntry(ErdCode.WAC_AMBIENT_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
-    ErdConfigurationEntry(ErdCode.WAC_FILTER_STATUS, ErdWacFilterStatusConverter(), ErdCodeClass.WAC_SENSOR),
-    ErdConfigurationEntry(ErdCode.WAC_POWER_STATUS, ErdOnOffConverter(), ErdCodeClass.WAC_SENSOR),
     ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_POWER, ErdWacDemandResponsePowerConverter(), ErdCodeClass.PERCENTAGE),
-    ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_STATE, ErdWacDemandResponseStateConverter(), ErdCodeClass.WAC_SENSOR),
+    ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_STATE, ErdWacDemandResponseStateConverter(), ErdCodeClass.AC_SENSOR),
+
+    #Split AC
+    ErdConfigurationEntry(ErdCode.SAC_AVAILABLE_MODES, ErdSacAvailableModesConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.SAC_SLEEP_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.SAC_TARGET_TEMPERATURE_RANGE, ErdSacTargetTemperatureRangeConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.SAC_AUTO_SWING_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
 ]

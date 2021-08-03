@@ -2,7 +2,7 @@ import enum
 from typing import NamedTuple, Optional
 
 @enum.unique
-class ErdFanSetting(enum.Enum):
+class ErdAcFanSetting(enum.Enum):
     DEFAULT = 0
     AUTO = 1
     LOW = 2
@@ -16,7 +16,7 @@ class ErdFanSetting(enum.Enum):
         return self.name.replace("_"," ").title()      
 
 @enum.unique
-class ErdWacOperationMode(enum.Enum):
+class ErdAcOperationMode(enum.Enum):
     COOL = 0
     FAN_ONLY = 1
     ENERGY_SAVER = 2
@@ -29,7 +29,7 @@ class ErdWacOperationMode(enum.Enum):
         return self.name.replace("_"," ").title()
 
 @enum.unique
-class ErdWacFilterStatus(enum.Enum):
+class ErdAcFilterStatus(enum.Enum):
     OK = 0
     CLEAN = 1
     DEFAULT = -1
@@ -38,7 +38,7 @@ class ErdWacFilterStatus(enum.Enum):
         return self.name.replace("_"," ").title()
 
     def boolify(self) -> Optional[bool]:
-        return self.value != ErdWacFilterStatus.OK
+        return self.value != ErdAcFilterStatus.OK
 
 @enum.unique
 class ErdWacDemandResponseState(enum.Enum):

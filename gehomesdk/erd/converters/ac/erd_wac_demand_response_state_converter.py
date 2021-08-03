@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.wac import *
+from gehomesdk.erd.values.ac import *
 
 class ErdWacDemandResponseStateConverter(ErdReadOnlyConverter[ErdWacDemandResponseState]):
     def erd_decode(self, value: str) -> ErdWacDemandResponseState:

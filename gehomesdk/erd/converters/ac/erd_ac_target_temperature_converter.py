@@ -1,8 +1,8 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.wac import *
+from gehomesdk.erd.values.ac import *
 
-class ErdTargetTemperatureConverter(ErdReadWriteConverter[int]):
+class ErdAcTargetTemperatureConverter(ErdReadWriteConverter[int]):
     def erd_decode(self, value: str) -> int:
         try:
             return erd_decode_int(value)
