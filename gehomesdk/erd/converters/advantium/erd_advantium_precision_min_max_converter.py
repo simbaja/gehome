@@ -11,11 +11,11 @@ class ErdAdvantiumPrecisionMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumPrec
 
         return ErdAdvantiumPrecisionMinMax(
             is_valid=True,
-            min_time=erd_decode_timespan_seconds(value[0:2]),
-            max_time=erd_decode_timespan_seconds(value[4:8]),
-            custom_low_min_time=erd_decode_timespan_seconds(value[8:12]),
-            custom_low_max_time=erd_decode_timespan_seconds(value[12:16]),
-            custom_high_min_time=erd_decode_timespan_seconds(value[16:20]),
-            custom_high_max_time=erd_decode_timespan_seconds(value[20:24]),
+            min_time=erd_decode_timespan(value[0:2], uom="seconds"),
+            max_time=erd_decode_timespan(value[4:8], uom="seconds"),
+            custom_low_min_time=erd_decode_timespan(value[8:12], uom="seconds"),
+            custom_low_max_time=erd_decode_timespan(value[12:16], uom="seconds"),
+            custom_high_min_time=erd_decode_timespan(value[16:20], uom="seconds"),
+            custom_high_max_time=erd_decode_timespan(value[20:24], uom="seconds"),
             raw_value=value
         )
