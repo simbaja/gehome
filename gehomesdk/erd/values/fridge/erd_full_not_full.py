@@ -10,4 +10,4 @@ class ErdFullNotFull(enum.Enum):
     def boolify(self) -> Optional[bool]:
         if self == ErdFullNotFull.NA:
             return None
-        return self.value == ErdFullNotFull.FULL
+        return self == ErdFullNotFull.FULL

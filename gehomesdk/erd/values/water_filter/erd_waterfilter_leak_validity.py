@@ -7,4 +7,4 @@ class ErdWaterFilterLeakValidity(enum.Enum):
     NO_LEAK = "00"
 
     def boolify(self) -> Optional[bool]:
-        return self.value == ErdWaterFilterLeakValidity.HAS_LEAK
+        return self == ErdWaterFilterLeakValidity.HAS_LEAK

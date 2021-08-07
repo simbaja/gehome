@@ -38,4 +38,4 @@ class ErdAcFilterStatus(enum.Enum):
         return self.name.replace("_"," ").title()
 
     def boolify(self) -> Optional[bool]:
-        return self.value != ErdAcFilterStatus.OK
+        return self != ErdAcFilterStatus.OK

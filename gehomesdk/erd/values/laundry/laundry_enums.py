@@ -96,10 +96,10 @@ class ErdLaundryDoorStatus(enum.Enum):
     UNKNOWN = 255
 
     def stringify(self, **kwargs):
-        return self.value.title()      
+        return self.name.title()      
 
     def boolify(self) -> Optional[bool]:
-        return self.value == ErdLaundryDoorStatus.OPEN
+        return self == ErdLaundryDoorStatus.OPEN
 
 @enum.unique
 class ErdLaundrySubCycle(enum.Enum):
@@ -260,7 +260,7 @@ class ErdTumbleStatus(enum.Enum):
         return self.name.replace("_"," ").title()         
 
     def boolify(self) -> Optional[bool]:
-        return self.value == ErdTumbleStatus.ENABLE
+        return self == ErdTumbleStatus.ENABLE
 
 @enum.unique
 class ErdWashTempLevel(enum.Enum):

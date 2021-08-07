@@ -7,7 +7,7 @@ class CoolingFanStatus(enum.Enum):
     ON = 1
 
     def boolify(self) -> Optional[bool]:
-        return self.value == CoolingFanStatus.ON
+        return self == CoolingFanStatus.ON
 
 @enum.unique
 class TerminationReason(enum.Enum):
@@ -31,7 +31,7 @@ class DoorStatus(enum.Enum):
     CLOSED = 1
 
     def boolify(self) -> Optional[bool]:
-        return self.value == DoorStatus.OPEN    
+        return self == DoorStatus.OPEN    
 
 @enum.unique
 class CookAction(enum.Enum):
@@ -66,7 +66,7 @@ class OvenLightStatus(enum.Enum):
     ON = 1
 
     def boolify(self) -> Optional[bool]:
-        return self.value == OvenLightStatus.ON    
+        return self == OvenLightStatus.ON    
 
 @enum.unique
 class PreheatStatus(enum.Enum):
@@ -80,4 +80,4 @@ class SensingActive(enum.Enum):
     ACTIVE = 1
 
     def boolify(self) -> Optional[bool]:
-        return self.value == SensingActive.ACTIVE    
+        return self == SensingActive.ACTIVE    

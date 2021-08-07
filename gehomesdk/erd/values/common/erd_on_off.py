@@ -8,4 +8,4 @@ class ErdOnOff(enum.Enum):
     NA = "FF"
 
     def boolify(self) -> Optional[bool]:
-        return self.value == ErdOnOff.ON   
+        return self == ErdOnOff.ON   

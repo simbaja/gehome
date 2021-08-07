@@ -10,4 +10,4 @@ class ErdWaterFilterManualMode(enum.Enum):
         return self.name.replace("_"," ").title()
 
     def boolify(self) -> Optional[bool]:
-        return self.value == ErdWaterFilterManualMode.MANUAL
+        return self == ErdWaterFilterManualMode.MANUAL

@@ -12,7 +12,7 @@ class ErdDoorStatus(enum.Enum):
     def boolify(self) -> Optional[bool]:
         if self == ErdDoorStatus.NA:
             return None
-        return self.value == ErdDoorStatus.OPEN
+        return self == ErdDoorStatus.OPEN
 
     def stringify(self, **kwargs) -> Optional[str]:
         if self == ErdDoorStatus.NA:
