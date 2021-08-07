@@ -122,8 +122,8 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_MACHINE_STATE, MachineStateConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_SUB_CYCLE, LaundrySubCycleConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_END_OF_CYCLE, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_TIME_REMAINING, ErdTimeSpanSecondsConverter(), ErdCodeClass.TIMER),
-    ErdConfigurationEntry(ErdCode.LAUNDRY_DELAY_TIME_REMAINING, ErdTimeSpanSecondsConverter(), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_TIME_REMAINING, ErdTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DELAY_TIME_REMAINING, ErdTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DOOR, LaundryDoorStatusConverter(), ErdCodeClass.DOOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_CYCLE, LaundryCycleConverter(), ErdCodeClass.LAUNDRY_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_REMOTE_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR),
@@ -162,7 +162,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR),
 
     # Advantium
-    ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanSecondsConverter(), ErdCodeClass.TIMER),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_REMAINING, ErdAdvantiumCookTimeRemainingConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_ADJUST, ErdAdvantiumCookTimeAdjustConverter() , ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_REMOTE_COOK_MODE_CONFIG, ErdAdvantiumRemoteCookModeConfigConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
