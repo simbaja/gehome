@@ -187,10 +187,10 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.WH_FILTER_POSITION, ErdFilterPositionConverter(), ErdCodeClass.WATERFILTER_SENSOR),
 
     #AC
-    ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
+    ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.AC_FAN_SETTING, ErdAcFanSettingConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.AC_OPERATION_MODE, ErdAcOperationModeConverter(), ErdCodeClass.AC_SENSOR),
-    ErdConfigurationEntry(ErdCode.AC_AMBIENT_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.TEMPERATURE_CONTROL),
+    ErdConfigurationEntry(ErdCode.AC_AMBIENT_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.AC_FILTER_STATUS, ErdAcFilterStatusConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.AC_POWER_STATUS, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
     
