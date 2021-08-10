@@ -195,7 +195,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.AC_POWER_STATUS, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
     
     #Window AC
-    ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_POWER, ErdWacDemandResponsePowerConverter(), ErdCodeClass.PERCENTAGE),
+    ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_POWER, ErdWacDemandResponsePowerConverter(), ErdCodeClass.POWER),
     ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_STATE, ErdWacDemandResponseStateConverter(), ErdCodeClass.AC_SENSOR),
 
     #Split AC

@@ -19,6 +19,8 @@ class ErdCodeClass(enum.IntFlag):
     PERCENTAGE = auto()
     FLOW_RATE = auto()
     LIQUID_VOLUME = auto()
+    POWER = auto()
+    ENERGY = auto()
     OVEN_SENSOR = auto()
     FRIDGE_SENSOR = auto()
     FREEZER_SENSOR = auto()
