@@ -203,4 +203,9 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.SAC_SLEEP_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_TARGET_TEMPERATURE_RANGE, ErdSacTargetTemperatureRangeConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_AUTO_SWING_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
+
+    #Hood
+    ErdConfigurationEntry(ErdCode.HOOD_LIGHT_MODE, ErdHoodLightSettingConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_FAN_MODE, ErdHoodFanSettingConverter(), ErdCodeClass.HOOD_SENSOR),
+
 ]
