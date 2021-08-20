@@ -1,4 +1,5 @@
 from .erd_available_cook_mode import ErdAvailableCookMode
+from .erd_extended_cook_mode import ErdExtendedCookMode
 from .erd_cooktop_config import ErdCooktopConfig
 from .erd_cooktop_status import ErdCooktopStatus
 from .erd_oven_configuration import ErdOvenConfiguration

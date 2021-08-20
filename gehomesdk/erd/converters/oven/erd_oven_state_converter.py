@@ -21,6 +21,8 @@ class ErdOvenStateConverter(ErdReadOnlyConverter[ErdOvenState]):
             return ErdOvenState.OVEN_STATE_FROZEN_PIZZA
         if 33 <= state_code <= 35:
             return ErdOvenState.OVEN_STATE_FROZEN_SNACKS
+        if 90 <= state_code <= 91:
+            return ErdOvenState.OVEN_STATE_AIRFRY
         if 1 <= state_code <= 27:
             # These 27 were nicely enumerated in v1.0.3 of the app, though the display logic is more similar to
             # to those above, grouping similar things. See ErdCurrentState.smali for more details.

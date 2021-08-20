@@ -1,4 +1,5 @@
 from .erd_available_cook_mode_converter import ErdAvailableCookModeConverter
+from .erd_extended_cook_mode_converter import ErdExtendedCookModeConverter
 from .erd_cooktop_config_converter import ErdCooktopConfigConverter
 from .erd_oven_state_converter import ErdOvenStateConverter
 from .erd_precision_cooking_app_probe_control_mode_converter import ErdPrecisionCookingAppProbeControlModeConverter

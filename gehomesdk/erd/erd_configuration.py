@@ -74,6 +74,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_KITCHEN_TIMER, ErdTimeSpanConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_CURRENT_STATE, ErdOvenStateConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_AVAILABLE_COOK_MODES, ErdAvailableCookModeConverter(), ErdCodeClass.OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.LOWER_OVEN_EXTENDED_COOK_MODES, ErdExtendedCookModeConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_COOK_MODE, OvenCookModeConverter(), ErdCodeClass.OVEN_SENSOR),
 
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_PROBE_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR),
@@ -88,6 +89,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_KITCHEN_TIMER, ErdTimeSpanConverter(), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_CURRENT_STATE, ErdOvenStateConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_AVAILABLE_COOK_MODES, ErdAvailableCookModeConverter(), ErdCodeClass.OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.UPPER_OVEN_EXTENDED_COOK_MODES, ErdExtendedCookModeConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_COOK_MODE, OvenCookModeConverter(), ErdCodeClass.OVEN_SENSOR),
 
     ErdConfigurationEntry(ErdCode.CONVECTION_CONVERSION, ErdBoolConverter(), ErdCodeClass.OVEN_SENSOR),

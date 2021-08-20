@@ -63,3 +63,4 @@ class ErdOvenCookMode(enum.Enum):
     WARM_DELAYSTART = 17
     WARM_NOOPTION = 15
     WARM_PROBE = 16
+    AIRFRY = 158
