@@ -10,9 +10,6 @@ class ErdHoodLightSetting(enum.Enum):
     def boolify(self) -> Optional[bool]:
         return self != ErdHoodLightStatus.OFF
 
-    def percentify(self) -> Optional[int]:
-        return int(self.name.title())*50
-
     def stringify(self, **kwargs):
         return self.name.replace("_"," ").title()
 
@@ -26,9 +23,6 @@ class ErdHoodFanSetting(enum.Enum):
 
     def boolify(self) -> Optional[bool]:
         return self != ErdHoodLightStatus.OFF
-
-    def percentify(self) -> Optional[int]:
-        return int(self.name.title())*50
 
     def stringify(self, **kwargs):
         return self.name.replace("_"," ").title()
