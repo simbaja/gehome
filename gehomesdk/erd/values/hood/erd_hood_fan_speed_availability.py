@@ -7,3 +7,13 @@ class ErdHoodFanSpeedAvailability(NamedTuple):
     high_available: bool = False
     boost_available: bool = False
     raw_value: str = None
+
+    @property
+    def is_available(self):
+        return (
+            self.off_available |
+            self.low_available |
+            self.med_available |
+            self.high_available |
+            self.boost_available
+        )
