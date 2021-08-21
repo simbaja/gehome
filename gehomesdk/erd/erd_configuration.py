@@ -211,5 +211,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.HOOD_LIGHT_LEVEL_AVAILABILITY, ErdHoodLightLevelAvailabilityConverter(), ErdCodeClass.HOOD_SENSOR),
     ErdConfigurationEntry(ErdCode.HOOD_FAN_SPEED, ErdHoodFanSpeedConverter(), ErdCodeClass.HOOD_SENSOR),
     ErdConfigurationEntry(ErdCode.HOOD_FAN_SPEED_AVAILABILITY, ErdHoodFanSpeedAvailabilityConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_DELAY_OFF, ErdOnOffConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_TIMER_AVAILABILITY, ErdOnOffConverter(), ErdCodeClass.HOOD_SENSOR),
 
 ]
