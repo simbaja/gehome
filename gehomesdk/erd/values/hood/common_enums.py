@@ -8,7 +8,7 @@ class ErdHoodLightSetting(enum.Enum):
     HIGH = 2
 
     def boolify(self) -> Optional[bool]:
-        return self != ErdHoodLightStatus.OFF
+        return self != ErdHoodLightSetting.OFF
 
     def stringify(self, **kwargs):
         return self.name.replace("_"," ").title()
@@ -22,7 +22,7 @@ class ErdHoodFanSetting(enum.Enum):
     BOOST  = 4
 
     def boolify(self) -> Optional[bool]:
-        return self != ErdHoodLightStatus.OFF
+        return self != ErdHoodFanSetting.OFF
 
     def stringify(self, **kwargs):
         return self.name.replace("_"," ").title()
