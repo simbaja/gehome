@@ -11,7 +11,7 @@ class ErdHoodLightLevel(enum.Enum):
         return self != ErdHoodLightLevel.OFF
 
     def stringify(self, **kwargs):
-        return self.name.replace("_"," ").title()
+        return self.name.title()
 
 @enum.unique
 class ErdHoodFanSpeed(enum.Enum):
@@ -25,4 +25,4 @@ class ErdHoodFanSpeed(enum.Enum):
         return self != ErdHoodFanSpeed.OFF
 
     def stringify(self, **kwargs):
-        return self.name.replace("_"," ").title()
+        return self.name.title()
