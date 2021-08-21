@@ -183,6 +183,8 @@ class ErdCode(enum.Enum):
     # Lots more in 0x5Cxx
 
     # Hood
+    HOOD_LIGHT_MODE = "0x5b02"
+    HOOD_FAN_MODE = "0x5b00"
 
     # Advantium
     ADVANTIUM_KITCHEN_TIME_REMAINING = "0x0050"

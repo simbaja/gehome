@@ -8,3 +8,4 @@ from .laundry import *
 from .advantium import *
 from .water_filter import *
 from .ac import *
+from .hood import *
