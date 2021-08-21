@@ -190,7 +190,7 @@ _configuration = [
 
     #AC
     ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE),
-    ErdConfigurationEntry(ErdCode.AC_FAN_SETTING, ErdAcFanSettingConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.AC_FAN_SETTING, ErdAcFanSettingConverter(), ErdCodeClass.FAN),
     ErdConfigurationEntry(ErdCode.AC_OPERATION_MODE, ErdAcOperationModeConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.AC_AMBIENT_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.AC_FILTER_STATUS, ErdAcFilterStatusConverter(), ErdCodeClass.AC_SENSOR),
@@ -207,9 +207,9 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.SAC_AUTO_SWING_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
 
     #Hood
-    ErdConfigurationEntry(ErdCode.HOOD_LIGHT_LEVEL, ErdHoodLightLevelConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_LIGHT_LEVEL, ErdHoodLightLevelConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.HOOD_LIGHT_LEVEL_AVAILABILITY, ErdHoodLightLevelAvailabilityConverter(), ErdCodeClass.HOOD_SENSOR),
-    ErdConfigurationEntry(ErdCode.HOOD_FAN_SPEED, ErdHoodFanSpeedConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_FAN_SPEED, ErdHoodFanSpeedConverter(), ErdCodeClass.FAN),
     ErdConfigurationEntry(ErdCode.HOOD_FAN_SPEED_AVAILABILITY, ErdHoodFanSpeedAvailabilityConverter(), ErdCodeClass.HOOD_SENSOR),
     ErdConfigurationEntry(ErdCode.HOOD_DELAY_OFF, ErdOnOffConverter(), ErdCodeClass.HOOD_SENSOR),
     ErdConfigurationEntry(ErdCode.HOOD_TIMER, ErdTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER),

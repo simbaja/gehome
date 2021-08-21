@@ -21,6 +21,8 @@ class ErdCodeClass(enum.IntFlag):
     LIQUID_VOLUME = auto()
     POWER = auto()
     ENERGY = auto()
+    FAN = auto()
+    LIGHT = auto()
     OVEN_SENSOR = auto()
     FRIDGE_SENSOR = auto()
     FREEZER_SENSOR = auto()
