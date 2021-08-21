@@ -1,0 +1,9 @@
+from typing import NamedTuple
+
+class ErdHoodFanSpeedAvailability(NamedTuple):
+    off_available: bool = False
+    low_available: bool = False
+    med_available: bool = False
+    high_available: bool = False
+    boost_available: bool = False
+    raw_value: str = None

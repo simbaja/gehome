@@ -1,1 +1,3 @@
 from .common_enums import *
+from .erd_hood_light_level_availability import ErdHoodLightLevelAvailability
+from .erd_hood_fan_speed_availability import ErdHoodFanSpeedAvailability

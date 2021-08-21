@@ -207,7 +207,9 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.SAC_AUTO_SWING_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
 
     #Hood
-    ErdConfigurationEntry(ErdCode.HOOD_LIGHT_MODE, ErdHoodLightSettingConverter(), ErdCodeClass.HOOD_SENSOR),
-    ErdConfigurationEntry(ErdCode.HOOD_FAN_MODE, ErdHoodFanSettingConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_LIGHT_LEVEL, ErdHoodLightLevelConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_LIGHT_LEVEL_AVAILABILITY, ErdHoodLightLevelAvailabilityConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_FAN_SPEED, ErdHoodFanSpeedConverter(), ErdCodeClass.HOOD_SENSOR),
+    ErdConfigurationEntry(ErdCode.HOOD_FAN_SPEED_AVAILABILITY, ErdHoodFanSpeedAvailabilityConverter(), ErdCodeClass.HOOD_SENSOR),
 
 ]
