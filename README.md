@@ -9,6 +9,10 @@ will probably need to wait on some new entity types.
 
 ```pip install gehomesdk```
 
+## Changelog
+
+Please click [here](CHANGELOG.md) for change information.
+
 ## Usage
 
 ### Credentials
