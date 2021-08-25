@@ -22,6 +22,7 @@ class UserWashTempSetting(enum.Enum):
     NORMAL = 0
     BOOST = 1
     SANITIZE = 2
+    UNKNOWN3 = 3
 
 @enum.unique
 class UserDryOptionSetting(enum.Enum):
