@@ -1,12 +1,20 @@
+from datetime import time, timedelta
 from typing import NamedTuple, Optional
 
 from .const import *
 from .oven_cook_mode import OvenCookMode 
+from .erd_oven_state import ErdOvenState
 
 class OvenCookSetting(NamedTuple):
     """Cleaner representation of ErdOvenCookMode"""
-    cook_mode: OvenCookMode
-    temperature: int
+    cook_mode: OvenCookMode = OvenCookMode(ErdOvenState.NO_MODE, False, False, False)
+    temperature: int = 0
+    cook_time: timedelta = timedelta(0)
+    probe_temperature: int = 0
+    delay_time: timedelta = timedelta(0)
+    two_temp_cook_temperature: int = 0
+    two_temp_cook_time: timedelta = timedelta(0)
+    raw_string: str = None
     raw_bytes: Optional[bytes] = None
 
     def stringify(self, **kwargs) -> Optional[str]:

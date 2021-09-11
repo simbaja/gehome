@@ -164,6 +164,9 @@ back and forth.  Device properties are represented by hex codes (represented by 
 values are sent as hexadecimal strings without leading `"0x"`, then json encoded as a dictionary.  One thing that is
 important to note is that not all appliances support every API.
 
+For further documentation of appliance commands, please see the GEMaker Github repositories at:
+[https://github.com/GEMakers](https://github.com/GEMakers).  Not every appliance has documentation there, but many do, and it is useful for decoding values that you may see coming from the API.  There is also another Github repository [here](https://github.com/doitaljosh/ge-appliances-re) that has more information about reverse engineering the GE protocols.
+
 1. REST - We can access or set most device properties via HTTP REST.  Unfortunately, relying on this means we need to
  result to constantly polling the devices, which is less than desirable, especially, e.g., for ovens that where we want
  to know exactly when a timer finishes. This API is not directly supported.

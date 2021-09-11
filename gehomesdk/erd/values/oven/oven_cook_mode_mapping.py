@@ -7,6 +7,7 @@ from .oven_cook_mode import OvenCookMode
 # Translate OVEN_COOK_MODE values into something easier to work with
 OVEN_COOK_MODE_MAP = bidict.bidict({
     ErdOvenCookMode.BAKED_GOODS: OvenCookMode(ErdOvenState.OVEN_STATE_BAKED_GOODS, False, False, False),
+    ErdOvenCookMode.BAKED_GOODS_DELAYSTART: OvenCookMode(ErdOvenState.OVEN_STATE_BAKED_GOODS, True, False, False),
     ErdOvenCookMode.BAKETIMEDSHUTOFF_DELAYSTART: OvenCookMode(ErdOvenState.BAKE, True, True, False),
     ErdOvenCookMode.BAKETIMED_TWOTEMP: OvenCookMode(ErdOvenState.BAKE_TWO_TEMP, False, True, False),
     ErdOvenCookMode.BAKETIMED_TWOTEMP_DELAYSTART: OvenCookMode(ErdOvenState.BAKE_TWO_TEMP, True, True, False),
@@ -58,6 +59,10 @@ OVEN_COOK_MODE_MAP = bidict.bidict({
     ErdOvenCookMode.FROZEN_PIZZA_MULTI: OvenCookMode(ErdOvenState.OVEN_STATE_FROZEN_PIZZA_MULTI, False, False, False),
     ErdOvenCookMode.FROZEN_SNACKS: OvenCookMode(ErdOvenState.OVEN_STATE_FROZEN_SNACKS, False, False, False),
     ErdOvenCookMode.FROZEN_SNACKS_MULTI: OvenCookMode(ErdOvenState.OVEN_STATE_FROZEN_SNACKS_MULTI, False, False, False),
+    ErdOvenCookMode.FROZEN_PIZZA_DELAYSTART: OvenCookMode(ErdOvenState.OVEN_STATE_FROZEN_PIZZA, True, False, False),
+    ErdOvenCookMode.FROZEN_PIZZA_MULTI_DELAYSTART: OvenCookMode(ErdOvenState.OVEN_STATE_FROZEN_PIZZA_MULTI, True, False, False),
+    ErdOvenCookMode.FROZEN_SNACKS_DELAYSTART: OvenCookMode(ErdOvenState.OVEN_STATE_FROZEN_SNACKS, False, True, False),
+    ErdOvenCookMode.FROZEN_SNACKS_MULTI_DELAYSTART: OvenCookMode(ErdOvenState.OVEN_STATE_FROZEN_SNACKS_MULTI, True, False, False),
     ErdOvenCookMode.NOMODE: OvenCookMode(ErdOvenState.NO_MODE, False, False, False),
     ErdOvenCookMode.PROOF_DELAYSTART: OvenCookMode(ErdOvenState.PROOF, True, False, False),
     ErdOvenCookMode.PROOF_NOOPTION: OvenCookMode(ErdOvenState.PROOF, False, False, False),

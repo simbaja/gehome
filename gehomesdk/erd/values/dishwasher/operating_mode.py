@@ -12,5 +12,5 @@ class OperatingMode(enum.Enum):
     
     def stringify(self, **kwargs):
         if self == OperatingMode.STATUS_DASH:
-            return "None"
+            return "Off"
         return self.name.replace("STATUS_","").replace("_"," ").title()
