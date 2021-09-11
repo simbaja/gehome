@@ -117,6 +117,8 @@ class ErdCode(enum.Enum):
     TURBO_COOL_STATUS = "0x100f"
     TURBO_FREEZE_STATUS = "0x100e"
     WATER_FILTER_STATUS = "0x1009"
+    INTERIOR_LIGHT = "0x1024"
+    PROXIMITY_LIGHT = "0x1028"
 
     # Oven codes
     ACTIVE_F_CODE_STATUS = "0x5005"
