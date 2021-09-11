@@ -14,15 +14,23 @@ class FridgeDoorStatusConverter(ErdReadOnlyConverter[FridgeDoorStatus]):
         fridge_left = get_door_status(value[2:4])
         freezer = get_door_status(value[4:6])
         drawer = get_door_status(value[6:8])
-        if (fridge_right != ErdDoorStatus.OPEN) and (fridge_left != ErdDoorStatus.OPEN):
-            if freezer == ErdDoorStatus.OPEN:
-                status = "Freezer Open"
-            else:
-                status = "Closed"
-        elif freezer == ErdDoorStatus.OPEN:
-            status = "All Open"
+
+        #get the door status 
+        open_doors = []
+        if fridge_left == ErdDoorStatus.OPEN or fridge_right == ErdDoorStatus.OPEN:
+            open_doors.append('Fridge')
+        if freezer == ErdDoorStatus.OPEN:
+            open_doors.append('Freezer')
+        if drawer == ErdDoorStatus.OPEN:
+            open_doors.append('Drawer')
+        
+        if len(open_doors) > 1:
+            status = 'Multiple Open'
+        elif len(open_doors) == 1:
+            status = open_doors[0] + " Open"
         else:
-            status = "Fridge Open"
+            status = 'Closed'
+
         return FridgeDoorStatus(
             fridge_right=fridge_right,
             fridge_left=fridge_left,
