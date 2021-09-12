@@ -41,6 +41,6 @@ class OvenCookModeConverter(ErdReadWriteConverter[OvenCookSetting]):
             erd_encode_timespan(value.cook_time) +
             erd_encode_int(value.probe_temperature) +
             erd_encode_timespan(value.delay_time) +
-            erd_encode_int(value.two_temp_cook_temperature),
+            erd_encode_int(value.two_temp_cook_temperature) +
             erd_encode_timespan(value.two_temp_cook_time)
         )
