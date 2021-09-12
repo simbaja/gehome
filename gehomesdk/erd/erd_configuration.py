@@ -60,7 +60,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.CURRENT_TEMPERATURE, FridgeSetPointsConverter(), ErdCodeClass.RAW_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.TEMPERATURE_SETTING, FridgeSetPointsConverter(), ErdCodeClass.RAW_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.FRIDGE_MODEL_INFO, FridgeModelInfoConverter(), ErdCodeClass.GENERAL),
-    ErdConfigurationEntry(ErdCode.INTERIOR_LIGHT, ErdOnOffConverter(), ErdCodeClass.LIGHT),
+    ErdConfigurationEntry(ErdCode.INTERIOR_LIGHT, ErdIntConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.PROXIMITY_LIGHT, ErdOnOffConverter(), ErdCodeClass.LIGHT),
 
     #Oven
