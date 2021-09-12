@@ -14,10 +14,10 @@ class ErdAvailableCookModeConverter(ErdReadOnlyConverter[Set[ErdOvenCookMode]]):
             if mode_bytes[mode.value.byte] & mode.value.mask
         }
         
-        #Additional fixes for weirdness - guessing the decoding isn't accurate
-        if ErdOvenCookMode.CONVBAKE_DELAYSTART in available_modes:
-            available_modes.add(ErdOvenCookMode.CONVBAKE_NOOPTION)
-        if ErdOvenCookMode.CONVROAST_DELAYSTART in available_modes:
-            available_modes.add(ErdOvenCookMode.CONVROAST_NOOPTION)
+#        #Additional fixes for weirdness - guessing the decoding isn't accurate
+#        if ErdOvenCookMode.CONVBAKE_DELAYSTART in available_modes:
+#            available_modes.add(ErdOvenCookMode.CONVBAKE_NOOPTION)
+#        if ErdOvenCookMode.CONVROAST_DELAYSTART in available_modes:
+#            available_modes.add(ErdOvenCookMode.CONVROAST_NOOPTION)
 
         return available_modes
