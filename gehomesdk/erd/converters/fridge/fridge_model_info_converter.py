@@ -9,7 +9,7 @@ class FridgeModelInfoConverter(ErdReadOnlyConverter[FridgeModelInfo]):
         has_freezer = True
         has_convertable_drawer = False
 
-        type_code = erd_decode_int(value)
+        type_code = erd_decode_int(value[:2])
         if(type_code == 3):
             has_freezer = False
             doors = 1
@@ -25,6 +25,6 @@ class FridgeModelInfoConverter(ErdReadOnlyConverter[FridgeModelInfo]):
             has_freezer=has_freezer,
             doors=doors,
             has_convertable_drawer=has_convertable_drawer,
-            raw_value=type_code
+            raw_value=value
         )
 
