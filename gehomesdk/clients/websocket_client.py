@@ -111,15 +111,12 @@ class GeWebsocketClient(GeBaseClient):
                 self._socket = socket
                 self._setup_futures()
                 await self._subscribe_all()
-                await asyncio.sleep(0)
                 await self._set_connected()
                 await self._get_appliance_list()
-                await asyncio.sleep(0)
                 try:
                     async for message in CancellableAsyncIterator(socket, self._disconnect_requested):
                         try:
                             await self._process_message(message)
-                            await asyncio.sleep(0)
                         except GeRequestError as err:
                             _LOGGER.exception("Could not process request")
                 except websockets.WebSocketException:
@@ -269,6 +266,9 @@ class GeWebsocketClient(GeBaseClient):
                 await self._process_cache_update(message_dict)
             else:
                 _LOGGER.debug(f"Unknown message received: {message_dict}")
+
+        #added per #867 in websocket project        
+        await asyncio.sleep(0)
 
     async def _process_appliance_list(self, message_dict: Dict):
         """
@@ -425,8 +425,12 @@ class GeWebsocketClient(GeBaseClient):
             if not self.websocket:
                 raise websockets.ConnectionClosedOK(1001, 'Socket disconnected')    
 
+            #send the payload
             await self.websocket.send(payload)
+
+            #added per #867 in websocket project   
             await asyncio.sleep(0)
+
         except websockets.ConnectionClosed:
             _LOGGER.info("Tried to send a message, but connection already closed.")
 
