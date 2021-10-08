@@ -6,3 +6,4 @@ from .fridge_set_point_limits_converter import FridgeSetPointLimitsConverter
 from .hot_water_status_converter import HotWaterStatusConverter
 from .ice_maker_control_status_converter import IceMakerControlStatusConverter
 from .fridge_model_info_converter import FridgeModelInfoConverter
+from .erd_convertable_drawer_mode_converter import ErdConvertableDrawerModeConverter

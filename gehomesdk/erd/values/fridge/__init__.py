@@ -10,3 +10,4 @@ from .fridge_set_points import FridgeSetPoints
 from .hot_water_status import HotWaterStatus
 from .ice_maker_control_status import IceMakerControlStatus
 from .fridge_model_info import FridgeModelInfo
+from .erd_convertable_drawer_mode import ErdConvertableDrawerMode
