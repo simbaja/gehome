@@ -7,8 +7,8 @@ class ErdConvertableDrawerMode(enum.Enum):
     UNKNOWN1 = "01"
     MEAT = "03"
     BEVERAGE = "04"
-    WINE = "05"
-    SNACK = "06"
+    SNACK = "05"
+    WINE = "06"
     NA = "FF"
 
     def stringify(self, **kwargs) -> Optional[str]:
