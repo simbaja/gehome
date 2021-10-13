@@ -60,7 +60,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.CURRENT_TEMPERATURE, FridgeSetPointsConverter(), ErdCodeClass.RAW_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.TEMPERATURE_SETTING, FridgeSetPointsConverter(), ErdCodeClass.RAW_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.FRIDGE_MODEL_INFO, FridgeModelInfoConverter(), ErdCodeClass.GENERAL),
-    ErdConfigurationEntry(ErdCode.INTERIOR_LIGHT, ErdIntConverter(), ErdCodeClass.LIGHT),
+    ErdConfigurationEntry(ErdCode.INTERIOR_LIGHT, ErdIntConverter(length=1), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.PROXIMITY_LIGHT, ErdOnOffConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.CONVERTABLE_DRAWER_MODE, ErdConvertableDrawerModeConverter(), ErdCodeClass.FRIDGE_SENSOR),
 
