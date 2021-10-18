@@ -35,4 +35,5 @@ class ErdCodeClass(enum.IntFlag):
     ADVANTIUM_SENSOR = auto()
     WATERFILTER_SENSOR = auto()
     AC_SENSOR = auto()
-    HOOD_SENSOR = auto()
+    HOOD_SENSOR = auto(),
+    OIM_SENSOR = auto()

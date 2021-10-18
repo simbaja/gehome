@@ -243,4 +243,12 @@ class ErdCode(enum.Enum):
     SAC_TARGET_TEMPERATURE_RANGE = "0x7b06"
     SAC_AUTO_SWING_MODE = "0x7b07"
 
+    #Ice Maker
+    OIM_STATUS = "0x9100"
+    OIM_LIGHT_LEVEL = "0x9101"
+    OIM_UNKNOWN9102 = "0x9102"
+    OIM_FILTER_STATUS = "0x9104"
+    OIM_UNKNOWN9106 = "0x9106"
+    OIM_POWER = "0x9107"
+
 ErdCodeType = Union[ErdCode, str]

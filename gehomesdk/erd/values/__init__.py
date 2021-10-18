@@ -9,3 +9,4 @@ from .advantium import *
 from .water_filter import *
 from .ac import *
 from .hood import *
+from .ice_maker import *

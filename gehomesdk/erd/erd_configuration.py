@@ -218,4 +218,9 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.HOOD_TIMER, ErdTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER),
     ErdConfigurationEntry(ErdCode.HOOD_TIMER_AVAILABILITY, ErdOnOffConverter(), ErdCodeClass.HOOD_SENSOR),
 
+    #Opal Ice Maker
+    ErdConfigurationEntry(ErdCode.OIM_STATUS, ErdOimStatusConverter(), ErdCodeClass.OIM_SENSOR),
+    ErdConfigurationEntry(ErdCode.OIM_POWER, ErdOnOffConverter(), ErdCodeClass.OIM_SENSOR),
+    ErdConfigurationEntry(ErdCode.OIM_FILTER_STATUS, ErdOimFilterStatusConverter(), ErdCodeClass.OIM_SENSOR),
+    ErdConfigurationEntry(ErdCode.OIM_LIGHT_LEVEL, ErdOimLightLevelConverter(), ErdCodeClass.LIGHT),
 ]
