@@ -17,7 +17,7 @@ Please click [here](CHANGELOG.md) for change information.
 
 ### Credentials
 
-Create a `secrets.py` and place in the `examples` directory.  It should contain the following:
+Create a `credentials.py` and place in the `examples` directory.  It should contain the following:
 
 ```
 USERNAME = "your@email.com"

@@ -198,6 +198,12 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.WH_FILTER_LIFE_REMAINING, ErdWaterFilterLifeRemainingConverter(), ErdCodeClass.PERCENTAGE),
     ErdConfigurationEntry(ErdCode.WH_FILTER_POSITION, ErdFilterPositionConverter(), ErdCodeClass.WATERFILTER_SENSOR),
 
+    # Water Softener
+    ErdConfigurationEntry(ErdCode.WH_SOFTENER_ERROR_CODE, ErdWaterSoftenerErrorCodeConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_SOFTENER_LOW_SALT, ErdWaterSoftenerSaltLevelConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_SOFTENER_SHUTOFF_VALVE_STATE, ErdWaterSoftenerShutoffValveStateConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_SOFTENER_SHUTOFF_VALVE_CONTROL, ErdWaterSoftenerShutoffValveStateConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
+
     #AC
     ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE),
     ErdConfigurationEntry(ErdCode.AC_FAN_SETTING, ErdAcFanSettingConverter(), ErdCodeClass.FAN),

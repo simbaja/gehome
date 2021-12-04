@@ -23,7 +23,7 @@ from gehomesdk import (
     OvenCookSetting,
     OVEN_COOK_MODE_MAP
 )
-from examples.secrets import USERNAME, PASSWORD
+from examples.credentials import USERNAME, PASSWORD
 
 
 _LOGGER = logging.getLogger(__name__)
