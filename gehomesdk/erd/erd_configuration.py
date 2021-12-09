@@ -1,4 +1,8 @@
 from typing import Any
+from gehomesdk.erd.converters.coffee_maker.erd_ccm_brew_settings_converter import ErdCcmBrewSettingsConverter
+
+from gehomesdk.erd.converters.coffee_maker.erd_ccm_brew_strength_converter import ErdCcmBrewStrengthConverter
+from gehomesdk.erd.converters.coffee_maker.erd_ccm_brew_temperature_range_converter import ErdCcmBrewTemperatureRangeConverter
 from .erd_code_class import ErdCodeClass
 from .erd_codes import ErdCode
 from .converters import *
@@ -236,4 +240,14 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.OIM_POWER, ErdOnOffConverter(), ErdCodeClass.OIM_SENSOR),
     ErdConfigurationEntry(ErdCode.OIM_FILTER_STATUS, ErdOimFilterStatusConverter(), ErdCodeClass.OIM_SENSOR),
     ErdConfigurationEntry(ErdCode.OIM_LIGHT_LEVEL, ErdOimLightLevelConverter(), ErdCodeClass.LIGHT),
+
+    #Cafe Coffee Maker
+    ErdConfigurationEntry(ErdCode.CCM_IS_BREWING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_STRENGTH, ErdCcmBrewStrengthConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_CUPS, ErdReadOnlyIntConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_TEMPERATURE_RANGE, ErdCcmBrewTemperatureRangeConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_SETTINGS, ErdCcmBrewSettingsConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_POT_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_IS_DESCALING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR),
 ]
