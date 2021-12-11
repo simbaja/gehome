@@ -1,5 +1,22 @@
 # GE Home SDK Changelog
 
+## 0.4.13 - 0.4.17
+
+- Opal ice maker support
+- Microwave support
+- Water softener support
+- Coffee maker support
+- Data typing enhancements
+- Example updates (to prevent common issues)
+
+## 0.4.7 - 0.4.12
+
+- Fridge, oven, and dishwasher enhancements
+
+## 0.4.5 - 0.4.6
+
+- Hood fixes and enhancements
+
 ## 0.4.4
 
 - Advantium bug fixes
