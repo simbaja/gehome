@@ -1,8 +1,5 @@
 from typing import Any
-from gehomesdk.erd.converters.coffee_maker.erd_ccm_brew_settings_converter import ErdCcmBrewSettingsConverter
 
-from gehomesdk.erd.converters.coffee_maker.erd_ccm_brew_strength_converter import ErdCcmBrewStrengthConverter
-from gehomesdk.erd.converters.coffee_maker.erd_ccm_brew_temperature_range_converter import ErdCcmBrewTemperatureRangeConverter
 from .erd_code_class import ErdCodeClass
 from .erd_codes import ErdCode
 from .converters import *
