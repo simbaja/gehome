@@ -10,7 +10,7 @@ import asyncio
 import logging
 from datetime import timedelta
 from typing import Any, Dict, Tuple
-from examples.credentials import USERNAME, PASSWORD
+from credentials import USERNAME, PASSWORD
 
 from gehomesdk import (
     EVENT_ADD_APPLIANCE,
