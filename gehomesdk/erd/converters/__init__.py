@@ -14,3 +14,4 @@ from .ac import *
 from .hood import *
 from .ice_maker import *
 from .microwave import *
+from .coffee_maker import *

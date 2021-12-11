@@ -237,4 +237,19 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.OIM_POWER, ErdOnOffConverter(), ErdCodeClass.OIM_SENSOR),
     ErdConfigurationEntry(ErdCode.OIM_FILTER_STATUS, ErdOimFilterStatusConverter(), ErdCodeClass.OIM_SENSOR),
     ErdConfigurationEntry(ErdCode.OIM_LIGHT_LEVEL, ErdOimLightLevelConverter(), ErdCodeClass.LIGHT),
+
+    #Cafe Coffee Maker
+    ErdConfigurationEntry(ErdCode.CCM_IS_BREWING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_STRENGTH, ErdCcmBrewStrengthConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_CUPS, ErdReadOnlyIntConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_TEMPERATURE_RANGE, ErdCcmBrewTemperatureRangeConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_SETTINGS, ErdCcmBrewSettingsConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_CANCEL_BREWING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_POT_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_OUT_OF_WATER, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_CURRENT_WATER_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.CCM_IS_DESCALING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_START_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_CANCEL_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
 ]
