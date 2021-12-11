@@ -1,4 +1,3 @@
-from gehomesdk.erd.erd_code_class import ErdCodeClass
 import logging
 from typing import Any
 
@@ -6,6 +5,8 @@ from ..exception import GeUnsupportedOperationError
 
 from .erd_configuration import ErdConfigurationEntry, _configuration
 from .erd_codes import ErdCode, ErdCodeType
+from .erd_code_class import ErdCodeClass
+from .erd_data_type import ErdDataType
 from .converters import *
 
 _LOGGER = logging.getLogger(__name__)
@@ -72,6 +73,21 @@ class ErdEncoder:
             return self._registry[erd_code].code_class
         except KeyError:
             return ErdCodeClass.GENERAL
+
+
+    def get_data_type(self, erd_code: ErdCodeType) -> ErdDataType:
+        """
+        Gets the data typefor a given ErdCode.  Returns STRING if not
+        available.
+        """
+        erd_code = self.translate_code(erd_code)
+        if isinstance(erd_code, str):
+            return ErdDataType.STRING
+        
+        try:
+            return self._registry[erd_code].data_type
+        except KeyError:
+            return ErdDataType.STRING            
     
     def encode_value(self, erd_code: ErdCodeType, value: Any) -> str:
         """
