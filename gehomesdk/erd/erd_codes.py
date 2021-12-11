@@ -283,6 +283,7 @@ class ErdCode(enum.Enum):
     OIM_FILTER_STATUS = "0x9104"
     OIM_UNKNOWN9106 = "0x9106"
     OIM_POWER = "0x9107"
+    OIM_UNKNOWN9108 = "0x9108"
 
     #Cafe Coffee Maker
     CCM_IS_BREWING = "0x9000"
