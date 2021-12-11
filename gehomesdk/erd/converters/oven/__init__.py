@@ -11,3 +11,6 @@ from .cooktop_status_converter import CooktopStatusConverter
 from .oven_configuration_converter import OvenConfigurationConverter
 from .oven_cook_mode_converter import OvenCookModeConverter
 from .oven_ranges_converter import OvenRangesConverter
+
+from .erd_oven_light_level_converter import ErdOvenLightLevelConverter
+from .erd_oven_light_level_availability_converter import ErdOvenLightLevelAvailabilityConverter
