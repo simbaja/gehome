@@ -202,6 +202,7 @@ _configuration = [
     # Water Softener
     ErdConfigurationEntry(ErdCode.WH_SOFTENER_ERROR_CODE, ErdWaterSoftenerErrorCodeConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_SOFTENER_LOW_SALT, ErdWaterSoftenerSaltLevelConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_SOFTENER_SALT_LIFE_REMAINING, ErdIntConverter(), ErdCodeClass.WATERSOFTENER_SENSOR, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.WH_SOFTENER_SHUTOFF_VALVE_STATE, ErdWaterSoftenerShutoffValveStateConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_SOFTENER_SHUTOFF_VALVE_CONTROL, ErdWaterSoftenerShutoffValveStateConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
 
