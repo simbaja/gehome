@@ -248,6 +248,11 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.CCM_BREW_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.CCM_SENSOR),
     ErdConfigurationEntry(ErdCode.CCM_BREW_TEMPERATURE_RANGE, ErdCcmBrewTemperatureRangeConverter(), ErdCodeClass.CCM_SENSOR),
     ErdConfigurationEntry(ErdCode.CCM_BREW_SETTINGS, ErdCcmBrewSettingsConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_CANCEL_BREWING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR),
     ErdConfigurationEntry(ErdCode.CCM_POT_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_OUT_OF_WATER, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_CURRENT_WATER_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.CCM_SENSOR),
     ErdConfigurationEntry(ErdCode.CCM_IS_DESCALING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_START_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_CANCEL_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR),
 ]
