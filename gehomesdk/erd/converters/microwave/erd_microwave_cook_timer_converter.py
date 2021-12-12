@@ -1,11 +1,10 @@
-from datetime import timedelta
+from datetime import time, timedelta
 from typing import Optional
 
-from ..abstract import ErdReadOnlyConverter
+from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.advantium import ErdAdvantiumCookTimeMinMax
 
-class ErdMicrowaveCookTimerConverter(ErdReadOnlyConverter[Optional[timedelta]]):
+class ErdMicrowaveCookTimerConverter(ErdReadWriteConverter[Optional[timedelta]]):
     def erd_decode(self, value: str) -> Optional[timedelta]:
         """ Decodes the cook time as a time span"""
         try:
@@ -14,3 +13,11 @@ class ErdMicrowaveCookTimerConverter(ErdReadOnlyConverter[Optional[timedelta]]):
             return timedelta(seconds=m * 60 + s)
         except:
             return None
+    def erd_encode(self, value: Optional[timedelta]) -> str:
+        try:
+            minutes = (value.seconds % 3600) // 60 
+            seconds = (value.seconds % 60)
+
+            return erd_encode_int(minutes) + erd_encode_int(seconds)
+        except:
+            return "0000"    

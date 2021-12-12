@@ -30,12 +30,6 @@ class ErdMicrowaveCookMode(enum.Enum):
     DASH = "FF"
 
 @enum.unique
-class ErdMicrowaveDoorStatus(enum.Enum):
-    CLOSED = "00"
-    OPEN = "01"
-    NA = "FF"
-
-@enum.unique
 class ErdMicrowaveCookStatus(enum.Enum):
     OFF = "00"
     ON = "01"

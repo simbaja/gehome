@@ -1,11 +1,12 @@
 from typing import NamedTuple, Optional
 
-from .microwave_enums import ErdMicrowaveCookMode, ErdMicrowaveCookStatus, ErdMicrowaveDoorStatus
+from .microwave_enums import ErdMicrowaveCookMode, ErdMicrowaveCookStatus
+from ..fridge import ErdDoorStatus
 
 class ErdMicrowaveState(NamedTuple):
     status: ErdMicrowaveCookStatus   
     cook_mode: ErdMicrowaveCookMode
-    door_status: ErdMicrowaveDoorStatus
+    door_status: ErdDoorStatus
     power_level: int
     temperature: int
 

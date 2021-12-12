@@ -3,7 +3,7 @@ from ..primitives import *
 
 from gehomesdk.erd.values import (
     ErdMicrowaveState, 
-    ErdMicrowaveDoorStatus,
+    ErdDoorStatus,
     ErdMicrowaveCookStatus,
     ErdMicrowaveCookMode
 )
@@ -17,9 +17,9 @@ class ErdMicrowaveStateConverter(ErdReadOnlyConverter[ErdMicrowaveState]):
                 status = ErdMicrowaveCookStatus.UNKNOWN
             mode = ErdMicrowaveCookMode(value[2:4])
             try:
-                door = ErdMicrowaveDoorStatus(value[4:6])
+                door = ErdDoorStatus(value[4:6])
             except:
-                door = ErdMicrowaveDoorStatus.NA
+                door = ErdDoorStatus.NA
                 
             pl = erd_decode_int(value[6:8])
             pl = max(min(pl, 10), 0)
@@ -41,7 +41,7 @@ class ErdMicrowaveStateConverter(ErdReadOnlyConverter[ErdMicrowaveState]):
             return ErdMicrowaveState(
                 "", 
                 ErdMicrowaveCookMode.DASH, 
-                ErdMicrowaveDoorStatus.NA,
+                ErdDoorStatus.NA,
                 0,
                 0,
                 value)
