@@ -9,11 +9,15 @@ class ErdOvenLightLevelAvailability(NamedTuple):
     raw_value: str = None
 
     @property
-    def has_dimmed(self):
+    def dim_available(self):
+        return self.z1
+
+    @property
+    def high_available(self):
         return self.z2
     
     @property
     def is_available(self):
-        return self.z5 | (not self.z1 and not self.z2)
+        return self.z5 | self.z1, self.z2
 
         
