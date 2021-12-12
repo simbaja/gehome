@@ -6,7 +6,7 @@ from weakref import WeakValueDictionary
 from typing import Any, List, Dict, Optional, Set, TYPE_CHECKING, Union
 from slixmpp import JID
 
-from .erd import ErdCode, ErdCodeType, ErdCodeClass, ErdApplianceType, ErdEncoder
+from .erd import ErdCode, ErdCodeType, ErdCodeClass, ErdApplianceType, ErdEncoder, ErdDataType
 from .exception import *
 
 if TYPE_CHECKING:
@@ -140,6 +140,12 @@ class GeAppliance:
         Get the classification for a given ErdCode
         """
         return self._encoder.get_code_class(erd_code)
+
+    def get_erd_code_data_type(self, erd_code: ErdCodeType) -> ErdDataType:
+        """
+        Get the data type for a given ErdCode
+        """
+        return self._encoder.get_data_type(erd_code)
 
     async def async_set_erd_value(self, erd_code: ErdCodeType, value: Any):
         """
