@@ -41,8 +41,8 @@ class GeWebsocketClient(GeBaseClient):
     """
     client_priority = 2  # This should be the primary client
 
-    def __init__(self, username: str, password: str, event_loop: Optional[asyncio.AbstractEventLoop] = None, keepalive: Optional[int] = KEEPALIVE_TIMEOUT, list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY):
-        super().__init__(username, password, event_loop)
+    def __init__(self, username: str, password: str, region: str = "US", event_loop: Optional[asyncio.AbstractEventLoop] = None, keepalive: Optional[int] = KEEPALIVE_TIMEOUT, list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY):
+        super().__init__(username, password, region, event_loop)
         self._endpoint = None  # type: Optional[str]
         self._socket = None  # type: Optional[websockets.client.WebSocketClientProtocol]
         self._pending_erds = {}  # type: Dict[Tuple[str, str], str]

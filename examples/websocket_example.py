@@ -10,7 +10,7 @@ import asyncio
 import logging
 from datetime import timedelta
 from typing import Any, Dict, Tuple
-from credentials import USERNAME, PASSWORD
+from credentials import USERNAME, PASSWORD, REGION
 
 from gehomesdk import (
     EVENT_ADD_APPLIANCE,
@@ -66,7 +66,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)-8s %(message)s')
 
     loop = asyncio.get_event_loop()
-    client = GeWebsocketClient(USERNAME, PASSWORD, loop)
+    client = GeWebsocketClient(USERNAME, PASSWORD, REGION, loop)
     client.add_event_handler(EVENT_APPLIANCE_INITIAL_UPDATE, detect_appliance_type)
     client.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, log_state_change)
     client.add_event_handler(EVENT_ADD_APPLIANCE, do_periodic_update)

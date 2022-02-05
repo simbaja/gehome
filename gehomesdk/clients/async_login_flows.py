@@ -1,3 +1,4 @@
+from http.cookies import SimpleCookie
 from aiohttp import BasicAuth, ClientSession
 from lxml import etree
 from urllib.parse import urlparse, parse_qs
@@ -5,6 +6,9 @@ import logging
 
 from ..exception import *
 from .const import (
+    LOGIN_COOKIE_DOMAIN,
+    LOGIN_REGION_COOKIE_NAME,
+    LOGIN_REGIONS,
     LOGIN_URL, 
     OAUTH2_CLIENT_ID, 
     OAUTH2_CLIENT_SECRET,
@@ -18,13 +22,25 @@ except ImportError:
 
 _LOGGER = logging.getLogger(__name__)  
 
-async def async_get_authorization_code(session, account_username, account_password):
+def set_login_cookie(session: ClientSession, account_region: str):
+    c = SimpleCookie()
+    c[LOGIN_REGION_COOKIE_NAME] = LOGIN_REGIONS[account_region]
+    c[LOGIN_REGION_COOKIE_NAME]["domain"] = LOGIN_COOKIE_DOMAIN
+    c[LOGIN_REGION_COOKIE_NAME]["path"] = "/"
+    c[LOGIN_REGION_COOKIE_NAME]["httponly"] = True
+    c[LOGIN_REGION_COOKIE_NAME]["secure"] = True
+
+    session.cookie_jar.update_cookies(c)
+
+async def async_get_authorization_code(session: ClientSession, account_username: str, account_password: str, account_region: str):
     params = {
         'client_id': OAUTH2_CLIENT_ID,
         'response_type': 'code',
         'access_type': 'offline',
         'redirect_uri': OAUTH2_REDIRECT_URI,
     }
+
+    set_login_cookie(session, account_region)
 
     async with session.get(f'{LOGIN_URL}/oauth2/auth', params=params) as resp:
         if 400 <= resp.status < 500:
@@ -124,11 +140,11 @@ async def async_authorize_application(session: ClientSession, post_data: dict) -
             raise GeAuthFailedError(f'Could not authorize application') from exc
     return code    
 
-async def async_get_oauth2_token(session: ClientSession, account_username: str, account_password: str):
+async def async_get_oauth2_token(session: ClientSession, account_username: str, account_password: str, account_region: str):
     """Hackily get an oauth2 token until I can be bothered to do this correctly"""
 
     #attempt to get the authorization code
-    code = await async_get_authorization_code(session, account_username, account_password)
+    code = await async_get_authorization_code(session, account_username, account_password, account_region)
 
     #get the token
     post_data = {
@@ -182,4 +198,5 @@ async def async_refresh_oauth2_token(session: ClientSession, refresh_token: str)
     except Exception as exc:
         resp_text = await resp.text()
         _LOGGER.exception(f"Could not refresh OAuth token, response details: {resp.__dict__}")
-        raise GeAuthFailedError(f'Could not refresh OAuth token') from exc        
+        raise GeAuthFailedError(f'Could not refresh OAuth token') from exc
+

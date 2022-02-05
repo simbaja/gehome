@@ -10,6 +10,13 @@ LOGIN_URL = "https://accounts.brillion.geappliances.com"
 API_URL = "https://api.brillion.geappliances.com"
 SECURE_URL = "https://secure.brillion.geappliances.com"
 
+LOGIN_REGIONS = {
+  "US": "us-east-1",
+  "EU": "eu-west-1"
+}
+LOGIN_REGION_COOKIE_NAME = "abgea_region"
+LOGIN_COOKIE_DOMAIN = "accounts.brillion.geappliances.com"
+
 MAX_RETRIES = 3
 RETRY_INTERVAL = 2
 

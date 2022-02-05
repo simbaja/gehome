@@ -31,9 +31,10 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     client_priority = 0  # Priority of this client class.  Higher is better.
 
-    def __init__(self, username: str, password: str, event_loop: Optional[asyncio.AbstractEventLoop] = None):
+    def __init__(self, username: str, password: str, region: str = "US", event_loop: Optional[asyncio.AbstractEventLoop] = None):
         self.account_username = username
         self.account_password = password
+        self.account_region = region
         self._credentials = None  # type: Optional[Dict]
         self._session = None # type: Optional[ClientSession]
 
@@ -211,7 +212,11 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
         await self._set_state(GeClientState.AUTHORIZING_OAUTH)
 
-        oauth_token = await async_get_oauth2_token(self._session, self.account_username, self.account_password)
+        oauth_token = await async_get_oauth2_token(
+            self._session, 
+            self.account_username, 
+            self.account_password, 
+            self.account_region)
 
         try:
             self._access_token = oauth_token['access_token']

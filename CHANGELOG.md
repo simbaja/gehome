@@ -1,6 +1,10 @@
 # GE Home SDK Changelog
 
-## 0.4.13 - 0.4.17
+## 0.4.23
+
+- Updated to fix authentication issues (EU vs US)
+
+## 0.4.13 - 0.4.22
 
 - Opal ice maker support
 - Microwave support

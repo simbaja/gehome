@@ -22,6 +22,7 @@ Create a `credentials.py` and place in the `examples` directory.  It should cont
 ```
 USERNAME = "your@email.com"
 PASSWORD = "supersecret"
+REGION = "US or EU"
 ```
 
 You will need to replace the username/password values with your credentials.  After that, you can run the `websocket_example.py` (**preferred**) or `xmpp_example.py` sample files.  These will generate information about your appliances and are useful if you'd like to help implement more functionality.
@@ -43,7 +44,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format='%(levelname)-8s %(message)s')
 
     loop = asyncio.get_event_loop()
-    client = GeWebsocketClient(loop, USERNAME, PASSWORD)
+    client = GeWebsocketClient(loop, USERNAME, PASSWORD, REGION)
 
     session = aiohttp.ClientSession()
     asyncio.ensure_future(client.async_get_credentials_and_run(session), loop=loop)

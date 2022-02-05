@@ -34,8 +34,8 @@ def _first_or_none(lst: list) -> Any:
 class GeXmppClient(GeBaseClient):
     client_priority = 1
 
-    def __init__(self, username: str, password: str, event_loop: Optional[asyncio.AbstractEventLoop]):
-        super().__init__(username, password, event_loop=event_loop)
+    def __init__(self, username: str, password: str, region: str = "US", event_loop: Optional[asyncio.AbstractEventLoop] = None):
+        super().__init__(username, password, region, event_loop=event_loop)
         self._client = None  # type: Optional[GeClientXMPP]
 
     def _get_xmpp_client(self) -> GeClientXMPP:
