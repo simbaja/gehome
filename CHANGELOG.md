@@ -1,6 +1,6 @@
 # GE Home SDK Changelog
 
-## 0.4.23
+## 0.4.23 - 0.4.24
 
 - Updated to fix authentication issues (EU vs US)
 

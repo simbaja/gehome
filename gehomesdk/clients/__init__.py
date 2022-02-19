@@ -14,6 +14,7 @@ from .const import (
     EVENT_GOT_APPLIANCE_FEATURES,
     EVENT_STATE_CHANGED 
 )
+from .const import LOGIN_REGIONS
 from .base_client import GeBaseClient
 from .websocket_client import GeWebsocketClient
 from .async_login_flows import async_get_oauth2_token, async_refresh_oauth2_token
