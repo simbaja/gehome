@@ -19,7 +19,7 @@ class ErdMicrowaveCookSettingConverter(ErdReadWriteConverter[ErdMicrowaveCookSet
             
             return ErdMicrowaveCookSetting(
                 target_power_level=int_values[0],
-                cook_mins=int_values[1],
+                cook_minutes=int_values[1],
                 cook_seconds=int_values[2],
                 raw_value=value
             )
