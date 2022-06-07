@@ -29,3 +29,4 @@ class ErdApplianceType(enum.Enum):
     CAFE_COFFEE_MAKER = "1A"
     OPAL_ICE_MAKER = "1B"
     DEHUMIDIFIER = "1D"
+    BUILT_IN_AIR_CONDITIONER = "1F"
