@@ -22,9 +22,9 @@ As of 0.5.0, after installation, you should now be able to use the gehome-applia
 `gehome-appliance-data [-h] -u USERNAME -p PASSWORD [-r {US,EU}]`
 
 The parameters are as follows:
--u or --username: Your SmartHQ Username
--p or --password: Your SmartHQ Password
--r or --region: Your SmartHQ Region
+* -u or --username: Your SmartHQ Username
+* -p or --password: Your SmartHQ Password
+* -r or --region: Your SmartHQ Region
 
 This application will set up a client, iterate over all appliances, and will update the state every minute.  It will also capture all state changes as they happen (useful for figuring out which values correspond to which function).  You can exit at any time by keyboard interrupt `ctrl^C`
 
