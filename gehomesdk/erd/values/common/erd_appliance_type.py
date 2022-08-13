@@ -30,3 +30,5 @@ class ErdApplianceType(enum.Enum):
     OPAL_ICE_MAKER = "1B"
     DEHUMIDIFIER = "1D"
     BUILT_IN_AIR_CONDITIONER = "1F"
+    WINE_CHILLER = "18"
+    BEVERAGE_CENTER = "19"
