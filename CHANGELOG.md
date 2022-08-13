@@ -1,5 +1,10 @@
 # GE Home SDK Changelog
 
+## 0.4.25 - 0.5.0
+
+- Added additional appliance types
+- Added gehome-appliance-data application to assist with debugging
+
 ## 0.4.23 - 0.4.24
 
 - Updated to fix authentication issues (EU vs US)
