@@ -33,3 +33,4 @@ class ErdApplianceType(enum.Enum):
     WINE_CHILLER = "18"
     BEVERAGE_CENTER = "19"
     DUAL_DISH_WASHER = "20"
+    ESPRESSO_MAKER = "21"
