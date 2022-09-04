@@ -32,4 +32,4 @@ class ErdApplianceType(enum.Enum):
     BUILT_IN_AIR_CONDITIONER = "1F"
     WINE_CHILLER = "18"
     BEVERAGE_CENTER = "19"
-    FP_DISH_WASHER = "20"
+    DUAL_DISH_WASHER = "20"
