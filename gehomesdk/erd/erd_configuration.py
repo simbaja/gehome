@@ -50,7 +50,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.UNIT_TYPE, ErdUnitTypeConverter(), ErdCodeClass.GENERAL),
 
     #Fridge
-    ErdConfigurationEntry(ErdCode.HOT_WATER_SET_TEMP, ErdIntConverter(length=1), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.HOT_WATER_SET_TEMP, ErdIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.HOT_WATER_IN_USE, ErdReadOnlyBoolConverter(), ErdCodeClass.DISPENSER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.TURBO_FREEZE_STATUS, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.TURBO_COOL_STATUS, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
@@ -67,6 +67,8 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.INTERIOR_LIGHT, ErdIntConverter(length=1), ErdCodeClass.LIGHT, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.PROXIMITY_LIGHT, ErdOnOffConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.CONVERTABLE_DRAWER_MODE, ErdConvertableDrawerModeConverter(), ErdCodeClass.FRIDGE_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISPLAY_MODE, ErdOnOffConverter(), ErdCodeClass.FREEZER_SENSOR),
+    ErdConfigurationEntry(ErdCode.LOCKOUT_MODE, ErdOnOffConverter(), ErdCodeClass.LOCK_CONTROL),
 
     #Oven
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_PROBE_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR),
