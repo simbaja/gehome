@@ -20,7 +20,7 @@ def erd_decode_timespan(value: any, uom: str = 'minutes') -> Optional[timedelta]
     if uom == 'seconds':
         return timedelta(seconds=int_value)
     if uom == 'hours':
-        return 
+        return timedelta(hours=int_value)
     return timedelta(minutes=int_value)
 def erd_encode_timespan(value: Optional[timedelta], uom: str = 'minutes', length: int = 2) -> str:
     """ 

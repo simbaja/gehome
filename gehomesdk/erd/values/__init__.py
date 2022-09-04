@@ -7,6 +7,7 @@ from .oven import *
 from .laundry import *
 from .advantium import *
 from .water_filter import *
+from .water_heater import *
 from .water_softener import *
 from .ac import *
 from .hood import *
