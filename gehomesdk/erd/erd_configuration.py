@@ -212,6 +212,12 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.WH_SOFTENER_SHUTOFF_VALVE_STATE, ErdWaterSoftenerShutoffValveStateConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_SOFTENER_SHUTOFF_VALVE_CONTROL, ErdWaterSoftenerShutoffValveStateConverter(), ErdCodeClass.WATERSOFTENER_SENSOR),
 
+    # Water Heater
+    ErdConfigurationEntry(ErdCode.WH_HEATER_MODE, ErdWaterHeaterModeConverter(), ErdCodeClass.WATERHEATER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_TARGET_TEMPERATURE, ErdWaterHeaterTargetTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_SET_TEMPERATURE, ErdWaterHeaterSetTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_MODE_HOURS_REMAINING, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+
     #AC
     ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.AC_FAN_SETTING, ErdAcFanSettingConverter(), ErdCodeClass.FAN),
