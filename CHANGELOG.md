@@ -1,5 +1,12 @@
 # GE Home SDK Changelog
 
+## 0.5.5
+
+- Added additional fridge codes
+- Added geothermal heater codes (@seantibor)
+- Added initial dual drawer dishwasher codes
+- Bugfix: modified fridge hot water set temp to length = 2
+
 ## 0.4.25 - 0.5.0
 
 - Added additional appliance types

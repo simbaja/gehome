@@ -50,7 +50,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.UNIT_TYPE, ErdUnitTypeConverter(), ErdCodeClass.GENERAL),
 
     #Fridge
-    ErdConfigurationEntry(ErdCode.HOT_WATER_SET_TEMP, ErdIntConverter(length=1), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.HOT_WATER_SET_TEMP, ErdIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.HOT_WATER_IN_USE, ErdReadOnlyBoolConverter(), ErdCodeClass.DISPENSER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.TURBO_FREEZE_STATUS, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.TURBO_COOL_STATUS, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
@@ -67,6 +67,8 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.INTERIOR_LIGHT, ErdIntConverter(length=1), ErdCodeClass.LIGHT, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.PROXIMITY_LIGHT, ErdOnOffConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.CONVERTABLE_DRAWER_MODE, ErdConvertableDrawerModeConverter(), ErdCodeClass.FRIDGE_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISPLAY_MODE, ErdOnOffConverter(), ErdCodeClass.FREEZER_SENSOR),
+    ErdConfigurationEntry(ErdCode.LOCKOUT_MODE, ErdOnOffConverter(), ErdCodeClass.LOCK_CONTROL),
 
     #Oven
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_PROBE_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR),
@@ -130,6 +132,12 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.DISHWASHER_RINSE_AGENT, ErdRinseAgentConverter(), ErdCodeClass.DISHWASHER_SENSOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_DOOR_STATUS, ErdDishwasherDoorStatusConverter(), ErdCodeClass.DOOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_USER_SETTING, ErdUserSettingConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+
+    ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_CYCLE_STATE, ErdCycleStateConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_RINSE_AGENT, ErdRinseAgentConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_DOOR_STATUS, ErdDishwasherDoorStatusConverter(), ErdCodeClass.DOOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_USER_SETTING, ErdUserSettingConverter(), ErdCodeClass.DISHWASHER_SENSOR),
 
     # Laundry
     ErdConfigurationEntry(ErdCode.LAUNDRY_MACHINE_STATE, MachineStateConverter(), ErdCodeClass.LAUNDRY_SENSOR),
@@ -214,8 +222,8 @@ _configuration = [
 
     # Water Heater
     ErdConfigurationEntry(ErdCode.WH_HEATER_MODE, ErdWaterHeaterModeConverter(), ErdCodeClass.WATERHEATER_SENSOR),
-    ErdConfigurationEntry(ErdCode.WH_HEATER_TARGET_TEMPERATURE, ErdWaterHeaterTargetTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
-    ErdConfigurationEntry(ErdCode.WH_HEATER_SET_TEMPERATURE, ErdWaterHeaterSetTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_TARGET_TEMPERATURE, ErdWaterHeaterTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_TEMPERATURE, ErdWaterHeaterTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
     ErdConfigurationEntry(ErdCode.WH_HEATER_MODE_HOURS_REMAINING, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
     ErdConfigurationEntry(ErdCode.WH_HEATER_MIN_MAX_TEMPERATURE, ErdWaterHeaterMinMaxTemperatureConverter(), ErdCodeClass.WATERHEATER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_HEATER_VACATION_MODE_MAX_TIME, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.WATERHEATER_SENSOR, ErdDataType.TIMESPAN),
