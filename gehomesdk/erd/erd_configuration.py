@@ -225,6 +225,9 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.WH_HEATER_TARGET_TEMPERATURE, ErdWaterHeaterTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
     ErdConfigurationEntry(ErdCode.WH_HEATER_TEMPERATURE, ErdWaterHeaterTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
     ErdConfigurationEntry(ErdCode.WH_HEATER_MODE_HOURS_REMAINING, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_MIN_MAX_TEMPERATURE, ErdWaterHeaterMinMaxTemperatureConverter(), ErdCodeClass.WATERHEATER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_VACATION_MODE_MAX_TIME, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.WATERHEATER_SENSOR, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_ELECTRIC_MODE_MAX_TIME, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.WATERHEATER_SENSOR, ErdDataType.TIMESPAN),
 
     #AC
     ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
