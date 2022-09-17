@@ -1,6 +1,6 @@
 # GE Home SDK Changelog
 
-## 0.5.5
+## 0.5.5 - 0.5.7
 
 - Added additional fridge codes
 - Added geothermal heater codes (@seantibor)
