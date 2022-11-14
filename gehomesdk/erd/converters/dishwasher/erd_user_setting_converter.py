@@ -7,14 +7,14 @@ from gehomesdk.erd.values.dishwasher.erd_user_setting import (
     UserDryOptionSetting,
     UserWashZoneSetting
 )
-from ..abstract import ErdReadOnlyConverter
+from ..abstract import ErdReadWriteConverter
 from ..primitives import *
 
 from gehomesdk.erd.values.dishwasher import ErdUserSetting
 
 _LOGGER = logging.getLogger(__name__)
 
-class ErdUserSettingConverter(ErdReadOnlyConverter[ErdUserSetting]):
+class ErdUserSettingConverter(ErdReadWriteConverter[ErdUserSetting]):
     def erd_decode(self, value: str) -> ErdUserSetting:
         if not value:
             return ErdUserSetting()
@@ -25,7 +25,7 @@ class ErdUserSettingConverter(ErdReadOnlyConverter[ErdUserSetting]):
             
             return ErdUserSetting(
                 bottle_jet = UserSetting(i & 1),
-                cycle_mode = UserCycleSetting(i & 14 >> 1),
+                cycle_mode = UserCycleSetting((i & 14) >> 1),   #missing brackets added by Nick
                 sabbath = UserSetting((i & 64) >> 6),
                 presoak = UserSetting((i & 256) >> 8),
                 lock_control = UserSetting((i & 512) >> 9),
@@ -39,3 +39,97 @@ class ErdUserSettingConverter(ErdReadOnlyConverter[ErdUserSetting]):
         except Exception as ex: 
             _LOGGER.exception("Could not construct user setting, using default.")
             return ErdUserSetting(raw_value=value)
+            
+    def erd_encode(self, value: int) -> str:
+        """
+        return the Dishwasher user setting value
+        """
+        return '{:06X}'.format(value)
+            
+class ErdUserCycleSettingConverter(ErdReadWriteConverter[UserCycleSetting]):
+    def erd_decode(self, value: str) -> UserCycleSetting:
+        if not value:
+            return UserCycleSetting()
+        
+        try:
+            #convert to int
+            i = erd_decode_int(value)
+            
+            return UserCycleSetting(i)
+        except Exception as ex: 
+            _LOGGER.exception("Could not construct user cycle setting, using default.")
+            return UserCycleSetting(raw_value=value)
+            
+    def erd_encode(self, value: UserCycleSetting) -> str:
+        """
+        return the Dishwasher cycle setting value
+        """
+        return (
+            '{:02d}'.format(value.value)
+        )
+        
+class ErdUserTemperatureSettingConverter(ErdReadWriteConverter[UserWashTempSetting]):
+    def erd_decode(self, value: str) -> UserWashTempSetting:
+        if not value:
+            return UserWashTempSetting()
+        
+        try:
+            #convert to int
+            i = erd_decode_int(value)
+            
+            return UserWashTempSetting(i)
+        except Exception as ex: 
+            _LOGGER.exception("Could not construct user cycle setting, using default.")
+            return UserWashTempSetting(raw_value=value)
+            
+    def erd_encode(self, value: UserWashTempSetting) -> str:
+        """
+        return the Dishwasher temperature setting value
+        """
+        return (
+            '{:02d}'.format(value.value)
+        )
+        
+class ErdUserDryingSettingConverter(ErdReadWriteConverter[UserDryOptionSetting]):
+    def erd_decode(self, value: str) -> UserDryOptionSetting:
+        if not value:
+            return UserDryOptionSetting()
+        
+        try:
+            #convert to int
+            i = erd_decode_int(value)
+            
+            return UserDryOptionSetting(i)
+        except Exception as ex: 
+            _LOGGER.exception("Could not construct user cycle setting, using default.")
+            return UserDryOptionSetting(raw_value=value)
+            
+    def erd_encode(self, value: UserDryOptionSetting) -> str:
+        """
+        return the Dishwasher drying setting value
+        """
+        return (
+            '{:02d}'.format(value.value)
+        )
+        
+class ErdUserZoneSettingConverter(ErdReadWriteConverter[UserWashZoneSetting]):
+    def erd_decode(self, value: str) -> UserWashZoneSetting:
+        if not value:
+            return UserWashZoneSetting()
+        
+        try:
+            #convert to int
+            i = erd_decode_int(value)
+            
+            return UserWashZoneSetting(i)
+        except Exception as ex: 
+            _LOGGER.exception("Could not construct user cycle setting, using default.")
+            return UserWashZoneSetting(raw_value=value)
+            
+    def erd_encode(self, value: UserWashZoneSetting) -> str:
+        """
+        return the Dishwasher wash zone setting value
+        """
+        return (
+            '{:02d}'.format(value.value)
+        )

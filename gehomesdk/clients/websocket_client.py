@@ -129,6 +129,33 @@ class GeWebsocketClient(GeBaseClient):
         finally:
             self._teardown_futures()
             await self._disconnect()
+            
+    async def async_send_command(self, appliance: GeAppliance, cmd: str, data=[]):
+        '''
+        Send command via websocket
+        '''
+        mac_addr = appliance.mac_addr
+
+        request_body = {
+            "kind": "appliance#control",
+            "userId": self.user_id,
+            "applianceId": appliance.mac_addr,
+            "command": cmd,
+            "data": data,
+            "ackTimeout": 10,
+            "delay": 0,
+        }
+
+        msg_dict = {
+            "kind": "websocket#api",
+            "action": "api",
+            "host": API_HOST,
+            "method": "POST",
+            "path": f"/v1/appliance/{mac_addr}/control/{cmd}",
+            "id": "",
+            "body": request_body,
+        }
+        await self._send_dict(msg_dict)
 
     async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any):
         if isinstance(erd_code, ErdCode):
