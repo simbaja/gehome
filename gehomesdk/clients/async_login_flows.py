@@ -167,9 +167,11 @@ async def async_get_oauth2_token(session: ClientSession, account_username: str, 
             return oauth_token
         except KeyError:
             raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
+        except Exception as exc:
+            resp_text = await resp.text()
+            _LOGGER.exception(f"Could not get OAuth token, response details: {resp.__dict__}")
+            raise GeAuthFailedError(f'Could not get OAuth token') from exc
     except Exception as exc:
-        resp_text = await resp.text()
-        _LOGGER.exception(f"Could not get OAuth token, response details: {resp.__dict__}")
         raise GeAuthFailedError(f'Could not get OAuth token') from exc
 
 async def async_refresh_oauth2_token(session: ClientSession, refresh_token: str):
@@ -195,8 +197,10 @@ async def async_refresh_oauth2_token(session: ClientSession, refresh_token: str)
             return oauth_token
         except KeyError:
             raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
+        except Exception as exc:
+            resp_text = await resp.text()
+            _LOGGER.exception(f"Could not refresh OAuth token, response details: {resp.__dict__}")
+            raise GeAuthFailedError(f'Could not refresh OAuth token') from exc
     except Exception as exc:
-        resp_text = await resp.text()
-        _LOGGER.exception(f"Could not refresh OAuth token, response details: {resp.__dict__}")
         raise GeAuthFailedError(f'Could not refresh OAuth token') from exc
 

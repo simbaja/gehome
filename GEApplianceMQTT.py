@@ -20,7 +20,8 @@ from gehomesdk import (
     EVENT_ADD_APPLIANCE,
     EVENT_APPLIANCE_STATE_CHANGE,
     EVENT_APPLIANCE_INITIAL_UPDATE,
-    EVENT_GOT_APPLIANCE_LIST,
+    EVENT_APPLIANCE_AVAILABLE,
+    EVENT_APPLIANCE_UNAVAILABLE,
     ErdApplianceType,
     ErdCode,
     ErdCodeType,
@@ -64,10 +65,11 @@ class GeWSClient(MQTTMixin, GeWebsocketClient):
                                         'remove_event_handler',
                                         'add_event_handler'
                                      ])
-        #self.add_event_handler(EVENT_APPLIANCE_INITIAL_UPDATE, self._detect_appliance_type)
+        self.add_event_handler(EVENT_APPLIANCE_INITIAL_UPDATE, self._detect_appliance_type)
         self.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, self._publish_state_change)
         #self.add_event_handler(EVENT_ADD_APPLIANCE, self._do_periodic_update)
-        self.add_event_handler(EVENT_GOT_APPLIANCE_LIST, self._publish_status)
+        self.add_event_handler(EVENT_APPLIANCE_AVAILABLE, self._publish_status)
+        self.add_event_handler(EVENT_APPLIANCE_UNAVAILABLE, self._publish_status)
         
     async def start(self):
         session = aiohttp.ClientSession()
@@ -333,7 +335,6 @@ class GeWSClient(MQTTMixin, GeWebsocketClient):
         appliance, state_changes = data
         updated_keys = ', '.join([str(s) for s in state_changes])
         self.log.debug(f'Appliance state change detected in {appliance}. Updated keys: {updated_keys}')
-        self._publish_online_status(appliance)
         for k, v in state_changes.items():
             self.publish(appliance, k, v)
     
@@ -343,14 +344,10 @@ class GeWSClient(MQTTMixin, GeWebsocketClient):
         This should only be triggered once since the appliance type should never change.
         """
         self.log.info(f'Appliance state change detected in {appliance}')
+        await self._publish_status(appliance)
         
-    async def _publish_status(self, items):
-        for item in items:
-            appliance = self.appliances[item["applianceId"]]
-            self._publish_online_status(appliance)
-            
-    def _publish_online_status(self, appliance: GeAppliance):
-        self.publish(appliance, 'online', appliance.available)
+    async def _publish_status(self, appliance: GeAppliance):
+        self.publish(appliance, 'online', appliance.available)   
 
     async def _do_periodic_update(self, appliance: GeAppliance):
         """Request a full state update every minute forever"""
