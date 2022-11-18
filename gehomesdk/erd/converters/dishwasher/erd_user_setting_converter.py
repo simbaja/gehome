@@ -31,9 +31,11 @@ class ErdUserSettingConverter(ErdReadWriteConverter[ErdUserSetting]):
                 lock_control = UserSetting((i & 512) >> 9),
                 dry_option = UserDryOptionSetting((i & 3072) >> 10),
                 wash_temp = UserWashTempSetting((i & 12288) >> 12),
+                rinse_aid = UserSetting((i & 32768) >> 15),
                 delay_hours = (i & 983040) >> 16,
                 wash_zone = UserWashZoneSetting((i & 3145728) >> 20),
-                sound = UserSetting((i & 8388608) >> 23),
+                demo_mode = UserSetting((i & 4194304) >> 22),
+                mute = UserSetting((i & 8388608) >> 23),
                 raw_value=value
             )
         except Exception as ex: 

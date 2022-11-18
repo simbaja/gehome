@@ -8,7 +8,7 @@ class ErdCycleStateRaw(enum.Enum):
     MAIN_WASH = 3
     DRYING = 4
     SANITIZING = 5
-    TURNIDITY_CAL = 6
+    TURBIDITY_CAL = 6
     DIVERTER_CAL = 7
     PAUSE = 8
     RINSING = 9

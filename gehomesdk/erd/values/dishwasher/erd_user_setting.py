@@ -37,13 +37,15 @@ class UserWashZoneSetting(enum.Enum):
     UPPER = 2
 
 class ErdUserSetting (NamedTuple):
-    sound: UserSetting = UserSetting.DISABLE
+    mute: UserSetting = UserSetting.DISABLE
+    demo_mode: UserSetting = UserSetting.DISABLE
     lock_control: UserSetting = UserSetting.DISABLE
     sabbath: UserSetting = UserSetting.DISABLE
     cycle_mode: UserCycleSetting = UserCycleSetting.AUTO
     presoak: UserSetting = UserSetting.DISABLE
     bottle_jet: UserSetting = UserSetting.DISABLE
     wash_temp: UserWashTempSetting = UserWashTempSetting.NORMAL
+    rinse_aid: UserSetting = UserSetting.DISABLE
     dry_option: UserDryOptionSetting = UserDryOptionSetting.OFF
     wash_zone: UserWashZoneSetting = UserWashZoneSetting.BOTH
     delay_hours: int = 0

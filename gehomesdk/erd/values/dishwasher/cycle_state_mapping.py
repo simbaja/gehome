@@ -13,7 +13,7 @@ CYCLE_STATE_RAW_MAP = {
     ErdCycleStateRaw.DRYING: ErdCycleState.DRYING,
     ErdCycleStateRaw.SANITIZING: ErdCycleState.SANITIZING,
     ErdCycleStateRaw.RINSING: ErdCycleState.RINSING,
-    ErdCycleStateRaw.TURNIDITY_CAL: ErdCycleState.RINSING,
+    ErdCycleStateRaw.TURBIDITY_CAL: ErdCycleState.RINSING,
     ErdCycleStateRaw.FINAL_RINSE: ErdCycleState.RINSING,
     ErdCycleStateRaw.FINAL_RINSE_FILL: ErdCycleState.RINSING,
     ErdCycleStateRaw.PAUSE: ErdCycleState.PAUSE,
