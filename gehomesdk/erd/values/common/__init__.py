@@ -6,3 +6,4 @@ from .erd_on_off import ErdOnOff
 from .erd_present import ErdPresent
 from .erd_sound_level import ErdSoundLevel
 from .erd_unit_type import ErdUnitType
+from .erd_locked import ErdInterfaceLocked

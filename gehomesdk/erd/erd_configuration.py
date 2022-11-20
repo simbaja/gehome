@@ -32,7 +32,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.MODEL_NUMBER, ErdModelSerialConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.SERIAL_NUMBER, ErdModelSerialConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.SABBATH_MODE, ErdBoolConverter(), ErdCodeClass.SABBATH_CONTROL),
-    ErdConfigurationEntry(ErdCode.USER_INTERFACE_LOCKED, ErdBoolConverter(), ErdCodeClass.LOCK_CONTROL),
+    ErdConfigurationEntry(ErdCode.USER_INTERFACE_LOCKED, ErdLockedBoolConverter(), ErdCodeClass.LOCK_CONTROL),
     ErdConfigurationEntry(ErdCode.ACM_UPDATING, ErdReadOnlyBoolConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.APPLIANCE_UPDATING, ErdReadOnlyBoolConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.LCD_UPDATING, ErdReadOnlyBoolConverter(), ErdCodeClass.GENERAL),

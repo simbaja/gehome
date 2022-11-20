@@ -1,6 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
+#NOTE: reset is actually the number of power cycles
 
 from gehomesdk.erd.values.dishwasher import ErdCycleCount
 
