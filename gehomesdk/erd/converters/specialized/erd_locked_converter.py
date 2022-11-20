@@ -11,7 +11,11 @@ class ErdLockedConverter(ErdReadWriteConverter[ErdInterfaceLocked]):
             return ErdInterfaceLocked.DEFAULT
 
     def erd_encode(self, value: ErdInterfaceLocked) -> str:
-        return '{:02X}'.format(value.value)
+        try:
+            value = value.value
+        except AttributeError:
+            pass
+        return '{:02X}'.format(value)
         
 class ErdLockedBoolConverter(ErdReadWriteConverter[Optional[bool]]):
     def erd_decode(self, value: str) -> bool:
@@ -21,4 +25,8 @@ class ErdLockedBoolConverter(ErdReadWriteConverter[Optional[bool]]):
             return False
 
     def erd_encode(self, value: ErdInterfaceLocked) -> str:
-        return '{:02X}'.format(value.value)
+        try:
+            value = value.value
+        except AttributeError:
+            pass
+        return '{:02X}'.format(value)
