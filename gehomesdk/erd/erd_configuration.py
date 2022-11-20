@@ -146,7 +146,7 @@ _configuration = [
 
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_CYCLE_STATE, ErdCycleStateConverter(), ErdCodeClass.DISHWASHER_SENSOR),
-    ErdConfigurationEntry(ErdCode.DISHWASHER_REMINDERS, ErdRemindersSettingConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_REMINDERS, ErdRemindersSettingConverter(), ErdCodeClass.DISHWASHER_SENSOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_DOOR_STATUS, ErdDishwasherDoorStatusConverter(), ErdCodeClass.DOOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_USER_SETTING, ErdUserSettingConverter(), ErdCodeClass.DISHWASHER_SENSOR),
 
