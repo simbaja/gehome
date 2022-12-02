@@ -7,3 +7,4 @@ from .erd_software_version_converter import ErdSoftwareVersionConverter
 from .erd_sound_level_converter import ErdSoundLevelConverter
 from .erd_unit_type_converter import ErdUnitTypeConverter
 from .erd_on_off_converter import ErdOnOffConverter
+from .erd_locked_converter import ErdLockedConverter, ErdLockedBoolConverter
