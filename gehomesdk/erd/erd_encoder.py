@@ -59,7 +59,10 @@ class ErdEncoder:
             return self._registry[erd_code].erd_decode(erd_value)
         except KeyError:
             return erd_decode_bytes(erd_value)
-
+        except ValueError:
+            _LOGGER.error(f'Got ValueError {erd_code} - {erd_value}')
+            return erd_decode_bytes(erd_value)
+            
     def get_code_class(self, erd_code: ErdCodeType) -> ErdCodeClass:
         """
         Gets the code class for a given ErdCode.  Returns GENERAL if not

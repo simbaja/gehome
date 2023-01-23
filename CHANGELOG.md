@@ -1,5 +1,10 @@
 # GE Home SDK Changelog
 
+## 0.5.8
+
+- Added additional dishwasher functionality (@NickWaterton)
+- Added exception handling for ValueErrors (@NickStallman)
+
 ## 0.5.5 - 0.5.7
 
 - Added additional fridge codes
