@@ -1,5 +1,10 @@
 # GE Home SDK Changelog
 
+## 0.5.9
+
+- Fixed issues with Python 3.11
+- Fixed dependency issues
+
 ## 0.5.8
 
 - Added additional dishwasher functionality (@NickWaterton)
