@@ -35,7 +35,8 @@ setup(
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     entry_points={
         'console_scripts': [
@@ -44,6 +45,5 @@ setup(
     },    
     packages=find_namespace_packages(include=[base_package, f"{base_package}*"]),
     include_package_data=False,
-    install_requires=["aiohttp", "bidict", "requests", "websockets","humanize"],
-    extras_require={"XMPP": ["slixmpp==1.5.2"]}
+    install_requires=["aiohttp", "bidict", "requests", "websockets","humanize", "lxml", "slixmpp"]
 )
