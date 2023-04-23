@@ -94,8 +94,10 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         return self._event_handlers
 
     async def async_event(self, event: str, *args, **kwargs):
+        _LOGGER.debug(f"received event: {event}, processing callbacks...")
         """Trigger event callbacks sequentially"""
         for cb in self.event_handlers[event]:
+            _LOGGER.debug(f"processing callback: {cb}")
             asyncio.ensure_future(cb(*args, **kwargs), loop=self.loop)
 
     def add_event_handler(self, event: str, callback: Callable, disposable: bool = False):
@@ -136,7 +138,8 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                 if not self._has_successful_connect:
                     _LOGGER.warn(f'Unhandled exception on first connect attempt: {err}, disconnecting')
                     break
-                _LOGGER.info(f'Unhandled exception while running client: {err}, ignoring and restarting')  
+                _LOGGER.exception(err)
+                _LOGGER.info(f'Unhandled exception while running client, ignoring and restarting')
             finally:
                 if not self._disconnect_requested.is_set():
                     await self._set_state(GeClientState.DROPPED)
