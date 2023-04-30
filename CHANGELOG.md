@@ -1,5 +1,10 @@
 # GE Home SDK Changelog
 
+## 0.5.10
+
+- Added OIM descaling
+- Added EcoDry conversion
+
 ## 0.5.9
 
 - Fixed issues with Python 3.11
