@@ -190,6 +190,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_DAMP_ALERT, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_REDUCE_STATIC, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_WASHERLINK_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_ECODRY_STATUS, EcoDryStatusConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR, ErdDataType.BOOL),
 
     # Microwave
     ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR, ErdDataType.BOOL),
