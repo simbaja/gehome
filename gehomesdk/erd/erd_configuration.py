@@ -259,6 +259,11 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.SAC_TARGET_TEMPERATURE_RANGE, ErdSacTargetTemperatureRangeConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_AUTO_SWING_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
 
+    #Dehumidifier
+    ErdConfigurationEntry(ErdCode.DHUM_TARGET_HUMIDITY, ErdIntConverter(), ErdCodeClass.DEHUMIDIFIER_SENSOR, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.DHUM_CURRENT_HUMIDITY, ErdReadOnlyIntConverter(), ErdCodeClass.DEHUMIDIFIER_SENSOR, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.DHUM_MAINTENANCE, ErdDehumidifierMaintenanceConverter(), ErdCodeClass.DEHUMIDIFIER_SENSOR),
+
     #Hood
     ErdConfigurationEntry(ErdCode.HOOD_LIGHT_LEVEL, ErdHoodLightLevelConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.HOOD_LIGHT_LEVEL_AVAILABILITY, ErdHoodLightLevelAvailabilityConverter(), ErdCodeClass.HOOD_SENSOR),

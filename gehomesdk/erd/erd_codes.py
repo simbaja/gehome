@@ -351,6 +351,11 @@ class ErdCode(enum.Enum):
     SAC_TARGET_TEMPERATURE_RANGE = "0x7b06"
     SAC_AUTO_SWING_MODE = "0x7b07"
 
+    #Dehumidifier
+    DHUM_CURRENT_HUMIDITY = "0x7b01"
+    DHUM_TARGET_HUMIDITY = "0x7b02"
+    DHUM_MAINTENANCE = "0x7832"
+
     #Ice Maker
     OIM_STATUS = "0x9100"
     OIM_LIGHT_LEVEL = "0x9101"
