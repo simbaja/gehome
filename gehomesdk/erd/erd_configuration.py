@@ -112,6 +112,7 @@ _configuration = [
 
     ErdConfigurationEntry(ErdCode.COOKTOP_CONFIG, ErdCooktopConfigConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.COOKTOP_STATUS, CooktopStatusConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.COOKTOP_STATUS_EXT, CooktopStatusExtConverter(), ErdCodeClass.GENERAL),
 
     ErdConfigurationEntry(ErdCode.PRECISION_COOKING_PROBE_CONTROL_MODE, ErdPrecisionCookingAppProbeControlModeConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.PRECISION_COOKING_PROBE_STATUS, ErdReadOnlyIntConverter(), ErdCodeClass.OVEN_SENSOR),
