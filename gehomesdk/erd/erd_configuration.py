@@ -87,6 +87,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_COOK_MODE, OvenCookModeConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_LIGHT, ErdOvenLightLevelConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.LOWER_OVEN_LIGHT_AVAILABILITY, ErdOvenLightLevelAvailabilityConverter(), ErdCodeClass.OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.LOWER_OVEN_WARMING_DRAWER_STATE, ErdOvenWarmingStateConverter(), ErdCodeClass.OVEN_SENSOR),
 
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_PROBE_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_REMOTE_ENABLED, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
@@ -104,11 +105,13 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_COOK_MODE, OvenCookModeConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_LIGHT, ErdOvenLightLevelConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.UPPER_OVEN_LIGHT_AVAILABILITY, ErdOvenLightLevelAvailabilityConverter(), ErdCodeClass.OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.UPPER_OVEN_WARMING_DRAWER_STATE, ErdOvenWarmingStateConverter(), ErdCodeClass.OVEN_SENSOR),
 
     ErdConfigurationEntry(ErdCode.CONVECTION_CONVERSION, ErdBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.HOUR_12_SHUTOFF_ENABLED, ErdBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.OVEN_CONFIGURATION, OvenConfigurationConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.OVEN_MODE_MIN_MAX_TEMP, OvenRangesConverter(), ErdCodeClass.OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.WARMING_DRAWER_STATE, ErdOvenWarmingStateConverter(), ErdCodeClass.OVEN_SENSOR),
 
     ErdConfigurationEntry(ErdCode.COOKTOP_CONFIG, ErdCooktopConfigConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.COOKTOP_STATUS, CooktopStatusConverter(), ErdCodeClass.GENERAL),
