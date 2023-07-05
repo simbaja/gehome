@@ -1,1 +1,2 @@
 from .erd_dehumidifier_maintenance_converter import ErdDehumidifierMaintenanceConverter
+from .erd_dehumidifier_current_humidity_converter import ErdDehumidifierCurrentHumidityConverter
