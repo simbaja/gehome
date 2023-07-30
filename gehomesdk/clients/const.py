@@ -17,8 +17,8 @@ LOGIN_REGIONS = {
 LOGIN_REGION_COOKIE_NAME = "abgea_region"
 LOGIN_COOKIE_DOMAIN = "accounts.brillion.geappliances.com"
 
-MAX_RETRIES = 3
-RETRY_INTERVAL = 2
+MAX_RETRIES = 1
+RETRY_INTERVAL = 10
 
 EVENT_ADD_APPLIANCE = "add_appliance"
 EVENT_APPLIANCE_INITIAL_UPDATE = "appliance_got_type"
