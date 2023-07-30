@@ -265,7 +265,7 @@ _configuration = [
 
     #Dehumidifier
     ErdConfigurationEntry(ErdCode.DHUM_TARGET_HUMIDITY, ErdIntConverter(), ErdCodeClass.DEHUMIDIFIER_SENSOR, ErdDataType.INT),
-    ErdConfigurationEntry(ErdCode.DHUM_CURRENT_HUMIDITY, ErdReadOnlyIntConverter(), ErdCodeClass.DEHUMIDIFIER_SENSOR, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.DHUM_CURRENT_HUMIDITY, ErdDehumidifierCurrentHumidityConverter(), ErdCodeClass.DEHUMIDIFIER_SENSOR, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.DHUM_MAINTENANCE, ErdDehumidifierMaintenanceConverter(), ErdCodeClass.DEHUMIDIFIER_SENSOR),
 
     #Hood
