@@ -1,5 +1,12 @@
 # GE Home SDK Changelog
 
+## 0.5.14
+
+- Support for Dehumidifiers
+- Support for new cooktops (new format)
+- Fix for missing values on F&P dishwashers
+- Added warming drawer to ovens
+
 ## 0.5.10
 
 - Added OIM descaling
