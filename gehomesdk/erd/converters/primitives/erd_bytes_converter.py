@@ -5,7 +5,7 @@ def erd_decode_bytes(value: any) -> bytes:
     return bytes.fromhex(value)
 def erd_encode_bytes(value: bytes) -> str:
     """Encode a raw bytes ERD value."""
-    return value.hex('big')
+    return value.hex()
 
 class ErdBytesConverter(ErdReadWriteConverter[bytes]):
     def erd_decode(self, value: str) -> bytes:

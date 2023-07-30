@@ -1,6 +1,10 @@
+import logging
+
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 from gehomesdk.erd.values.oven import CooktopStatus, ErdCooktopStatus, Burner
+
+_LOGGER = logging.getLogger(__name__)
 
 class CooktopStatusExtConverter(ErdReadOnlyConverter[CooktopStatus]):
     def erd_decode(self, value: str) -> CooktopStatus:
@@ -24,8 +28,9 @@ class CooktopStatusExtConverter(ErdReadOnlyConverter[CooktopStatus]):
                 status = ErdCooktopStatus.BURNERS_ON
 
             return CooktopStatus(status, burners, value)
-        except:
-            return CooktopStatus.DEFAULT()
+        except Exception as ex:
+            _LOGGER.error("Could not convert cooktop status.", exc_info=1)
+            return CooktopStatus(ErdCooktopStatus.DASH,{},value)
 
     def _convert_to_legacy(self, value: int):
         #based on description at: https://github.com/simbaja/ha_gehome/issues/159
