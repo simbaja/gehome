@@ -1,8 +1,8 @@
-from ..abstract import ErdReadWriteConverter
+from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
 
-class ErdDehumidifierCurrentHumidityConverter(ErdReadWriteConverter[int]):
+class ErdDehumidifierCurrentHumidityConverter(ErdReadOnlyConverter[int]):
     def erd_decode(self, value: str) -> int:
         try:
             return erd_decode_int(value) & 0xFF
