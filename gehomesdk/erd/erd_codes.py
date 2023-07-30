@@ -355,6 +355,7 @@ class ErdCode(enum.Enum):
     #Dehumidifier
     DHUM_CURRENT_HUMIDITY = "0x7b01"
     DHUM_TARGET_HUMIDITY = "0x7b02"
+    DHUM_TARGET_HUMIDITY_RANGE = "0x7b03"
     DHUM_MAINTENANCE = "0x7832"
 
     #Ice Maker
