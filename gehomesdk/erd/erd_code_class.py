@@ -23,6 +23,7 @@ class ErdCodeClass(enum.IntFlag):
     ENERGY = auto()
     FAN = auto()
     LIGHT = auto()
+    HUMIDITY = auto()
     OVEN_SENSOR = auto()
     FRIDGE_SENSOR = auto()
     FREEZER_SENSOR = auto()
