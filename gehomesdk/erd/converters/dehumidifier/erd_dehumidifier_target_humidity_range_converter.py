@@ -5,7 +5,7 @@ from gehomesdk.erd.values.dehumidifier import DehumidifierTargetRange
 class DehumidifierTargetRangeConverter(ErdReadOnlyConverter[DehumidifierTargetRange]):
     def erd_decode(self, value: str) -> DehumidifierTargetRange:
         return DehumidifierTargetRange(
-            max_humidity=erd_decode_int(value[0:2]),
-            min_humidity=erd_decode_int(value[2:4]),
+            min_humidity=erd_decode_int(value[0:2]),
+            max_humidity=erd_decode_int(value[2:4]),
         )
 
