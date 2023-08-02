@@ -13,7 +13,7 @@ class ErdDehumidifierMaintenanceConverter(ErdReadOnlyConverter[ErdDehumidifierMa
         
         try:
             #convert to int
-            i = erd_decode_int(value)
+            i = erd_decode_int(value[:2])
 
             return ErdDehumidifierMaintenance(
                 empty_bucket = bool((i & 0x01)),
