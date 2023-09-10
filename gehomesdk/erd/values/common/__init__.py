@@ -7,3 +7,4 @@ from .erd_present import ErdPresent
 from .erd_sound_level import ErdSoundLevel
 from .erd_unit_type import ErdUnitType
 from .erd_locked import ErdInterfaceLocked
+from .erd_brand import ErdBrand

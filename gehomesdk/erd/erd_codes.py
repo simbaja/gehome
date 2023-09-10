@@ -22,7 +22,7 @@ class ErdCode(enum.Enum):
     UNIT_TYPE = "0x0035"
 
     # Low-level-type things
-    WIFI_MODULE_UPDATING = "0x0099"
+    BRAND = "0x0099"
     WIFI_MODULE_SW_VERSION = "0x0100"
     WIFI_MODULE_SW_VERSION_AVAILABLE = "0x0101"
     ACM_UPDATING = "0x0102"
