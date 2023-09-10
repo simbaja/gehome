@@ -70,3 +70,4 @@ class ErdOvenCookMode(enum.Enum):
     WARM_NOOPTION = 15
     WARM_PROBE = 16
     AIRFRY = 158
+    VENT_BAKE = 94
