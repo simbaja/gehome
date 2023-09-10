@@ -13,5 +13,5 @@ class ErdUnitTypeConverter(ErdReadOnlyConverter[ErdUnitType]):
         try:
             return ErdUnitType(erd_decode_int(value))
         except:
-            _LOGGER.warning("Unknown Unit Type: {value}, using default")
+            _LOGGER.warning(f"Unknown Unit Type: {value}, using default")
             return ErdUnitType.UNKNOWN
