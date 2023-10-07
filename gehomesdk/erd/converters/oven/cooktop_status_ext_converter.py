@@ -24,7 +24,7 @@ class CooktopStatusExtConverter(ErdReadOnlyConverter[CooktopStatus]):
             burners["rightRear"] = Burner(self._convert_to_legacy(vals[15]), 0)
 
             status = ErdCooktopStatus.OFF
-            if(any(x.on for x in burners)):
+            if(any(x.on for _,x in burners.items())):
                 status = ErdCooktopStatus.BURNERS_ON
 
             return CooktopStatus(status, burners, value)
