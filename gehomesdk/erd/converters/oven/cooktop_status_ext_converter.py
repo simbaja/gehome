@@ -16,15 +16,15 @@ class CooktopStatusExtConverter(ErdReadOnlyConverter[CooktopStatus]):
             vals = [erd_decode_int(value[i:i + 2]) for i in range(0, len(value), 2)]
             burners = {}
 
-            burners["leftFront"] = Burner(self._convert_to_legacy(vals[0]), 0)
-            burners["leftRear"] = Burner(self._convert_to_legacy(vals[3]), 0)
-            burners["centerFront"] = Burner(self._convert_to_legacy(vals[6]), 0)
-            burners["centerRear"] = Burner(self._convert_to_legacy(vals[9]), 0)
-            burners["rightFront"] = Burner(self._convert_to_legacy(vals[12]), 0)
-            burners["rightRear"] = Burner(self._convert_to_legacy(vals[15]), 0)
+            burners["leftFront"] = Burner(self._convert_to_legacy(vals[1]), 0)
+            burners["leftRear"] = Burner(self._convert_to_legacy(vals[4]), 0)
+            burners["centerFront"] = Burner(self._convert_to_legacy(vals[7]), 0)
+            burners["centerRear"] = Burner(self._convert_to_legacy(vals[10]), 0)
+            burners["rightFront"] = Burner(self._convert_to_legacy(vals[13]), 0)
+            burners["rightRear"] = Burner(self._convert_to_legacy(vals[16]), 0)
 
             status = ErdCooktopStatus.OFF
-            if(any(x.on for x in burners)):
+            if(any(x.on for x in burners.values())):
                 status = ErdCooktopStatus.BURNERS_ON
 
             return CooktopStatus(status, burners, value)
