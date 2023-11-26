@@ -54,6 +54,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.HOT_WATER_IN_USE, ErdReadOnlyBoolConverter(), ErdCodeClass.DISPENSER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.TURBO_FREEZE_STATUS, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.TURBO_COOL_STATUS, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.FRIDGE_ICE_BOOST, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.DOOR_STATUS, FridgeDoorStatusConverter(), ErdCodeClass.DOOR),
     ErdConfigurationEntry(ErdCode.HOT_WATER_STATUS, HotWaterStatusConverter(), ErdCodeClass.DISPENSER_SENSOR),
     ErdConfigurationEntry(ErdCode.ICE_MAKER_BUCKET_STATUS, FridgeIceBucketStatusConverter(), ErdCodeClass.FREEZER_SENSOR),
