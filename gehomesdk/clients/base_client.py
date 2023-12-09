@@ -233,7 +233,18 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
         await self._set_state(GeClientState.AUTHORIZING_OAUTH)
 
-        oauth_token = await async_refresh_oauth2_token(self._session, self._refresh_token)
+        # first try the standard refresh token
+        # if we get an exception, try the full login
+        # if that has an exception, just raise the original
+        # exception
+        try:
+            oauth_token = await async_refresh_oauth2_token(self._session, self._refresh_token)
+        except Exception as exc:
+            try:
+                oauth_token = await self._async_get_oauth2_token(self)
+            except:
+                _LOGGER.warning("Error occurred when retrying token refresh using full flow, ignoring.")
+                raise exc
 
         try:
             self._access_token = oauth_token['access_token']
