@@ -389,5 +389,8 @@ class ErdCode(enum.Enum):
     CCM_IS_DESCALING = "0x9019"
     CCM_START_DESCALING = "0x901a"
     CCM_CANCEL_DESCALING = "0x901b"
+    CCM_EMPTY_WASTE_BIN = "0x902c"
+    CCM_OUT_OF_BEANS = "0x902d"
+    CCM_DESCALE_REQUIRED = "0x9030"
 
 ErdCodeType = Union[ErdCode, str]

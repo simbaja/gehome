@@ -300,4 +300,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.CCM_IS_DESCALING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_START_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_CANCEL_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_EMPTY_WASTE_BIN, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_OUT_OF_BEANS, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_DESCALE_REQUIRED, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
 ]
