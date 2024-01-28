@@ -71,5 +71,6 @@ OVEN_COOK_MODE_MAP = bidict.bidict({
     ErdOvenCookMode.WARM_DELAYSTART: OvenCookMode(ErdOvenState.WARM, True, False, False),
     ErdOvenCookMode.WARM_NOOPTION: OvenCookMode(ErdOvenState.WARM, False, False, False),
     ErdOvenCookMode.WARM_PROBE: OvenCookMode(ErdOvenState.WARM, False, False, True),
-    ErdOvenCookMode.AIRFRY: OvenCookMode(ErdOvenState.OVEN_STATE_AIRFRY, False, False, False, False, False)
+    ErdOvenCookMode.AIRFRY: OvenCookMode(ErdOvenState.OVEN_STATE_AIRFRY, False, False, False, False, False),
+    ErdOvenCookMode.VENT_BAKE: OvenCookMode(ErdOvenState.OVEN_STATE_VENT_BAKE, False, False, False, False, False)
 })

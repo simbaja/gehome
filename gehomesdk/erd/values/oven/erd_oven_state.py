@@ -58,6 +58,7 @@ class ErdOvenState(enum.Enum):
     OVEN_STATE_STEAM_START = "oven_state_steam_start"
     OVEN_STATE_WARM = "oven_state_warm"
     OVEN_STATE_AIRFRY = "oven_state_airfry"
+    OVEN_STATE_VENT_BAKE = "oven_state_vent_bake"
     STATUS_DASH = "status_dash"
 
     def stringify(self, **kwargs) -> Optional[str]:
