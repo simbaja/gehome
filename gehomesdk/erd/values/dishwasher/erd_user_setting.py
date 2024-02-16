@@ -15,7 +15,7 @@ class UserCycleSetting(enum.Enum):
     DELICATE = 3
     THIRTY_MIN = 4
     ECO = 5
-    RINSE = 6,
+    RINSE = 6
     FP_UNKNOWN = 7
 
 @enum.unique
