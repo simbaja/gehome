@@ -1,5 +1,9 @@
 # GE Home SDK Changelog
 
+## 0.5.15 - 0.5.28
+
+- Miscellaneous bug fixes
+
 ## 0.5.14
 
 - Support for Dehumidifiers
