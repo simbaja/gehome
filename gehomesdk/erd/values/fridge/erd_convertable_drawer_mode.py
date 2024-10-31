@@ -5,6 +5,7 @@ from typing import Optional
 class ErdConvertableDrawerMode(enum.Enum):
     UNKNOWN0 = "00"
     UNKNOWN1 = "01"
+    SOFT_FREEZE = "02"
     MEAT = "03"
     BEVERAGE = "04"
     SNACK = "05"
