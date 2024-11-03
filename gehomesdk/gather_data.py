@@ -45,7 +45,9 @@ async def do_periodic_update(appliance: GeAppliance):
 def gather_appliance_data(username: str, password: str, region: str):
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)-8s %(message)s')
 
-    loop = asyncio.get_event_loop()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
     client = GeWebsocketClient(username, password, region, loop)
     client.add_event_handler(EVENT_APPLIANCE_INITIAL_UPDATE, detect_appliance_type)
     client.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, log_state_change)
