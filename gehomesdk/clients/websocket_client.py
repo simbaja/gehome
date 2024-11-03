@@ -51,7 +51,7 @@ class GeWebsocketClient(GeBaseClient):
         self._keepalive_fut = None  # type: Optional[asyncio.Future]
         self._list_frequency = list_frequency
         self._list_fut = None # type: Optional[asyncio.Future]
-        self._ssl_context = ssl_context
+        self._ssl_context = ssl_context or ssl.create_default_context()
 
     @property
     def available(self) -> bool:
