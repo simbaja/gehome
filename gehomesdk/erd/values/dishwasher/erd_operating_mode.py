@@ -12,6 +12,7 @@ class ErdOperatingMode(enum.Enum):
     DOWNLOAD_MODE = 7
     SENSOR_CHECK_MODE = 8
     LOAD_ACTIVATION_MODE = 9
+    OFF = 11
     MC_ONLY_MODE = 17
     WARNING_MODE = 18
     CONTROL_LOCKED = 19
