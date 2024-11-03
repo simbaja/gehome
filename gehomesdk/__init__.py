@@ -1,6 +1,6 @@
 """GE Home SDK"""
 
-__version__ = "0.5.28"
+__version__ = "0.5.29"
 
 
 from .clients import *
