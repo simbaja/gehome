@@ -60,7 +60,13 @@ class ErdLaundryCycle(enum.Enum):
     SANITIZE_WITH_OXI = 30
     SELF_CLEAN = 31
     TOWEL = 32
+    WOOL = 34
     ULTRAFRESH_VENT = 35
+    SPIN = 37
+    EVERYDAY = 38
+    DRUM_CLEAN = 44
+    QUICK = 47
+    EASY_IRON = 48
     COTTONS = 128
     EASY_CARE = 129
     ACTIVE_WEAR = 130
