@@ -28,9 +28,9 @@ setup(
     description="Python SDK for GE Home Appliances",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/simbaja/gehome",
-    author="Jack Simbach",
-    author_email="jack.simbach@gmail.com",
+    url="https://github.com/backyardaussie/gehome",
+    author="backyardaussie",
+    author_email="backyardaussie@gmail.com",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
