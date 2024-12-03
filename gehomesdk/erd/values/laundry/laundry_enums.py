@@ -202,6 +202,14 @@ class ErdSoilLevel(enum.Enum):
         return self.name.replace("_"," ").title()      
 
 @enum.unique
+class ErdSpinSpeedOption(enum.Enum):
+    NO_SPIN = 1
+    FIVEHUNDRED = 12
+    EIGHTHUNDRED = 14
+    ELEVENHUNDRED = 16
+    FOURTEENHUNDRED = 18
+
+@enum.unique
 class ErdSpinTimeLevel(enum.Enum):
     NO_SPIN = 0
     LOW = 1

@@ -9,3 +9,5 @@ from .dryness_level import DrynessLevel
 from .dryness_level_mapping import DRYNESS_LEVEL_MAP, DRYNESSNEW_LEVEL_MAP
 from .ecodry_status import EcoDryStatus
 from .ecodry_status_mapping import ECODRY_STATUS_MAP
+from .spinspeed_option import SpinSpeedOption
+from .spinspeed_option_mapping import SPINSPEED_OPTION_MAP

@@ -181,6 +181,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_POWERSTEAM, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_PREWASH, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_TUMBLECARE, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASHER_SPIN_SPEED, SpinSpeedOptionConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR),
 
     # Laundry - Dryer
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_DRYNESS_LEVEL, DrynessLevelConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR),
