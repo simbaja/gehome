@@ -163,6 +163,7 @@ class ErdCode(enum.Enum):
     # Laundry - Combo
     LAUNDRY_COMBO_WASHER_TIME_REMAINING = "0x2122"
     LAUNDRY_COMBO_DRYER_TIME_REMAINING = "0x2123"
+    LAUNDRY_COMBO_DOOR_STATUS = "0x2140"
 
     # Fridge codes
     AIR_FILTER_STATUS = "0x101c"
