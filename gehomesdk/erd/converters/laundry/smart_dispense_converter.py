@@ -19,6 +19,7 @@ class SmartDispenseConverter(ErdReadOnlyConverter[ErdSmartDispense]):
             # second 2 bytes appear to increment
             return ErdSmartDispense(
                 loads_left = int_values[0],
+                signal = int_values[1],
                 raw_value=value
             )
         except Exception as ex: 
