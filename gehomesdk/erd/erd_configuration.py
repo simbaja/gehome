@@ -227,6 +227,10 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_WASHERLINK_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_BLOCKED_VENT_FAULT, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR, ErdDataType.BOOL),
 
+    # Laundry - Combo
+    ErdConfigurationEntry(ErdCode.LAUNDRY_COMBO_WASHER_TIME_REMAINING, ErdTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_COMBO_DRYER_TIME_REMAINING, ErdTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+
     # Microwave
     ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.MICROWAVE_COOK_SETTING, ErdMicrowaveCookSettingConverter(), ErdCodeClass.MICROWAVE_SENSOR),
