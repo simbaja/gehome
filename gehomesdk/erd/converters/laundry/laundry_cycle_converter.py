@@ -11,4 +11,5 @@ class ErdLaundryCycleConverter(ErdReadOnlyConverter[ErdLaundryCycle]):
         try:
             return ErdLaundryCycle(erd_decode_int(value))
         except (KeyError, ValueError):
+            _LOGGER.info(f"Unknown laundry cycle found, value = {value}")
             return ErdLaundryCycle.NOT_DEFINED
