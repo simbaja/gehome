@@ -148,7 +148,7 @@ class ErdLaundryCycle(enum.Enum):
     RESET = 255
 
     def stringify(self, **kwargs):
-        if self == ErdLaundryCycle.INVALID:
+        if self == ErdLaundryCycle.NOT_DEFINED:
             return "---"
         return self.name.replace("_"," ").replace("2", "").title()      
 
