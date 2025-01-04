@@ -6,4 +6,4 @@ class ErdEcoDryOptionSelection (NamedTuple):
     raw_value: Optional[str] = None
     
     def stringify(self, **kwargs):
-        return f"EcoDryOptionSelection: OptionEnabled:{self.option_enabled}"
+        return f"OptionEnabled:{self.option_enabled}"
