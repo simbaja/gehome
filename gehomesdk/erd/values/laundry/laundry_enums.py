@@ -20,13 +20,6 @@ class ErdDrynessNewLevel(enum.Enum):
     INVALID = 0
 
 @enum.unique
-class ErdEcoDryStatus(enum.Enum):
-    STATE_0 = 0
-    STATE_1 = 1
-    STATE_2 = 2
-    STATE_3 = 3
-
-@enum.unique
 class ErdLaundryCycle(enum.Enum):
     NOT_DEFINED = 0
     BASKET_CLEAN = 1

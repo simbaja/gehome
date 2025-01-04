@@ -8,9 +8,7 @@ from .dryer_extended_tumble_option_allowables import ErdDryerExtendedTumbleOptio
 from .dryer_reduce_static_option_allowables import ErdDryerReduceStaticOptionAllowables
 from .dryer_temperature_option_allowables import ErdDryerTemperatureOptionAllowables
 from .ecodry_option_allowables import ErdEcoDryOptionAllowables
-from .ecodry_option_selection import ErdEcoDryOptionSelection
-from .ecodry_status import EcoDryStatus
-from .ecodry_status_mapping import ECODRY_STATUS_MAP
+from .ecodry_option_selection import ErdEcoDryOptionStatus, ErdEcoDryOptionSelection
 from .laundry_enums import *
 from .machine_state import MachineState
 from .machine_state_mapping import MACHINE_STATE_MAP
