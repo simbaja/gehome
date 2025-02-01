@@ -9,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 class ErdDryerDrynessOptionAllowablesConverter(ErdReadOnlyConverter[ErdDryerDrynessOptionAllowables]):
     def erd_decode(self, value: str) -> ErdDryerDrynessOptionAllowables:
         if not value:
-            return ErdRemoteCycleSelectionAllowables()
+            return ErdDryerDrynessOptionAllowables()
         
         try:
             i = erd_decode_int(value, True)

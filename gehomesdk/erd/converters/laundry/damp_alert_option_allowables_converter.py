@@ -9,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 class ErdDampAlertOptionAllowablesConverter(ErdReadOnlyConverter[ErdDampAlertOptionAllowables]):
     def erd_decode(self, value: str) -> ErdDampAlertOptionAllowables:
         if not value:
-            return ErdRemoteCycleSelectionAllowables()
+            return ErdDampAlertOptionAllowables()
         
         try:
             i = erd_decode_int(value, True)

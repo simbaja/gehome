@@ -9,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 class ErdStainRemovalGuideAvailableOptionsConverter(ErdReadOnlyConverter[ErdStainRemovalGuideAvailableOptions]):
     def erd_decode(self, value: str) -> ErdStainRemovalGuideAvailableOptions:
         if not value:
-            return ErdRemoteCycleSelectionAllowables()
+            return ErdStainRemovalGuideAvailableOptions()
         
         try:
             i = erd_decode_int(value, True)

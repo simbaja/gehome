@@ -9,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 class ErdDryerExtendedTumbleOptionAllowablesConverter(ErdReadOnlyConverter[ErdDryerExtendedTumbleOptionAllowables]):
     def erd_decode(self, value: str) -> ErdDryerExtendedTumbleOptionAllowables:
         if not value:
-            return ErdRemoteCycleSelectionAllowables()
+            return ErdDryerExtendedTumbleOptionAllowables()
         
         try:
             i = erd_decode_int(value, True)
