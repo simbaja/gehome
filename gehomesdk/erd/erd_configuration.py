@@ -319,6 +319,11 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.OIM_FILTER_STATUS, ErdOimFilterStatusConverter(), ErdCodeClass.OIM_SENSOR),
     ErdConfigurationEntry(ErdCode.OIM_LIGHT_LEVEL, ErdOimLightLevelConverter(), ErdCodeClass.LIGHT),
     ErdConfigurationEntry(ErdCode.OIM_NEEDS_DESCALING, ErdOnOffConverter(), ErdCodeClass.OIM_SENSOR),
+    ErdConfigurationEntry(ErdCode.OIM_PRODUCTION, ErdReadOnlyIntConverter(), ErdCodeClass.OIM_SENSOR, ErdDataType.INT),
+
+    ErdConfigurationEntry(ErdCode.UCIM_BIN_FULL, ErdOnOffConverter(), ErdCodeClass.OIM_SENSOR),
+    ErdConfigurationEntry(ErdCode.UCIM_FILTER_PERCENTAGE_USED, ErdReadOnlyIntConverter(), ErdCodeClass.PERCENTAGE, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.UCIM_CLEAN_STATUS, ErdUcimCleanStatusConverter(), ErdCodeClass.OIM_SENSOR),
 
     #Cafe Coffee Maker
     ErdConfigurationEntry(ErdCode.CCM_IS_BREWING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
