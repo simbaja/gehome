@@ -50,7 +50,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.PERSONALITY, ErdPersonalityConverter(), ErdCodeClass.GENERAL),
 
     #Fridge
-    ErdConfigurationEntry(ErdCode.HOT_WATER_SET_TEMP, ErdIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.HOT_WATER_SET_TEMP, ErdIntConverter(length=1), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.HOT_WATER_IN_USE, ErdReadOnlyBoolConverter(), ErdCodeClass.DISPENSER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.TURBO_FREEZE_STATUS, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.TURBO_COOL_STATUS, ErdBoolConverter(), ErdCodeClass.COOLING_CONTROL, ErdDataType.BOOL),
