@@ -15,7 +15,7 @@ class ErdEcoDryOptionSelectionConverter(ErdReadOnlyConverter[ErdEcoDryOptionSele
             i = erd_decode_int(value)
             
             return ErdEcoDryOptionSelection(
-                option_enabled = bool(i & 1),
+                option_status = bool(i & 1),
                 raw_value=value
             )
         except Exception as ex: 
