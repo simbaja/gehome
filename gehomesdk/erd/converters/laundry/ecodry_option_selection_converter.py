@@ -2,7 +2,7 @@ import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
-from gehomesdk.erd.values.laundry import ErdEcoDryOptionSelection
+from gehomesdk.erd.values.laundry import ErdEcoDryOptionSelection, ErdEcoDryOptionStatus
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ class ErdEcoDryOptionSelectionConverter(ErdReadOnlyConverter[ErdEcoDryOptionSele
             i = erd_decode_int(value)
             
             return ErdEcoDryOptionSelection(
-                option_status = bool(i & 1),
+                option_status = ErdEcoDryOptionStatus(i),
                 raw_value=value
             )
         except Exception as ex: 
