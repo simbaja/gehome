@@ -1,3 +1,4 @@
 from .erd_oim_status_converter import ErdOimStatusConverter
 from .erd_oim_light_level_converter import ErdOimLightLevelConverter
 from .erd_oim_filter_status_converter import ErdOimFilterStatusConverter
+from .erd_ucim_clean_status_converter import ErdUcimCleanStatusConverter

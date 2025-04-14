@@ -43,9 +43,13 @@ async def do_periodic_update(appliance: GeAppliance):
         await appliance.async_request_update()
 
 def gather_appliance_data(username: str, password: str, region: str):
+    asyncio.run(async_gather_appliance_data(username, password, region))
+
+async def async_gather_appliance_data(username: str, password: str, region: str):
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)-8s %(message)s')
 
     loop = asyncio.get_event_loop()
+
     client = GeWebsocketClient(username, password, region, loop)
     client.add_event_handler(EVENT_APPLIANCE_INITIAL_UPDATE, detect_appliance_type)
     client.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, log_state_change)
@@ -53,4 +57,4 @@ def gather_appliance_data(username: str, password: str, region: str):
 
     session = aiohttp.ClientSession()
     asyncio.ensure_future(client.async_get_credentials_and_run(session), loop=loop)
-    loop.run_until_complete(asyncio.sleep(7400))
+    await asyncio.sleep(7400)

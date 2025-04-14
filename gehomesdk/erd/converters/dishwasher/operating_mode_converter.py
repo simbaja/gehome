@@ -14,4 +14,4 @@ class OperatingModeConverter(ErdReadOnlyConverter[OperatingMode]):
             _LOGGER.debug(f'raw operating mode value: {om}')
             return OPERATING_MODE_MAP[om]
         except (KeyError, ValueError):
-            return ErdOperatingMode.NA
+            return ErdOperatingMode.INVALID

@@ -1,6 +1,8 @@
 import asyncio
 import logging
+import ssl
 import websockets
+from websockets.protocol import State
 from typing import Any, Dict, List, Optional, Tuple
 
 from ..erd import ErdCode, ErdCodeType
@@ -41,7 +43,7 @@ class GeWebsocketClient(GeBaseClient):
     """
     client_priority = 2  # This should be the primary client
 
-    def __init__(self, username: str, password: str, region: str = "US", event_loop: Optional[asyncio.AbstractEventLoop] = None, keepalive: Optional[int] = KEEPALIVE_TIMEOUT, list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY):
+    def __init__(self, username: str, password: str, region: str = "US", event_loop: Optional[asyncio.AbstractEventLoop] = None, keepalive: Optional[int] = KEEPALIVE_TIMEOUT, list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY, ssl_context: Optional[ssl.SSLContext] = None):
         super().__init__(username, password, region, event_loop)
         self._endpoint = None  # type: Optional[str]
         self._socket = None  # type: Optional[websockets.client.WebSocketClientProtocol]
@@ -50,11 +52,12 @@ class GeWebsocketClient(GeBaseClient):
         self._keepalive_fut = None  # type: Optional[asyncio.Future]
         self._list_frequency = list_frequency
         self._list_fut = None # type: Optional[asyncio.Future]
+        self._ssl_context = ssl_context or ssl.create_default_context()
 
     @property
     def available(self) -> bool:
         """ Indicates whether the client is available for sending/receiving commands """
-        return self._socket and not self._socket.closed
+        return self._socket and not self._socket.state is State.CLOSED
 
     async def _async_do_full_login_flow(self) -> Dict[str,str]:
         """Perform a complete login flow, returning credentials."""
@@ -107,7 +110,7 @@ class GeWebsocketClient(GeBaseClient):
         """Run the client."""
         try:
             await self._set_state(GeClientState.CONNECTING)
-            async with websockets.connect(self.endpoint, compression=None) as socket:
+            async with websockets.connect(self.endpoint, compression=None, ssl=self._ssl_context) as socket:
                 self._socket = socket
                 self._setup_futures()
                 await self._subscribe_all()
@@ -241,7 +244,7 @@ class GeWebsocketClient(GeBaseClient):
 
     async def _disconnect(self):
         """Disconnect and cleanup."""
-        if self._socket and not self._socket.closed:
+        if self._socket and not self._socket.state is State.CLOSED:
             await self._socket.close()
         self._socket = None
 

@@ -10,6 +10,8 @@ class ErdOimStatus(enum.Enum):
     ADD_WATER = 4
     ICE_BIN_MISSING = 5
     IDLE = 6
+    MISSING_WATER_SOURCE = 7
+    LID_OPEN = 8
 
     UNKNOWN = 255
 
@@ -35,6 +37,19 @@ class ErdOimFilterStatus(enum.Enum):
 
     def boolify(self) -> Optional[bool]:
         return self != ErdOimFilterStatus.OK
+
+    def stringify(self, **kwargs):
+        return self.name.title()
+
+
+@enum.unique
+class ErdUcimCleanStatus(enum.Enum):
+    CLEAN = 0
+    CLEAN_SOON = 1
+    CLEAN_NOW = 2
+
+    def boolify(self) -> Optional[bool]:
+        return self != ErdUcimCleanStatus.CLEAN
 
     def stringify(self, **kwargs):
         return self.name.title()

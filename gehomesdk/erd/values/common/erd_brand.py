@@ -2,7 +2,8 @@ import enum
 
 @enum.unique
 class ErdBrand(enum.Enum):
-    UNKNOWN = "00"
+    UNKNOWN = ""
+    NOT_DEFINED = "00"
     GEA = "01"
     HEIER = "02"
     MABE = "03"
@@ -12,5 +13,7 @@ class ErdBrand(enum.Enum):
     GE_CAFE = "07"
     GE_MONOGRAM = "08"
     HOTPOINT = "09"
-    HEIER_AU = "0A"
-    HEIER_FPA = "10"
+    HEIER_FPA = "0A"
+    ADORA = "0B"
+    ALLIED = "0C"
+    LENNOX = "0D"

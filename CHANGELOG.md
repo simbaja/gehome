@@ -1,6 +1,6 @@
 # GE Home SDK Changelog
 
-## 0.5.15 - 0.5.28
+## 0.5.15 - 0.5.29
 
 - Miscellaneous bug fixes
 
