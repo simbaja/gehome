@@ -40,7 +40,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'gehome-appliance-data = gehomesdk.entry_points:appliance_data',
+            'smartHQ-appliance-data = gehomesdk.entry_points:appliance_data',
         ],
     },    
     packages=find_namespace_packages(include=[base_package, f"{base_package}*"]),

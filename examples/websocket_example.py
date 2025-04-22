@@ -62,15 +62,21 @@ async def do_periodic_update(appliance: GeAppliance):
         await appliance.async_request_update()
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)-8s %(message)s')
-
-    loop = asyncio.get_event_loop()
-    client = GeWebsocketClient(USERNAME, PASSWORD, REGION, loop)
+async def main():
+    client = GeWebsocketClient(USERNAME, PASSWORD, REGION)
     client.add_event_handler(EVENT_APPLIANCE_INITIAL_UPDATE, detect_appliance_type)
     client.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, log_state_change)
     client.add_event_handler(EVENT_ADD_APPLIANCE, do_periodic_update)
 
-    session = aiohttp.ClientSession()
-    asyncio.ensure_future(client.async_get_credentials_and_run(session), loop=loop)
-    loop.run_until_complete(asyncio.sleep(7400))
+    async with aiohttp.ClientSession() as session:
+        client_task = asyncio.create_task(client.async_get_credentials_and_run(session))
+        await asyncio.sleep(7400)
+        client_task.cancel()
+        try:
+            await client_task
+        except asyncio.CancelledError:
+            pass
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)-8s %(message)s')
+    asyncio.run(main())
