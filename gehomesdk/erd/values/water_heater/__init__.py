@@ -3,3 +3,7 @@ from .erd_waterheater_mode import ErdWaterHeaterMode
 from .erd_waterheater_mode_hours_remaining import ErdWaterHeaterModeHoursRemaining
 from .erd_waterheater_set_temperature import ErdWaterHeaterSetTemperature
 from .erd_waterheater_target_temperature import ErdWaterHeaterTargetTemperature
+from .erd_waterheater_boost_state import ErdWaterHeaterBoostState
+from .erd_waterheater_boost_control import ErdWaterHeaterBoostControl
+from .erd_waterheater_active_state import ErdWaterHeaterBoostState
+from .erd_waterheater_active_control import ErdWaterHeaterBoostControl
