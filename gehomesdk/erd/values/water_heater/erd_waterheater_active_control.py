@@ -4,8 +4,8 @@ from typing import Optional
 
 @enum.unique
 class ErdWaterHeaterActiveControl(enum.Enum):
-    OFF = 0
-    ON = 1
+    DISABLED = 0
+    ENABLED = 1
     UNKNOWN = -1
 
     def stringify(self, **kwargs) -> Optional[str]:
