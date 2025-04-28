@@ -5,6 +5,10 @@ from ..primitives import *
 
 
 class ErdWaterHeaterActiveControlConverter(ErdReadWriteConverter[ErdWaterHeaterActiveControl]):
+    def __init__(self, erd_code: str = "Unknown", length: int = 1):
+        super().__init__(erd_code)
+        self.length = length    
+        
     def erd_decode(self, value) -> ErdWaterHeaterActiveControl:
         try:
             return ErdWaterHeaterActiveControl(erd_decode_int(value))
