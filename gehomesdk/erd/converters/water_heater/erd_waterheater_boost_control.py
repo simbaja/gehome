@@ -16,4 +16,4 @@ class ErdWaterHeaterBoostControlConverter(ErdReadWriteConverter[ErdWaterHeaterBo
             return ErdWaterHeaterBoostControl.UNKNOWN
 
     def erd_encode(self, value: ErdWaterHeaterBoostControl) -> str:
-        return value.value
+        return erd_encode_int(value.value, self.length)
