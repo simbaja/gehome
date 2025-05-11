@@ -57,7 +57,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format='%(levelname)-8s %(message)s')
 
     loop = asyncio.get_event_loop()
-    client = GeWebsocketClient(loop, USERNAME, PASSWORD, REGION)
+    client = GeWebsocketClient(USERNAME, PASSWORD, REGION, loop)
 
     session = aiohttp.ClientSession()
     asyncio.ensure_future(client.async_get_credentials_and_run(session), loop=loop)
