@@ -12,3 +12,6 @@ class ErdWaterHeaterBoostState(enum.Enum):
         if self == ErdWaterHeaterBoostState.UNKNOWN:
             return None
         return self.name.title()
+
+    def boolify(self) -> Optional[bool]:
+        return self == ErdWaterHeaterBoostState.ON   
