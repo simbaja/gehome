@@ -25,6 +25,13 @@ class WarmStatus(enum.Enum):
     MOIST = 2
     UNKNOWN = 255
 
+    @classmethod
+    def _missing_(cls, value):
+        if value in (223):
+            return cls.OFF
+        # fall back to default behavior -> raises ValueError
+        return super()._missing_(value)
+
 @enum.unique
 class DoorStatus(enum.Enum):
     OPEN = 0
@@ -66,6 +73,14 @@ class CookMode(enum.Enum):
     STEAM_CLEAN = 12
     MICROWAVE_SLOW_COOK = 13
     UNKNOWN = 255
+
+    @classmethod
+    def _missing_(cls, value):
+        if value in (223,253):
+            return cls.NO_MODE
+        # fall back to default behavior -> raises ValueError
+        return super()._missing_(value)
+
 
 @enum.unique
 class OvenLightStatus(enum.Enum):
