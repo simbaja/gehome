@@ -279,6 +279,7 @@ class GeWebsocketClient(GeBaseClient):
                 raise GeNeedsReauthenticationError
             raise GeRequestError(message, message_dict.get("code"), message_dict.get("reason"))
 
+        _LOGGER.debug(f"Message received: {message_dict}")
         if kind.lower() == "publish#erd":
             await self._process_erd_update(message_dict)
         elif kind.lower() == "websocket#api":
