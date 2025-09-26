@@ -22,7 +22,7 @@ class TerminationReason(enum.Enum):
 class WarmStatus(enum.Enum):
     OFF = 0
     CRISP = 1
-    MOIST = 2,
+    MOIST = 2
     UNKNOWN = 255
 
 @enum.unique
@@ -39,9 +39,15 @@ class CookAction(enum.Enum):
     START = 1
     UPDATED = 2
     PAUSE = 3
-    RESUME = 4,
-    STOPPED = 178,
+    RESUME = 4
     UNKNOWN = 255
+
+    @classmethod
+    def _missing_(cls, value):
+        if value in (20, 178):
+            return cls.STOP
+        # fall back to default behavior -> raises ValueError
+        return super()._missing_(value)
 
 @enum.unique
 class CookMode(enum.Enum):
@@ -58,7 +64,7 @@ class CookMode(enum.Enum):
     PROOF = 10
     TOAST = 11
     STEAM_CLEAN = 12
-    MICROWAVE_SLOW_COOK = 13,
+    MICROWAVE_SLOW_COOK = 13
     UNKNOWN = 255
 
 @enum.unique
