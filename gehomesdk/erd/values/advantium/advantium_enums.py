@@ -40,6 +40,7 @@ class CookAction(enum.Enum):
     UPDATED = 2
     PAUSE = 3
     RESUME = 4,
+    STOPPED = 178,
     UNKNOWN = 255
 
 @enum.unique
