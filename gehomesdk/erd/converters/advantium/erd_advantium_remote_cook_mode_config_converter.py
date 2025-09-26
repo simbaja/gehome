@@ -17,5 +17,5 @@ class ErdAdvantiumRemoteCookModeConfigConverter(ErdReadOnlyConverter[ErdAdvantiu
 
             return ErdAdvantiumRemoteCookModeConfig(values, value)
         except:
-            _LOGGER.exception("Could not construct remote cook mode config, using default.")
+            _LOGGER.exception("Could not construct remote cook mode config (value: %s), using default.")
             return ErdAdvantiumRemoteCookModeConfig(None, value)
