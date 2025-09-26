@@ -32,5 +32,5 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
                 raw_value=value
             )
         except Exception as ex: 
-            _LOGGER.exception("Could not construct cook status, using default.")
+            _LOGGER.exception("Could not construct cook status (value: %s), using default.")
             return ErdAdvantiumCookStatus(raw_value=value)
