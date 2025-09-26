@@ -27,7 +27,7 @@ class WarmStatus(enum.Enum):
 
     @classmethod
     def _missing_(cls, value):
-        if value in (223):
+        if value == 223:
             return cls.OFF
         # fall back to default behavior -> raises ValueError
         return super()._missing_(value)
