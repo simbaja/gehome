@@ -39,7 +39,7 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
                 raw_value=value
             )
         except Exception as ex: 
-            _LOGGER.exception("Could not construct cook setting, using default.")
+            _LOGGER.exception("Could not construct cook setting (value: %s), using default.", value)
             return ErdAdvantiumCookSetting(raw_value=value)
     def erd_encode(self, value: ErdAdvantiumCookSetting) -> str:
         valList: List[str] = [
