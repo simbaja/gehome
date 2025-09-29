@@ -41,7 +41,7 @@ class DoorStatus(enum.Enum):
         return self == DoorStatus.OPEN    
 
 @enum.unique
-class CookAction(enum.Enum):
+class CookAction(enum.IntEnum):
     STOP = 0
     START = 1
     UPDATED = 2
@@ -57,7 +57,7 @@ class CookAction(enum.Enum):
         return super()._missing_(value)
 
 @enum.unique
-class CookMode(enum.Enum):
+class CookMode(enum.IntEnum):
     NO_MODE = 0
     CONVECTION_BAKE = 1
     BROIL = 2
