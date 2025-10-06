@@ -1,6 +1,9 @@
+import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 from gehomesdk.erd.values.oven import OvenRanges
+
+_LOGGER = logging.getLogger(__name__)
 
 class OvenRangesConverter(ErdReadOnlyConverter[OvenRanges]):  
     def erd_decode(self, value: str) -> OvenRanges:
