@@ -457,6 +457,7 @@ class GeWebsocketClient(GeBaseClient):
                 raise websockets.ConnectionClosedOK(1001, 'Socket disconnected')    
 
             #send the payload
+            _LOGGER.debug("Sending payload %s",payload)
             await self.websocket.send(payload)
 
             #added per #867 in websocket project   
