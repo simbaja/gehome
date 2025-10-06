@@ -61,4 +61,4 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
             erd_encode_int(value.s, 1),
             erd_encode_int(value.warm_status, 1)
         ]
-        return str.join(valList)
+        return "".join(valList)
