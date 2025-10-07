@@ -1,6 +1,9 @@
+import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 from gehomesdk.erd.values.advantium import ErdAdvantiumCookTimeMinMax
+
+_LOGGER = logging.getLogger(__name__)
 
 class ErdAdvantiumCookTimeMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumCookTimeMinMax]):
     def erd_decode(self, value: str) -> ErdAdvantiumCookTimeMinMax:
@@ -9,7 +12,7 @@ class ErdAdvantiumCookTimeMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumCookT
                 is_valid = False
             )
 
-        return ErdAdvantiumCookTimeMinMax(
+        cooktime_min_max = ErdAdvantiumCookTimeMinMax(
             is_valid=True,
             convection_min_time=erd_decode_timespan(value[0:4], uom="seconds"),
             convection_max_time=erd_decode_timespan(value[4:8], uom="seconds"),
@@ -24,3 +27,5 @@ class ErdAdvantiumCookTimeMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumCookT
 
             raw_value=value
         )
+        _LOGGER.debug("CookTime for value %s is: %s", value, cooktime_min_max)
+        return cooktime_min_max
