@@ -16,8 +16,8 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
             # break the string into two character segments
             values = [value[i:i + 2] for i in range(0, len(value), 2)]
             int_values = list(map(erd_decode_int, values))
-            
-            return ErdAdvantiumCookStatus(
+
+            cook_status = ErdAdvantiumCookStatus(
                 cook_action = CookAction(int_values[1]),
                 cook_mode = CookMode(int_values[2]),
                 termination_reason = TerminationReason(int_values[3]),
@@ -31,6 +31,8 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
                 warm_status = WarmStatus(int_values[15]),
                 raw_value=value
             )
+            _LOGGER.debug("Cook Status for value %s is: %s", value, cook_status)
+            return cook_status
         except Exception as ex: 
             _LOGGER.exception("Could not construct cook status (value: %s), using default.")
             return ErdAdvantiumCookStatus(raw_value=value)
