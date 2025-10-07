@@ -76,7 +76,7 @@ class CookMode(enum.IntEnum):
 
     @classmethod
     def _missing_(cls, value):
-        if value in (223,253):
+        if value in (153,223,253):
             return cls.NO_MODE
         # fall back to default behavior -> raises ValueError
         return super()._missing_(value)
