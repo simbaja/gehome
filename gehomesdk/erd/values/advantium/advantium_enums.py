@@ -19,7 +19,7 @@ class TerminationReason(enum.Enum):
     FAULT = 5
 
 @enum.unique
-class WarmStatus(enum.Enum):
+class WarmStatus(enum.IntEnum):
     OFF = 0
     CRISP = 1
     MOIST = 2
