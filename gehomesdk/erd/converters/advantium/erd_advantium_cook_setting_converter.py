@@ -63,5 +63,5 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
             erd_encode_int(value.s, 1),
             erd_encode_int(value.warm_status, 1)
         ]
-        _LOGGER.debug("Cook value for %s is: %s", cook_setting, "".join(valList))
+        _LOGGER.debug("Cook value for %s is: %s", value, "".join(valList))
         return "".join(valList)
