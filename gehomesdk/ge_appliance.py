@@ -82,11 +82,11 @@ class GeAppliance:
         await self.client.async_request_update(self)
 
     def set_available(self):
-        _LOGGER.debug(f'{self.mac_addr} marked available')
+        _LOGGER.info(f'{self.mac_addr} marked available')
         self._available = True
 
     def set_unavailable(self):
-        _LOGGER.debug(f'{self.mac_addr} marked unavailable')
+        _LOGGER.warning(f'{self.mac_addr} marked unavailable')
         self._available = False
 
     @property
@@ -113,7 +113,9 @@ class GeAppliance:
         :param erd_value: The raw ERD code value, usually a hex string without leading "0x"
         :return: The decoded value.
         """
-        return self._encoder.decode_value(erd_code, erd_value)
+        decoded_value = self._encoder.decode_value(erd_code, erd_value)
+        _LOGGER.debug("MAC:'%s', erd_code:'%s', value: '%s', decoded_value: '%s'", self._mac_addr, self.erd_code, value, decoded_value)
+        return decoded_value
 
     def encode_erd_value(self, erd_code: ErdCodeType, value: Any) -> str:
         """
@@ -124,7 +126,9 @@ class GeAppliance:
         :param value: The value to re-encode
         :return: The encoded value as a hex string
         """
-        return self._encoder.encode_value(erd_code, value)
+        encoded_value = self._encoder.encode_value(erd_code, value)
+        _LOGGER.debug("MAC:'%s', erd_code:'%s', value: '%s', encoded_value: '%s'", self._mac_addr, self.erd_code, value, encoded_value)
+        return encoded_value
 
     def get_erd_value(self, erd_code: ErdCodeType) -> Any:
         """
