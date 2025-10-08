@@ -12,7 +12,11 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
     def erd_decode(self, value: str) -> ErdAdvantiumCookSetting:
         if not value:
             return ErdAdvantiumCookSetting()
-        
+
+        try:
+            x = 1 / 0
+        except Exception as ex: 
+            _LOGGER.exception("Here is your traceback", value)
         try:
             # break the string into two character segments
             values = [value[i:i + 2] for i in range(0, len(value), 2)]
