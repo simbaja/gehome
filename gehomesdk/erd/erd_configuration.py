@@ -1,9 +1,12 @@
+import logging
 from typing import Any
 
 from .erd_data_type import ErdDataType
 from .erd_code_class import ErdCodeClass
 from .erd_codes import ErdCode
 from .converters import *
+
+_LOGGER = logging.getLogger(__name__)
 
 class ErdConfigurationEntry:
     def __init__(self, erd_code: ErdCode, converter: ErdValueConverter, code_class: ErdCodeClass, data_type: ErdDataType = ErdDataType.STRING) -> None:
@@ -22,9 +25,13 @@ class ErdConfigurationEntry:
         return self.converter.can_encode
 
     def erd_decode(self, value: str) -> Any:
-        return self.converter.erd_decode(value)
+        decoded_value = self.converter.erd_decode(value)
+        _LOGGER.debug("erd_code:'%s', value: '%s', decoded_value: '%s'", self.erd_code, value, decoded_value)
+        return decoded_value
     def erd_encode(self, value: Any) -> str:
-        return self.converter.erd_encode(value)
+        encoded_value = self.converter.erd_encode(value)
+        _LOGGER.debug("erd_code:'%s', value: '%s', encoded_value: '%s'", self.erd_code, value, encoded_value)
+        return encoded_value
 
 _configuration = [
     #Universal
