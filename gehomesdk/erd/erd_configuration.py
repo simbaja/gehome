@@ -25,9 +25,10 @@ class ErdConfigurationEntry:
         return self.converter.can_encode
 
     def erd_decode(self, value: str) -> Any:
-        return decoded_value
+        return self.converter.erd_decode(value)
+    
     def erd_encode(self, value: Any) -> str:
-        return encoded_value
+        return self.converter.erd_encode(value)
 
 _configuration = [
     #Universal
