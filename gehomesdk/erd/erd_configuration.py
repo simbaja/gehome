@@ -25,12 +25,8 @@ class ErdConfigurationEntry:
         return self.converter.can_encode
 
     def erd_decode(self, value: str) -> Any:
-        decoded_value = self.converter.erd_decode(value)
-        _LOGGER.debug("erd_code:'%s', value: '%s', decoded_value: '%s'", self.erd_code, value, decoded_value)
         return decoded_value
     def erd_encode(self, value: Any) -> str:
-        encoded_value = self.converter.erd_encode(value)
-        _LOGGER.debug("erd_code:'%s', value: '%s', encoded_value: '%s'", self.erd_code, value, encoded_value)
         return encoded_value
 
 _configuration = [
