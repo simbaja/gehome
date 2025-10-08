@@ -114,7 +114,7 @@ class GeAppliance:
         :return: The decoded value.
         """
         decoded_value = self._encoder.decode_value(erd_code, erd_value)
-        _LOGGER.debug("MAC:'%s', erd_code:'%s', value: '%s', decoded_value: '%s'", self._mac_addr, self.erd_code, value, decoded_value)
+        _LOGGER.debug("MAC:'%s', erd_code:'%s', value: '%s', decoded_value: '%s'", self._mac_addr, erd_code, erd_value, decoded_value)
         return decoded_value
 
     def encode_erd_value(self, erd_code: ErdCodeType, value: Any) -> str:
@@ -127,7 +127,7 @@ class GeAppliance:
         :return: The encoded value as a hex string
         """
         encoded_value = self._encoder.encode_value(erd_code, value)
-        _LOGGER.debug("MAC:'%s', erd_code:'%s', value: '%s', encoded_value: '%s'", self._mac_addr, self.erd_code, value, encoded_value)
+        _LOGGER.debug("MAC:'%s', erd_code:'%s', value: '%s', encoded_value: '%s'", self._mac_addr, erd_code, value, encoded_value)
         return encoded_value
 
     def get_erd_value(self, erd_code: ErdCodeType) -> Any:
