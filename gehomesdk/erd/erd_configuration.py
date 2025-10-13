@@ -1,12 +1,9 @@
-import logging
 from typing import Any
 
 from .erd_data_type import ErdDataType
 from .erd_code_class import ErdCodeClass
 from .erd_codes import ErdCode
 from .converters import *
-
-_LOGGER = logging.getLogger(__name__)
 
 class ErdConfigurationEntry:
     def __init__(self, erd_code: ErdCode, converter: ErdValueConverter, code_class: ErdCodeClass, data_type: ErdDataType = ErdDataType.STRING) -> None:
