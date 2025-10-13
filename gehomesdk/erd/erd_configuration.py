@@ -286,18 +286,24 @@ _configuration = [
 
     #AC
     ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.AC_TARGET_HEATING_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.AC_FAN_SETTING, ErdAcFanSettingConverter(), ErdCodeClass.FAN),
     ErdConfigurationEntry(ErdCode.AC_OPERATION_MODE, ErdAcOperationModeConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.AC_AMBIENT_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.AC_CUMULATIVE_ENERGY, ErdReadOnlyIntConverter(), ErdCodeClass.ENERGY, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.AC_FILTER_STATUS, ErdAcFilterStatusConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.AC_POWER_STATUS, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
-    
+    ErdConfigurationEntry(ErdCode.AC_AVAILABLE_MODES, ErdAcAvailableModesConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.AC_AVAILABLE_FAN_SPEEDS, ErdAcAvailableFanSpeedsConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.AC_TURBO_QUIET_MODE, ErdAcTurboQuietModeConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.AC_AVAILABLE_TURBO_QUIET_MODES, ErdAcAvailableTurboQuietModesConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.AC_TURBO_QUIET_STATUS, ErdAcTurboQuietModeConverter(), ErdCodeClass.AC_SENSOR),
+
     #Window AC
     ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_POWER, ErdWacDemandResponsePowerConverter(), ErdCodeClass.POWER, ErdDataType.FLOAT),
     ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_STATE, ErdWacDemandResponseStateConverter(), ErdCodeClass.AC_SENSOR),
 
     #Split AC
-    ErdConfigurationEntry(ErdCode.SAC_AVAILABLE_MODES, ErdSacAvailableModesConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_SLEEP_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_TARGET_TEMPERATURE_RANGE, ErdSacTargetTemperatureRangeConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_AUTO_SWING_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),

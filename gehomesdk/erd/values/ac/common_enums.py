@@ -23,6 +23,8 @@ class ErdAcOperationMode(enum.Enum):
     HEAT = 3
     DRY = 4
     AUTO = 5
+    TURBO_COOL = 6
+    SILENT = 7
     DEFAULT = 9
 
     def stringify(self, **kwargs):
@@ -39,3 +41,68 @@ class ErdAcFilterStatus(enum.Enum):
 
     def boolify(self) -> Optional[bool]:
         return self != ErdAcFilterStatus.OK
+
+@enum.unique
+class ErdAcTurboQuietMode(enum.Enum):
+    NORMAL: 0
+    TURBO: 1
+    QUIET: 2
+    UNAVAILABLE: 255
+
+    def stringify(self, **kwargs):
+        return self.name.replace("_"," ").title()
+
+class ErdAcAvailableModes(NamedTuple):
+    has_heat: bool
+    has_dry: bool
+    has_eco: bool
+    has_turbo_cool: bool
+    has_silent: bool
+    has_auto: bool
+    has_cool: bool
+    has_fan: bool
+    raw_value: str
+
+    def stringify(self, **kwargs) -> Optional[str]:
+        return (
+            f"heat: {self.has_heat}, "
+            f"dry: {self.has_dry}, "
+            f"eco: {self.has_eco}, "
+            f"turbo_cool: {self.has_turbo_cool}, "
+            f"silent: {self.has_silent}, "
+            f"auto: {self.has_auto}, "
+            f"cool: {self.has_cool}, "
+            f"fan: {self.has_fan}"
+        )
+
+class ErdAcAvailableFanSpeeds(NamedTuple):
+    has_auto: bool
+    has_high: bool
+    has_medium: bool
+    has_low: bool
+    has_smart_dry: bool
+    has_reserved: bool
+    raw_value: str
+
+    def stringify(self, **kwargs) -> Optional[str]:
+        return (
+            f"auto: {self.has_auto}, "
+            f"high: {self.has_high}, "
+            f"medium: {self.has_medium}, "
+            f"low: {self.has_low}, "
+            f"smart_dry: {self.has_smart_dry}, "
+            f"reserved: {self.has_reserved}"
+        )
+
+class ErdAcAvailableTurboQuietModes(NamedTuple):
+    has_normal: bool
+    has_turbo: bool
+    has_quiet: bool
+    raw_value: str
+
+    def stringify(self, **kwargs) -> Optional[str]:
+        return (
+            f"normal: {self.has_normal}, "
+            f"turbo: {self.has_turbo}, "
+            f"quiet: {self.has_quiet}, "
+        )
