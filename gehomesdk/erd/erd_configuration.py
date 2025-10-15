@@ -283,6 +283,9 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.WH_HEATER_BOOST_CONTROL, ErdOnOffConverter(), ErdCodeClass.WATERHEATER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_HEATER_ACTIVE_STATE, ErdOnOffConverter(), ErdCodeClass.WATERHEATER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_HEATER_ACTIVE_CONTROL, ErdOnOffConverter(), ErdCodeClass.WATERHEATER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_ANODE_ROD_REMAINING, ErdReadOnlyIntConverter(), ErdCodeClass.PERCENTAGE, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_TIME_TO_TEMPERATURE, ErdTimeSpanConverter(uom="minutes"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_HOT_WATER_REMAINING, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),
 
     #AC
     ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
