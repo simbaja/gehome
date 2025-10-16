@@ -273,9 +273,14 @@ _configuration = [
 
     # Water Heater
     ErdConfigurationEntry(ErdCode.WH_HEATER_MODE, ErdWaterHeaterModeConverter(), ErdCodeClass.WATERHEATER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_VACATION_FALLBACK_MODE, ErdWaterHeaterModeConverter(), ErdCodeClass.WATERHEATER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_HEATER_TARGET_TEMPERATURE, ErdWaterHeaterTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_VACATION_TEMPERATURE, ErdWaterHeaterTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
     ErdConfigurationEntry(ErdCode.WH_HEATER_TEMPERATURE, ErdWaterHeaterTemperatureConverter(), ErdCodeClass.TEMPERATURE_CONTROL, ErdDataType.FLOAT),
     ErdConfigurationEntry(ErdCode.WH_HEATER_MODE_HOURS_REMAINING, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_MIXING_VALVE_TANK_CAPACITY, ErdWaterHeaterMixingValveTankCapacityConverter(), ErdCodeClass.WATERHEATER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_MIXING_VALVE_AVAILABLE_TANK_CAPACITIES, ErdWaterHeaterMixingValveAvailableTankCapacitiesConverter(), ErdCodeClass.WATERHEATER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_AVAILABLE_MODES, ErdWaterHeaterAvailableModesConverter(), ErdCodeClass.WATERHEATER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_HEATER_MIN_MAX_TEMPERATURE, ErdWaterHeaterMinMaxTemperatureConverter(), ErdCodeClass.WATERHEATER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_HEATER_VACATION_MODE_MAX_TIME, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.WATERHEATER_SENSOR, ErdDataType.TIMESPAN),
     ErdConfigurationEntry(ErdCode.WH_HEATER_ELECTRIC_MODE_MAX_TIME, ErdTimeSpanConverter(uom="hours"), ErdCodeClass.WATERHEATER_SENSOR, ErdDataType.TIMESPAN),
@@ -283,9 +288,12 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.WH_HEATER_BOOST_CONTROL, ErdOnOffConverter(), ErdCodeClass.WATERHEATER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_HEATER_ACTIVE_STATE, ErdOnOffConverter(), ErdCodeClass.WATERHEATER_SENSOR),
     ErdConfigurationEntry(ErdCode.WH_HEATER_ACTIVE_CONTROL, ErdOnOffConverter(), ErdCodeClass.WATERHEATER_SENSOR),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_TANK_SIZE, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.WH_HEATER_ANODE_ROD_REMAINING, ErdReadOnlyIntConverter(), ErdCodeClass.PERCENTAGE, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.WH_HEATER_TIME_TO_TEMPERATURE, ErdTimeSpanConverter(uom="minutes"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
     ErdConfigurationEntry(ErdCode.WH_HEATER_HOT_WATER_REMAINING, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.WH_HEATER_SHUTOFF_WATER_VALVE_STATE, ErdWaterHeaterShutoffWaterValveStateConverter(), ErdCodeClass.WATERHEATER_SENSOR),
+    
 
     #AC
     ErdConfigurationEntry(ErdCode.AC_TARGET_TEMPERATURE, ErdAcTargetTemperatureConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
