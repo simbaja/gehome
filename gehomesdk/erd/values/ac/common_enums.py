@@ -44,10 +44,10 @@ class ErdAcFilterStatus(enum.Enum):
 
 @enum.unique
 class ErdAcTurboQuietMode(enum.Enum):
-    NORMAL: 0
-    TURBO: 1
-    QUIET: 2
-    UNAVAILABLE: 255
+    NORMAL = 0
+    TURBO = 1
+    QUIET = 2
+    UNAVAILABLE = 255
 
     def stringify(self, **kwargs):
         return self.name.replace("_"," ").title()

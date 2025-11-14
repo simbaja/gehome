@@ -3,6 +3,7 @@ import enum
 @enum.unique
 class ErdPersonality(enum.Enum):
     UNKNOWN = "00"
+    PERSONALITY_DEFAULT = "00000000"
     PERSONALITY_120V_CAFE = "00000001"
     PERSONALITY_120V_MONOGRAM = "00000002"
     PERSONALITY_UNKNOWN03 = "00000003"
