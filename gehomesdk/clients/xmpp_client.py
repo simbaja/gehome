@@ -203,6 +203,7 @@ class GeXmppClient(GeBaseClient):
         except ValueError:
             _LOGGER.info(f"From: {msg_from}: Not a GE message")
             return
+        _LOGGER.debug(f"XMPP message received: {message_data}")
         try:
             appliance = self.appliances[msg_from]
             state_changes = appliance.update_erd_values(message_data)

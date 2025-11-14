@@ -23,6 +23,7 @@ class ErdConfigurationEntry:
 
     def erd_decode(self, value: str) -> Any:
         return self.converter.erd_decode(value)
+    
     def erd_encode(self, value: Any) -> str:
         return self.converter.erd_encode(value)
 

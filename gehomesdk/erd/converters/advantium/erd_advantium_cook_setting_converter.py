@@ -12,13 +12,13 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
     def erd_decode(self, value: str) -> ErdAdvantiumCookSetting:
         if not value:
             return ErdAdvantiumCookSetting()
-        
+
         try:
             # break the string into two character segments
             values = [value[i:i + 2] for i in range(0, len(value), 2)]
             int_values = list(map(erd_decode_int, values))
-            
-            return ErdAdvantiumCookSetting(
+
+            cook_setting = ErdAdvantiumCookSetting(
                 d=int_values[0],
                 cook_action = CookAction(int_values[1]),
                 cook_mode = CookMode(int_values[2]),
@@ -38,8 +38,10 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
                 warm_status = WarmStatus(int_values[18]),
                 raw_value=value
             )
+            _LOGGER.debug("Cook Setting for value %s is: %s", value, cook_setting)
+            return cook_setting
         except Exception as ex: 
-            _LOGGER.exception("Could not construct cook setting, using default.")
+            _LOGGER.exception("Could not construct cook setting (value: %s), using default.", value)
             return ErdAdvantiumCookSetting(raw_value=value)
     def erd_encode(self, value: ErdAdvantiumCookSetting) -> str:
         valList: List[str] = [
@@ -61,4 +63,5 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
             erd_encode_int(value.s, 1),
             erd_encode_int(value.warm_status, 1)
         ]
-        return str.join(valList)
+        _LOGGER.debug("Cook value for %s is: %s", value, "".join(valList))
+        return "".join(valList)

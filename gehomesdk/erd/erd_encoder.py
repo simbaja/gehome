@@ -58,6 +58,7 @@ class ErdEncoder:
         try:
             return self._registry[erd_code].erd_decode(erd_value)
         except KeyError:
+            _LOGGER.debug("Unknown ERD Code '%s' and value '%s'",erd_code, erd_value)
             return erd_decode_bytes(erd_value)
         except ValueError:
             _LOGGER.error(f'Got ValueError {erd_code} - {erd_value}')

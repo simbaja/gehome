@@ -1,6 +1,9 @@
+import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 from gehomesdk.erd.values.advantium import ErdAdvantiumPrecisionMinMax
+
+_LOGGER = logging.getLogger(__name__)
 
 class ErdAdvantiumPrecisionMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumPrecisionMinMax]):
     def erd_decode(self, value: str) -> ErdAdvantiumPrecisionMinMax:
@@ -9,7 +12,8 @@ class ErdAdvantiumPrecisionMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumPrec
                 is_valid = False
             )
 
-        return ErdAdvantiumPrecisionMinMax(
+        
+        precision_min_max = ErdAdvantiumPrecisionMinMax(
             is_valid=True,
             min_time=erd_decode_timespan(value[0:2], uom="seconds"),
             max_time=erd_decode_timespan(value[4:8], uom="seconds"),
@@ -19,3 +23,5 @@ class ErdAdvantiumPrecisionMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumPrec
             custom_high_max_time=erd_decode_timespan(value[20:24], uom="seconds"),
             raw_value=value
         )
+        _LOGGER.debug("Precision Min Max for value %s is: %s", value, precision_min_max)
+        return precision_min_max

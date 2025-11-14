@@ -279,6 +279,7 @@ class GeWebsocketClient(GeBaseClient):
                 raise GeNeedsReauthenticationError
             raise GeRequestError(message, message_dict.get("code"), message_dict.get("reason"))
 
+        _LOGGER.debug(f"WSS Message received: {message_dict}")
         if kind.lower() == "publish#erd":
             await self._process_erd_update(message_dict)
         elif kind.lower() == "websocket#api":
@@ -456,6 +457,7 @@ class GeWebsocketClient(GeBaseClient):
                 raise websockets.ConnectionClosedOK(1001, 'Socket disconnected')    
 
             #send the payload
+            _LOGGER.debug("Sending payload %s",payload)
             await self.websocket.send(payload)
 
             #added per #867 in websocket project   

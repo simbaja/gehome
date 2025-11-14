@@ -1,4 +1,4 @@
-from gehomesdk.erd.values.advantium.advantium_enums import CookMode
+from gehomesdk.erd.values.advantium.advantium_enums import CookMode, WarmStatus
 from .advantium_cook_setting import AdvantiumCookSetting
 from .advantium_operation_mode import AdvantiumOperationMode
 
@@ -11,13 +11,12 @@ ADVANTIUM_OPERATION_MODE_COOK_SETTING_MAPPING = {
     AdvantiumOperationMode.MICROWAVE_PL7: AdvantiumCookSetting(CookMode.MICROWAVE, None, None, None, 7, 60),
     AdvantiumOperationMode.MICROWAVE_PL10: AdvantiumCookSetting(CookMode.MICROWAVE, None, None, None, 10, 60),
     AdvantiumOperationMode.MICROWAVE_SENSOR: AdvantiumCookSetting(CookMode.MICROWAVE_SENSOR, None, None, None, None),
-    AdvantiumOperationMode.WARM_CRISP_LOW: AdvantiumCookSetting(CookMode.WARM, None, 140, 155, None),
-    AdvantiumOperationMode.WARM_CRISP_MED: AdvantiumCookSetting(CookMode.WARM, None, 165, 185, None),
-    AdvantiumOperationMode.WARM_CRISP_HIGH: AdvantiumCookSetting(CookMode.WARM, None, 195, 225, None),
-    AdvantiumOperationMode.WARM_MOIST_LOW: AdvantiumCookSetting(CookMode.WARM, None, 140, 155, None),
-    AdvantiumOperationMode.WARM_MOIST_MED: AdvantiumCookSetting(CookMode.WARM, None, 165, 185, None),
-    AdvantiumOperationMode.WARM_MOIST_HIGH: AdvantiumCookSetting(CookMode.WARM, None, 195, 225, None),
-    AdvantiumOperationMode.PROOF: AdvantiumCookSetting(CookMode.PROOF, None, None, None, None),
+    AdvantiumOperationMode.WARM_CRISP_LOW: AdvantiumCookSetting(CookMode.WARM, WarmStatus.CRISP, 140, 155, None),
+    AdvantiumOperationMode.WARM_CRISP_MED: AdvantiumCookSetting(CookMode.WARM, WarmStatus.CRISP, 165, 185, None),
+    AdvantiumOperationMode.WARM_CRISP_HIGH: AdvantiumCookSetting(CookMode.WARM, WarmStatus.CRISP, 195, 225, None),
+    AdvantiumOperationMode.WARM_MOIST_LOW: AdvantiumCookSetting(CookMode.WARM, WarmStatus.MOIST, 140, 155, None),
+    AdvantiumOperationMode.WARM_MOIST_MED: AdvantiumCookSetting(CookMode.WARM, WarmStatus.MOIST, 165, 185, None),
+    AdvantiumOperationMode.WARM_MOIST_HIGH: AdvantiumCookSetting(CookMode.WARM, WarmStatus.MOIST, 195, 225, None),    AdvantiumOperationMode.PROOF: AdvantiumCookSetting(CookMode.PROOF, None, None, None, None),
     AdvantiumOperationMode.TOAST: AdvantiumCookSetting(CookMode.TOAST, None, None, None, None),
     AdvantiumOperationMode.MICROWAVE_SLOW_COOK: AdvantiumCookSetting(CookMode.MICROWAVE_SLOW_COOK, None, None, None, None, 3600)
 }
