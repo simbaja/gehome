@@ -10,4 +10,10 @@ class ErdDryerTemperatureOptionAllowables (NamedTuple):
     raw_value: Optional[str] = None
     
     def stringify(self, **kwargs):
-        return f"DryerTemperatureOptionAllowables: Disabled:{self.temperature_option_disabled_allowed}, NoHeat:{self.temperature_noheat_allowed}, ExtraLow:{self.temperature_option_extralow_allowed}, Low:{self.temperature_option_low_allowed}, Medium:{self.temperature_option_medium_allowed}, High:{self.temperature_option_high_allowed}"
+        return f"DryerTemperatureOptionAllowables: \
+            Disabled:{self.temperature_option_disabled_allowed}, \
+            NoHeat:{self.temperature_option_noheat_allowed}, \
+            ExtraLow:{self.temperature_option_extralow_allowed}, \
+            Low:{self.temperature_option_low_allowed}, \
+            Medium:{self.temperature_option_medium_allowed}, \
+            High:{self.temperature_option_high_allowed}"

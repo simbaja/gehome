@@ -11,4 +11,4 @@ class SmartDispenseTankStatusConverter(ErdReadOnlyConverter[ErdSmartDispenseTank
         try:
             return ErdSmartDispenseTankStatus(erd_decode_int(value))
         except (KeyError, ValueError):
-            return ErdSmartDispenseTankStatus.INVALID
+            return ErdSmartDispenseTankStatus.UNKNOWN

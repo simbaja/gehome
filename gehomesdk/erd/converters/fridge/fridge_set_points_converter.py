@@ -8,6 +8,6 @@ class FridgeSetPointsConverter(ErdReadWriteConverter[FridgeSetPoints]):
             fridge=erd_decode_signed_byte(value[0:2]),
             freezer=erd_decode_signed_byte(value[2:4]),
         )
-    @staticmethod    
-    def erd_encode(value: FridgeSetPoints):
+ 
+    def erd_encode(self, value: FridgeSetPoints) -> str:
         return erd_encode_signed_byte(value.fridge) + erd_encode_signed_byte(value.freezer)

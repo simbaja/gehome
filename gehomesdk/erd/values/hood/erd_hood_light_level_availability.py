@@ -4,7 +4,7 @@ class ErdHoodLightLevelAvailability(NamedTuple):
     off_available: bool = False
     dim_available: bool = False
     high_available: bool = False
-    raw_value: str = None
+    raw_value: str | None = None
 
     @property
     def is_available(self):

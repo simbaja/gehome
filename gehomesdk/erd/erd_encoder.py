@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 class ErdEncoder:
     def __init__(self) -> None:
         super().__init__()
-        self._registry = dict((k.erd_code, k) for k in _configuration)
+        self._registry: dict[ErdCodeType, ErdConfigurationEntry] = dict((k.erd_code, k) for k in _configuration)
 
     def translate_code(self, erd_code: ErdCodeType) -> ErdCodeType:
         """

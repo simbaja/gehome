@@ -6,7 +6,7 @@ class ErdOvenLightLevelAvailability(NamedTuple):
     z3: bool = False
     z4: bool = False
     z5: bool = True
-    raw_value: str = None
+    raw_value: str | None = None
 
     @property
     def dim_available(self):

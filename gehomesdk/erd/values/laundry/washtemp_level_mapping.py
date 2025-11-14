@@ -14,5 +14,6 @@ WASHTEMP_LEVEL_MAP = {
     ErdWashTempLevel.COLORS_2: WashTempLevel.COLORS,
     ErdWashTempLevel.WARM_2: WashTempLevel.WARM,
     ErdWashTempLevel.HOT_2: WashTempLevel.HOT,
-    ErdWashTempLevel.EXTRA_HOT_2: WashTempLevel.EXTRA_HOT
+    ErdWashTempLevel.EXTRA_HOT_2: WashTempLevel.EXTRA_HOT,
+    ErdWashTempLevel.UNKNOWN: WashTempLevel.DASH
 }

@@ -25,12 +25,12 @@ class ErdValueConverter(Generic[T], ABC):
     def can_encode(self) -> bool:
         return self._can_encode
 
-class ErdReadWriteConverter(Generic[T], ABC):
+class ErdReadWriteConverter(ErdValueConverter[T], ABC):
     def __init__(self, erd_code: ErdCodeType = "Unknown"):
-        ErdValueConverter.__init__(self, erd_code, True, True)
+        super().__init__(erd_code, True, True)
 
 class ErdReadOnlyConverter(ErdValueConverter[T]):
     def __init__(self, erd_code: ErdCodeType = "Unknown"):
-        ErdValueConverter.__init__(self, erd_code, True, False)
+        super().__init__(erd_code, True, False)
     def erd_encode(self, value: T) -> str:
-        raise GeSetErdNotAllowedError(self.erd_code)
+        raise GeSetErdNotAllowedError(str(self.erd_code))

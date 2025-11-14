@@ -42,16 +42,27 @@ class ErdUserSettingConverter(ErdReadWriteConverter[ErdUserSetting]):
             _LOGGER.exception("Could not construct user setting, using default.")
             return ErdUserSetting(raw_value=value)
             
-    def erd_encode(self, value: int) -> str:
-        """
-        return the Dishwasher user setting value
-        """
-        return '{:06X}'.format(value)
+    def erd_encode(self, value: ErdUserSetting) -> str:
+        i = 0
+        i |= value.bottle_jet.value
+        i |= value.cycle_mode.value << 1
+        i |= value.sabbath.value << 6
+        i |= value.presoak.value << 8
+        i |= value.lock_control.value << 9
+        i |= value.dry_option.value << 10
+        i |= value.wash_temp.value << 12
+        i |= value.rinse_aid.value << 15
+        i |= value.delay_hours << 16
+        i |= value.wash_zone.value << 20
+        i |= value.demo_mode.value << 22
+        i |= value.mute.value << 23
+
+        return erd_encode_int(i)
             
 class ErdUserCycleSettingConverter(ErdReadWriteConverter[UserCycleSetting]):
     def erd_decode(self, value: str) -> UserCycleSetting:
         if not value:
-            return UserCycleSetting()
+            return UserCycleSetting.UNKNOWN
         
         try:
             #convert to int
@@ -60,7 +71,7 @@ class ErdUserCycleSettingConverter(ErdReadWriteConverter[UserCycleSetting]):
             return UserCycleSetting(i)
         except Exception as ex: 
             _LOGGER.exception("Could not construct user cycle setting, using default.")
-            return UserCycleSetting(raw_value=value)
+            return UserCycleSetting.UNKNOWN
             
     def erd_encode(self, value: UserCycleSetting) -> str:
         """
@@ -73,7 +84,7 @@ class ErdUserCycleSettingConverter(ErdReadWriteConverter[UserCycleSetting]):
 class ErdUserTemperatureSettingConverter(ErdReadWriteConverter[UserWashTempSetting]):
     def erd_decode(self, value: str) -> UserWashTempSetting:
         if not value:
-            return UserWashTempSetting()
+            return UserWashTempSetting.UNKNOWN
         
         try:
             #convert to int
@@ -82,7 +93,7 @@ class ErdUserTemperatureSettingConverter(ErdReadWriteConverter[UserWashTempSetti
             return UserWashTempSetting(i)
         except Exception as ex: 
             _LOGGER.exception("Could not construct user cycle setting, using default.")
-            return UserWashTempSetting(raw_value=value)
+            return UserWashTempSetting.UNKNOWN
             
     def erd_encode(self, value: UserWashTempSetting) -> str:
         """
@@ -95,7 +106,7 @@ class ErdUserTemperatureSettingConverter(ErdReadWriteConverter[UserWashTempSetti
 class ErdUserDryingSettingConverter(ErdReadWriteConverter[UserDryOptionSetting]):
     def erd_decode(self, value: str) -> UserDryOptionSetting:
         if not value:
-            return UserDryOptionSetting()
+            return UserDryOptionSetting.UNKNOWN
         
         try:
             #convert to int
@@ -104,7 +115,7 @@ class ErdUserDryingSettingConverter(ErdReadWriteConverter[UserDryOptionSetting])
             return UserDryOptionSetting(i)
         except Exception as ex: 
             _LOGGER.exception("Could not construct user cycle setting, using default.")
-            return UserDryOptionSetting(raw_value=value)
+            return UserDryOptionSetting.UNKNOWN
             
     def erd_encode(self, value: UserDryOptionSetting) -> str:
         """
@@ -117,7 +128,7 @@ class ErdUserDryingSettingConverter(ErdReadWriteConverter[UserDryOptionSetting])
 class ErdUserZoneSettingConverter(ErdReadWriteConverter[UserWashZoneSetting]):
     def erd_decode(self, value: str) -> UserWashZoneSetting:
         if not value:
-            return UserWashZoneSetting()
+            return UserWashZoneSetting.UNKNOWN
         
         try:
             #convert to int
@@ -126,7 +137,7 @@ class ErdUserZoneSettingConverter(ErdReadWriteConverter[UserWashZoneSetting]):
             return UserWashZoneSetting(i)
         except Exception as ex: 
             _LOGGER.exception("Could not construct user cycle setting, using default.")
-            return UserWashZoneSetting(raw_value=value)
+            return UserWashZoneSetting.UNKNOWN
             
     def erd_encode(self, value: UserWashZoneSetting) -> str:
         """

@@ -12,4 +12,4 @@ class ErdWaterHeaterShutoffWaterValveStateConverter(ErdReadWriteConverter[ErdWat
             return ErdWaterHeaterShutoffWaterValveState.UNKNOWN
 
     def erd_encode(self, value: ErdWaterHeaterShutoffWaterValveState) -> str:
-        return value.value
+        return erd_encode_int(value.value)

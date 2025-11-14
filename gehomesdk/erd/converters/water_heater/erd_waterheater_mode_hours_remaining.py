@@ -11,7 +11,7 @@ class ErdWaterHeaterModeHoursRemainingConverter(
         try:
             return ErdWaterHeaterModeHoursRemaining(hours=int(value, 16))
         except ValueError:
-            return ErdWaterHeaterModeHoursRemaining.OK
+            return ErdWaterHeaterModeHoursRemaining(hours=0)
 
     def erd_encode(self, value: ErdWaterHeaterModeHoursRemaining) -> str:
         return erd_encode_int(value.hours)

@@ -5,7 +5,7 @@ from gehomesdk.erd.values.oven import CooktopStatus, ErdCooktopStatus, Burner
 class CooktopStatusConverter(ErdReadOnlyConverter[CooktopStatus]):
     def erd_decode(self, value: str) -> CooktopStatus:
         if not value:
-            return ErdCooktopStatus.DEFAULT()
+            return CooktopStatus.DEFAULT()
         
         try:
             # break the string into two character segments and parse as ints

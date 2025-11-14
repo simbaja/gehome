@@ -10,7 +10,7 @@ class TemperatureOptionConverter(ErdReadOnlyConverter[TemperatureOption]):
     def erd_decode(self, value: str) -> TemperatureOption:
         try:
             om = ErdTemperatureOption(erd_decode_int(value))
-            return TEMPERATURE_OPTION_MAP[om].value
+            return TEMPERATURE_OPTION_MAP[om]
         except (KeyError, ValueError):
             return TemperatureOption.DASH
 
@@ -18,6 +18,6 @@ class TemperatureNewOptionConverter(ErdReadOnlyConverter[TemperatureOption]):
     def erd_decode(self, value: str) -> TemperatureOption:
         try:
             om = ErdTemperatureNewOption(erd_decode_int(value))
-            return TEMPERATURENEW_OPTION_MAP[om].value
+            return TEMPERATURENEW_OPTION_MAP[om]
         except (KeyError, ValueError):
             return TemperatureOption.DASH

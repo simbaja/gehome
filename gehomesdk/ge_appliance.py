@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from .clients import GeBaseClient
 
 try:
-    import ujson as json
+    import ujson as json # pyright: ignore[reportMissingModuleSource]
 except ImportError:
     import json
 

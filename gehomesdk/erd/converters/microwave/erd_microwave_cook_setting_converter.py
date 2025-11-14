@@ -32,4 +32,4 @@ class ErdMicrowaveCookSettingConverter(ErdReadWriteConverter[ErdMicrowaveCookSet
             erd_encode_int(value.cook_minutes, 1),
             erd_encode_int(value.cook_seconds, 1)
         ]
-        return str.join(valList)
+        return ''.join(valList)

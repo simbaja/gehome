@@ -2,7 +2,7 @@ import pathlib
 from setuptools import setup, find_namespace_packages
 
 try:
-    import re2 as re
+    import re2 as re # pyright: ignore[reportMissingImports]
 except ImportError:
     import re
 

@@ -10,6 +10,6 @@ class WashTempLevelConverter(ErdReadOnlyConverter[WashTempLevel]):
     def erd_decode(self, value: str) -> WashTempLevel:
         try:
             om = ErdWashTempLevel(erd_decode_int(value))
-            return WASHTEMP_LEVEL_MAP[om].value
+            return WASHTEMP_LEVEL_MAP[om]
         except (KeyError, ValueError):
-            return ErdWashTempLevel.INVALID
+            return WASHTEMP_LEVEL_MAP[ErdWashTempLevel.UNKNOWN]

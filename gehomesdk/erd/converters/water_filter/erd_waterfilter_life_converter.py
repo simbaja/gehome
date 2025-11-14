@@ -18,5 +18,5 @@ class ErdWaterFilterLifeRemainingConverter(
                 life_remaining=pct
             )            
         except:
-            return ErdWaterFilterLifeRemaining()
+            return ErdWaterFilterLifeRemaining(0)
 

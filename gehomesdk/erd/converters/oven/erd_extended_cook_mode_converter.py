@@ -6,7 +6,7 @@ from gehomesdk.erd.values.oven import ErdExtendedCookMode, ErdOvenCookMode
 class ErdExtendedCookModeConverter(ErdReadOnlyConverter[Set[ErdOvenCookMode]]):
     def erd_decode(self, value: str) -> Set[ErdOvenCookMode]:
         if not value:
-            return None
+            return set[ErdOvenCookMode]()
         mode_bytes = [int(i) for i in erd_decode_bytes(value)]
         available_modes = {
             mode.value.cook_mode

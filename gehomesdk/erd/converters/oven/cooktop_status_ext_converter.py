@@ -29,7 +29,7 @@ class CooktopStatusExtConverter(ErdReadOnlyConverter[CooktopStatus]):
 
             return CooktopStatus(status, burners, value)
         except Exception as ex:
-            _LOGGER.error("Could not convert cooktop status.", exc_info=1)
+            _LOGGER.error("Could not convert cooktop status.", exc_info=True)
             return CooktopStatus(ErdCooktopStatus.DASH,{},value)
 
     def _convert_to_legacy(self, value: int):

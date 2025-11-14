@@ -26,4 +26,7 @@ class ErdWasherLinkData (NamedTuple):
     raw_value: Optional[str] = None
     
     def stringify(self, **kwargs):
-        return f"Washer Cycle Count:{self.washer_cylce_count}, Water Extraction Level Index:{self.water_extraction_level_index}, Washer Load Size Index:{self.washer_load_size_index}, Base Cycle Type:{self.base_cyle_type}"
+        return f"Washer Cycle Count:{self.washer_cycle_count}, \
+            Water Extraction Level Index:{self.water_extraction_level_index}, \
+            Washer Load Size Index:{self.washer_load_size_index}, \
+            Base Cycle Type:{self.base_cycle_type}"

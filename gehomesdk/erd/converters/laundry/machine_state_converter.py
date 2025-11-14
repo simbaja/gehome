@@ -10,6 +10,6 @@ class MachineStateConverter(ErdReadOnlyConverter[MachineState]):
     def erd_decode(self, value: str) -> MachineState:
         try:
             om = ErdMachineState(erd_decode_int(value))
-            return MACHINE_STATE_MAP[om].value
+            return MACHINE_STATE_MAP[om]
         except (KeyError, ValueError):
             return MachineState.STATUS_OFF

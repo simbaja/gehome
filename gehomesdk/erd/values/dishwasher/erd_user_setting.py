@@ -17,6 +17,7 @@ class UserCycleSetting(enum.Enum):
     ECO = 5
     RINSE = 6
     FP_UNKNOWN = 7
+    UNKNOWN = 255
 
 @enum.unique
 class UserWashTempSetting(enum.Enum):
@@ -24,18 +25,21 @@ class UserWashTempSetting(enum.Enum):
     BOOST = 1
     SANITIZE = 2
     BOOST_AND_SANITIZE = 3
+    UNKNOWN = 255
 
 @enum.unique
 class UserDryOptionSetting(enum.Enum):
     OFF = 0
     POWER_DRY = 1
     MAX_DRY = 2
+    UNKNOWN = 255
 
 @enum.unique
 class UserWashZoneSetting(enum.Enum):
     BOTH = 0
     LOWER = 1
     UPPER = 2
+    UNKNOWN = 255
 
 class ErdUserSetting (NamedTuple):
     mute: UserSetting = UserSetting.DISABLE

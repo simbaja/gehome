@@ -3,7 +3,7 @@ from ..primitives import *
 from gehomesdk.erd.values.common import ErdOnOff
 
 class ErdOnOffConverter(ErdReadWriteConverter[ErdOnOff]):
-    def erd_decode(self, value: str) -> bool:
+    def erd_decode(self, value: str) -> ErdOnOff:
         try:
             return ErdOnOff(value)
         except ValueError:

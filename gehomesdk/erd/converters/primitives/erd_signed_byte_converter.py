@@ -1,6 +1,7 @@
+from typing import Optional, Any
 from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
 
-def erd_decode_signed_byte(value: any) -> int:
+def erd_decode_signed_byte(value: Any) -> int:
     """
     Convert a hex byte to a signed int.  Copied from GE's hextodec method.
     """

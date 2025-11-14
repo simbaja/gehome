@@ -41,14 +41,14 @@ class ErdCloseLoopCookingDevicesStatus:
             self.r0 = 0
         try:
             self.device_type = self._initialize_device_type(value)
-            self.r0 = int(value[2,4], 16) #TODO: based on the original logic, this needs error handling
-            self.status = value[4,8]
+            self.r0 = int(value[2:4], 16) #TODO: based on the original logic, this needs error handling
+            self.status = value[4:8]
             if len(value) >= 16:
                 self.t0 = int(value[8:12], 16)
                 self.u0 = int(value[12:16], 16)
             elif self.device_type == self.CookingDeviceType.POPUP_SENSOR:
-                self.t0 = ErdCloseLoopCookingDevicesStatus.y0
-                self.u0 = ErdCloseLoopCookingDevicesStatus.z0
+                self.t0 = ErdCloseLoopCookingDevicesStatus._y0
+                self.u0 = ErdCloseLoopCookingDevicesStatus._z0
                 pass            
         except:
             self.device_type = self.CookingDeviceType.DEFAULT

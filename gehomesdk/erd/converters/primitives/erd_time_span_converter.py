@@ -1,14 +1,14 @@
 import logging
 
 from datetime import timedelta
-from typing import Optional
+from typing import Optional, Any
 
 from ..abstract import ErdReadWriteConverter, ErdReadOnlyConverter
 from gehomesdk.erd.erd_codes import ErdCodeType
 
 _LOGGER = logging.getLogger(__name__)
 
-def erd_decode_timespan(value: any, uom: str = 'minutes') -> Optional[timedelta]:
+def erd_decode_timespan(value: Any, uom: str = 'minutes') -> Optional[timedelta]:
     """ 
     Decodes a raw integer as a time span, 65535 is treated as None. 
     UOMs supported: hours, minutes, seconds; default = minutes.

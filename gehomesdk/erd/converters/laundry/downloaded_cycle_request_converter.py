@@ -11,4 +11,4 @@ class ErdDownloadedCycleRequestConverter(ErdReadOnlyConverter[ErdDownloadedCycle
         try:
             return ErdDownloadedCycleRequest(erd_decode_int(value))
         except (KeyError, ValueError):
-            return ErdDownloadedCycleRequest.OFF
+            return ErdDownloadedCycleRequest.NOT_DEFINED

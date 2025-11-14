@@ -1,12 +1,12 @@
 import logging
-from ..abstract import ErdReadWriteConverter
+from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
 from gehomesdk.erd.values import ErdBrand
 
 _LOGGER = logging.getLogger(__name__)
 
-class ErdBrandConverter(ErdReadWriteConverter[ErdBrand]):
+class ErdBrandConverter(ErdReadOnlyConverter[ErdBrand]):
     def erd_decode(self, value: str) -> ErdBrand:
         try:
             return ErdBrand(value)

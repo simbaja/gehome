@@ -25,4 +25,8 @@ class ErdWaterHeaterAvailableModes(NamedTuple):
     raw_value: str
 
     def stringify(self, **kwargs) -> Optional[str]:
-        return f"Hybrid: {self.has_hybrid}, Standard Electric: {self.has_standard_electric}, E-Heat: {  self.has_e_heat}, HiDemand {self.has_hi_demand}, Vacation: {self.has_vacation}, Reserved: {self.has_reserved}"
+        return f"Hybrid: {self.has_hybrid}, \
+            Standard Electric: {self.has_standard_electric}, \
+            E-Heat: {  self.has_e_heat}, \
+            HiDemand {self.has_hi_demand}, \
+            Vacation: {self.has_vacation}"

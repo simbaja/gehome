@@ -1,6 +1,7 @@
+from typing import Optional, Any
 from ..abstract import ErdReadWriteConverter, ErdReadOnlyConverter
 
-def erd_decode_bytes(value: any) -> bytes:
+def erd_decode_bytes(value: Any) -> bytes:
     """Decode a raw bytes ERD value sent as a hex encoded string."""
     return bytes.fromhex(value)
 def erd_encode_bytes(value: bytes) -> str:

@@ -5,5 +5,5 @@ from gehomesdk.erd.values import ErdWaterFilterAlertState
 
 
 class ErdFilterAlertStateConverter(ErdReadOnlyConverter[ErdWaterFilterAlertState]):
-    def erd_decode(self, value) -> ErdWaterFilterAlertState:
-        return ErdWaterFilterAlertState(value)
+    def erd_decode(self, value: str) -> ErdWaterFilterAlertState:
+        return ErdWaterFilterAlertState(erd_decode_int(value))

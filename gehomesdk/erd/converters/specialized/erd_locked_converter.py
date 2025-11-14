@@ -1,4 +1,5 @@
 from typing import Optional
+from ..primitives import *
 from ..abstract import ErdReadWriteConverter
 from gehomesdk.erd.values.common import ErdInterfaceLocked
 #user interface locked state
@@ -6,16 +7,17 @@ from gehomesdk.erd.values.common import ErdInterfaceLocked
 class ErdLockedConverter(ErdReadWriteConverter[ErdInterfaceLocked]):
     def erd_decode(self, value: str) -> ErdInterfaceLocked:
         try:
-            return ErdInterfaceLocked(int(value))
+            return ErdInterfaceLocked(erd_decode_int(value))
         except ValueError:
             return ErdInterfaceLocked.DEFAULT
 
     def erd_encode(self, value: ErdInterfaceLocked) -> str:
+        iv = 0
         try:
-            value = value.value
+            iv = value.value
         except AttributeError:
             pass
-        return '{:02X}'.format(value)
+        return erd_encode_int(iv)
         
 class ErdLockedBoolConverter(ErdReadWriteConverter[Optional[bool]]):
     def erd_decode(self, value: str) -> bool:
@@ -24,9 +26,5 @@ class ErdLockedBoolConverter(ErdReadWriteConverter[Optional[bool]]):
         except ValueError:
             return False
 
-    def erd_encode(self, value: ErdInterfaceLocked) -> str:
-        try:
-            value = value.value
-        except AttributeError:
-            pass
-        return '{:02X}'.format(value)
+    def erd_encode(self, value: Optional[bool]) -> str:
+        return erd_encode_bool(value)

@@ -7,4 +7,4 @@ class ErdWaterFilterLifeRemaining(NamedTuple):
     
 
     def stringify(self, **kwargs) -> Optional[str]:
-        return self.life_remaining
+        return str(self.life_remaining)

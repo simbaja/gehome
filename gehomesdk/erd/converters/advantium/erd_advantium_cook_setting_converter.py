@@ -1,4 +1,5 @@
 import logging
+from datetime import timedelta
 from typing import List
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
@@ -27,7 +28,7 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
                 i=int_values[6],
                 power_level=int_values[7],
                 k=int_values[8],
-                cook_time_remaining=erd_decode_timespan(values[9] + values[10], uom = "seconds"),
+                cook_time_remaining=erd_decode_timespan(values[9] + values[10], uom = "seconds") or timedelta(0),
                 m=int_values[11],
                 n=int_values[12],
                 o=int_values[13],

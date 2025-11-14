@@ -41,7 +41,7 @@ class ErdAdvantiumRemoteCookModeConfig:
     microwave_sensor_temp_enable: bool = False 
     raw_value: Optional[str] = None
 
-    def __init__(self, values: Optional[List[int]], raw_value = Optional[str]) -> None:
+    def __init__(self, values: Optional[List[int]], raw_value: Optional[str]) -> None:
         self.raw_value = raw_value
 
         if values == None:

@@ -1,7 +1,7 @@
-from typing import Optional
+from typing import Optional, Any
 from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
 
-def erd_decode_bool(value: any) -> Optional[bool]:
+def erd_decode_bool(value: Any) -> Optional[bool]:
     """ Decodes a raw value to a bool, FF is considered None """
     if value == "FF":
         return None

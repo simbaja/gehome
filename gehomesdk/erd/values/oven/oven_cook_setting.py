@@ -14,7 +14,7 @@ class OvenCookSetting(NamedTuple):
     delay_time: timedelta = timedelta(0)
     two_temp_cook_temperature: int = 0
     two_temp_cook_time: timedelta = timedelta(0)
-    raw_string: str = None
+    raw_string: str | None = None
     raw_bytes: Optional[bytes] = None
 
     def stringify(self, **kwargs) -> Optional[str]:
