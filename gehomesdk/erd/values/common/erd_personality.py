@@ -18,7 +18,8 @@ class ErdPersonality(enum.Enum):
     PERSONALITY_UNKNOWN0D = "0000000D"
     PERSONALITY_GAS_120V_GE_PROFILE = "0000000E"
     PERSONALITY_240V_CAFE = "00000010"
-
+    PERSONALITY_240V_GEOSPRING = "00000015"
+    
     @classmethod
     def _missing_(cls, value):
         if value in ("00000000","09000000"):
