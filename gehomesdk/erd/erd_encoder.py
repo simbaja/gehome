@@ -139,16 +139,3 @@ class ErdEncoder:
         except KeyError:
             return False
 
-    def can_boolify(self, erd_code: ErdCodeType) -> bool:
-        """
-        Indicates whether an ERD Code can boolified.  If the code
-        is not registered, defaults to false
-        """
-
-        erd_code = self.translate_code(erd_code)
-
-        try:
-            return self._registry[erd_code].can_boolify
-        except KeyError:
-            return False
-        
