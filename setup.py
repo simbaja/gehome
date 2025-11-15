@@ -35,8 +35,7 @@ setup(
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.13",
     ],
     entry_points={
         'console_scripts': [
@@ -45,5 +44,5 @@ setup(
     },    
     packages=find_namespace_packages(include=[base_package, f"{base_package}*"]),
     include_package_data=False,
-    install_requires=["aiohttp", "bidict", "requests", "websockets","humanize", "bs4"]
+    install_requires=["aiohttp>=3.13.0", "bidict", "requests>=2.32.4", "websockets>=15.0.0", "humanize", "beautifulsoup4>=4.13.1"]
 )

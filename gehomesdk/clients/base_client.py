@@ -1,7 +1,6 @@
 """Base client for GE ERD APIs"""
 
 import abc
-from gehomesdk.clients.async_login_flows import async_get_oauth2_token, async_refresh_oauth2_token
 from aiohttp import ClientSession
 import asyncio
 from collections import defaultdict
@@ -12,6 +11,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from ..erd import ErdCode, ErdCodeType
 from ..exception import *
 from ..ge_appliance import GeAppliance
+from .async_login_flows import async_get_oauth2_token, async_refresh_oauth2_token
 from .const import (
     EVENT_APPLIANCE_INITIAL_UPDATE,
     EVENT_APPLIANCE_AVAILABLE,

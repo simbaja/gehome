@@ -1,5 +1,31 @@
 # GE Home SDK Changelog
 
+## 2025.11.0
+
+- BREAKING: Removed XMPP Client (unmaintained)
+- Advantium support (@ehendrix23)
+- Water heater support improvements (@heythisisnate)
+- Additional Range hood ERD codes (@jth-67)
+- Improved AC support (@dbrand666)
+- Cleanup of code to remove pylance and other issues
+- Updated websocket client to latest websocket library
+- Switched from lxml to Beautiful Soup
+- Added initial tests
+
+## 2025.5.0
+
+- Water heater support (@jtbnz)
+
+## 2025.2.0
+
+- Laundry bugfixes and support
+
+## 0.5.30 - 0.5.42
+
+- Additional laundry support (@tdfountain)
+- Fridge hot water support (@vincent99)
+- Miscellaneous bug and documentation fixes
+
 ## 0.5.15 - 0.5.29
 
 - Miscellaneous bug fixes
