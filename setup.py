@@ -45,5 +45,5 @@ setup(
     },    
     packages=find_namespace_packages(include=[base_package, f"{base_package}*"]),
     include_package_data=False,
-    install_requires=["aiohttp", "bidict", "requests", "websockets","humanize", "lxml"]
+    install_requires=["aiohttp", "bidict", "requests", "websockets","humanize", "bs4"]
 )

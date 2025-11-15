@@ -1,9 +1,9 @@
 from http.cookies import SimpleCookie
 from aiohttp import BasicAuth, ClientSession
-from lxml import etree
+from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
 import logging
-from typing import Optional, Dict, List, cast
+from typing import Any, Optional, Dict, List, cast
 
 from ..exception import *
 from .const import (
@@ -33,30 +33,35 @@ def set_login_cookie(session: ClientSession, account_region: str):
 
     session.cookie_jar.update_cookies(c)
 
+
+def normalize_html_attr_value(raw: Any) -> str:
+    if isinstance(raw, (list, tuple)):
+        return " ".join(str(x) for x in raw)
+    if raw is None:
+        return ""
+    return str(raw)
+
 def extract_form_inputs(html: str, form_id: str) -> Dict[str, str]:
     """
     Parse `html`, find form with id `form_id`, and return a mapping of input name -> value.
     """
-    doc = etree.HTML(html)
-    if doc is None:
-        raise GeAuthFailedError("Failed to parse HTML response")
-
-    forms = cast(List[etree._Element], doc.xpath(f"//form[@id = '{form_id}']"))
-    if not forms:
+    soup = BeautifulSoup(html, "html.parser")
+    form = soup.find("form", id=form_id)
+    if not form:
         return {}
 
-    form = forms[0]
     result: Dict[str, str] = {}
-
-    for i in cast(List[etree._Element], form.xpath(".//input")):
-        name = i.get("name")
+    for i in form.find_all("input"):
+        
+        name = normalize_html_attr_value(i.get("name"))
         if not name:
             continue
+
         # use empty string if no value attribute present
         value = i.get("value", "")
-        result[name] = value
-    
+        result[name] = normalize_html_attr_value(value)
     return result
+
 
 async def async_get_authorization_code(session: ClientSession, account_username: str, account_password: str, account_region: str):
     params = {
@@ -81,7 +86,6 @@ async def async_get_authorization_code(session: ClientSession, account_username:
     )
     clean_username = re.sub(email_regex, r'\1', account_username)
 
-    etr = etree.HTML(resp_text)
     post_data = extract_form_inputs(resp_text, 'frmsignin')
     post_data['username'] = clean_username
     post_data['password'] = account_password
@@ -123,13 +127,13 @@ async def async_handle_ok_response(session: ClientSession, resp_text: str) -> st
 
     #try to get the error based on the known responses
     try:
-        etr: Optional[etree._Element] = etree.HTML(resp_text)
-        pane: Optional[etree._Element] = None
-        if etr is not None:
-            pane = cast(Optional[etree._Element], etr.find(".//div[@id='alert_pane']"))
-        if pane is not None and pane.text:
-            reason = pane.text.translate({ord(c): "" for c in "\t\n"})
-            raise GeAuthFailedError(f"Authentication failed, reason: {reason}")
+        soup = BeautifulSoup(resp_text, "html.parser")
+        pane = soup.find("div", id="alert_pane")
+        if pane is not None:
+            text = pane.get_text()
+            if text:
+                reason = text.translate({ord(c): "" for c in "\t\n"})
+                raise GeAuthFailedError(f"Authentication failed, reason: {reason}")
     except GeAuthFailedError:
         raise #re-raise only auth failed errors, all others are irrelevant at this point
     except:
