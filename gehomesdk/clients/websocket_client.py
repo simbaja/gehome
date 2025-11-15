@@ -1,9 +1,12 @@
 import asyncio
+import contextlib
 import logging
 import ssl
-import websockets
+
+from websockets.asyncio.client import ClientConnection, connect
 from websockets.protocol import State
-from typing import Any, Dict, List, Optional, Tuple
+from websockets.exceptions import WebSocketException, ConnectionClosed
+from typing import Any, Dict, List, Optional, Tuple, AsyncIterator, AsyncIterable
 
 from ..erd import ErdCode, ErdCodeType
 from ..exception import *
@@ -22,7 +25,7 @@ from .const import (
 from .states import GeClientState
 
 try:
-    import ujson as json
+    import ujson as json # pyright: ignore[reportMissingModuleSource]
 except ImportError:
     import json
 
@@ -37,27 +40,45 @@ LIST_APPLIANCES_FREQUENCY = 600
 
 _LOGGER = logging.getLogger(__name__)
 
+async def WebsocketAsyncIterableAdapter(source: AsyncIterable[str | bytes]) -> AsyncIterator[str]:
+    async for msg in source:
+        if isinstance(msg, bytes):
+            yield msg.decode()
+        if isinstance(msg, str):
+            yield msg
+        else:
+            raise TypeError("Unknown message format received.")
+
 class GeWebsocketClient(GeBaseClient):
     """
     Client for GE's Websocket pseudo-MQTT API.
     """
     client_priority = 2  # This should be the primary client
 
-    def __init__(self, username: str, password: str, region: str = "US", event_loop: Optional[asyncio.AbstractEventLoop] = None, keepalive: Optional[int] = KEEPALIVE_TIMEOUT, list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY, ssl_context: Optional[ssl.SSLContext] = None):
+    def __init__(
+            self, 
+            username: str, 
+            password: str, 
+            region: str = "US", 
+            event_loop: Optional[asyncio.AbstractEventLoop] = None, 
+            keepalive: Optional[int] = KEEPALIVE_TIMEOUT, 
+            list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY, 
+            ssl_context: Optional[ssl.SSLContext] = None
+            ):
         super().__init__(username, password, region, event_loop)
-        self._endpoint = None  # type: Optional[str]
-        self._socket = None  # type: Optional[websockets.client.WebSocketClientProtocol]
-        self._pending_erds = {}  # type: Dict[Tuple[str, str], str]
-        self._keepalive_timeout = keepalive
-        self._keepalive_fut = None  # type: Optional[asyncio.Future]
-        self._list_frequency = list_frequency
-        self._list_fut = None # type: Optional[asyncio.Future]
+        self._endpoint: Optional[str] = None
+        self._socket: Optional[ClientConnection] = None
+        self._pending_erds: Dict[Tuple[str, str], str]  = {}
+        self._keepalive_timeout: Optional[int] = keepalive
+        self._keepalive_fut: Optional[asyncio.Future] = None
+        self._list_frequency: Optional[int] = list_frequency
+        self._list_fut: Optional[asyncio.Future] = None
         self._ssl_context = ssl_context or ssl.create_default_context()
 
     @property
     def available(self) -> bool:
         """ Indicates whether the client is available for sending/receiving commands """
-        return self._socket and not self._socket.state is State.CLOSED
+        return self._socket is not None and self._socket.state == State.OPEN
 
     async def _async_do_full_login_flow(self) -> Dict[str,str]:
         """Perform a complete login flow, returning credentials."""
@@ -82,6 +103,11 @@ class GeWebsocketClient(GeBaseClient):
 
         await self._set_state(GeClientState.AUTHORIZING_CLIENT)
 
+        if not self._session:
+            raise GeAuthFailedError("Valid session required.")
+        if not self._access_token:
+            raise GeAuthFailedError("Valid access token required.")
+
         uri = f'{API_URL}/v1/websocket'
         auth_header = { 'Authorization': 'Bearer ' + self._access_token }
         async with self._session.get(uri, headers=auth_header) as resp:
@@ -99,7 +125,7 @@ class GeWebsocketClient(GeBaseClient):
             raise GeNotAuthenticatedError
 
     @property
-    def websocket(self):
+    def websocket(self) -> ClientConnection | None:
         return self._socket
 
     def _initialize_event_handlers(self):
@@ -110,33 +136,43 @@ class GeWebsocketClient(GeBaseClient):
         """Run the client."""
         try:
             await self._set_state(GeClientState.CONNECTING)
-            async with websockets.connect(self.endpoint, compression=None, ssl=self._ssl_context) as socket:
-                self._socket = socket
-                self._setup_futures()
-                await self._subscribe_all()
-                await self._set_connected()
-                await self._get_appliance_list()
-                try:
-                    async for message in CancellableAsyncIterator(socket, self._disconnect_requested):
+
+            try:
+                async with connect(self.endpoint, ssl=self._ssl_context) as ws:
+                    self._socket = ws
+
+                    self._setup_futures()
+                    await self._subscribe_all()
+                    await self._set_connected()
+                    await self._get_appliance_list()
+
+                    async for message in CancellableAsyncIterator(WebsocketAsyncIterableAdapter(ws), self._disconnect_requested):
                         try:
                             await self._process_message(message)
-                        except GeRequestError as err:
+                        except GeRequestError:
                             _LOGGER.exception("Could not process request")
-                except websockets.WebSocketException:
-                    _LOGGER.error("Unknown error reading socket")
-                except RuntimeError as err:
-                    #do nothing if it's a StopAsyncIteration, we just stopped the iteration
-                    #as part of the disconnect
-                    if not isinstance(err.__cause__, StopAsyncIteration):
-                        raise
+
+            except WebSocketException:
+                _LOGGER.error("Unknown error reading socket")
+            except RuntimeError as err:
+                #do nothing if it's a StopAsyncIteration, we just stopped the iteration
+                #as part of the disconnect
+                if not isinstance(err.__cause__, StopAsyncIteration):
+                    raise             
+            except asyncio.CancelledError:
+                pass
+
         finally:
-            self._teardown_futures()
+            await self._teardown_futures()
             await self._disconnect()
             
     async def async_send_command(self, appliance: GeAppliance, cmd: str, data=[]):
         '''
         Send command via websocket
         '''
+        if data is None:
+            data = []
+
         mac_addr = appliance.mac_addr
 
         request_body = {
@@ -231,21 +267,33 @@ class GeWebsocketClient(GeBaseClient):
         await self._send_dict(msg_dict)
 
     def _setup_futures(self):
-        if self._keepalive_timeout:
-            self._keepalive_fut = asyncio.ensure_future(self._keep_alive(self._keepalive_timeout), loop=self.loop)
-        if self._list_frequency:
-            self._list_fut = asyncio.ensure_future(self._refresh_appliances(self._list_frequency), loop=self.loop)
+        loop = self.loop
+        if self._keepalive_timeout and (self._keepalive_fut is None or self._keepalive_fut.done()):
+            self._keepalive_fut = loop.create_task(self._keep_alive(self._keepalive_timeout))
+        if self._list_frequency and (self._list_fut is None or self._list_fut.done()):
+            self._list_fut = loop.create_task(self._refresh_appliances(self._list_frequency))
 
-    def _teardown_futures(self):
-        if self._keepalive_fut is not None:
-            self._keepalive_fut.cancel()
-        if self._list_fut is not None:
-            self._list_fut.cancel()
+    async def _teardown_futures(self):
+        for fut in (self._keepalive_fut, self._list_fut):
+            if fut is not None:
+                fut.cancel()
+                with contextlib.suppress(asyncio.CancelledError):
+                    try:
+                        await asyncio.wait_for(fut, timeout=3.0)
+                    except Exception:
+                        # swallow exceptions during teardown, but log unexpected ones
+                        _LOGGER.debug("Background task raised during teardown", exc_info=True)
+        self._keepalive_fut = None
+        self._list_fut = None
 
     async def _disconnect(self):
         """Disconnect and cleanup."""
-        if self._socket and not self._socket.state is State.CLOSED:
-            await self._socket.close()
+        ws = self._socket
+        if ws is not None and ws.state != State.CLOSED:
+            try:
+                await ws.close()
+            except Exception as err:
+                _LOGGER.warning("Error closing websocket: %s", err)
         self._socket = None
 
     async def _process_pending_erd(self, message_id: str):
@@ -453,9 +501,10 @@ class GeWebsocketClient(GeBaseClient):
         payload = json.dumps(msg_dict)
         try:
             #if there's no socket, assume the connection is closed
-            if not self.websocket:
-                raise websockets.ConnectionClosedOK(1001, 'Socket disconnected')    
-
+            if self.websocket is None or self.websocket.state != State.OPEN:
+                _LOGGER.info("WebSocket is not open. Cannot send message.")
+                return
+            
             #send the payload
             _LOGGER.debug("Sending payload %s",payload)
             await self.websocket.send(payload)
@@ -463,7 +512,7 @@ class GeWebsocketClient(GeBaseClient):
             #added per #867 in websocket project   
             await asyncio.sleep(0)
 
-        except websockets.ConnectionClosed:
+        except ConnectionClosed:
             _LOGGER.info("Tried to send a message, but connection already closed.")
 
     async def _keep_alive(self, keepalive: int = KEEPALIVE_TIMEOUT):

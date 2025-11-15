@@ -35,11 +35,11 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         self.account_username = username
         self.account_password = password
         self.account_region = region
-        self._credentials = None  # type: Optional[Dict]
-        self._session = None # type: Optional[ClientSession]
+        self._credentials: Dict[str, str] = {}
+        self._session: ClientSession | None = None
 
-        self._access_token = None
-        self._refresh_token = None
+        self._access_token: str | None = None
+        self._refresh_token: str | None = None
         self._token_expiration_time = datetime.now()
 
         self._state = GeClientState.INITIALIZING
@@ -47,15 +47,15 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         self._retries_since_last_connect = -1
         self._has_successful_connect = False
         self._loop = event_loop
-        self._appliances = {}  # type: Dict[str, GeAppliance]
+        self._appliances: Dict[str, GeAppliance] = {} 
         self._initialize_event_handlers()
 
     @property
-    def credentials(self) -> Optional[Dict]:
+    def credentials(self) -> Dict[str, str]:
         return self._credentials
 
     @credentials.setter
-    def credentials(self, credentials: Dict):
+    def credentials(self, credentials: Dict[str, str]):
         self._credentials = credentials
 
     @property
@@ -64,10 +64,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     @property
     def user_id(self) -> Optional[str]:
-        try:
-            return self.credentials['userId']
-        except (TypeError, KeyError):
-            raise GeNotAuthenticatedError
+        if "userId" not in self.credentials:
+            raise GeNotAuthenticatedError()
+        return self.credentials['userId']
 
     @property
     def state(self) -> GeClientState:
@@ -76,14 +75,17 @@ class GeBaseClient(metaclass=abc.ABCMeta):
     @property
     def loop(self) -> asyncio.AbstractEventLoop:
         if self._loop is None:
-            self._loop = asyncio.get_event_loop()
+            try:
+                self._loop = asyncio.get_running_loop()
+            except RuntimeError:
+                self._loop = asyncio.get_event_loop()
         return self._loop
 
     @property
     def connected(self) -> bool:
         """ Indicates whether the client is in a connected state """
         return self._state not in [GeClientState.DISCONNECTING, GeClientState.DISCONNECTED]
-    
+
     @property
     def available(self) -> bool:
         """ Indicates whether the client is available for sending/receiving commands """
@@ -95,10 +97,10 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     async def async_event(self, event: str, *args, **kwargs):
         _LOGGER.debug(f"received event: {event}, processing callbacks...")
-        """Trigger event callbacks sequentially"""
+        """Schedule event callbacks"""
         for cb in self.event_handlers[event]:
-            _LOGGER.debug(f"processing callback: {cb}")
-            asyncio.ensure_future(cb(*args, **kwargs), loop=self.loop)
+            _LOGGER.debug(f"scheduling callback: {cb}")
+            self.loop.create_task(cb(*args, **kwargs))
 
     def add_event_handler(self, event: str, callback: Callable, disposable: bool = False):
         if disposable:
@@ -107,9 +109,9 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     def remove_event_handler(self, event: str, callback: Callable):
         try:
-            self.event_handlers[event].remove(callable)
+            self.event_handlers[event].remove(callback)
         except:
-            _LOGGER.warn(f"could not remove event handler {event}-{callable}")
+            _LOGGER.warning(f"could not remove event handler {event}-{callback}")
 
     def clear_event_handlers(self):
         self._initialize_event_handlers()
@@ -136,7 +138,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                 _LOGGER.info(f'Error executing request {err}')
             except Exception as err:
                 if not self._has_successful_connect:
-                    _LOGGER.warn(f'Unhandled exception on first connect attempt: {err}, disconnecting')
+                    _LOGGER.warning(f'Unhandled exception on first connect attempt: {err}, disconnecting')
                     break
                 _LOGGER.exception(err)
                 _LOGGER.info(f'Unhandled exception while running client, ignoring and restarting')
@@ -151,7 +153,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                         await self.async_do_refresh_login_flow()
                     except Exception as err:
                         #if there was an error refreshing the authentication, break the loop and kill the client
-                        _LOGGER.warn(f'Error refreshing authentication: {err}')
+                        _LOGGER.warning(f'Error refreshing authentication: {err}')
                         break
                 self._retries_since_last_connect += 1
 
@@ -210,11 +212,14 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         """Internal refresh login flow"""
         pass
 
-    async def _async_get_oauth2_token(self):
+    async def _async_get_oauth2_token(self) -> dict:
         """Get the OAuth2 token based on the username and password"""
 
         await self._set_state(GeClientState.AUTHORIZING_OAUTH)
 
+        if not self._session:
+            raise GeAuthFailedError('Must have a valid session')
+        
         oauth_token = await async_get_oauth2_token(
             self._session, 
             self.account_username, 
@@ -227,24 +232,30 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             self._refresh_token = oauth_token['refresh_token']
         except KeyError:
             raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
+        
+        return oauth_token
 
     async def _async_refresh_oauth2_token(self):
         """ Refreshes an OAuth2 Token based on a refresh token """
 
         await self._set_state(GeClientState.AUTHORIZING_OAUTH)
 
-        # first try the standard refresh token
+        if not self._session:
+            raise GeAuthFailedError('Must have a valid session.')
+
+        oauth_token: dict
+
+        # first try the standard refresh token if available
         # if we get an exception, try the full login
-        # if that has an exception, just raise the original
-        # exception
-        try:
-            oauth_token = await async_refresh_oauth2_token(self._session, self._refresh_token)
-        except Exception as exc:
+        if self._refresh_token:
             try:
-                oauth_token = await self._async_get_oauth2_token(self)
-            except:
-                _LOGGER.warning("Error occurred when retrying token refresh using full flow, ignoring.")
-                raise exc
+                oauth_token = await async_refresh_oauth2_token(self._session, self._refresh_token)
+            except Exception as exc:
+                _LOGGER.warning("Refresh token failed, falling back to full login: %s", exc)
+                oauth_token = await self._async_get_oauth2_token()
+        else:
+            # No refresh token, do full login
+            oauth_token = await self._async_get_oauth2_token()
 
         try:
             self._access_token = oauth_token['access_token']
