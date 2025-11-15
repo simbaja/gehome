@@ -161,7 +161,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         await self.disconnect()
 
     @abc.abstractmethod
-    async def _async_run_client(self):
+    async def _async_run_client(self) -> None:
         """ Internal method to run the client """
 
     @abc.abstractmethod

@@ -132,7 +132,7 @@ class GeWebsocketClient(GeBaseClient):
         super()._initialize_event_handlers()
         self.add_event_handler(EVENT_APPLIANCE_STATE_CHANGE, self._maybe_trigger_appliance_init_event)
 
-    async def _async_run_client(self):
+    async def _async_run_client(self) -> None:
         """Run the client."""
         try:
             await self._set_state(GeClientState.CONNECTING)
