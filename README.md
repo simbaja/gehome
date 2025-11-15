@@ -1,7 +1,6 @@
 # gehomesdk
 Python SDK for GE WiFi-enabled (SmartHQ) appliances.
-The primary goal is to use this to power integrations for [Home Assistant](https://www.home-assistant.io/), though that
-will probably need to wait on some new entity types.   
+The primary goal is to use this to power integrations for [Home Assistant](https://www.home-assistant.io/).
 
 **Forked from Andrew Mark's [repository](https://github.com/ajmarks/gekitchen).**
 
@@ -38,7 +37,7 @@ PASSWORD = "supersecret"
 REGION = "US or EU"
 ```
 
-You will need to replace the username/password values with your credentials.  After that, you can run the `websocket_example.py` (**preferred**) or `xmpp_example.py` sample files.  These will generate information about your appliances and are useful if you'd like to help implement more functionality.
+You will need to replace the username/password values with your credentials.  After that, you can run the `websocket_example.py` sample file.  These will generate information about your appliances and are useful if you'd like to help implement more functionality.
 
 ### Simple example
 Here we're going to run the client in a pre-existing event loop.  We're also going to register some event callbacks
@@ -75,7 +74,7 @@ is used to get XMPP credentials to authenticate to the Jabber server.  In `gehom
 to XMPP credentials is handled by `do_full_xmpp_flow(username, password)`.
 
 ## Useful functions
-### `do_full_xmpp_flow(username, password)`
+### `do_full_xmpp_flow(username, password)` ${\textsf{\color{red}!!! DEPRECATED AND REMOVED !!!}}$
 Function to authenticate to the web API and get XMPP credentials.  Returns a `dict` of XMPP credentials
 ### `do_full_wss_flow(username, password)`
 Function to authenticate to the web API and get websocket credentials.  Returns a `dict` of WSS credentials
@@ -110,6 +109,7 @@ state.
 * `EVENT_GOT_APPLIANCE_LIST` - Triggered when we get the list of appliances
 
 ### GeXmppClient(xmpp_credentials, event_loop=None, **kwargs)
+#### ${\textsf{\color{red}!!! DEPRECATED AND REMOVED !!! }}$
 Main XMPP client, and a subclass of `slixmpp.ClientXMPP`.
  * `xmpp_credentials: dict` A dictionary of XMPP credentials, usually obtained from either `do_full_login_flow` or, in a
  more manual process, `get_xmpp_credentials` 
@@ -136,7 +136,7 @@ state.
 
 ### GeAppliance(mac_addr, client)
 Representation of a single appliance
- * `mac_addr: Union[str, slixmpp.JID]` The appliance's MAC address, which is what GE uses as unique identifiers 
+ * `mac_addr: str` The appliance's MAC address, which is what GE uses as unique identifiers 
  * `client: GeBaseClient` The client used to communicate with the device
 #### Useful Methods
  * `decode_erd_value(erd_code: ErdCodeType, erd_value: str)` Decode a raw ERD property value.
@@ -187,12 +187,13 @@ For further documentation of appliance commands, please see the GEMaker Github r
 2. Websocket "MQTT" - The WSS "MQTT" API is basically a wrapper around the REST API with the ability to subscribe to a
  device, meaning that we can treat it as (in Home Assistant lingo) IoT Cloud Push instead of IoT Cloud Polling.  In 
  `gehomesdk`, support for the websocket API is provided by the `GeWebsocketClient` class. 
-2. XMPP - As far as I can tell, there seems to be little, if any, benefit to the XMPP API except that it will notify
+2. XMPP - **${\textsf{\color{red}!!! DEPRECATED AND REMOVED !!!}}$** As far as I can tell, there seems to be little, if any, benefit to the XMPP API except that it will notify
  the client if a new device becomes available.  I suspect that this can be achieved with websocket API as well via
  subscriptions, but have not yet tested.  Support for the XMPP API is provided by the `GeXmppClient` class, based on
   [`slixmpp`](https://slixmpp.readthedocs.io/), which it requires as an optional dependency.  
 
 ### XMPP API
+#### ${\textsf{\color{red}!!! DEPRECATED AND REMOVED !!!}}$
 The device informs the client of a state change by sending a `PUBLISH` message like this, informing us that the value of
 property 0x5205 (`ErdCode.LOWER_OVEN_KITCHEN_TIMER` in `gehomesdk`) is now "002d" (45 minutes):
 

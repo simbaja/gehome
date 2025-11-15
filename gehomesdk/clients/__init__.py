@@ -20,8 +20,3 @@ from .websocket_client import GeWebsocketClient
 from .async_login_flows import async_get_oauth2_token, async_refresh_oauth2_token
 
 _LOGGER = logging.getLogger(__name__)
-
-try:
-    from .xmpp_client import GeXmppClient
-except ImportError:
-    _LOGGER.info("XMPP client not avaible.  You may need to install slximpp.")

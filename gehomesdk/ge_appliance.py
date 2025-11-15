@@ -4,7 +4,6 @@ import enum
 import logging
 from weakref import WeakValueDictionary
 from typing import Any, List, Dict, Optional, Set, TYPE_CHECKING, Union
-from slixmpp import JID
 
 from .erd import ErdCode, ErdCodeType, ErdCodeClass, ErdApplianceType, ErdEncoder, ErdDataType
 from .exception import *
@@ -26,9 +25,7 @@ class GeAppliance:
     # Registry of initialized appliances
     _appliance_cache = WeakValueDictionary()
 
-    def __new__(cls, mac_addr: Union[str, JID], client: "GeBaseClient", *args, **kwargs):
-        if isinstance(mac_addr, JID):
-            mac_addr = str(mac_addr.user).split('_')[0]
+    def __new__(cls, mac_addr: str, client: "GeBaseClient", *args, **kwargs):
         try:
             obj = cls._appliance_cache[mac_addr]  # type: "GeAppliance"
         except KeyError:
@@ -41,9 +38,7 @@ class GeAppliance:
                 obj.client = client
         return obj
 
-    def __init__(self, mac_addr: Union[str, JID], client: "GeBaseClient"):
-        if isinstance(mac_addr, JID):
-            mac_addr = str(mac_addr.user).split('_')[0]
+    def __init__(self, mac_addr: str, client: "GeBaseClient"):
         self._available = False
         self._mac_addr = mac_addr.upper()
         self._message_id = 0
