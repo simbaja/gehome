@@ -1,8 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values.laundry import ErdWasherLinkData, BaseCycleType
+from ...values.laundry import ErdWasherLinkData, BaseCycleType
 
 _LOGGER = logging.getLogger(__name__)
 

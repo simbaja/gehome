@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.fridge import FridgeDoorStatus, ErdDoorStatus
+from ...values.fridge import FridgeDoorStatus, ErdDoorStatus
 
 class FridgeDoorStatusConverter(ErdReadOnlyConverter[FridgeDoorStatus]):
     def erd_decode(self, value: str) -> FridgeDoorStatus:

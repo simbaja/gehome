@@ -1,7 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import erd_decode_int
-
-from gehomesdk.erd.values import ErdAcAvailableFanSpeeds
+from ...values import ErdAcAvailableFanSpeeds
 
 class ErdAcAvailableFanSpeedsConverter(ErdReadOnlyConverter[ErdAcAvailableFanSpeeds]):
     def erd_decode(self, value: str) -> ErdAcAvailableFanSpeeds:

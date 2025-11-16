@@ -1,9 +1,8 @@
 from datetime import timedelta
-
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.common import ErdPresent
-from gehomesdk.erd.values.fridge import HotWaterStatus, ErdHotWaterStatus, ErdFullNotFull, ErdPodStatus
+from ...values.common import ErdPresent
+from ...values.fridge import HotWaterStatus, ErdHotWaterStatus, ErdFullNotFull, ErdPodStatus
 
 class HotWaterStatusConverter(ErdReadOnlyConverter[HotWaterStatus]):
     def erd_decode(self, value: str) -> HotWaterStatus:

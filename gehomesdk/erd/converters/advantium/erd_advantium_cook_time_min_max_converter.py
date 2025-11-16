@@ -1,7 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.advantium import ErdAdvantiumCookTimeMinMax
+from ...values.advantium import ErdAdvantiumCookTimeMinMax
 
 _LOGGER = logging.getLogger(__name__)
 

@@ -1,8 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdWaterFilterValveState
-
+from ...values import ErdWaterFilterValveState
 
 class ErdFilterValveStateConverter(ErdReadOnlyConverter[ErdWaterFilterValveState]):
     def erd_decode(self, value) -> ErdWaterFilterValveState:

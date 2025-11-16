@@ -1,8 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values.laundry import ErdDryerTemperatureOptionAllowables
+from ...values.laundry import ErdDryerTemperatureOptionAllowables
 
 _LOGGER = logging.getLogger(__name__)
 

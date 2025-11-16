@@ -2,7 +2,7 @@ import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
-from gehomesdk.erd.values.dehumidifier import ErdDehumidifierMaintenance
+from ...values.dehumidifier import ErdDehumidifierMaintenance
 
 _LOGGER = logging.getLogger(__name__)
 

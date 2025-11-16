@@ -1,7 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.advantium import ErdAdvantiumMicrowaveMinMax
+from ...values.advantium import ErdAdvantiumMicrowaveMinMax
 
 _LOGGER = logging.getLogger(__name__)
 

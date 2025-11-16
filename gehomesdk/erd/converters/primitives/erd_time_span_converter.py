@@ -2,9 +2,8 @@ import logging
 
 from datetime import timedelta
 from typing import Optional, Any
-
 from ..abstract import ErdReadWriteConverter, ErdReadOnlyConverter
-from gehomesdk.erd.erd_codes import ErdCodeType
+from ...erd_codes import ErdCodeType
 
 _LOGGER = logging.getLogger(__name__)
 

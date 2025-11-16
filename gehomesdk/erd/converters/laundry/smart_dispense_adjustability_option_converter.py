@@ -1,8 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values.laundry import ErdSmartDispenseAdjustabilityOption, ErdSmartDispenseSubstanceType, ErdSmartDispenseFlowBucket, ErdSmartDispenseDosageType
+from ...values.laundry import ErdSmartDispenseAdjustabilityOption, ErdSmartDispenseSubstanceType, ErdSmartDispenseFlowBucket, ErdSmartDispenseDosageType
 
 _LOGGER = logging.getLogger(__name__)
 

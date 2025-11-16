@@ -1,8 +1,7 @@
-from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
+from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdWaterFilterPosition
-from gehomesdk.exception import GeSetErdNotAllowedError
+from ...values import ErdWaterFilterPosition
+from ....exception import GeSetErdNotAllowedError
 
 class ErdFilterPositionConverter(ErdReadWriteConverter[ErdWaterFilterPosition]):
     def erd_decode(self, value) -> ErdWaterFilterPosition:

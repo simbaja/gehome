@@ -1,7 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import (
+from ...values import (
     ErdMicrowaveState, 
     ErdDoorStatus,
     ErdMicrowaveCookStatus,

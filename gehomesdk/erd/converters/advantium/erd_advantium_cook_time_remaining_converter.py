@@ -3,7 +3,7 @@ from typing import Optional
 
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.advantium import ErdAdvantiumCookTimeMinMax
+from ...values.advantium import ErdAdvantiumCookTimeMinMax
 
 class ErdAdvantiumCookTimeRemainingConverter(ErdReadOnlyConverter[Optional[timedelta]]):
     def erd_decode(self, value: str) -> Optional[timedelta]:

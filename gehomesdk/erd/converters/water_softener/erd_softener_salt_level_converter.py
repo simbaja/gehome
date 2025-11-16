@@ -1,8 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdWaterSoftenerSaltLevel
-
+from ...values import ErdWaterSoftenerSaltLevel
 
 class ErdWaterSoftenerSaltLevelConverter(ErdReadOnlyConverter[ErdWaterSoftenerSaltLevel]):
     def erd_decode(self, value) -> ErdWaterSoftenerSaltLevel:

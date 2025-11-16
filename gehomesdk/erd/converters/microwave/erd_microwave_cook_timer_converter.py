@@ -1,6 +1,5 @@
-from datetime import time, timedelta
+from datetime import timedelta
 from typing import Optional
-
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
 

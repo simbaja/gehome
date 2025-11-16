@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import ErdOvenState
+from ...values.oven import ErdOvenState
 
 
 class ErdOvenStateConverter(ErdReadOnlyConverter[ErdOvenState]):

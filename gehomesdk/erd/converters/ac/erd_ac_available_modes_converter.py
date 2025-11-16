@@ -1,7 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import erd_decode_int
-
-from gehomesdk.erd.values import ErdAcAvailableModes
+from ...values import ErdAcAvailableModes
 
 class ErdAcAvailableModesConverter(ErdReadOnlyConverter[ErdAcAvailableModes]):
     def erd_decode(self, value: str) -> ErdAcAvailableModes:

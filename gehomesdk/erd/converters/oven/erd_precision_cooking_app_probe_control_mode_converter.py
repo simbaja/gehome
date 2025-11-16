@@ -1,7 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import ErdPrecisionCookingAppProbeControlMode
-
+from ...values.oven import ErdPrecisionCookingAppProbeControlMode
 
 class ErdPrecisionCookingAppProbeControlModeConverter(ErdReadOnlyConverter[ErdPrecisionCookingAppProbeControlMode]):
     def erd_decode(self, value: str) -> ErdPrecisionCookingAppProbeControlMode:

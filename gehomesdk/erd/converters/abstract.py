@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, Optional
+from typing import TypeVar, Generic
 
-from gehomesdk.erd.erd_codes import ErdCodeType
+from ..erd_codes import ErdCodeType
 from gehomesdk.exception import GeSetErdNotAllowedError
 
 T = TypeVar('T')

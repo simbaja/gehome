@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.ac import *
+from ...values.ac import *
 
 class ErdAcFanSettingConverter(ErdReadWriteConverter[ErdAcFanSetting]):
     def erd_decode(self, value: str) -> ErdAcFanSetting:

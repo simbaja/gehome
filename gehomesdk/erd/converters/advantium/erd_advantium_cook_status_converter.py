@@ -1,9 +1,9 @@
 import logging
+
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values.advantium import ErdAdvantiumCookStatus
-from gehomesdk.erd.values.advantium.advantium_enums import *
+from ...values.advantium import ErdAdvantiumCookStatus
+from ...values.advantium.advantium_enums import *
 
 _LOGGER = logging.getLogger(__name__)
 

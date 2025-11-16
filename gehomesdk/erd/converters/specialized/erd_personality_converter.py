@@ -2,9 +2,8 @@ import logging
 
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.erd_codes import ErdCodeType
-from gehomesdk.erd.values.common import ErdPersonality
+from ...erd_codes import ErdCodeType
+from ...values.common import ErdPersonality
 
 _LOGGER = logging.getLogger(__name__)
 

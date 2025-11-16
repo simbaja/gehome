@@ -1,7 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdMeasurementUnits
+from ...values import ErdMeasurementUnits
 
 class ErdMeasurementUnitsConverter(ErdReadWriteConverter[ErdMeasurementUnits]):
     def erd_decode(self, value: str) -> ErdMeasurementUnits:

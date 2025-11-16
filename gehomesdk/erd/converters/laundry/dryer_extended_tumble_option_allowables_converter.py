@@ -1,8 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values.laundry import ErdDryerExtendedTumbleOptionAllowables
+from ...values.laundry import ErdDryerExtendedTumbleOptionAllowables
 
 _LOGGER = logging.getLogger(__name__)
 

@@ -1,8 +1,6 @@
-from gehomesdk.erd.values import ErdWaterHeaterShutoffWaterValveState
-
+from ...values import ErdWaterHeaterShutoffWaterValveState
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
 
 class ErdWaterHeaterShutoffWaterValveStateConverter(ErdReadWriteConverter[ErdWaterHeaterShutoffWaterValveState]):
     def erd_decode(self, value) -> ErdWaterHeaterShutoffWaterValveState:

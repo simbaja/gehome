@@ -1,7 +1,7 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.common import ErdOnOff
-from gehomesdk.erd.values.fridge import IceMakerControlStatus
+from ...values.common import ErdOnOff
+from ...values.fridge import IceMakerControlStatus
 
 class IceMakerControlStatusConverter(ErdReadWriteConverter[IceMakerControlStatus]):
     def erd_decode(self, value: str) -> IceMakerControlStatus:

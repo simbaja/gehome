@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import *
+from ...values.oven import *
 
 class ErdOvenLightLevelAvailabilityConverter(ErdReadOnlyConverter[ErdOvenLightLevelAvailability]):
     def erd_decode(self, value: str) -> ErdOvenLightLevelAvailability:

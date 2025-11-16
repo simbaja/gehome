@@ -1,8 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values.dishwasher import ErdReminders
+from ...values.dishwasher import ErdReminders
 
 _LOGGER = logging.getLogger(__name__)
 

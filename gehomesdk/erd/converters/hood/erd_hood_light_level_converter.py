@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.hood import *
+from ...values.hood import *
 
 class ErdHoodLightLevelConverter(ErdReadWriteConverter[ErdHoodLightLevel]):
     def erd_decode(self, value: str) -> ErdHoodLightLevel:

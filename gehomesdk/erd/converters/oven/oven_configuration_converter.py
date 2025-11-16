@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import OvenConfiguration, ErdOvenConfiguration
+from ...values.oven import OvenConfiguration, ErdOvenConfiguration
 
 class OvenConfigurationConverter(ErdReadOnlyConverter[OvenConfiguration]):
     def erd_decode(self, value: str) -> OvenConfiguration:

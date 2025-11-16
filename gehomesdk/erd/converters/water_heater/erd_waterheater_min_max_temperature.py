@@ -1,8 +1,6 @@
-from gehomesdk.erd.values import ErdWaterHeaterMinMaxTemperature
-
+from ...values import ErdWaterHeaterMinMaxTemperature
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
 
 class ErdWaterHeaterMinMaxTemperatureConverter(
     ErdReadOnlyConverter[ErdWaterHeaterMinMaxTemperature]

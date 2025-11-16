@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Any
 from ..abstract import ErdReadWriteConverter, ErdReadOnlyConverter
 
 def erd_decode_bytes(value: Any) -> bytes:

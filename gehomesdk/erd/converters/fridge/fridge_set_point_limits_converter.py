@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.fridge import FridgeSetPointLimits
+from ...values.fridge import FridgeSetPointLimits
 
 class FridgeSetPointLimitsConverter(ErdReadOnlyConverter[FridgeSetPointLimits]):
     def erd_decode(self, value: str) -> FridgeSetPointLimits:

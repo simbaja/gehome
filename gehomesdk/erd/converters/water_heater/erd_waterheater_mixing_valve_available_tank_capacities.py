@@ -1,7 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdWaterHeaterMixingValveAvailableTankCapacities
+from ...values import ErdWaterHeaterMixingValveAvailableTankCapacities
 
 class ErdWaterHeaterMixingValveAvailableTankCapacitiesConverter(ErdReadOnlyConverter[ErdWaterHeaterMixingValveAvailableTankCapacities]):
     def erd_decode(self, value: str) -> ErdWaterHeaterMixingValveAvailableTankCapacities:

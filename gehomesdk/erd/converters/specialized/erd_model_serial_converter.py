@@ -1,4 +1,3 @@
-
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 

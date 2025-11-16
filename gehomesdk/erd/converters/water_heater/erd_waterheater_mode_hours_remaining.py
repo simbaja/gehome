@@ -1,8 +1,6 @@
-from gehomesdk.erd.values import ErdWaterHeaterModeHoursRemaining
-
+from ...values import ErdWaterHeaterModeHoursRemaining
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
 
 class ErdWaterHeaterModeHoursRemainingConverter(
     ErdReadWriteConverter[ErdWaterHeaterModeHoursRemaining]

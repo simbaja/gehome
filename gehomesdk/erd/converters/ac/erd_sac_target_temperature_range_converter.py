@@ -1,7 +1,7 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
-from gehomesdk.erd.values import ErdSacTargetTemperatureRange
+from ...values import ErdSacTargetTemperatureRange
 
 class ErdSacTargetTemperatureRangeConverter(ErdReadOnlyConverter[ErdSacTargetTemperatureRange]):
     def erd_decode(self, value: str) -> ErdSacTargetTemperatureRange:

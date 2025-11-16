@@ -1,11 +1,11 @@
 import logging
 from datetime import timedelta
 from typing import List
+
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
-from gehomesdk.erd.values.advantium import ErdAdvantiumCookSetting
-from gehomesdk.erd.values.advantium.advantium_enums import *
+from ...values.advantium import ErdAdvantiumCookSetting
+from ...values.advantium.advantium_enums import *
 
 _LOGGER = logging.getLogger(__name__)
 

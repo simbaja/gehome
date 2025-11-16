@@ -1,7 +1,7 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
 
-from gehomesdk.erd.values import ErdClockFormat
+from ...values import ErdClockFormat
 
 class ErdClockFormatConverter(ErdReadWriteConverter[ErdClockFormat]):
     def erd_decode(self, value: str) -> ErdClockFormat:

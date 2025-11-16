@@ -2,7 +2,7 @@ import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
-from gehomesdk.erd.values import ErdBrand
+from ...values import ErdBrand
 
 _LOGGER = logging.getLogger(__name__)
 

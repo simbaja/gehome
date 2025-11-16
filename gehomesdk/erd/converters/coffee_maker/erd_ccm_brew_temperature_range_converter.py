@@ -1,4 +1,4 @@
-from gehomesdk.erd.values.coffee_maker.common_enums import ErdCcmBrewTemperatureRange
+from ...values.coffee_maker.common_enums import ErdCcmBrewTemperatureRange
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 

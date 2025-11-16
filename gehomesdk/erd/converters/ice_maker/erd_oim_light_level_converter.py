@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.ice_maker import *
+from ...values.ice_maker import *
 
 class ErdOimLightLevelConverter(ErdReadWriteConverter[ErdOimLightLevel]):
     def erd_decode(self, value: str) -> ErdOimLightLevel:

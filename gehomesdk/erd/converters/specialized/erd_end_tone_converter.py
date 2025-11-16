@@ -1,7 +1,7 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
 
-from gehomesdk.erd.values import ErdEndTone
+from ...values import ErdEndTone
 
 class ErdEndToneConverter(ErdReadWriteConverter[ErdEndTone]):
     def erd_decode(self, value: str) -> ErdEndTone:

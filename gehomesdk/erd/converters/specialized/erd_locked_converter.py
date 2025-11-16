@@ -1,7 +1,7 @@
 from typing import Optional
 from ..primitives import *
 from ..abstract import ErdReadWriteConverter
-from gehomesdk.erd.values.common import ErdInterfaceLocked
+from ...values.common import ErdInterfaceLocked
 #user interface locked state
 
 class ErdLockedConverter(ErdReadWriteConverter[ErdInterfaceLocked]):

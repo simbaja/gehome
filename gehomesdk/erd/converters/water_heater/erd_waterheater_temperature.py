@@ -1,8 +1,5 @@
-from gehomesdk.erd.values import ErdWaterHeaterSetTemperature
-
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
 
 class ErdWaterHeaterTemperatureConverter(
     ErdReadWriteConverter[float]

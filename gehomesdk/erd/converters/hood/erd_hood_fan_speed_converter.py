@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.hood import *
+from ...values.hood import *
 
 class ErdHoodFanSpeedConverter(ErdReadWriteConverter[ErdHoodFanSpeed]):
     def erd_decode(self, value: str) -> ErdHoodFanSpeed:

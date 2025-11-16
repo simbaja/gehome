@@ -1,8 +1,7 @@
 import logging
-
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import CooktopStatus, ErdCooktopStatus, Burner
+from ...values.oven import CooktopStatus, ErdCooktopStatus, Burner
 
 _LOGGER = logging.getLogger(__name__)
 

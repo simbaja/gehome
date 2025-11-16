@@ -1,8 +1,6 @@
-from gehomesdk.erd.values import ErdWaterHeaterMixingValveTankCapacity
-
+from ...values import ErdWaterHeaterMixingValveTankCapacity
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
 
 class ErdWaterHeaterMixingValveTankCapacityConverter(ErdReadWriteConverter[ErdWaterHeaterMixingValveTankCapacity]):
     def erd_decode(self, value) -> ErdWaterHeaterMixingValveTankCapacity:

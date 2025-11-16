@@ -1,8 +1,7 @@
 from datetime import timedelta
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdWaterFilterLifeRemaining
+from ...values import ErdWaterFilterLifeRemaining
 
 class ErdWaterFilterLifeRemainingConverter(
     ErdReadOnlyConverter[ErdWaterFilterLifeRemaining]

@@ -1,7 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdSoundLevel
+from ...values import ErdSoundLevel
 
 class ErdSoundLevelConverter(ErdReadWriteConverter[ErdSoundLevel]):    
     def erd_decode(self, value: str) -> ErdSoundLevel:

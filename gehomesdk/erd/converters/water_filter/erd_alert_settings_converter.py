@@ -1,7 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdWaterFilterAlertTimeSettings
+from ...values import ErdWaterFilterAlertTimeSettings
 
 class ErdWaterFilterAlertSettingsConverter(ErdReadOnlyConverter[ErdWaterFilterAlertTimeSettings]):
     def erd_decode(self, value: str) -> ErdWaterFilterAlertTimeSettings:

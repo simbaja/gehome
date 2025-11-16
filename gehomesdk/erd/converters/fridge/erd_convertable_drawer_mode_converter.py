@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.fridge import ErdConvertableDrawerMode
+from ...values.fridge import ErdConvertableDrawerMode
 
 class ErdConvertableDrawerModeConverter(ErdReadWriteConverter[ErdConvertableDrawerMode]):
     def erd_decode(self, value: str) -> ErdConvertableDrawerMode:

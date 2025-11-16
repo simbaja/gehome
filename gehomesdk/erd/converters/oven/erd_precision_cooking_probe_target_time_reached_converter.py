@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import ErdPrecisionCookingProbeTargetTimeReached
+from ...values.oven import ErdPrecisionCookingProbeTargetTimeReached
 
 class ErdPrecisionCookingProbeTargetTimeReachedConverter(ErdReadOnlyConverter[ErdPrecisionCookingProbeTargetTimeReached]):
     def erd_decode(self, value: str) -> ErdPrecisionCookingProbeTargetTimeReached:

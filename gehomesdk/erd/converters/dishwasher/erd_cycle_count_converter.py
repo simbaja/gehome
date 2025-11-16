@@ -1,9 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-#NOTE: reset is actually the number of power cycles
-
-from gehomesdk.erd.values.dishwasher import ErdCycleCount
+from ...values.dishwasher import ErdCycleCount
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -19,7 +17,8 @@ class ErdCycleCountSettingConverter(ErdReadOnlyConverter[ErdCycleCount]):
             return ErdCycleCount(
                 started = (i & 0xFFFF00000000) >> 32,
                 completed = (i & 0xFFFF0000 ) >> 16,
-                reset = (i & 0xFFFF),
+                reset = (i & 0xFFFF), #NOTE: reset is actually the number of power cycles
+
                 raw_value=value
             )
         except Exception as ex: 

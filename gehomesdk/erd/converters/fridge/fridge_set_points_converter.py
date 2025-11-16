@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.fridge import FridgeSetPoints
+from ...values.fridge import FridgeSetPoints
 
 class FridgeSetPointsConverter(ErdReadWriteConverter[FridgeSetPoints]):
     def erd_decode(self, value: str) -> FridgeSetPoints:

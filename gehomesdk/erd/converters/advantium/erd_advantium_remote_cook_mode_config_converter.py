@@ -2,7 +2,7 @@ import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 
-from gehomesdk.erd.values.advantium import ErdAdvantiumRemoteCookModeConfig
+from ...values.advantium import ErdAdvantiumRemoteCookModeConfig
 
 _LOGGER = logging.getLogger(__name__)
 

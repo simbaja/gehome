@@ -1,7 +1,7 @@
 from typing import Set
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import ErdExtendedCookMode, ErdOvenCookMode
+from ...values.oven import ErdExtendedCookMode, ErdOvenCookMode
 
 class ErdExtendedCookModeConverter(ErdReadOnlyConverter[Set[ErdOvenCookMode]]):
     def erd_decode(self, value: str) -> Set[ErdOvenCookMode]:

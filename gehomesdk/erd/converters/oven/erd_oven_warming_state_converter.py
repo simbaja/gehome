@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import *
+from ...values.oven import *
 
 class ErdOvenWarmingStateConverter(ErdReadWriteConverter[ErdOvenWarmingState]):
     def erd_decode(self, value: str) -> ErdOvenWarmingState:

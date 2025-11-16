@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import ErdCooktopConfig
+from ...values.oven import ErdCooktopConfig
 
 
 class ErdCooktopConfigConverter(ErdReadOnlyConverter[ErdCooktopConfig]):

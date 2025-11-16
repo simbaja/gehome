@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import ErdPrecisionCookingStartSousVideTimerActiveStatus
+from ...values.oven import ErdPrecisionCookingStartSousVideTimerActiveStatus
 
 class ErdPrecisionCookingStartSousVideTimerActiveStatusConverter(ErdReadOnlyConverter[ErdPrecisionCookingStartSousVideTimerActiveStatus]):
     def erd_decode(self, value: str) -> ErdPrecisionCookingStartSousVideTimerActiveStatus:

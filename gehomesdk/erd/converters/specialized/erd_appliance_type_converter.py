@@ -3,9 +3,8 @@ import logging
 
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-
-from gehomesdk.erd.erd_codes import ErdCodeType
-from gehomesdk.erd.values import ErdApplianceType
+from ...erd_codes import ErdCodeType
+from ...values import ErdApplianceType
 
 _LOGGER = logging.getLogger(__name__)
 class ErdApplianceTypeConverter(ErdReadOnlyConverter[ErdApplianceType]):

@@ -1,8 +1,7 @@
 import logging
-
-from gehomesdk.erd.converters.abstract import ErdReadOnlyConverter
-from gehomesdk.erd.converters.primitives import *
-from gehomesdk.erd.values.laundry import ErdSpinTimeLevel
+from ..abstract import ErdReadOnlyConverter
+from ..primitives import *
+from ...values.laundry import ErdSpinTimeLevel
 
 _LOGGER = logging.getLogger(__name__)
 

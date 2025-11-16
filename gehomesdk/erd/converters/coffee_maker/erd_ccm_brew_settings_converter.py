@@ -1,8 +1,7 @@
 import logging
-
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from gehomesdk.erd.values.coffee_maker import *
+from ...values.coffee_maker import *
 
 _LOGGER = logging.getLogger(__name__)
 

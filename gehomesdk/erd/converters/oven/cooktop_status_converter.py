@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.oven import CooktopStatus, ErdCooktopStatus, Burner
+from ...values.oven import CooktopStatus, ErdCooktopStatus, Burner
 
 class CooktopStatusConverter(ErdReadOnlyConverter[CooktopStatus]):
     def erd_decode(self, value: str) -> CooktopStatus:

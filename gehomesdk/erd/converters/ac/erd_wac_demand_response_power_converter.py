@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.ac import *
+from ...values.ac import *
 
 class ErdWacDemandResponsePowerConverter(ErdReadOnlyConverter[float]):
     def erd_decode(self, value: str) -> float:

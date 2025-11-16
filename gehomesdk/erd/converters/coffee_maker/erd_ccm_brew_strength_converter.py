@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.coffee_maker import *
+from ...values.coffee_maker import *
 
 class ErdCcmBrewStrengthConverter(ErdReadOnlyConverter[ErdCcmBrewStrength]):
     def erd_decode(self, value: str) -> ErdCcmBrewStrength:

@@ -1,8 +1,7 @@
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-
-from gehomesdk.erd.values import ErdWaterSoftenerShutoffValveState
-from gehomesdk.exception import GeSetErdNotAllowedError
+from ...values import ErdWaterSoftenerShutoffValveState
+from ....exception import GeSetErdNotAllowedError
 
 class ErdWaterSoftenerShutoffValveStateConverter(ErdReadWriteConverter[ErdWaterSoftenerShutoffValveState]):
     def erd_decode(self, value) -> ErdWaterSoftenerShutoffValveState:

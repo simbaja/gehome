@@ -1,8 +1,7 @@
 import logging
-
-from gehomesdk.erd.converters.abstract import ErdReadOnlyConverter
-from gehomesdk.erd.converters.primitives import *
-from gehomesdk.erd.values.laundry import ErdSmartDispenseTankStatus
+from ..abstract import ErdReadOnlyConverter
+from ..primitives import *
+from ...values.laundry import ErdSmartDispenseTankStatus
 
 _LOGGER = logging.getLogger(__name__)
 

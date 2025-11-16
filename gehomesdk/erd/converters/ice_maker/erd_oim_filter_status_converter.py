@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from gehomesdk.erd.values.ice_maker import *
+from ...values.ice_maker import *
 
 class ErdOimFilterStatusConverter(ErdReadOnlyConverter[ErdOimFilterStatus]):
     def erd_decode(self, value: str) -> ErdOimFilterStatus:
