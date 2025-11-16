@@ -1,8 +1,6 @@
 import logging
 from typing import Any
 
-from ..exception import GeUnsupportedOperationError
-
 from .erd_configuration import ErdConfigurationEntry, _configuration
 from .erd_codes import ErdCode, ErdCodeType
 from .erd_code_class import ErdCodeClass

@@ -11,4 +11,11 @@ class ErdStainRemovalGuideAvailableOptions (NamedTuple):
     raw_value: Optional[str] = None
     
     def stringify(self, **kwargs):
-        return f"StainRemovalGuideAvailableOptions: Off:{self.off_allowed}, Blood:{self.blood_allowed}, Grass:{self.grass_allowed}, Dirt:{self.dirt_allowed}, Tomato:{self.tomato_allowed}, Beverages:{self.beverages_allowed}, Oily:{self.oily_allowed}"
+        return f"StainRemovalGuideAvailableOptions: \
+            Off:{self.off_allowed}, \
+            Blood:{self.blood_allowed}, \
+            Grass:{self.grass_allowed}, \
+            Dirt:{self.dirt_allowed}, \
+            Tomato:{self.tomato_allowed}, \
+            Beverages:{self.beverages_allowed}, \
+            Oily:{self.oily_allowed}"

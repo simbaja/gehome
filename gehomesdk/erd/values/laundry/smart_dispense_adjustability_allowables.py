@@ -1,4 +1,3 @@
-import enum
 from typing import NamedTuple, Optional
     
 class ErdSmartDispenseAdjustabilityAllowables (NamedTuple):

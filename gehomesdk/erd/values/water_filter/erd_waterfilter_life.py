@@ -1,6 +1,4 @@
-from datetime import timedelta
 from typing import NamedTuple, Optional
-import humanize
 
 class ErdWaterFilterLifeRemaining(NamedTuple):
     life_remaining: int

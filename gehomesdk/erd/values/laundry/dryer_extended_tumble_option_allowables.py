@@ -6,4 +6,6 @@ class ErdDryerExtendedTumbleOptionAllowables (NamedTuple):
     raw_value: Optional[str] = None
     
     def stringify(self, **kwargs):
-        return f"DryerExtendedTumbleOptionAllowables: Disable:{self.dryer_extended_tumble_disable_allowed}, Enable:{self.dryer_extended_tumble_enable_allowed}"
+        return f"DryerExtendedTumbleOptionAllowables: \
+            Disable:{self.dryer_extended_tumble_disable_allowed}, \
+            Enable:{self.dryer_extended_tumble_enable_allowed}"

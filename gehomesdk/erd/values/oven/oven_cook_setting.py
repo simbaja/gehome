@@ -1,4 +1,4 @@
-from datetime import time, timedelta
+from datetime import timedelta
 from typing import NamedTuple, Optional
 
 from .const import *

@@ -5,7 +5,6 @@ Gets the appliance data, continues to run until cancelled so that values can be 
 import aiohttp
 import asyncio
 import logging
-from datetime import timedelta
 from typing import Any, Dict, Tuple
 
 from gehomesdk import (

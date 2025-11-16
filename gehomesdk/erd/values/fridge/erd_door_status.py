@@ -1,5 +1,4 @@
 import enum
-from logging import setLoggerClass
 from typing import Optional
 
 @enum.unique

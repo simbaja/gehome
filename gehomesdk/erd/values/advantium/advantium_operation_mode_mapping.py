@@ -1,4 +1,4 @@
-from gehomesdk.erd.values.advantium.advantium_enums import CookMode, WarmStatus
+from .advantium_enums import CookMode, WarmStatus
 from .advantium_cook_setting import AdvantiumCookSetting
 from .advantium_operation_mode import AdvantiumOperationMode
 

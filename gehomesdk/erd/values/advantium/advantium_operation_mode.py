@@ -1,6 +1,4 @@
 import enum
-from enum import auto
-from typing import Optional
 
 @enum.unique
 class AdvantiumOperationMode(enum.Enum):

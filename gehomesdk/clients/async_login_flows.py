@@ -3,7 +3,7 @@ from aiohttp import BasicAuth, ClientSession
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
 import logging
-from typing import Any, Optional, Dict, List, cast
+from typing import Any, Dict
 
 from ..exception import *
 from .const import (
