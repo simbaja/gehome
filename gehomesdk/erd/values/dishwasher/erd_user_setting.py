@@ -32,6 +32,7 @@ class UserDryOptionSetting(enum.Enum):
     OFF = 0
     POWER_DRY = 1
     MAX_DRY = 2
+    FP_UNKNOWN_3 = 3
     UNKNOWN = 255
 
 @enum.unique
