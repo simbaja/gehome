@@ -39,6 +39,7 @@ class UserWashZoneSetting(enum.Enum):
     BOTH = 0
     LOWER = 1
     UPPER = 2
+    BOTH_ALT = 3
     UNKNOWN = 255
 
 class ErdUserSetting (NamedTuple):
