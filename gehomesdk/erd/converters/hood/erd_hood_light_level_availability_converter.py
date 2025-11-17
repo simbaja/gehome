@@ -10,6 +10,7 @@ class ErdHoodLightLevelAvailabilityConverter(ErdReadOnlyConverter[ErdHoodLightLe
                 intVal & 1 != 0,
                 intVal & 2 != 0,
                 intVal & 4 != 0,
+                intVal & 16 != 0,
                 value
             )
         except:

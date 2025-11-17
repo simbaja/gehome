@@ -6,6 +6,7 @@ class ErdHoodLightLevel(enum.Enum):
     OFF = 0
     DIM = 1
     HIGH = 2
+    MED = 3
 
     def boolify(self) -> Optional[bool]:
         return self != ErdHoodLightLevel.OFF
