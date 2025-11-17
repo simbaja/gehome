@@ -21,8 +21,8 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
 
             cook_setting = ErdAdvantiumCookSetting(
                 d=int_values[0],
-                cook_action = CookAction(int_values[1]),
-                cook_mode = CookMode(int_values[2]),
+                cook_action = AdvantiumCookAction(int_values[1]),
+                cook_mode = AdvantiumCookMode(int_values[2]),
                 target_temperature=erd_decode_int(values[3] + values[4]),
                 h=int_values[5],
                 i=int_values[6],
@@ -36,7 +36,7 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
                 q=int_values[15],
                 r=int_values[16],
                 s=int_values[17],
-                warm_status = WarmStatus(int_values[18]),
+                warm_status = AdvantiumWarmStatus(int_values[18]),
                 raw_value=value
             )
             _LOGGER.debug("Cook Setting for value %s is: %s", value, cook_setting)

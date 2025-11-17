@@ -14,3 +14,16 @@ class ErdHoodLightLevelAvailability(NamedTuple):
             self.dim_available |
             self.high_available
         )
+    
+    @classmethod
+    def from_count(cls, levels: int) -> "ErdHoodLightLevelAvailability":
+        """Construct availability based on the number of supported light levels (0–4)."""
+        levels = max(0, min(levels, 4))
+
+        return cls(
+            off_available = levels >= 1,
+            dim_available = levels >= 2,
+            med_available = levels >= 3,
+            high_available = levels >= 4,
+            raw_value = str(levels),
+        )

@@ -2,15 +2,15 @@ from typing import NamedTuple, Optional
 from .advantium_enums import *
 
 class ErdAdvantiumCookStatus (NamedTuple):
-    cook_action: CookAction = CookAction.STOP
-    cook_mode: CookMode = CookMode.NO_MODE
-    termination_reason: TerminationReason = TerminationReason.UNKNOWN
-    preheat_status: PreheatStatus = PreheatStatus.NO_PREHEAT
+    cook_action: AdvantiumCookAction = AdvantiumCookAction.STOP
+    cook_mode: AdvantiumCookMode = AdvantiumCookMode.NO_MODE
+    termination_reason: AdvantiumTerminationReason = AdvantiumTerminationReason.UNKNOWN
+    preheat_status: AdvantiumPreheatStatus = AdvantiumPreheatStatus.NO_PREHEAT
     temperature: int = 0
     power_level: int = 0
-    door_status: DoorStatus = DoorStatus.CLOSED
-    sensing_active: SensingActive = SensingActive.INACTIVE
-    cooling_fan_status: CoolingFanStatus = CoolingFanStatus.OFF
-    oven_light_status: OvenLightStatus = OvenLightStatus.OFF
-    warm_status: WarmStatus = WarmStatus.OFF
+    door_status: AdvantiumDoorStatus = AdvantiumDoorStatus.CLOSED
+    sensing_active: AdvantiumSensingActive = AdvantiumSensingActive.INACTIVE
+    cooling_fan_status: AdvantiumCoolingFanStatus = AdvantiumCoolingFanStatus.OFF
+    oven_light_status: AdvantiumOvenLightStatus = AdvantiumOvenLightStatus.OFF
+    warm_status: AdvantiumWarmStatus = AdvantiumWarmStatus.OFF
     raw_value: Optional[str] = None

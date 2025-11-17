@@ -18,17 +18,17 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
             int_values = list(map(erd_decode_int, values))
 
             cook_status = ErdAdvantiumCookStatus(
-                cook_action = CookAction(int_values[1]),
-                cook_mode = CookMode(int_values[2]),
-                termination_reason = TerminationReason(int_values[3]),
-                preheat_status = PreheatStatus(int_values[4]),
+                cook_action = AdvantiumCookAction(int_values[1]),
+                cook_mode = AdvantiumCookMode(int_values[2]),
+                termination_reason = AdvantiumTerminationReason(int_values[3]),
+                preheat_status = AdvantiumPreheatStatus(int_values[4]),
                 temperature = erd_decode_int(values[5] + values[6]),
                 power_level = int_values[9],
-                door_status = DoorStatus(int_values[11]),
-                sensing_active = SensingActive(int_values[12]),
-                cooling_fan_status = CoolingFanStatus(int_values[13]),
-                oven_light_status = OvenLightStatus(int_values[14]),
-                warm_status = WarmStatus(int_values[15]),
+                door_status = AdvantiumDoorStatus(int_values[11]),
+                sensing_active = AdvantiumSensingActive(int_values[12]),
+                cooling_fan_status = AdvantiumCoolingFanStatus(int_values[13]),
+                oven_light_status = AdvantiumOvenLightStatus(int_values[14]),
+                warm_status = AdvantiumWarmStatus(int_values[15]),
                 raw_value=value
             )
             _LOGGER.debug("Cook Status for value %s is: %s", value, cook_status)

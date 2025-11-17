@@ -4,8 +4,8 @@ from .advantium_enums import *
 
 class ErdAdvantiumCookSetting (NamedTuple):
     d: int = 0  #RANDOM
-    cook_action: CookAction = CookAction.STOP
-    cook_mode: CookMode = CookMode.NO_MODE
+    cook_action: AdvantiumCookAction = AdvantiumCookAction.STOP
+    cook_mode: AdvantiumCookMode = AdvantiumCookMode.NO_MODE
     target_temperature: int = 0
     h: int = 0  #NON-MUTABLE
     i: int = 0  #NON-MUTABLE
@@ -19,5 +19,5 @@ class ErdAdvantiumCookSetting (NamedTuple):
     q: int = 0  #NON-MUTABLE
     r: int = 0  #NON-MUTABLE
     s: int = 0  #NON-MUTABLE
-    warm_status: WarmStatus = WarmStatus.OFF
+    warm_status: AdvantiumWarmStatus = AdvantiumWarmStatus.OFF
     raw_value: Optional[str] = None

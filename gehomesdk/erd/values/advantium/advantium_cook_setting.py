@@ -9,8 +9,8 @@ class CookClass(enum.Enum):
 
 
 class AdvantiumCookSetting(NamedTuple):
-    cook_mode: CookMode = CookMode.NO_MODE
-    warm_status: Optional[WarmStatus] = None
+    cook_mode: AdvantiumCookMode = AdvantiumCookMode.NO_MODE
+    warm_status: Optional[AdvantiumWarmStatus] = None
     target_temperature_120v_f: Optional[int] = None
     target_temperature_240v_f: Optional[int] = None
     target_power_level: Optional[int] = None
