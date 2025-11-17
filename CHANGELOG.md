@@ -1,5 +1,9 @@
 # GE Home SDK Changelog
 
+## 2025.11.1
+
+- Minor Advantium and hood updates
+
 ## 2025.11.0
 
 - BREAKING: Removed XMPP Client (unmaintained)
