@@ -44,5 +44,5 @@ setup(
     },    
     packages=find_namespace_packages(include=[base_package, f"{base_package}*"]),
     include_package_data=False,
-    install_requires=["aiohttp>=3.13.0", "bidict", "requests>=2.32.4", "websockets>=15.0.0", "humanize", "beautifulsoup4>=4.13.1"]
+    install_requires=["aiohttp>=3.12.15", "bidict", "requests>=2.32.4", "websockets>=15.0.0", "humanize", "beautifulsoup4>=4.13.1"]
 )
