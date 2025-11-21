@@ -1,5 +1,18 @@
 # GE Home SDK Changelog
 
+## 2025.11.4
+
+- Fixed water heater mode setting
+
+## 2025.11.3
+
+- Added branding improvements
+- Miscellaneous minor bugfixes
+
+## 2025.11.2
+
+- Reduced websocket library requirements to allow for more HA installs to utilize
+
 ## 2025.11.1
 
 - Minor Advantium and hood updates
