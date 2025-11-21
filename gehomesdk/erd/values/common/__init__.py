@@ -1,5 +1,5 @@
 from .erd_appliance_type import ErdApplianceType
-from .erd_brand import ErdBrand
+from .erd_brand import ErdBrand, ERD_BRAND_NAME_MAP
 from .erd_clock_format import ErdClockFormat
 from .erd_end_tone import ErdEndTone
 from .erd_locked import ErdInterfaceLocked

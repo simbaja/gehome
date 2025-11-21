@@ -166,7 +166,7 @@ class GeWebsocketClient(GeBaseClient):
             await self._teardown_futures()
             await self._disconnect()
             
-    async def async_send_command(self, appliance: GeAppliance, cmd: str, data=[]):
+    async def async_send_command(self, appliance: GeAppliance, cmd: str, data=[]) -> None:
         '''
         Send command via websocket
         '''
@@ -196,7 +196,7 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
-    async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any):
+    async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any) -> None:
         if isinstance(erd_code, ErdCode):
             raw_erd_code = erd_code.value
         else:
@@ -227,7 +227,7 @@ class GeWebsocketClient(GeBaseClient):
         self._pending_erds[(mac_addr, raw_erd_code)] = erd_value
         await self._send_dict(msg_dict)
 
-    async def async_request_update(self, appliance: GeAppliance):
+    async def async_request_update(self, appliance: GeAppliance) -> None:
         """Request an appliance send a full update."""
         _LOGGER.debug(f"Requesting update for client {appliance.mac_addr}")
         msg_dict = {
@@ -240,7 +240,7 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
-    async def async_request_message(self, appliance: GeAppliance):
+    async def async_request_message(self, appliance: GeAppliance) -> None:
         """Request an appliance get notification history"""
         _LOGGER.debug(f"Requesting notification history for client {appliance.mac_addr}")
         msg_dict = {
@@ -253,7 +253,7 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
-    async def async_request_features(self, appliance: GeAppliance):
+    async def async_request_features(self, appliance: GeAppliance) -> None:
         """Request an appliance send features."""
         _LOGGER.debug(f"Requesting features for client {appliance.mac_addr}")
         msg_dict = {
@@ -266,14 +266,14 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
-    def _setup_futures(self):
+    def _setup_futures(self) -> None:
         loop = self.loop
         if self._keepalive_timeout and (self._keepalive_fut is None or self._keepalive_fut.done()):
             self._keepalive_fut = loop.create_task(self._keep_alive(self._keepalive_timeout))
         if self._list_frequency and (self._list_fut is None or self._list_fut.done()):
             self._list_fut = loop.create_task(self._refresh_appliances(self._list_frequency))
 
-    async def _teardown_futures(self):
+    async def _teardown_futures(self) -> None:
         for fut in (self._keepalive_fut, self._list_fut):
             if fut is not None:
                 fut.cancel()
@@ -286,7 +286,7 @@ class GeWebsocketClient(GeBaseClient):
         self._keepalive_fut = None
         self._list_fut = None
 
-    async def _disconnect(self):
+    async def _disconnect(self) -> None:
         """Disconnect and cleanup."""
         ws = self._socket
         if ws is not None and ws.state != State.CLOSED:
@@ -296,7 +296,7 @@ class GeWebsocketClient(GeBaseClient):
                 _LOGGER.warning("Error closing websocket: %s", err)
         self._socket = None
 
-    async def _process_pending_erd(self, message_id: str):
+    async def _process_pending_erd(self, message_id: str) -> None:
         id_parts = message_id.split("-")
         if id_parts[1] != SET_ERD:
             raise ValueError("Invalid message id")
@@ -310,7 +310,7 @@ class GeWebsocketClient(GeBaseClient):
             except KeyError:
                 pass
 
-    async def _process_message(self, message: str):
+    async def _process_message(self, message: str) -> None:
         """
         Process an incoming message.
         """
@@ -349,7 +349,7 @@ class GeWebsocketClient(GeBaseClient):
         #added per #867 in websocket project        
         await asyncio.sleep(0)
 
-    async def _process_appliance_list(self, message_dict: Dict):
+    async def _process_appliance_list(self, message_dict: Dict) -> None:
         """
         Process the appliance list.
 
@@ -393,7 +393,7 @@ class GeWebsocketClient(GeBaseClient):
             await self._add_appliance(mac_addr, online)
         await self.async_event(EVENT_GOT_APPLIANCE_LIST, items)
 
-    async def _process_appliance_features(self, message_dict: Dict):
+    async def _process_appliance_features(self, message_dict: Dict) -> None:
         """
         Process the appliance features.
 
@@ -429,7 +429,7 @@ class GeWebsocketClient(GeBaseClient):
 
         await self.async_event(EVENT_GOT_APPLIANCE_FEATURES, items)
 
-    async def _process_cache_update(self, message_dict: Dict):
+    async def _process_cache_update(self, message_dict: Dict) -> None:
         """
         Process an appliance's full cache update.
         
@@ -460,7 +460,7 @@ class GeWebsocketClient(GeBaseClient):
         updates = {i["erd"]: i["value"] for i in body["items"]}
         await self._update_appliance_state(mac_addr, updates)
 
-    async def _process_erd_update(self, message_dict: Dict):
+    async def _process_erd_update(self, message_dict: Dict) -> None:
         """
         Process an ERD update (pseudo-HTTP PUBLISH).
 
@@ -485,7 +485,7 @@ class GeWebsocketClient(GeBaseClient):
         update = {item['erd']: item['value']}
         await self._update_appliance_state(mac_addr, update)
 
-    async def _update_appliance_state(self, mac_addr: str, updates: Dict[ErdCodeType, str]):
+    async def _update_appliance_state(self, mac_addr: str, updates: Dict[ErdCodeType, str]) -> None:
         """Update appliance state, performing callbacks if necessary."""
         try:
             appliance = self.appliances[mac_addr]
@@ -496,7 +496,7 @@ class GeWebsocketClient(GeBaseClient):
             await self.async_event(EVENT_APPLIANCE_STATE_CHANGE, [appliance, state_changes])
         await self.async_event(EVENT_APPLIANCE_UPDATE_RECEIVED, [appliance, updates])
 
-    async def _send_dict(self, msg_dict: Dict[str, Any]):
+    async def _send_dict(self, msg_dict: Dict[str, Any]) -> None:
         """JSON encode a dictionary and send it."""
         payload = json.dumps(msg_dict)
         try:
@@ -515,7 +515,7 @@ class GeWebsocketClient(GeBaseClient):
         except ConnectionClosed:
             _LOGGER.info("Tried to send a message, but connection already closed.")
 
-    async def _keep_alive(self, keepalive: int = KEEPALIVE_TIMEOUT):
+    async def _keep_alive(self, keepalive: int = KEEPALIVE_TIMEOUT) -> None:
         """Send periodic pings to keep the connection alive."""
         while self.available:
             await asyncio.sleep(keepalive)
@@ -523,7 +523,7 @@ class GeWebsocketClient(GeBaseClient):
                 _LOGGER.debug("Sending keepalive ping")
                 await self._send_ping()
 
-    async def _refresh_appliances(self, frequency: int = LIST_APPLIANCES_FREQUENCY):
+    async def _refresh_appliances(self, frequency: int = LIST_APPLIANCES_FREQUENCY) -> None:
         """Refresh the appliances list to detect changes over time."""
         while self.available:
             await asyncio.sleep(frequency)
@@ -531,12 +531,12 @@ class GeWebsocketClient(GeBaseClient):
                 _LOGGER.debug("Refreshing appliance list/state")
                 await self._get_appliance_list()
 
-    async def _subscribe_all(self):
+    async def _subscribe_all(self) -> None:
         """Subscribe to all appliances."""
         msg_dict = {"kind": "websocket#subscribe", "action": "subscribe", "resources": ["/appliance/*/erd/*"]}
         await self._send_dict(msg_dict)   
 
-    async def _subscribe_appliances(self, appliances: List[GeAppliance]):
+    async def _subscribe_appliances(self, appliances: List[GeAppliance]) -> None:
         """Subscribe to a list of appliances."""
         msg_dict = {
             "kind": "websocket#subscribe",
@@ -545,7 +545,7 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
-    async def _get_appliance_list(self):
+    async def _get_appliance_list(self) -> None:
         """Request the list of appliances on this account."""
         msg_dict = {
             "kind": "websocket#api",
@@ -557,7 +557,7 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
-    async def _send_ping(self):
+    async def _send_ping(self) -> None:
         """Send a ping."""
         msg_dict = {
             "kind": "websocket#ping",
@@ -566,7 +566,7 @@ class GeWebsocketClient(GeBaseClient):
         }
         await self._send_dict(msg_dict)
 
-    async def _add_appliance(self, mac_addr: str, set_online: bool = True):
+    async def _add_appliance(self, mac_addr: str, set_online: bool = True) -> None:
         """Add an appliance to the registry and request an update."""
         mac_addr = mac_addr.upper()
         if mac_addr in self.appliances:

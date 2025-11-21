@@ -165,7 +165,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         """ Internal method to run the client """
 
     @abc.abstractmethod
-    async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any):
+    async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any) -> None:
         """
         Send a new erd value to the appliance
         :param appliance: The appliance being updated
@@ -175,19 +175,19 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    async def async_request_update(self, appliance: GeAppliance):
+    async def async_request_update(self, appliance: GeAppliance) -> None:
         """Request the appliance send a full state update"""
         pass
 
-    async def async_request_features(self, appliance: GeAppliance):
+    async def async_request_features(self, appliance: GeAppliance) -> None:
         """Request the appliance send a features state update"""
         pass
 
-    async def async_request_message(self, appliance: GeAppliance):
+    async def async_request_message(self, appliance: GeAppliance) -> None:
         """Request notification history"""
         pass
 
-    async def async_get_credentials(self, session: ClientSession):
+    async def async_get_credentials(self, session: ClientSession) -> None:
         """Get updated credentials"""
         self._session = session
         await self.async_do_full_login_flow()
@@ -235,7 +235,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         
         return oauth_token
 
-    async def _async_refresh_oauth2_token(self):
+    async def _async_refresh_oauth2_token(self) -> None:
         """ Refreshes an OAuth2 Token based on a refresh token """
 
         await self._set_state(GeClientState.AUTHORIZING_OAUTH)
@@ -264,7 +264,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         except KeyError:
             raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
 
-    async def _maybe_trigger_appliance_init_event(self, data: Tuple[GeAppliance, Dict[ErdCodeType, Any]]):
+    async def _maybe_trigger_appliance_init_event(self, data: Tuple[GeAppliance, Dict[ErdCodeType, Any]]) -> None:
         """
         Trigger the appliance_got_type event if appropriate
 
@@ -276,7 +276,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             appliance.initialized = True
             await self.async_event(EVENT_APPLIANCE_INITIAL_UPDATE, appliance)
 
-    async def _set_appliance_availability(self, appliance: GeAppliance, available: bool):
+    async def _set_appliance_availability(self, appliance: GeAppliance, available: bool) -> None:
         if available and not appliance.available:
             appliance.set_available()
             await self.async_event(EVENT_APPLIANCE_AVAILABLE, appliance)
@@ -284,7 +284,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             appliance.set_unavailable()
             await self.async_event(EVENT_APPLIANCE_UNAVAILABLE, appliance)
 
-    async def _set_appliance_features(self, appliance: GeAppliance, features: List[str]):
+    async def _set_appliance_features(self, appliance: GeAppliance, features: List[str]) -> None:
         appliance.features = features
 
     async def _set_state(self, new_state: GeClientState) -> bool:
@@ -296,12 +296,11 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             return True
         return False            
 
-    def _initialize_event_handlers(self):
+    def _initialize_event_handlers(self) -> None:
         self._event_handlers = defaultdict(list)  # type: Dict[str, List[Callable]]
         self.add_event_handler(EVENT_STATE_CHANGED, self._on_state_change)
-        pass
 
-    async def _on_state_change(self, old_state: GeClientState, new_state: GeClientState):
+    async def _on_state_change(self, old_state: GeClientState, new_state: GeClientState) -> None:
         _LOGGER.debug(f'Client changed state: {old_state} to {new_state}')
 
         if new_state == GeClientState.CONNECTED:
@@ -309,7 +308,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         if new_state == GeClientState.DISCONNECTED:
             await self.async_event(EVENT_DISCONNECTED, None)
 
-    async def disconnect(self):
+    async def disconnect(self) -> None:
         """Disconnect and cleanup."""
         if not self._disconnect_requested.is_set():
             _LOGGER.info("Disconnecting")
@@ -318,7 +317,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             await self._disconnect()
             await self._set_state(GeClientState.DISCONNECTED) 
 
-    async def _set_connected(self):
+    async def _set_connected(self) -> None:
         self._retries_since_last_connect = -1
         self._has_successful_connect = True
         await self._set_state(GeClientState.CONNECTED)
