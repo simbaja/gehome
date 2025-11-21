@@ -3,6 +3,7 @@
 ## 2025.11.4
 
 - Fixed water heater mode setting
+- Added dishwasher remote command configuration
 
 ## 2025.11.3
 
