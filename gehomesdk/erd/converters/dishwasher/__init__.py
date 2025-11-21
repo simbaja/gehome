@@ -5,6 +5,7 @@ from .operating_mode_converter import OperatingModeConverter
 from .erd_error_converter import ErdErrorStateConverter
 from .erd_dishwasher_door_status_converter import ErdDishwasherDoorStatusConverter
 from .erd_cycle_count_converter import ErdCycleCountSettingConverter
+from .erd_remote_command_converter import ErdRemoteCommandConverter
 from .erd_user_setting_converter import (   ErdUserSettingConverter,
                                             ErdUserCycleSettingConverter,
                                             ErdUserTemperatureSettingConverter,

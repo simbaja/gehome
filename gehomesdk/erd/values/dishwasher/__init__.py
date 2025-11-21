@@ -7,6 +7,7 @@ from .cycle_state_mapping import CYCLE_STATE_RAW_MAP
 from .operating_mode_mapping import OPERATING_MODE_MAP
 from .erd_dishwasher_door_status import ErdDishwasherDoorStatus
 from .cycle_count import ErdCycleCount
+from .remote_command import ErdRemoteCommand
 from .erd_user_setting import ( ErdUserSetting,
                                 UserCycleSetting,
                                 UserWashTempSetting,
