@@ -20,15 +20,15 @@ class ErdHoodFanSpeedAvailability(NamedTuple):
 
     @classmethod
     def from_count(cls, levels: int) -> "ErdHoodFanSpeedAvailability":
-        """Construct availability based on number of supported fan speed levels (0–5)."""
+        """Construct availability based on number of supported fan speed levels (0–4)."""
         # clamp to valid range
-        levels = max(0, min(levels, 5))
+        levels = max(0, min(levels, 4))
 
         return cls(
-            off_available   = levels >= 1,
-            low_available   = levels >= 2,
-            med_available   = levels >= 3,
-            high_available  = levels >= 4,
-            boost_available = levels >= 5,
+            off_available   = levels >= 0,
+            low_available   = levels >= 1,
+            med_available   = levels >= 2,
+            high_available  = levels >= 3,
+            boost_available = levels >= 4,
             raw_value       = str(levels),
         )
