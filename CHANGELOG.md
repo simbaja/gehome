@@ -2,6 +2,7 @@
 
 ## 2025.11.5
 
+- Added new light level converter for hoods (old and new had mismatched ordering)
 - Fixed off-by-one issue in fan/light level availability
 
 ## 2025.11.4
