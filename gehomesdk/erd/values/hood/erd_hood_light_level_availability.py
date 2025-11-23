@@ -12,7 +12,8 @@ class ErdHoodLightLevelAvailability(NamedTuple):
         return (
             self.off_available |
             self.dim_available |
-            self.high_available
+            self.high_available |
+            self.med_available
         )
     
     @classmethod
