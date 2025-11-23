@@ -13,6 +13,19 @@ class ErdHoodLightLevel(enum.Enum):
 
     def stringify(self, **kwargs):
         return self.name.title()
+    
+@enum.unique
+class ErdHoodLightLevelNew(enum.Enum):
+    OFF = 0
+    L1 = 1
+    L2 = 2
+    L3 = 3
+
+    def boolify(self) -> Optional[bool]:
+        return self != ErdHoodLightLevel.OFF
+
+    def stringify(self, **kwargs):
+        return self.name.title()    
 
 @enum.unique
 class ErdHoodFanSpeed(enum.Enum):
