@@ -1,5 +1,9 @@
 # GE Home SDK Changelog
 
+## 2025.11.5
+
+- Fixed off-by-one issue in fan/light level availability
+
 ## 2025.11.4
 
 - Fixed water heater mode setting
