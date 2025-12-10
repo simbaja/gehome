@@ -111,6 +111,124 @@ async def async_get_authorization_code(session: ClientSession, account_username:
 
 async def async_handle_ok_response(session: ClientSession, resp_text: str) -> str:
     """Handles an OK 200 response from the login process"""
+    
+    # Check if this is a terms acceptance page
+    if "Almost Finished" in resp_text and "/oauth2/terms/accept" in resp_text:
+        _LOGGER.info("Terms acceptance page detected, attempting to accept terms automatically...")
+        
+        try:
+            # Parse the form fields from the HTML using BeautifulSoup for reliability
+            soup = BeautifulSoup(resp_text, "html.parser")
+            # Try finding by id first, then by name
+            terms_form = soup.find("form", id="termsform")
+            if not terms_form:
+                terms_form = soup.find("form", {"name": "termsform"})
+            
+            if not terms_form:
+                _LOGGER.error("Could not find terms form in the response")
+                _LOGGER.debug(f"Response preview: {resp_text[:1000]}")
+                raise GeAuthFailedError("Terms acceptance page detected but could not find the form")
+            
+            _LOGGER.debug("Found terms form in HTML")
+            
+            # Extract all hidden input values from the form using regex for reliability
+            # The HTML has malformed attributes (no quotes around some values)
+            form_data = {}
+            
+            # Extract signature (properly quoted)
+            sig_match = re.search(r'name="signature"\s+value="([^"]+)"', resp_text)
+            if sig_match:
+                form_data["signature"] = sig_match.group(1)
+                _LOGGER.debug(f"Found signature: {form_data['signature'][:50]}...")
+            
+            # Extract login_actions_signature (NOT quoted - value=XXX>)
+            las_match = re.search(r'name="login_actions_signature"[^>]*value=([^>\s]+)>', resp_text)
+            if las_match:
+                # Remove trailing > if present
+                las_value = las_match.group(1).rstrip('>')
+                form_data["login_actions_signature"] = las_value
+                _LOGGER.debug(f"Found login_actions_signature: {las_value[:50]}...")
+            
+            # Extract isDeveloper
+            dev_match = re.search(r'name="isDeveloper"\s+value="([^"]+)"', resp_text)
+            if dev_match:
+                form_data["isDeveloper"] = dev_match.group(1)
+            
+            # Extract _csrf from form
+            csrf_match = re.search(r'name="_csrf"\s+value="([^"]+)"', resp_text)
+            if csrf_match:
+                form_data["_csrf"] = csrf_match.group(1)
+                _LOGGER.debug(f"Found _csrf: {form_data['_csrf']}")
+            
+            _LOGGER.info(f"Extracted form fields via regex: {list(form_data.keys())}")
+            
+            # Set the checkbox values to indicate acceptance
+            # The HTML shows checkboxes with names "developerTerms" and "connected_terms"
+            # When checked, browsers send "on" as the value
+            form_data["developerTerms"] = "on"
+            form_data["connected_terms"] = "on"
+            
+            # Use the CSRF token from the form data for the header
+            csrf_token = form_data.get("_csrf", "")
+            
+            # Build headers with CSRF token
+            headers = {}
+            if csrf_token:
+                headers["X-CSRF-TOKEN"] = csrf_token
+            
+            _LOGGER.debug(f"Submitting terms acceptance with {len(form_data)} fields: {list(form_data.keys())}")
+            
+            async with session.post(
+                "https://accounts.brillion.geappliances.com/oauth2/terms/accept",
+                data=form_data,
+                headers=headers,
+                allow_redirects=False  # Don't auto-follow to capture redirect
+            ) as terms_resp:
+                terms_status = terms_resp.status
+                _LOGGER.debug(f"Terms acceptance response status: {terms_status}")
+                
+                # Check if we got a redirect (success case)
+                if terms_status in (301, 302, 303, 307, 308):
+                    location = terms_resp.headers.get('Location', '')
+                    _LOGGER.debug(f"Terms acceptance redirect location: {location}")
+                    
+                    # Check if the redirect contains the auth code
+                    if 'code=' in location:
+                        code = parse_qs(urlparse(location).query).get('code', [None])[0]
+                        if code:
+                            _LOGGER.info("Successfully accepted terms and obtained authorization code")
+                            return code
+                    
+                    # Follow the redirect manually
+                    async with session.get(location, allow_redirects=False) as redirect_resp:
+                        _LOGGER.debug(f"Redirect response status: {redirect_resp.status}")
+                        if redirect_resp.status in (301, 302, 303, 307, 308):
+                            final_location = redirect_resp.headers.get('Location', '')
+                            if 'code=' in final_location:
+                                code = parse_qs(urlparse(final_location).query).get('code', [None])[0]
+                                if code:
+                                    _LOGGER.info("Successfully accepted terms and obtained authorization code")
+                                    return code
+                        # Recursively handle the response
+                        redirect_text = await redirect_resp.text()
+                        return await async_handle_ok_response(session, redirect_text)
+                
+                # If we got a 200, recursively handle it
+                if terms_status == 200:
+                    terms_resp_text = await terms_resp.text()
+                    return await async_handle_ok_response(session, terms_resp_text)
+                
+                # Handle error responses
+                resp_body = await terms_resp.text()
+                _LOGGER.error(f"Terms acceptance failed with status {terms_status}")
+                _LOGGER.debug(f"Terms response body: {resp_body[:2000]}")
+                raise GeAuthFailedError(f"Terms acceptance failed with status {terms_status}")
+                
+        except GeAuthFailedError:
+            raise
+        except Exception as e:
+            _LOGGER.exception(f"Error during terms acceptance: {e}")
+            raise GeAuthFailedError(f"Terms acceptance failed: {e}") from e
 
     post_data = {}
 
