@@ -1,5 +1,11 @@
 # GE Home SDK Changelog
 
+## 2026.2.0
+
+- Fixed model number decoding (#105) (@kadaan)
+- Added wifi mode enabled (#103) (sgraystar)
+- Fixed login process when dealing with MFA/Terms (@Dan1|1-nz)
+ 
 ## 2025.11.5
 
 - Added new light level converter for hoods (old and new had mismatched ordering)
