@@ -35,6 +35,7 @@ class ErdUserSettingConverter(ErdReadWriteConverter[ErdUserSetting]):
                 wash_zone = UserWashZoneSetting((i & 3145728) >> 20),
                 demo_mode = UserSetting((i & 4194304) >> 22),
                 mute = UserSetting((i & 8388608) >> 23),
+                wifi_enabled = UserSetting((i & 128) >> 7),
                 raw_value=value
             )
         except Exception as ex: 
@@ -55,6 +56,7 @@ class ErdUserSettingConverter(ErdReadWriteConverter[ErdUserSetting]):
         i |= value.wash_zone.value << 20
         i |= value.demo_mode.value << 22
         i |= value.mute.value << 23
+        i |= value.wifi_enabled.value << 7
 
         return erd_encode_int(i)
             

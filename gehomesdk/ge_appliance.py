@@ -155,8 +155,7 @@ class GeAppliance:
         erd_value = self.encode_erd_value(erd_code, value)
         await self.client.async_set_erd_value(self, erd_code, erd_value)
 
-    def update_erd_value(
-            self, erd_code: ErdCodeType, erd_value: str) -> bool:
+    def update_erd_value(self, erd_code: ErdCodeType, erd_value: str) -> bool:
         """
         Setter for ERD code values.
 

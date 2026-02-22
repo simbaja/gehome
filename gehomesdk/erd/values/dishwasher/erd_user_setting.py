@@ -56,4 +56,5 @@ class ErdUserSetting (NamedTuple):
     dry_option: UserDryOptionSetting = UserDryOptionSetting.OFF
     wash_zone: UserWashZoneSetting = UserWashZoneSetting.BOTH
     delay_hours: int = 0
+    wifi_enabled: UserSetting = UserSetting.DISABLE
     raw_value: Optional[str] = None

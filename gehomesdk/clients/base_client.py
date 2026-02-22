@@ -163,6 +163,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def _async_run_client(self) -> None:
         """ Internal method to run the client """
+        pass
 
     @abc.abstractmethod
     async def async_set_erd_value(self, appliance: GeAppliance, erd_code: ErdCodeType, erd_value: Any) -> None:
