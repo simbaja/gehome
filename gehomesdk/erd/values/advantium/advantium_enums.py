@@ -29,8 +29,7 @@ class AdvantiumWarmStatus(enum.IntEnum):
     def _missing_(cls, value):
         if value == 223:
             return cls.OFF
-        # fall back to default behavior -> raises ValueError
-        return super()._missing_(value)
+        return cls.OFF
 
 @enum.unique
 class AdvantiumDoorStatus(enum.Enum):
@@ -53,8 +52,7 @@ class AdvantiumCookAction(enum.IntEnum):
     def _missing_(cls, value):
         if value in (20, 178):
             return cls.STOP
-        # fall back to default behavior -> raises ValueError
-        return super()._missing_(value)
+        return cls.UNKNOWN
 
 @enum.unique
 class AdvantiumCookMode(enum.IntEnum):
