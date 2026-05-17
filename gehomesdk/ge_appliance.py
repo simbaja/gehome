@@ -43,6 +43,7 @@ class GeAppliance:
         self._mac_addr = mac_addr.upper()
         self._message_id = 0
         self._property_cache = {}  # type: Dict[ErdCodeType, Any]
+        self._raw_property_cache = {}  # type: Dict[ErdCodeType, str]
         self._features = []
         self.client = client
         self.initialized = False
@@ -134,6 +135,22 @@ class GeAppliance:
         erd_code = self._encoder.translate_code(erd_code)
         return self._property_cache[erd_code]
 
+    def get_raw_erd_value(self, erd_code: ErdCodeType) -> Optional[str]:
+        """
+        Get the raw hex string last received for this ERD, or None if never received.
+
+        Useful when a device uses an ERD hex code outside the semantics its upstream
+        converter assumes (e.g. a standalone gas cooktop that reuses a hex code
+        already registered for an oven/hood with different byte meaning). The raw
+        cache lets the consumer decode the bytes against the actual device's schema
+        instead of whatever shape the global converter produced.
+
+        :param erd_code: ErdCode or str, the ERD code whose raw value we want
+        :return: The raw hex string as received from the appliance, or None
+        """
+        erd_code = self._encoder.translate_code(erd_code)
+        return self._raw_property_cache.get(erd_code)
+
     def get_erd_code_class(self, erd_code: ErdCodeType) -> ErdCodeClass:
         """
         Get the classification for a given ErdCode
@@ -165,6 +182,8 @@ class GeAppliance:
         """
         erd_code = self._encoder.translate_code(erd_code)
         value = self.decode_erd_value(erd_code, erd_value)
+
+        self._raw_property_cache[erd_code] = erd_value
 
         old_value = self._property_cache.get(erd_code)
 
