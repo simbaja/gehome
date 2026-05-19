@@ -1,7 +1,6 @@
 """ERD Codes for GE appliances"""
 import enum
-from typing import Union
-
+from typing import TypeAlias, Union
 
 @enum.unique
 class ErdCode(enum.Enum):
@@ -451,4 +450,4 @@ class ErdCode(enum.Enum):
     CCM_START_DESCALING = "0x901a"
     CCM_CANCEL_DESCALING = "0x901b"
 
-ErdCodeType = Union[ErdCode, str]
+ErdCodeType: TypeAlias = Union[ErdCode, str]

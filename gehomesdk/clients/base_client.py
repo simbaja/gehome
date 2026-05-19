@@ -142,20 +142,23 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                     break
                 _LOGGER.exception(err)
                 _LOGGER.info(f'Unhandled exception while running client, ignoring and restarting')
-            finally:
-                if not self._disconnect_requested.is_set():
-                    await self._set_state(GeClientState.DROPPED)
-                    await self._set_state(GeClientState.WAITING)
-                    _LOGGER.debug('Waiting before reconnecting')
-                    await asyncio.sleep(RETRY_INTERVAL)
-                    _LOGGER.debug('Refreshing authentication before reconnecting')
-                    try:
-                        await self.async_do_refresh_login_flow()
-                    except Exception as err:
-                        #if there was an error refreshing the authentication, break the loop and kill the client
-                        _LOGGER.warning(f'Error refreshing authentication: {err}')
-                        break
-                self._retries_since_last_connect += 1
+
+            if self._disconnect_requested.is_set():
+                break
+
+            await self._set_state(GeClientState.DROPPED)
+            await self._set_state(GeClientState.WAITING)
+            _LOGGER.debug('Waiting before reconnecting')
+            await asyncio.sleep(RETRY_INTERVAL)
+            _LOGGER.debug('Refreshing authentication before reconnecting')
+            try:
+                await self.async_do_refresh_login_flow()
+            except Exception as err:
+                # if there was an error refreshing the authentication, stop and disconnect the client
+                _LOGGER.warning(f'Error refreshing authentication: {err}')
+                break
+
+            self._retries_since_last_connect += 1
 
         #initiate the disconnection            
         await self.disconnect()
