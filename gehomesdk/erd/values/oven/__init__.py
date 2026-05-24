@@ -1,7 +1,5 @@
 from .erd_available_cook_mode import ErdAvailableCookMode
 from .erd_extended_cook_mode import ErdExtendedCookMode
-from .erd_cooktop_config import ErdCooktopConfig
-from .erd_cooktop_status import ErdCooktopStatus
 from .erd_oven_configuration import ErdOvenConfiguration
 from .erd_oven_cook_mode import ErdOvenCookMode
 from .erd_oven_state import ErdOvenState
@@ -12,8 +10,6 @@ from .oven_cook_mode import OvenCookMode
 from .oven_cook_mode_mapping import OVEN_COOK_MODE_MAP
 from .oven_cook_setting import OvenCookSetting
 from .oven_ranges import OvenRanges
-from .burner import Burner
-from .cooktop_status import CooktopStatus
 from .erd_precision_cooking_probe_battery_status import ErdPrecisionCookingProbeBatteryStatus
 from .erd_precision_cooking_start_sous_vide_timer_active_status import ErdPrecisionCookingStartSousVideTimerActiveStatus
 from .erd_precision_cooking_probe_target_time_reached import ErdPrecisionCookingProbeTargetTimeReached

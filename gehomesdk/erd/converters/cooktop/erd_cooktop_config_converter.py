@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from ...values.oven import ErdCooktopConfig
+from ...values.cooktop import ErdCooktopConfig
 
 
 class ErdCooktopConfigConverter(ErdReadOnlyConverter[ErdCooktopConfig]):

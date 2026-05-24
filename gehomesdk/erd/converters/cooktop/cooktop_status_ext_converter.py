@@ -1,7 +1,7 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
-from ...values.oven import CooktopStatus, ErdCooktopStatus, Burner
+from ...values.cooktop import CooktopStatus, ErdCooktopStatus, Burner
 
 _LOGGER = logging.getLogger(__name__)
 
