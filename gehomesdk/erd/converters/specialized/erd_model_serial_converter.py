@@ -21,4 +21,15 @@ class ErdModelSerialConverter(ErdReadOnlyConverter[str]):
         data_bytes = raw_bytes[1:data_end]
         data_bytes = data_bytes.rstrip(b'\xff\x00')
 
-        return data_bytes.decode('ascii')
+        try:
+            result = data_bytes.decode('ascii')
+        except UnicodeDecodeError:
+            return ""
+
+        # Some firmware versions send PEM certificate data on this ERD code.
+        # Those payloads contain control characters (e.g. \n); a valid model
+        # or serial number is always printable ASCII.
+        if not result.isprintable():
+            return ""
+
+        return result
