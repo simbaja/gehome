@@ -4,6 +4,7 @@
 
 - Added boolify support to gas valve lock status
 - Fixed None comparison in Advantium remote cook mode config
+- Fixed serial number decoding (#105) (@kadaan)
 
 ## 2026.5.1
 
