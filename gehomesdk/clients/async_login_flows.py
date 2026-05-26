@@ -183,8 +183,10 @@ async def _handle_html(session: ClientSession, html: str) -> str:
         form = soup.find("form", id="addMfaForm")
 
         if not form:
-            raise GeAuthFailedError(
-                "MFA required. Please log into SmartHQ and complete MFA setup."
+            raise GeAuthMfaRequiredError(
+                "MFA enrollment required. Please configure multi-factor authentication "
+                "in the SmartHQ app or at https://accounts.brillion.geappliances.com "
+                "and then retry."
             )
 
         form_data = {}
@@ -210,7 +212,11 @@ async def _handle_html(session: ClientSession, html: str) -> str:
         form = soup.find("form")
 
         if not form:
-            raise GeAuthFailedError("Terms page detected but no form found")
+            raise GeAuthTermsRequiredError(
+                "Terms acceptance required. Please accept the updated Terms of Service "
+                "in the SmartHQ app or at https://accounts.brillion.geappliances.com "
+                "and then retry."
+            )
 
         form_data = {}
         for i in form.find_all("input"):

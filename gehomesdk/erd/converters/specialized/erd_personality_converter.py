@@ -17,11 +17,11 @@ class ErdPersonalityConverter(ErdReadOnlyConverter[ErdPersonality]):
             return ErdPersonality(value)
         except:
             if not self._have_already_seen_unknown_appliance(value):
-                _LOGGER.info(f"Unknown personality found: {value}, using default")
+                _LOGGER.debug(f"Unknown personality found: {value}, using default")
             return ErdPersonality.UNKNOWN
 
     def _have_already_seen_unknown_appliance(self, value):
         is_duplicate = value in self._unknowns
         if not is_duplicate:
             self._unknowns.add(value)
-        return not is_duplicate
+        return is_duplicate

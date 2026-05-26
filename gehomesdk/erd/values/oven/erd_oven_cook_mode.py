@@ -1,4 +1,8 @@
 import enum
+import logging
+
+_LOGGER = logging.getLogger(__name__)
+_UNKNOWN_COOK_MODES: set = set()
 
 @enum.unique
 class ErdOvenCookMode(enum.Enum):
@@ -74,3 +78,10 @@ class ErdOvenCookMode(enum.Enum):
     AIRFRY_DELAYSTART = 160
     AIRFRY_PROBE_DELAYSTART = 161
     VENT_BAKE = 94
+
+    @classmethod
+    def _missing_(cls, value):
+        if value not in _UNKNOWN_COOK_MODES:
+            _UNKNOWN_COOK_MODES.add(value)
+            _LOGGER.warning(f"Unknown oven cook mode received: {value}, treating as NOMODE")
+        return cls.NOMODE
