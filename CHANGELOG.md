@@ -1,5 +1,24 @@
 # GE Home SDK Changelog
 
+## 2026.5.2
+
+- Added boolify support to gas valve lock status
+- Fixed None comparison in Advantium remote cook mode config
+
+## 2026.5.1
+
+- Added new cooktop-related ERD codes (gas valve lock request/status)
+- Modified cooktop status to omit burner data when not defined
+
+## 2026.5.0
+
+- Fixed Python 3.14 control flow issue (break in finally)
+- Fixed linter issue (TypeAlias)
+- Fixed OAuth authentication after GE backend changes (#107)
+- Added extended Air Fry oven mode variants (#108)
+- Fixed AdvantiumCookAction and AdvantiumWarmStatus ValueError on unknown enum values (#110)
+- Added `get_raw_erd_value()` for appliance-specific ERD decoding (#111)
+
 ## 2026.2.0
 
 - Fixed model number decoding (#105) (@kadaan)
