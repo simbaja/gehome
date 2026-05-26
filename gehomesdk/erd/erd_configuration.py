@@ -317,10 +317,6 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.AC_AVAILABLE_TURBO_QUIET_MODES, ErdAcAvailableTurboQuietModesConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.AC_TURBO_QUIET_STATUS, ErdAcTurboQuietModeConverter(), ErdCodeClass.AC_SENSOR),
 
-    #Window AC
-    ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_POWER, ErdWacDemandResponsePowerConverter(), ErdCodeClass.POWER, ErdDataType.FLOAT),
-    ErdConfigurationEntry(ErdCode.WAC_DEMAND_RESPONSE_STATE, ErdWacDemandResponseStateConverter(), ErdCodeClass.AC_SENSOR),
-
     #Split AC
     ErdConfigurationEntry(ErdCode.SAC_SLEEP_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_TARGET_TEMPERATURE_RANGE, ErdSacTargetTemperatureRangeConverter(), ErdCodeClass.AC_SENSOR),
@@ -375,4 +371,23 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.CCM_IS_DESCALING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_START_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_CANCEL_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+
+    # Resource Usage - Energy, Water, Gas
+    ErdConfigurationEntry(ErdCode.RESOURCE_DSM_POWER_USAGE, ErdDsmPowerUsageConverter(), ErdCodeClass.POWER),
+    ErdConfigurationEntry(ErdCode.RESOURCE_DEMAND_RESPONSE_STATE, ErdDemandResponseStateConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_ENERGY, ErdReadOnlyIntConverter(), ErdCodeClass.ENERGY, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_ENERGY_UPDATE_PERIOD_MINS, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_ENERGY_MEASUREMENT_TYPE, ErdResourceMeasurementTypeConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_HOT_WATER_LITERS, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_HOT_WATER_UPDATE_PERIOD_MINS, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_HOT_WATER_MEASUREMENT_TYPE, ErdResourceMeasurementTypeConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_COLD_WATER_LITERS, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_COLD_WATER_UPDATE_PERIOD_MINS, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_COLD_WATER_MEASUREMENT_TYPE, ErdResourceMeasurementTypeConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_GAS_CUBIC_FEET, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_GAS_UPDATE_PERIOD_MINS, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_GAS_MEASUREMENT_TYPE, ErdResourceMeasurementTypeConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.RESOURCE_GAS_TYPE, ErdGasTypeConverter(), ErdCodeClass.GENERAL),
+    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_HOT_WATER_ML, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_COLD_WATER_ML, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),
 ]

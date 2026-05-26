@@ -2,6 +2,7 @@
 
 ## 2026.5.3
 
+- Added resource usage ERD codes for energy (0xd007), water (0xd016-0xd021), and gas (0xd01c-0xd01f) metering across appliances
 - Improved authentication error handling and messages for MFA/terms-required login paths (#102)
 - Improved handling for unknown oven cook mode values (#100)
 - Made bool conversion more tolerant of unexpected raw values (#94)

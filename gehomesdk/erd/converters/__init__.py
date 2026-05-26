@@ -2,6 +2,7 @@
 
 from .abstract import *
 from .primitives import *
+from .common import *
 from .specialized import *
 from .oven import *
 from .fridge import *

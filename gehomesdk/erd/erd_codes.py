@@ -402,10 +402,6 @@ class ErdCode(enum.Enum):
     AC_AVAILABLE_TURBO_QUIET_MODES = "0x795f"
     AC_TURBO_QUIET_STATUS = "0x7963"
 
-    #Window AC
-    WAC_DEMAND_RESPONSE_POWER = "0xd005"
-    WAC_DEMAND_RESPONSE_STATE = "0xd006"
-
     #Split AC
     # SAC_AVAILABLE_MODES = "0x7b00" ### removed, use AC_AVAILABLE_MODES
     SAC_SLEEP_MODE = "0x7b05"
@@ -452,5 +448,26 @@ class ErdCode(enum.Enum):
     CCM_IS_DESCALING = "0x9019"
     CCM_START_DESCALING = "0x901a"
     CCM_CANCEL_DESCALING = "0x901b"
+
+    # Resource Usage - Energy, Water, Gas (ERD 0xd005-0xd021)
+    # Cross-appliance codes published by appliances that support demand-side management (DSM)
+    # or energy/water/gas metering.
+    RESOURCE_DSM_POWER_USAGE = "0xd005"              # struct: instantaneous watts + cumulative watt-seconds
+    RESOURCE_DEMAND_RESPONSE_STATE = "0xd006"        # enum: Not Available / Not In DR / In DR / Temp Load Reduction
+    RESOURCE_CUMULATIVE_ENERGY = "0xd007"            # u32 watt-hours (cumulative)
+    RESOURCE_ENERGY_UPDATE_PERIOD_MINS = "0xd014"    # u8 minimum update period in minutes
+    RESOURCE_ENERGY_MEASUREMENT_TYPE = "0xd015"      # enum: Estimated / Measured
+    RESOURCE_CUMULATIVE_HOT_WATER_LITERS = "0xd016"  # u32 liters (cumulative)
+    RESOURCE_HOT_WATER_UPDATE_PERIOD_MINS = "0xd017"
+    RESOURCE_HOT_WATER_MEASUREMENT_TYPE = "0xd018"
+    RESOURCE_CUMULATIVE_COLD_WATER_LITERS = "0xd019" # u32 liters (cumulative)
+    RESOURCE_COLD_WATER_UPDATE_PERIOD_MINS = "0xd01a"
+    RESOURCE_COLD_WATER_MEASUREMENT_TYPE = "0xd01b"
+    RESOURCE_CUMULATIVE_GAS_CUBIC_FEET = "0xd01c"    # u32, raw value is cubic feet × 10
+    RESOURCE_GAS_UPDATE_PERIOD_MINS = "0xd01d"
+    RESOURCE_GAS_MEASUREMENT_TYPE = "0xd01e"
+    RESOURCE_GAS_TYPE = "0xd01f"                     # enum: Unknown / Natural Gas / Liquid Propane
+    RESOURCE_CUMULATIVE_HOT_WATER_ML = "0xd020"      # u32 milliliters (cumulative)
+    RESOURCE_CUMULATIVE_COLD_WATER_ML = "0xd021"     # u32 milliliters (cumulative)
 
 ErdCodeType: TypeAlias = Union[ErdCode, str]
