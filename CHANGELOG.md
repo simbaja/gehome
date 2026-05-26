@@ -1,5 +1,9 @@
 # GE Home SDK Changelog
 
+## 2026.5.4
+
+- fixed the units for the cumulative gas erd
+
 ## 2026.5.3
 
 - Added resource usage ERD codes for energy (0xd007), water (0xd016-0xd021), and gas (0xd01c-0xd01f) metering across appliances

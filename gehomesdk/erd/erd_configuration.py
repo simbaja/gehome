@@ -384,7 +384,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_COLD_WATER_LITERS, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.RESOURCE_COLD_WATER_UPDATE_PERIOD_MINS, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.RESOURCE_COLD_WATER_MEASUREMENT_TYPE, ErdResourceMeasurementTypeConverter(), ErdCodeClass.GENERAL),
-    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_GAS_CUBIC_FEET, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_GAS_CUBIC_FEET, ErdCumulativeGasCubicFeetConverter(), ErdCodeClass.GENERAL, ErdDataType.FLOAT),
     ErdConfigurationEntry(ErdCode.RESOURCE_GAS_UPDATE_PERIOD_MINS, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.RESOURCE_GAS_MEASUREMENT_TYPE, ErdResourceMeasurementTypeConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.RESOURCE_GAS_TYPE, ErdGasTypeConverter(), ErdCodeClass.GENERAL),
