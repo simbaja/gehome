@@ -1,5 +1,12 @@
 # GE Home SDK Changelog
 
+## 2026.5.3
+
+- Improved authentication error handling and messages for MFA/terms-required login paths (#102)
+- Improved handling for unknown oven cook mode values (#100)
+- Made bool conversion more tolerant of unexpected raw values (#94)
+- Improved personality converter logging for easier diagnostics (#91)
+
 ## 2026.5.2
 
 - Added boolify support to gas valve lock status
