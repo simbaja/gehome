@@ -1,4 +1,4 @@
-from typing import List, NamedTuple, Optional
+from typing import List, Optional
 from dataclasses import dataclass
 from .advantium_enums import *
 
@@ -44,7 +44,7 @@ class ErdAdvantiumRemoteCookModeConfig:
     def __init__(self, values: Optional[List[int]], raw_value: Optional[str]) -> None:
         self.raw_value = raw_value
 
-        if values == None:
+        if values is None:
             return
 
         self.check_convection_bake(values[0])
