@@ -73,6 +73,32 @@ flow.  For XMPP, we get a mobile device token, which in turn be used to get a ne
 is used to get XMPP credentials to authenticate to the Jabber server.  In `gehomesdk`, going from username/password
 to XMPP credentials is handled by `do_full_xmpp_flow(username, password)`.
 
+### Multi-Factor Authentication (MFA)
+Some SmartHQ accounts require a one-time verification code (emailed or texted) during login. `async_get_oauth2_token`
+and `GeBaseClient.async_get_credentials` cannot satisfy that challenge on their own and will raise
+`GeAuthMfaRequiredError` (with an `mfa_methods` list of the available verification methods) if one is encountered.
+
+To complete the challenge interactively, use `GeSmartHqLogin` directly:
+
+```python
+from gehomesdk import GeSmartHqLogin
+
+login = GeSmartHqLogin(session)
+result = await login.async_login(username, password, region)
+
+if result.mfa_required:
+    await login.async_send_code(result.mfa_methods[0])  # e.g. "email"
+    code = input("Enter the verification code you received: ")
+    token = await login.async_submit_code(code)
+else:
+    token = result.token
+```
+
+The resulting `token` dict includes a `refresh_token`. Pass it to `GeWebsocketClient(..., refresh_token=token["refresh_token"])`
+so future reconnects authenticate via the refresh token instead of repeating the full login, which would re-trigger
+the MFA challenge. The client also exposes its current `refresh_token` property so it can be persisted if the SDK
+rotates it internally.
+
 ## Useful functions
 ### `do_full_xmpp_flow(username, password)` ${\textsf{\color{red}!!! DEPRECATED AND REMOVED !!!}}$
 Function to authenticate to the web API and get XMPP credentials.  Returns a `dict` of XMPP credentials

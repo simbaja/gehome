@@ -3,7 +3,7 @@ from aiohttp import BasicAuth, ClientSession
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs, urljoin
 import logging
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from ..exception import *
 from .const import (
@@ -11,6 +11,7 @@ from .const import (
     LOGIN_REGION_COOKIE_NAME,
     LOGIN_REGIONS,
     LOGIN_URL,
+    MFA_OPTIONS_PATH,
     OAUTH2_CLIENT_ID,
     OAUTH2_CLIENT_SECRET,
     OAUTH2_REDIRECT_URI,
@@ -71,6 +72,37 @@ def extract_code_from_location(location: str) -> Optional[str]:
     qs = parse_qs(parsed.query)
     return qs.get("code", [None])[0]
 
+
+def extract_mfa_methods(html: str) -> List[str]:
+    """Extract the available MFA verification methods from the method
+    chooser page (e.g. buttons named ``email_btn``/``sms_btn`` with the
+    method as their value)."""
+    soup = BeautifulSoup(html, "html.parser")
+    methods: List[str] = []
+    for btn in soup.find_all("button"):
+        name = normalize_html_attr_value(btn.get("name"))
+        value = normalize_html_attr_value(btn.get("value"))
+        if name.endswith("_btn") and value:
+            methods.append(value)
+    return methods
+
+
+def extract_csrf_token(html: str) -> Optional[str]:
+    soup = BeautifulSoup(html, "html.parser")
+    tag = soup.find("input", attrs={"name": "_csrf"})
+    if tag and tag.get("value"):
+        return normalize_html_attr_value(tag.get("value"))
+    meta = soup.find("meta", attrs={"name": "_csrf"})
+    if meta and meta.get("content"):
+        return normalize_html_attr_value(meta.get("content"))
+    return None
+
+
+def _raise_for_status(status: int, text: str = "") -> None:
+    if 400 <= status < 500:
+        raise GeAuthFailedError(f"Login failed ({status}) {text[:200]}")
+    if status >= 500:
+        raise GeGeneralServerError(f"Server error ({status})")
 
 # ---------------------------------------------------------------------------
 # Core OAuth Flow
@@ -170,6 +202,29 @@ async def _handle_response(
 async def _handle_html(session: ClientSession, html: str) -> str:
 
     # -------------------------------------------------
+    # MFA Verification Code Challenge
+    # -------------------------------------------------
+    # The account already has MFA enabled and the login is being asked to
+    # complete a one-time-code challenge. This can't be completed here
+    # (it requires interactively prompting the user for the code), so
+    # surface it as an exception with the available methods. Callers that
+    # want to complete the challenge should use `GeSmartHqLogin` instead
+    # of `async_get_oauth2_token`.
+    if (
+        MFA_OPTIONS_PATH in html
+        or "verifyOptionForm" in html
+    ):
+        methods = extract_mfa_methods(html) or ["email"]
+        csrf = extract_csrf_token(html)
+        _LOGGER.info("SmartHQ MFA verification challenge detected; methods=%s", methods)
+        raise GeAuthMfaRequiredError(
+            "Multi-factor authentication verification code required. Use "
+            "GeSmartHqLogin to complete the MFA challenge interactively.",
+            mfa_methods=methods,
+            csrf_token=csrf,
+        )
+
+    # -------------------------------------------------
     # MFA Enrollment Page
     # -------------------------------------------------
     if (
@@ -267,19 +322,11 @@ async def _handle_html(session: ClientSession, html: str) -> str:
 # Token Exchange
 # ---------------------------------------------------------------------------
 
-async def async_get_oauth2_token(
+async def async_exchange_authorization_code(
     session: ClientSession,
-    account_username: str,
-    account_password: str,
-    account_region: str,
-):
-
-    code = await async_get_authorization_code(
-        session,
-        account_username,
-        account_password,
-        account_region,
-    )
+    code: str,
+) -> dict:
+    """Exchange an OAuth2 authorization code for an access/refresh token pair."""
 
     post_data = {
         "code": code,
@@ -296,18 +343,30 @@ async def async_get_oauth2_token(
         data=post_data,
         auth=auth,
     ) as resp:
-
-        if 400 <= resp.status < 500:
-            raise GeAuthFailedError(f"Token request failed ({resp.status})")
-        if resp.status >= 500:
-            raise GeGeneralServerError(f"Server error ({resp.status})")
-
+        _raise_for_status(resp.status, f"Token request failed ({resp.status})")
         token = await resp.json()
 
     if "access_token" not in token:
         raise GeAuthFailedError(f"Invalid token response: {token}")
 
     return token
+
+
+async def async_get_oauth2_token(
+    session: ClientSession,
+    account_username: str,
+    account_password: str,
+    account_region: str,
+):
+
+    code = await async_get_authorization_code(
+        session,
+        account_username,
+        account_password,
+        account_region,
+    )
+
+    return await async_exchange_authorization_code(session, code)
 
 
 async def async_refresh_oauth2_token(

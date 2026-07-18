@@ -31,7 +31,14 @@ class GeBaseClient(metaclass=abc.ABCMeta):
 
     client_priority = 0  # Priority of this client class.  Higher is better.
 
-    def __init__(self, username: str, password: str, region: str = "US", event_loop: Optional[asyncio.AbstractEventLoop] = None):
+    def __init__(
+        self,
+        username: str,
+        password: str,
+        region: str = "US",
+        event_loop: Optional[asyncio.AbstractEventLoop] = None,
+        refresh_token: Optional[str] = None,
+    ):
         self.account_username = username
         self.account_password = password
         self.account_region = region
@@ -39,7 +46,12 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         self._session: ClientSession | None = None
 
         self._access_token: str | None = None
-        self._refresh_token: str | None = None
+        # A previously-obtained refresh token (e.g. persisted by the calling
+        # application from an earlier `GeSmartHqLogin`/full login) can be
+        # seeded here so `async_get_credentials` reconnects without
+        # repeating the full login flow, which would re-trigger an MFA
+        # challenge for accounts that have it enabled.
+        self._refresh_token: str | None = refresh_token
         self._token_expiration_time = datetime.now()
 
         self._state = GeClientState.INITIALIZING
@@ -57,6 +69,17 @@ class GeBaseClient(metaclass=abc.ABCMeta):
     @credentials.setter
     def credentials(self, credentials: Dict[str, str]):
         self._credentials = credentials
+
+    @property
+    def refresh_token(self) -> Optional[str]:
+        """The current OAuth2 refresh token, if any.
+
+        The SDK rotates this during logins/reconnects, so the calling
+        application should re-read this (e.g. after `async_get_credentials`
+        or on disconnect) and persist it if it wants to avoid a full
+        (possibly MFA) login on the next reconnect.
+        """
+        return self._refresh_token
 
     @property
     def appliances(self) -> Dict[str, GeAppliance]:
@@ -192,8 +215,22 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         pass
 
     async def async_get_credentials(self, session: ClientSession) -> None:
-        """Get updated credentials"""
+        """Get updated credentials.
+
+        If a refresh token was seeded (via the `refresh_token` constructor
+        argument) or obtained from a previous login, it is used to
+        reconnect without repeating the full login flow, which for MFA
+        accounts would re-trigger the verification-code challenge. Falls
+        back to the full login flow if there is no refresh token, or if it
+        has expired/been revoked.
+        """
         self._session = session
+        if self._refresh_token:
+            try:
+                await self.async_do_refresh_login_flow()
+                return
+            except Exception as exc:
+                _LOGGER.warning(f"Seeded refresh token invalid, falling back to full login: {exc}")
         await self.async_do_full_login_flow()
         
     async def async_do_full_login_flow(self) -> Dict[str, str]:

@@ -17,6 +17,13 @@ LOGIN_REGIONS = {
 LOGIN_REGION_COOKIE_NAME = "abgea_region"
 LOGIN_COOKIE_DOMAIN = "accounts.brillion.geappliances.com"
 
+# MFA verification-code challenge endpoints (distinct from the MFA
+# *enrollment* nudge, which is handled/skipped automatically during login).
+MFA_OPTIONS_PATH = "/account/active/security/verify/options"
+MFA_SENDTOTP_PATH = "/account/active/security/verify/sendtotp"
+MFA_SENDTOTP_PROCESS_PATH = "/account/active/security/verify/sendtotp/process?emailType=MFA_VERIFICATION"
+MFA_VERIFY_PATH = "/account/active/security/verify/totpcode/process"
+
 MAX_RETRIES = 1
 RETRY_INTERVAL = 10
 

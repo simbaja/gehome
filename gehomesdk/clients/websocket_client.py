@@ -63,9 +63,10 @@ class GeWebsocketClient(GeBaseClient):
             event_loop: Optional[asyncio.AbstractEventLoop] = None, 
             keepalive: Optional[int] = KEEPALIVE_TIMEOUT, 
             list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY, 
-            ssl_context: Optional[ssl.SSLContext] = None
+            ssl_context: Optional[ssl.SSLContext] = None,
+            refresh_token: Optional[str] = None,
             ):
-        super().__init__(username, password, region, event_loop)
+        super().__init__(username, password, region, event_loop, refresh_token=refresh_token)
         self._endpoint: Optional[str] = None
         self._socket: Optional[ClientConnection] = None
         self._pending_erds: Dict[Tuple[str, str], str]  = {}

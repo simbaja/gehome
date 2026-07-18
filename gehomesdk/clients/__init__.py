@@ -18,6 +18,11 @@ from .const import LOGIN_REGIONS
 from .base_client import GeBaseClient
 from .states import GeClientState
 from .websocket_client import GeWebsocketClient
-from .async_login_flows import async_get_oauth2_token, async_refresh_oauth2_token
+from .async_login_flows import (
+    async_get_oauth2_token,
+    async_refresh_oauth2_token,
+    async_exchange_authorization_code
+)
+from .smart_hq_login import GeLoginResult, GeSmartHqLogin
 
 _LOGGER = logging.getLogger(__name__)
