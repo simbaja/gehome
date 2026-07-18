@@ -42,3 +42,4 @@ class ErdCodeClass(enum.IntFlag):
     WATERHEATER_SENSOR = auto()
     CCM_SENSOR = auto()
     DEHUMIDIFIER_SENSOR = auto()
+    TOASTER_OVEN_SENSOR = auto()

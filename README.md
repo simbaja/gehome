@@ -189,10 +189,14 @@ Representation of a single appliance
 * `ErdMeasurementUnits` Values for `ErdCode.TEMPERATURE_UNIT`
 * `ErdOvenCookMode` Possible oven cook modes, used for `OvenCookSetting` among other things
 * `ErdOvenState` Values for `ErdCode.LOWER_OVEN_CURRENT_STATE` and `ErdCode.UPPER_OVEN_CURRENT_STATE` 
+* `ErdToasterOvenCookMode` Possible toaster oven cook modes, used for `ToasterOvenCookSetting`
+* `ErdToasterOvenSize` Possible toaster oven size selections, used for `ToasterOvenCookSetting`
+* `ErdToasterOvenState` Values for `ErdCode.TOASTER_OVEN_CURRENT_STATE`
 
 ### Other types
 * `OvenCookSetting` A `namedtuple` of an `ErdOvenCookMode` and an `int` temperature
 * `OvenConfiguration` A `namedtuple` of boolean properties representing an oven's physical configuration
+* `ToasterOvenCookSetting` A `namedtuple` of an `ErdToasterOvenCookMode`, `int` temperature, `timedelta` cook time, and mode-specific `shade`, `size`, `item_count`, and `preferences` fields
 
 
 

@@ -115,6 +115,15 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.OVEN_MODE_MIN_MAX_TEMP, OvenRangesConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.WARMING_DRAWER_STATE, ErdOvenWarmingStateConverter(), ErdCodeClass.OVEN_SENSOR),
 
+    # Toaster Oven
+    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_LIGHT, ErdReadOnlyBoolConverter(), ErdCodeClass.LIGHT, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_LIGHT_CONTROL, ErdBoolConverter(), ErdCodeClass.LIGHT, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_COOK_SETTING, ToasterOvenCookSettingConverter(), ErdCodeClass.TOASTER_OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_COOK_SETTING_CONTROL, ToasterOvenCookSettingConverter(), ErdCodeClass.TOASTER_OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_CURRENT_STATE, ErdToasterOvenStateConverter(), ErdCodeClass.TOASTER_OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_CONVECTION, ErdReadOnlyBoolConverter(), ErdCodeClass.TOASTER_OVEN_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_COOK_TIME_REMAINING, ErdReadOnlyIntConverter(), ErdCodeClass.TIMER, ErdDataType.INT),
+
     ErdConfigurationEntry(ErdCode.COOKTOP_CONFIG, ErdCooktopConfigConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.COOKTOP_STATUS, CooktopStatusConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.COOKTOP_STATUS_EXT, CooktopStatusExtConverter(), ErdCodeClass.GENERAL),
