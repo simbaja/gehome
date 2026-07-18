@@ -385,6 +385,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.RESOURCE_DSM_POWER_USAGE, ErdDsmPowerUsageConverter(), ErdCodeClass.POWER),
     ErdConfigurationEntry(ErdCode.RESOURCE_DEMAND_RESPONSE_STATE, ErdDemandResponseStateConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_ENERGY, ErdReadOnlyIntConverter(), ErdCodeClass.ENERGY, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_ENERGY_WH, ErdReadOnlyIntConverter(), ErdCodeClass.ENERGY, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.RESOURCE_ENERGY_UPDATE_PERIOD_MINS, ErdReadOnlyIntConverter(), ErdCodeClass.GENERAL, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.RESOURCE_ENERGY_MEASUREMENT_TYPE, ErdResourceMeasurementTypeConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.RESOURCE_CUMULATIVE_HOT_WATER_LITERS, ErdReadOnlyIntConverter(), ErdCodeClass.LIQUID_VOLUME, ErdDataType.INT),

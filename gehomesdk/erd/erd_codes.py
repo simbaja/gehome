@@ -133,7 +133,6 @@ class ErdCode(enum.Enum):
     LAUNDRY_WASHER_DOWNLOAD_CYCLE_FEATURE_VERSION = "0x20d7"
     LAUNDRY_WASHER_STAIN_REMOVAL_FEATURE_VERSION = "0x20d8"
     LAUNDRY_WASHER_STEAM_OPTION_IS_WRITEABLE = "0x2160"
-    LAUNDRY_WASHER_ENERGY_USED = "0xd030"
     LAUNDRY_WASHER_LINE_CURRENT = "0x3227"
 
     # Laundry - Dryer Codes
@@ -478,5 +477,5 @@ class ErdCode(enum.Enum):
     RESOURCE_GAS_TYPE = "0xd01f"                     # enum: Unknown / Natural Gas / Liquid Propane
     RESOURCE_CUMULATIVE_HOT_WATER_ML = "0xd020"      # u32 milliliters (cumulative)
     RESOURCE_CUMULATIVE_COLD_WATER_ML = "0xd021"     # u32 milliliters (cumulative)
-
+    RESOURCE_CUMULATIVE_ENERGY_WH = "0xd030"          # u32 watt-hours (cumulative)
 ErdCodeType: TypeAlias = Union[ErdCode, str]

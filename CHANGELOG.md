@@ -2,6 +2,7 @@
 
 ## 2026.7.0
 
+- Added additional energy ERD
 - Added ERD codes and converters for toaster oven appliances 
 - Native support for the SmartHQ multi-factor authentication (MFA) verification-code challenge via the new `GeSmartHqLogin` class, so applications can complete an emailed/texted code challenge interactively instead of only detecting that MFA is required.
 - `GeBaseClient` (and `GeWebsocketClient`) accept an optional `refresh_token` constructor argument, and expose it via a new `refresh_token` property, so applications can persist/seed the OAuth refresh token and avoid repeating a full (possibly MFA) login on every reconnect. `async_get_credentials` now uses a seeded refresh token first, falling back to the full login flow.
