@@ -1,5 +1,13 @@
 # GE Home SDK Changelog
 
+## 2026.7.2
+
+- fixed byte conversion issues with some laundry sensors
+
+## 2026.7.1
+
+- fixed toaster oven cook time to be a timer
+
 ## 2026.7.0
 
 - Added additional energy ERD
