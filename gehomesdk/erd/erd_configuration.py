@@ -122,7 +122,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.TOASTER_OVEN_COOK_SETTING_CONTROL, ToasterOvenCookSettingConverter(), ErdCodeClass.TOASTER_OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.TOASTER_OVEN_CURRENT_STATE, ErdToasterOvenStateConverter(), ErdCodeClass.TOASTER_OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.TOASTER_OVEN_CONVECTION, ErdReadOnlyBoolConverter(), ErdCodeClass.TOASTER_OVEN_SENSOR, ErdDataType.BOOL),
-    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_COOK_TIME_REMAINING, ErdReadOnlyIntConverter(), ErdCodeClass.TIMER, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.TOASTER_OVEN_COOK_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
 
     ErdConfigurationEntry(ErdCode.COOKTOP_CONFIG, ErdCooktopConfigConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.COOKTOP_STATUS, CooktopStatusConverter(), ErdCodeClass.GENERAL),
