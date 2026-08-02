@@ -192,11 +192,13 @@ Representation of a single appliance
 * `ErdToasterOvenCookMode` Possible toaster oven cook modes, used for `ToasterOvenCookSetting`
 * `ErdToasterOvenSize` Possible toaster oven size selections, used for `ToasterOvenCookSetting`
 * `ErdToasterOvenState` Values for `ErdCode.TOASTER_OVEN_CURRENT_STATE`
+* `ErdAutofillPitcherState` Values for `ErdCode.FRIDGE_AUTOFILL_PITCHER_STATE`, indicates whether the Autofill pitcher feature is enabled
 
 ### Other types
 * `OvenCookSetting` A `namedtuple` of an `ErdOvenCookMode` and an `int` temperature
 * `OvenConfiguration` A `namedtuple` of boolean properties representing an oven's physical configuration
 * `ToasterOvenCookSetting` A `namedtuple` of an `ErdToasterOvenCookMode`, `int` temperature, `timedelta` cook time, and mode-specific `shade`, `size`, `item_count`, and `preferences` fields
+* `FridgeWaterFilterStatus` A `namedtuple` for `ErdCode.WATER_FILTER_STATUS` with the filter `status` (`ErdFilterStatus`), `percent_remaining`, `days_remaining`, `days_since_expired`, and `dispenses_since_expired`
 
 
 

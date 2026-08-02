@@ -1,3 +1,4 @@
+from .erd_autofill_pitcher_state import ErdAutofillPitcherState
 from .erd_door_status import ErdDoorStatus
 from .erd_filter_status import ErdFilterStatus
 from .erd_full_not_full import ErdFullNotFull
@@ -7,6 +8,7 @@ from .fridge_door_status import FridgeDoorStatus
 from .fridge_ice_bucket_status import FridgeIceBucketStatus
 from .fridge_set_point_limits import FridgeSetPointLimits
 from .fridge_set_points import FridgeSetPoints
+from .fridge_water_filter_status import FridgeWaterFilterStatus
 from .hot_water_status import HotWaterStatus
 from .ice_maker_control_status import IceMakerControlStatus
 from .fridge_model_info import FridgeModelInfo

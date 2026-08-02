@@ -1,5 +1,11 @@
 # GE Home SDK Changelog
 
+## 2026.8.0
+
+- Added ERD codes and converters for the fridge Autofill pitcher feature (`FRIDGE_AUTOFILL_PITCHER_STATE` 0x1054, `FRIDGE_AUTOFILL_PITCHER_PRESENT` 0x1055, `FRIDGE_AUTOFILL_PITCHER_FULL` 0x1056)
+- Added `FRIDGE_HYDRATION_STATION_TOTAL_CONSUMPTION` (0x1060) cumulative dispensed water ERD, decoded to ounces as a `float`
+- `WATER_FILTER_STATUS` now decodes to a `FridgeWaterFilterStatus` namedtuple exposing `percent_remaining`, `days_remaining`, `days_since_expired`, and `dispenses_since_expired`, in addition to the existing filter `status`
+
 ## 2026.7.2
 
 - fixed byte conversion issues with some laundry sensors
