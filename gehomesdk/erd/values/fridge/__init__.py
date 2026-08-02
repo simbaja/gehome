@@ -4,6 +4,7 @@ from .erd_filter_status import ErdFilterStatus
 from .erd_full_not_full import ErdFullNotFull
 from .erd_hot_water_status import ErdHotWaterStatus
 from .erd_pod_status import ErdPodStatus
+from .fridge_alert_notifications import FridgeAlertNotifications
 from .fridge_door_status import FridgeDoorStatus
 from .fridge_ice_bucket_status import FridgeIceBucketStatus
 from .fridge_set_point_limits import FridgeSetPointLimits

@@ -2,6 +2,9 @@
 
 ## 2026.8.0
 
+- Added support for newer "REFRIGERATION_V2" fridge door ERDs: `FRIDGE_FRESH_FOOD_DOOR_1_STATUS` (0x120e), `FRIDGE_FREEZER_DOOR_1_STATUS` (0x120f), `FRIDGE_FRESH_FOOD_DOOR_2_STATUS` (0x125c), `FRIDGE_FRESH_FOOD_DOOR_3_STATUS` (0x125b), and `FRIDGE_CONVERTIBLE_COMPARTMENT_DOOR_1_STATUS` (0x125d), each a simple `bool`
+- Added `FRIDGE_ALERT_NOTIFICATIONS` (0x122e), decoded to a `FridgeAlertNotifications` namedtuple exposing door, filter, temperature, leak, pitcher, and ice maker full alert flags for V2 fridges
+- Added `FRIDGE_UNKNOWN_*` placeholders for additional V2 fridge codes observed on real devices (0x102a, 0x102b, 0x1215, 0x1217, 0x1218, 0x1235, 0x1237, 0x1238, 0x1245, 0x1246, 0x1248, 0x1249, 0x124b, 0x124c, 0x124e, 0x124f, 0x1254, 0x1272, 0x1273, 0x127f, 0x1280, 0x1281, 0x6280-0x6284, 0x628b, 0x628d) so they no longer log as unknown
 - Added ERD codes and converters for the fridge Autofill pitcher feature (`FRIDGE_AUTOFILL_PITCHER_STATE` 0x1054, `FRIDGE_AUTOFILL_PITCHER_PRESENT` 0x1055, `FRIDGE_AUTOFILL_PITCHER_FULL` 0x1056)
 - Added `FRIDGE_HYDRATION_STATION_TOTAL_CONSUMPTION` (0x1060) cumulative dispensed water ERD, decoded to ounces as a `float`
 - `WATER_FILTER_STATUS` now decodes to a `FridgeWaterFilterStatus` namedtuple exposing `percent_remaining`, `days_remaining`, `days_since_expired`, and `dispenses_since_expired`, in addition to the existing filter `status`

@@ -199,6 +199,7 @@ Representation of a single appliance
 * `OvenConfiguration` A `namedtuple` of boolean properties representing an oven's physical configuration
 * `ToasterOvenCookSetting` A `namedtuple` of an `ErdToasterOvenCookMode`, `int` temperature, `timedelta` cook time, and mode-specific `shade`, `size`, `item_count`, and `preferences` fields
 * `FridgeWaterFilterStatus` A `namedtuple` for `ErdCode.WATER_FILTER_STATUS` with the filter `status` (`ErdFilterStatus`), `percent_remaining`, `days_remaining`, `days_since_expired`, and `dispenses_since_expired`
+* `FridgeAlertNotifications` A `namedtuple` for `ErdCode.FRIDGE_ALERT_NOTIFICATIONS` (newer "V2" fridge alert bitfield) with boolean fields for each alert (door, filter, temperature, leak, ice maker full, etc.)
 
 
 
