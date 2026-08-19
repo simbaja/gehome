@@ -1,5 +1,5 @@
 from http.cookies import SimpleCookie
-from aiohttp import BasicAuth, ClientSession
+from aiohttp import BasicAuth, ClientSession, ClientTimeout
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs, urljoin
 import logging
@@ -25,6 +25,15 @@ except ImportError:
 _LOGGER = logging.getLogger(__name__)
 
 MAX_REDIRECTS = 10
+
+# None of these requests carry a per-call timeout, so each one falls back to
+# whatever the caller's ClientSession was built with. Home Assistant's shared
+# session (the one this SDK is normally handed) defaults that to a 300s
+# *total* timeout, and this flow can chain up to MAX_REDIRECTS requests -- so
+# a login page that hangs mid-response can stall a caller for a long time.
+# These are plain login-page fetches/posts, so a much shorter bound is
+# appropriate regardless of what the caller's session allows.
+LOGIN_REQUEST_TIMEOUT = ClientTimeout(total=15)
 
 
 # ---------------------------------------------------------------------------
@@ -124,7 +133,9 @@ async def async_get_authorization_code(
 
     set_login_cookie(session, account_region)
 
-    async with session.get(f"{LOGIN_URL}/oauth2/auth", params=params) as resp:
+    async with session.get(
+        f"{LOGIN_URL}/oauth2/auth", params=params, timeout=LOGIN_REQUEST_TIMEOUT
+    ) as resp:
         if 400 <= resp.status < 500:
             raise GeAuthFailedError(await resp.text())
         if resp.status >= 500:
@@ -145,6 +156,7 @@ async def async_get_authorization_code(
         f"{LOGIN_URL}/oauth2/g_authenticate",
         data=post_data,
         allow_redirects=False,
+        timeout=LOGIN_REQUEST_TIMEOUT,
     ) as resp:
 
         if 400 <= resp.status < 500:
@@ -178,7 +190,9 @@ async def _handle_response(
         next_url = urljoin(LOGIN_URL, location)
         _LOGGER.debug(f"Following redirect to {next_url}")
 
-        async with session.get(next_url, allow_redirects=False) as next_resp:
+        async with session.get(
+            next_url, allow_redirects=False, timeout=LOGIN_REQUEST_TIMEOUT
+        ) as next_resp:
             return await _handle_response(
                 session, next_resp, redirect_count + 1
             )
@@ -254,6 +268,7 @@ async def _handle_html(session: ClientSession, html: str) -> str:
             f"{LOGIN_URL}/account/active/redirect",
             data=form_data,
             allow_redirects=False,
+            timeout=LOGIN_REQUEST_TIMEOUT,
         ) as resp:
             return await _handle_response(session, resp)
 
@@ -286,6 +301,7 @@ async def _handle_html(session: ClientSession, html: str) -> str:
             f"{LOGIN_URL}/oauth2/terms/accept",
             data=form_data,
             allow_redirects=False,
+            timeout=LOGIN_REQUEST_TIMEOUT,
         ) as resp:
             return await _handle_response(session, resp)
 
@@ -301,6 +317,7 @@ async def _handle_html(session: ClientSession, html: str) -> str:
             f"{LOGIN_URL}/oauth2/code",
             data=form_data,
             allow_redirects=False,
+            timeout=LOGIN_REQUEST_TIMEOUT,
         ) as resp:
             return await _handle_response(session, resp)
 
@@ -342,6 +359,7 @@ async def async_exchange_authorization_code(
         f"{LOGIN_URL}/oauth2/token",
         data=post_data,
         auth=auth,
+        timeout=LOGIN_REQUEST_TIMEOUT,
     ) as resp:
         _raise_for_status(resp.status, f"Token request failed ({resp.status})")
         token = await resp.json()
@@ -388,6 +406,7 @@ async def async_refresh_oauth2_token(
         f"{LOGIN_URL}/oauth2/token",
         data=post_data,
         auth=auth,
+        timeout=LOGIN_REQUEST_TIMEOUT,
     ) as resp:
 
         if 400 <= resp.status < 500:
