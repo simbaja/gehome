@@ -89,3 +89,9 @@ class ErdAvailableCookMode(enum.Enum):
     OVEN_FROZEN_PIZZA = AvailableCookMode(byte=2, mask=4, cook_mode=ErdOvenCookMode.FROZEN_PIZZA)
     OVEN_FROZEN_PIZZA_MULTI = AvailableCookMode(byte=2, mask=8, cook_mode=ErdOvenCookMode.FROZEN_PIZZA_MULTI)
     OVEN_BAKED_GOODS = AvailableCookMode(byte=2, mask=16, cook_mode=ErdOvenCookMode.BAKED_GOODS)
+
+    # From GE's public ERD definitions (geappliances/public-appliance-api-documentation,
+    # ERD 0x510b/0x520b): GE bit N is byte 9 - N // 8, mask 1 << (N % 8).
+    # Proof (bit 13) and Broil Low/High (bits 11/12) are also advertised here, but
+    # at least one oven (SNRM128408Q) refuses them when started remotely.
+    OVEN_WARM = AvailableCookMode(byte=8, mask=0x80, cook_mode=ErdOvenCookMode.WARM_NOOPTION)
