@@ -1,5 +1,10 @@
 # GE Home SDK Changelog
 
+## Unreleased
+
+- Added ERD codes and converters for espresso makers (0x901c-0x904b): supported brew types and features, current/requested brew parameters, per-drink stored parameters (espresso, americano, lungo, hot water, steam, ristretto, doppio, triple shot, red eye, MyCup) with their limits, steam duration, rinse volume, standby timeout, water hardness, steam knob position, volume until descale, lifetime coffee ground, and status flags (brewing, emptying, empty waste bin, out of beans, descale needed, service door, grinder faults)
+- `ESPRESSO_LIFETIME_COFFEE_GROUND` (0x9045) is decoded little-endian; verified on a Cafe Affetto (+10 g per shot)
+
 ## 2026.8.0
 
 - Added support for newer "REFRIGERATION_V2" fridge door ERDs: `FRIDGE_FRESH_FOOD_DOOR_1_STATUS` (0x120e), `FRIDGE_FREEZER_DOOR_1_STATUS` (0x120f), `FRIDGE_FRESH_FOOD_DOOR_2_STATUS` (0x125c), `FRIDGE_FRESH_FOOD_DOOR_3_STATUS` (0x125b), and `FRIDGE_CONVERTIBLE_COMPARTMENT_DOOR_1_STATUS` (0x125d), each a simple `bool`

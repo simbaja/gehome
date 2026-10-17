@@ -17,6 +17,7 @@ from .hood import *
 from .ice_maker import *
 from .microwave import *
 from .coffee_maker import *
+from .espresso_maker import *
 from .dehumidifier import *
 from .cooktop import *
 from .toaster_oven import *
