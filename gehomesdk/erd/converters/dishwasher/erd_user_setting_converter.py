@@ -13,6 +13,13 @@ from ...values.dishwasher.erd_user_setting import (
 
 _LOGGER = logging.getLogger(__name__)
 
+def _set_bits(i: int, value: int, offset: int, size: int) -> int:
+    #keep the existing bits if the value doesn't fit (e.g. INVALID/UNKNOWN = 255)
+    if value >> size:
+        return i
+    mask = ((1 << size) - 1) << offset
+    return (i & ~mask) | (value << offset)
+
 class ErdUserSettingConverter(ErdReadWriteConverter[ErdUserSetting]):
     def erd_decode(self, value: str) -> ErdUserSetting:
         if not value:
@@ -43,22 +50,27 @@ class ErdUserSettingConverter(ErdReadWriteConverter[ErdUserSetting]):
             return ErdUserSetting(raw_value=value)
             
     def erd_encode(self, value: ErdUserSetting) -> str:
-        i = 0
-        i |= value.bottle_jet.value
-        i |= value.cycle_mode.value << 1
-        i |= value.sabbath.value << 6
-        i |= value.presoak.value << 8
-        i |= value.lock_control.value << 9
-        i |= value.dry_option.value << 10
-        i |= value.wash_temp.value << 12
-        i |= value.rinse_aid.value << 15
-        i |= value.delay_hours << 16
-        i |= value.wash_zone.value << 20
-        i |= value.demo_mode.value << 22
-        i |= value.mute.value << 23
-        i |= value.wifi_enabled.value << 7
+        """
+        return the Dishwasher user setting value
+        """
+        #start from the raw value so bits that aren't modeled here are kept
+        i = erd_decode_int(value.raw_value) if value.raw_value else 0
 
-        return erd_encode_int(i)
+        i = _set_bits(i, value.bottle_jet.value, 0, 1)
+        i = _set_bits(i, value.cycle_mode.value, 1, 3)
+        i = _set_bits(i, value.sabbath.value, 6, 1)
+        i = _set_bits(i, value.presoak.value, 8, 1)
+        i = _set_bits(i, value.lock_control.value, 9, 1)
+        i = _set_bits(i, value.dry_option.value, 10, 2)
+        i = _set_bits(i, value.wash_temp.value, 12, 2)
+        i = _set_bits(i, value.rinse_aid.value, 15, 1)
+        i = _set_bits(i, value.delay_hours, 16, 4)
+        i = _set_bits(i, value.wash_zone.value, 20, 2)
+        i = _set_bits(i, value.demo_mode.value, 22, 1)
+        i = _set_bits(i, value.mute.value, 23, 1)
+        i = _set_bits(i, value.wifi_enabled.value, 7, 1)
+
+        return erd_encode_int(i, 3)
             
 class ErdUserCycleSettingConverter(ErdReadWriteConverter[UserCycleSetting]):
     def erd_decode(self, value: str) -> UserCycleSetting:

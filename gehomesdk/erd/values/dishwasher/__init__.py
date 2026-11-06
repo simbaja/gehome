@@ -9,6 +9,7 @@ from .erd_dishwasher_door_status import ErdDishwasherDoorStatus
 from .cycle_count import ErdCycleCount
 from .remote_command import ErdRemoteCommand
 from .erd_user_setting import ( ErdUserSetting,
+                                UserSetting,
                                 UserCycleSetting,
                                 UserWashTempSetting,
                                 UserDryOptionSetting,
