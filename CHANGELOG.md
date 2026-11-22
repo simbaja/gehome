@@ -1,5 +1,10 @@
 # GE Home SDK Changelog
 
+## Unreleased
+
+- Fixed `ADVANTIUM_KITCHEN_TIME_REMAINING` (0x0050) decoding: the value is whole minutes (per GE's public ERD definitions, "Timer: minutes remaining"), not seconds
+- Added `MICROWAVE_POWER_WATTS` (0x5c12, previously `MICROWAVE_UNKNOWN_5C12`): rated microwave power in watts, decoded as an `int`
+
 ## 2026.8.0
 
 - Added support for newer "REFRIGERATION_V2" fridge door ERDs: `FRIDGE_FRESH_FOOD_DOOR_1_STATUS` (0x120e), `FRIDGE_FREEZER_DOOR_1_STATUS` (0x120f), `FRIDGE_FRESH_FOOD_DOOR_2_STATUS` (0x125c), `FRIDGE_FRESH_FOOD_DOOR_3_STATUS` (0x125b), and `FRIDGE_CONVERTIBLE_COMPARTMENT_DOOR_1_STATUS` (0x125d), each a simple `bool`
