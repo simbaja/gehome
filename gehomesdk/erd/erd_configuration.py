@@ -259,6 +259,7 @@ _configuration = [
 
     # Microwave
     ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.MICROWAVE_POWER_WATTS, ErdReadOnlyIntConverter(), ErdCodeClass.POWER, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.MICROWAVE_COOK_SETTING, ErdMicrowaveCookSettingConverter(), ErdCodeClass.MICROWAVE_SENSOR),
     ErdConfigurationEntry(ErdCode.MICROWAVE_AVAILABLE_MODES, ErdMicrowaveAvailableModesConverter(), ErdCodeClass.MICROWAVE_SENSOR),
     ErdConfigurationEntry(ErdCode.MICROWAVE_STATE, ErdMicrowaveStateConverter(), ErdCodeClass.MICROWAVE_SENSOR),
@@ -266,7 +267,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.MICROWAVE_KITCHEN_TIMER, ErdMicrowaveCookTimerConverter(), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
 
     # Advantium
-    ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.ADVANTIUM_KITCHEN_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(uom="minutes"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_REMAINING, ErdAdvantiumCookTimeRemainingConverter(), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_COOK_TIME_ADJUST, ErdAdvantiumCookTimeAdjustConverter() , ErdCodeClass.ADVANTIUM_SENSOR),
     ErdConfigurationEntry(ErdCode.ADVANTIUM_REMOTE_COOK_MODE_CONFIG, ErdAdvantiumRemoteCookModeConfigConverter(), ErdCodeClass.ADVANTIUM_SENSOR),
