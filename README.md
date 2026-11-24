@@ -193,6 +193,7 @@ Representation of a single appliance
 * `ErdToasterOvenSize` Possible toaster oven size selections, used for `ToasterOvenCookSetting`
 * `ErdToasterOvenState` Values for `ErdCode.TOASTER_OVEN_CURRENT_STATE`
 * `ErdAutofillPitcherState` Values for `ErdCode.FRIDGE_AUTOFILL_PITCHER_STATE`, indicates whether the Autofill pitcher feature is enabled
+* `ErdEspressoBrewType`, `ErdEspressoWaterHardness`, `ErdEspressoSteamKnobPosition` Espresso maker enums
 
 ### Other types
 * `OvenCookSetting` A `namedtuple` of an `ErdOvenCookMode` and an `int` temperature
@@ -200,6 +201,7 @@ Representation of a single appliance
 * `ToasterOvenCookSetting` A `namedtuple` of an `ErdToasterOvenCookMode`, `int` temperature, `timedelta` cook time, and mode-specific `shade`, `size`, `item_count`, and `preferences` fields
 * `FridgeWaterFilterStatus` A `namedtuple` for `ErdCode.WATER_FILTER_STATUS` with the filter `status` (`ErdFilterStatus`), `percent_remaining`, `days_remaining`, `days_since_expired`, and `dispenses_since_expired`
 * `FridgeAlertNotifications` A `namedtuple` for `ErdCode.FRIDGE_ALERT_NOTIFICATIONS` (newer "V2" fridge alert bitfield) with boolean fields for each alert (door, filter, temperature, leak, ice maker full, etc.)
+* `ErdEspressoBrewParameters`, `ErdEspressoDrinkParameters`, `ErdEspressoRange`, `ErdEspressoSupportedBrewTypes`, `ErdEspressoSupportedFeatures` Espresso maker `namedtuple`s (temperatures in Celsius, volumes in mL, grind times in seconds)
 
 
 

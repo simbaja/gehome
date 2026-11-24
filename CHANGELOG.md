@@ -4,6 +4,8 @@
 
 - Fixed `ADVANTIUM_KITCHEN_TIME_REMAINING` (0x0050) decoding: the value is whole minutes (per GE's public ERD definitions, "Timer: minutes remaining"), not seconds
 - Added `MICROWAVE_POWER_WATTS` (0x5c12, previously `MICROWAVE_UNKNOWN_5C12`): rated microwave power in watts, decoded as an `int`
+- Added ERD codes and converters for espresso makers (0x901c-0x904b): supported brew types and features, current/requested brew parameters, per-drink stored parameters (espresso, americano, lungo, hot water, steam, ristretto, doppio, triple shot, red eye, MyCup) with their limits, steam duration, rinse volume, standby timeout, water hardness, steam knob position, volume until descale, lifetime coffee ground, and status flags (brewing, emptying, empty waste bin, out of beans, descale needed, service door, grinder faults)
+- `ESPRESSO_LIFETIME_COFFEE_GROUND` (0x9045) is decoded little-endian; verified on a Cafe Affetto (+10 g per shot)
 
 ## 2026.8.0
 
