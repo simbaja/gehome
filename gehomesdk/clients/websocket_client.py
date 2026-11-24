@@ -3,6 +3,7 @@ import contextlib
 import logging
 import ssl
 
+from aiohttp import ClientTimeout
 from websockets.asyncio.client import ClientConnection, connect
 from websockets.protocol import State
 from websockets.exceptions import WebSocketException, ConnectionClosed
@@ -37,6 +38,11 @@ SET_ERD = "setErd"
 
 KEEPALIVE_TIMEOUT = 30
 LIST_APPLIANCES_FREQUENCY = 600
+
+# Bounds the WSS-credentials fetch below. This is a small JSON API call, not
+# a login page, so it doesn't need the caller's session-wide default (which
+# for Home Assistant's shared session is a 300s total timeout).
+WSS_CREDENTIALS_TIMEOUT = ClientTimeout(total=15)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -74,12 +80,25 @@ class GeWebsocketClient(GeBaseClient):
         self._keepalive_fut: Optional[asyncio.Future] = None
         self._list_frequency: Optional[int] = list_frequency
         self._list_fut: Optional[asyncio.Future] = None
-        self._ssl_context = ssl_context or ssl.create_default_context()
+        # Built lazily in _async_ensure_ssl_context(): ssl.create_default_context()
+        # reads the system trust store from disk and is synchronous, so calling
+        # it here would block the event loop for however long that disk read
+        # takes -- Home Assistant's own blocking-call detector flags exactly
+        # this call when it happens on the loop thread.
+        self._ssl_context = ssl_context
 
     @property
     def available(self) -> bool:
         """ Indicates whether the client is available for sending/receiving commands """
         return self._socket is not None and self._socket.state == State.OPEN
+
+    async def _async_ensure_ssl_context(self) -> ssl.SSLContext:
+        """Build the default SSL context off the event loop thread, if needed."""
+        if self._ssl_context is None:
+            self._ssl_context = await asyncio.get_running_loop().run_in_executor(
+                None, ssl.create_default_context
+            )
+        return self._ssl_context
 
     async def _async_do_full_login_flow(self) -> Dict[str,str]:
         """Perform a complete login flow, returning credentials."""
@@ -111,7 +130,9 @@ class GeWebsocketClient(GeBaseClient):
 
         uri = f'{API_URL}/v1/websocket'
         auth_header = { 'Authorization': 'Bearer ' + self._access_token }
-        async with self._session.get(uri, headers=auth_header) as resp:
+        async with self._session.get(
+            uri, headers=auth_header, timeout=WSS_CREDENTIALS_TIMEOUT
+        ) as resp:
             if 400 <= resp.status < 500:
                 raise GeAuthFailedError(await resp.text())
             if resp.status >= 500:
@@ -139,7 +160,8 @@ class GeWebsocketClient(GeBaseClient):
             await self._set_state(GeClientState.CONNECTING)
 
             try:
-                async with connect(self.endpoint, ssl=self._ssl_context) as ws:
+                ssl_context = await self._async_ensure_ssl_context()
+                async with connect(self.endpoint, ssl=ssl_context) as ws:
                     self._socket = ws
 
                     self._setup_futures()
