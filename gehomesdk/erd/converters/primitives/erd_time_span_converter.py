@@ -9,12 +9,13 @@ _LOGGER = logging.getLogger(__name__)
 
 def erd_decode_timespan(value: Any, uom: str = 'minutes') -> Optional[timedelta]:
     """ 
-    Decodes a raw integer as a time span, 65535 is treated as None. 
+    Decodes a raw integer as a time span, all-FF sentinel (0xFFFF / 0xFFFFFFFF) is treated as None. 
     UOMs supported: hours, minutes, seconds; default = minutes.
     """
     int_value = int(value, 16)
-    if int_value == 65535:
-        _LOGGER.debug('Got timespan value of 65535. Treating as None.')
+    sentinel = 0xFFFFFFFF if len(str(value).strip()) > 4 else 0xFFFF
+    if int_value == sentinel:
+        _LOGGER.debug('Got timespan sentinel value %s. Treating as None.', value)
         return None
     if uom == 'seconds':
         return timedelta(seconds=int_value)

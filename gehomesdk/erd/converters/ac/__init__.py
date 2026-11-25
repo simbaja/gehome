@@ -9,3 +9,8 @@ from .erd_ac_available_turbo_quiet_modes_converter import ErdAcAvailableTurboQui
 
 from .erd_sac_available_modes_converter import ErdSacAvailableModesConverter
 from .erd_sac_target_temperature_range_converter import ErdSacTargetTemperatureRangeConverter
+from .erd_sac_self_clean_converters import (
+    ErdSacAlertsConverter,
+    ErdSacSelfCleanReminderDurationConverter,
+    ErdSacSelfCleanSupportConverter,
+)

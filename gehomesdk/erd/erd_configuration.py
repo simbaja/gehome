@@ -172,6 +172,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.DISHWASHER_REMOTE_START_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.DISHWASHER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.DISHWASHER_REMOTE_START_COMMAND, ErdRemoteCommandConverter(), ErdCodeClass.DISHWASHER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.DISHWASHER_ERROR, ErdErrorStateConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_LEAK_DETECTED, ErdReadOnlyBoolConverter(), ErdCodeClass.DISHWASHER_SENSOR, ErdDataType.BOOL),
 
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_TIME_REMAINING, ErdReadOnlyTimeSpanConverter(), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_CYCLE_STATE, ErdCycleStateConverter(), ErdCodeClass.DISHWASHER_SENSOR),
@@ -346,6 +347,13 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.SAC_SLEEP_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_TARGET_TEMPERATURE_RANGE, ErdSacTargetTemperatureRangeConverter(), ErdCodeClass.AC_SENSOR),
     ErdConfigurationEntry(ErdCode.SAC_AUTO_SWING_MODE, ErdOnOffConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.SAC_SELF_CLEAN_OUTDOOR_TEMP_PERMITS, ErdReadOnlyBoolConverter(), ErdCodeClass.AC_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.SAC_SELF_CLEAN_SUPPORT, ErdSacSelfCleanSupportConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.SAC_SELF_CLEAN_STATUS, ErdBoolConverter(), ErdCodeClass.AC_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.SAC_SELF_CLEAN_REQUEST, ErdBoolConverter(), ErdCodeClass.AC_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.SAC_SELF_CLEAN_REMINDER_DURATION, ErdSacSelfCleanReminderDurationConverter(), ErdCodeClass.AC_SENSOR),
+    ErdConfigurationEntry(ErdCode.SAC_SELF_CLEAN_ALERT_COUNTDOWN, ErdReadOnlyTimeSpanConverter(uom="minutes"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.SAC_ALERTS, ErdSacAlertsConverter(), ErdCodeClass.AC_SENSOR),
 
     #Dehumidifier
     ErdConfigurationEntry(ErdCode.DHUM_TARGET_HUMIDITY, ErdIntConverter(length=1), ErdCodeClass.HUMIDITY, ErdDataType.INT),
@@ -393,6 +401,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.CCM_POT_PRESENT, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_OUT_OF_WATER, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_CURRENT_WATER_TEMPERATURE, ErdReadOnlyIntConverter(), ErdCodeClass.NON_ZERO_TEMPERATURE, ErdDataType.INT),
+    ErdConfigurationEntry(ErdCode.CCM_DESCALE_REMAINING_CYCLES, ErdReadOnlyIntConverter(), ErdCodeClass.COUNTER, ErdDataType.INT),
     ErdConfigurationEntry(ErdCode.CCM_IS_DESCALING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_START_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_CANCEL_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
