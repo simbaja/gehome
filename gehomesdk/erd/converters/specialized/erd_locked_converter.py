@@ -22,9 +22,14 @@ class ErdLockedConverter(ErdReadWriteConverter[ErdInterfaceLocked]):
 class ErdLockedBoolConverter(ErdReadWriteConverter[Optional[bool]]):
     def erd_decode(self, value: str) -> bool:
         try:
-            return bool(ErdInterfaceLocked(int(value)) == ErdInterfaceLocked.LOCKED)
+            return bool(ErdInterfaceLocked(erd_decode_int(value)) == ErdInterfaceLocked.LOCKED)
         except ValueError:
             return False
 
     def erd_encode(self, value: Optional[bool]) -> str:
-        return erd_encode_bool(value)
+        if value is None:
+            return "FF"
+        return erd_encode_int(
+            ErdInterfaceLocked.LOCKED.value if value else ErdInterfaceLocked.UNLOCKED.value,
+            1,
+        )
