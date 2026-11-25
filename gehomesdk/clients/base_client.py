@@ -1,7 +1,7 @@
 """Base client for GE ERD APIs"""
 
 import abc
-from aiohttp import ClientSession
+from aiohttp import ClientError, ClientSession
 import asyncio
 from collections import defaultdict
 from datetime import datetime, timedelta
@@ -169,16 +169,30 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             if self._disconnect_requested.is_set():
                 break
 
-            await self._set_state(GeClientState.DROPPED)
-            await self._set_state(GeClientState.WAITING)
-            _LOGGER.debug('Waiting before reconnecting')
-            await asyncio.sleep(RETRY_INTERVAL)
-            _LOGGER.debug('Refreshing authentication before reconnecting')
-            try:
-                await self.async_do_refresh_login_flow()
-            except Exception as err:
-                # if there was an error refreshing the authentication, stop and disconnect the client
-                _LOGGER.warning(f'Error refreshing authentication: {err}')
+            refreshed = False
+            while (
+                not self._disconnect_requested.is_set()
+                and self._retries_since_last_connect <= MAX_RETRIES
+            ):
+                await self._set_state(GeClientState.DROPPED)
+                await self._set_state(GeClientState.WAITING)
+                _LOGGER.debug('Waiting before reconnecting')
+                await asyncio.sleep(RETRY_INTERVAL)
+                _LOGGER.debug('Refreshing authentication before reconnecting')
+                try:
+                    await self.async_do_refresh_login_flow()
+                    refreshed = True
+                    break
+                except (ClientError, asyncio.TimeoutError, GeGeneralServerError, GeRequestError) as err:
+                    # Transient network/server errors during reconnect should not kill the loop
+                    _LOGGER.warning(f'Transient error refreshing authentication, will retry: {err}')
+                    self._retries_since_last_connect += 1
+                except Exception as err:
+                    # if there was an auth or fatal error refreshing the authentication, stop and disconnect the client
+                    _LOGGER.warning(f'Error refreshing authentication: {err}')
+                    break
+
+            if not refreshed:
                 break
 
             self._retries_since_last_connect += 1
@@ -229,7 +243,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             try:
                 await self.async_do_refresh_login_flow()
                 return
-            except Exception as exc:
+            except (GeAuthFailedError, GeNeedsReauthenticationError) as exc:
                 _LOGGER.warning(f"Seeded refresh token invalid, falling back to full login: {exc}")
         await self.async_do_full_login_flow()
         
@@ -287,11 +301,11 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         oauth_token: dict
 
         # first try the standard refresh token if available
-        # if we get an exception, try the full login
+        # only fall back to full login if the refresh token itself was rejected
         if self._refresh_token:
             try:
                 oauth_token = await async_refresh_oauth2_token(self._session, self._refresh_token)
-            except Exception as exc:
+            except GeAuthFailedError as exc:
                 _LOGGER.warning("Refresh token failed, falling back to full login: %s", exc)
                 oauth_token = await self._async_get_oauth2_token()
         else:

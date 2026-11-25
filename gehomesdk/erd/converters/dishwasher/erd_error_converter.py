@@ -15,8 +15,8 @@ class ErdErrorStateConverter(ErdReadOnlyConverter[ErdErrorState]):
             i = erd_decode_int(value)
 
             return ErdErrorState(
-                id = i & 0xF,
-                active = bool((i & 0xF0) >> 8),
+                id = i,
+                active = i != 0,
                 raw_value=value
             )
         except Exception as ex: 

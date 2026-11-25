@@ -178,6 +178,7 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_REMINDERS, ErdRemindersSettingConverter(), ErdCodeClass.DISHWASHER_SENSOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_DOOR_STATUS, ErdDishwasherDoorStatusConverter(), ErdCodeClass.DOOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_USER_SETTING, ErdUserSettingConverter(), ErdCodeClass.DISHWASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_ERROR, ErdErrorStateConverter(), ErdCodeClass.DISHWASHER_SENSOR),
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_REMOTE_START_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.DISHWASHER_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.DISHWASHER_UPPER_REMOTE_START_COMMAND, ErdRemoteCommandConverter(), ErdCodeClass.DISHWASHER_SENSOR, ErdDataType.BOOL),
 
