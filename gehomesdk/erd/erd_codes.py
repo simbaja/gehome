@@ -415,7 +415,7 @@ class ErdCode(enum.Enum):
     WH_HEATER_VACATION_FALLBACK_MODE = "0x4023"
     WH_HEATER_TARGET_TEMPERATURE = "0x4024" #Fahrenheit (x10)
     WH_HEATER_VACATION_TEMPERATURE = "0x4025" #Fahrenheit (x10)
-    WH_HEATER_TEMPERATURE = "0x4026" #Fahrenheit (x10)
+    WH_HEATER_TEMPERATURE = "0x4026" #Actual Setpoint Temperature, Fahrenheit (x10)
     WH_HEATER_MODE_HOURS_REMAINING = "0x4028"
     WH_HEATER_MIXING_VALVE_TANK_CAPACITY = "0x402a"
     WH_HEATER_AVAILABLE_MODES = "0x4040"
@@ -427,6 +427,10 @@ class ErdCode(enum.Enum):
     WH_HEATER_VACATION_MODE_MAX_TIME = "0x4049"
     WH_HEATER_ELECTRIC_MODE_MAX_TIME = "0x404a"
     WH_HEATER_UNKNOWN404B = "0x404b"
+    WH_HEATER_T1_TEMPERATURE = "0x405f" #Lower tank temperature (T1), Fahrenheit (x10)
+    WH_HEATER_T2_TEMPERATURE = "0x4060" #Upper tank temperature (T2), Fahrenheit (x10)
+    WH_HEATER_T6_TEMPERATURE = "0x406e" #Outlet thermistor temperature (T6), Fahrenheit (x10)
+    WH_HEATER_GROUNDWATER_TEMPERATURE = "0x40b8" #Groundwater temperature, Fahrenheit (x10)
     WH_HEATER_ANODE_ROD_REMAINING = "0x40c2"
     WH_HEATER_TIME_TO_TEMPERATURE = "0x40ce"
     WH_HEATER_HOT_WATER_REMAINING = "0x40d0"

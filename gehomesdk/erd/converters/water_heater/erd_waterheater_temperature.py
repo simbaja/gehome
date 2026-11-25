@@ -1,5 +1,14 @@
-from ..abstract import ErdReadWriteConverter
+from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
 from ..primitives import *
+
+
+class ErdReadOnlyWaterHeaterTemperatureConverter(ErdReadOnlyConverter[float]):
+    def erd_decode(self, value) -> float:
+        try:
+            return erd_decode_int(value) / 10
+        except ValueError:
+            return 0
+
 
 class ErdWaterHeaterTemperatureConverter(
     ErdReadWriteConverter[float]
