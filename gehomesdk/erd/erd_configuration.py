@@ -392,6 +392,12 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.CCM_IS_DESCALING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_START_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.CCM_CANCEL_DESCALING, ErdBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_BREW_BASKET_MISSING, ErdReadOnlyBoolConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_GRIND_BREW_SETTINGS, ErdCcmGrindBrewSettingsConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_GRINDER_SETTING, ErdCcmGrinderSettingConverter(), ErdCodeClass.CCM_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.CCM_GRIND_BREW_PROFILE_1, ErdCcmGrindBrewSettingsConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_GRIND_BREW_PROFILE_2, ErdCcmGrindBrewSettingsConverter(), ErdCodeClass.CCM_SENSOR),
+    ErdConfigurationEntry(ErdCode.CCM_GRIND_BREW_PROFILE_3, ErdCcmGrindBrewSettingsConverter(), ErdCodeClass.CCM_SENSOR),
 
     #Espresso Maker
     ErdConfigurationEntry(ErdCode.ESPRESSO_SUPPORTED_BREW_TYPES, ErdEspressoSupportedBrewTypesConverter(), ErdCodeClass.CCM_SENSOR),

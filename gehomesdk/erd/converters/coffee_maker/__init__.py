@@ -1,3 +1,5 @@
 from .erd_ccm_brew_strength_converter import ErdCcmBrewStrengthConverter
 from .erd_ccm_brew_temperature_range_converter import ErdCcmBrewTemperatureRangeConverter
 from .erd_ccm_brew_settings_converter import ErdCcmBrewSettingsConverter
+from .erd_ccm_grind_brew_settings_converter import ErdCcmGrindBrewSettingsConverter
+from .erd_ccm_grinder_setting_converter import ErdCcmGrinderSettingConverter
