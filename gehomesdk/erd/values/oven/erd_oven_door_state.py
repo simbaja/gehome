@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 
 @enum.unique
@@ -9,7 +8,7 @@ class ErdOvenDoorState(enum.Enum):
     CLOSED = 2
     INITIAL_INSPECTION = 3
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         if self == ErdOvenDoorState.OPEN:
             return True
         if self == ErdOvenDoorState.CLOSED:

@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdConvertableDrawerMode(enum.Enum):
@@ -12,7 +11,7 @@ class ErdConvertableDrawerMode(enum.Enum):
     WINE = "06"
     NA = "FF"
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         if(self == ErdConvertableDrawerMode.NA):
             return "N/A"
         return self.name.title()

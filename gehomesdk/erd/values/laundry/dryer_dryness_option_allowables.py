@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
     
 class ErdDryerDrynessOptionAllowables (NamedTuple):
     dryness_option_disabled_allowed: bool = False
@@ -7,7 +7,7 @@ class ErdDryerDrynessOptionAllowables (NamedTuple):
     dryness_option_dry_allowed: bool = False
     dryness_option_moredry_allowed: bool = False
     dryness_option_extradry_allowed: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
     
     def stringify(self, **kwargs):
         return f"DryerDrynessOptionAllowables: \

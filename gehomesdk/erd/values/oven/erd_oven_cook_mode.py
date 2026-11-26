@@ -83,5 +83,5 @@ class ErdOvenCookMode(enum.Enum):
     def _missing_(cls, value):
         if value not in _UNKNOWN_COOK_MODES:
             _UNKNOWN_COOK_MODES.add(value)
-            _LOGGER.warning(f"Unknown oven cook mode received: {value}, treating as NOMODE")
+            _LOGGER.warning("Unknown oven cook mode received: %s, treating as NOMODE", value)
         return cls.NOMODE

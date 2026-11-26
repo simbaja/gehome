@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 class ErdWaterFilterAlertState(NamedTuple):
     value: int
@@ -16,10 +16,10 @@ class ErdWaterFilterAlertState(NamedTuple):
     def has_high_alert(self):
         return self.value & 4 == 1
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self.has_alert()
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         retVal = ""
         if self.has_high_alert():
             retVal += "| High"

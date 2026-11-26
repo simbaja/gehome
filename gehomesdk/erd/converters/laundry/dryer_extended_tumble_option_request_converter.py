@@ -1,7 +1,6 @@
 import logging
-from typing import Union
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 from ...values.laundry import ErdDryerExtendedTumbleOptionRequest
 
 _LOGGER = logging.getLogger(__name__)
@@ -14,7 +13,7 @@ class ErdDryerExtendedTumbleOptionRequestConverter(ErdReadWriteConverter[ErdDrye
             _LOGGER.debug("Dryer extended tumble option request unknown {value}, using default")
             return ErdDryerExtendedTumbleOptionRequest.REQUEST_PROCESSED
 
-    def erd_encode(self, value: Union[ErdDryerExtendedTumbleOptionRequest, bool, int]) -> str:
+    def erd_encode(self, value: ErdDryerExtendedTumbleOptionRequest | bool | int) -> str:
         if isinstance(value, bool):
             enum_val = (
                 ErdDryerExtendedTumbleOptionRequest.ENABLED

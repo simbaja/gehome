@@ -1,6 +1,6 @@
 from ...values.coffee_maker.common_enums import ErdCcmBrewTemperatureRange
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 
 class ErdCcmBrewTemperatureRangeConverter(ErdReadOnlyConverter[ErdCcmBrewTemperatureRange]):
 

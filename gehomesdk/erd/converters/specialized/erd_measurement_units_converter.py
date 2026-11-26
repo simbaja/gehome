@@ -1,5 +1,4 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
 from ...values import ErdMeasurementUnits
 
 class ErdMeasurementUnitsConverter(ErdReadWriteConverter[ErdMeasurementUnits]):

@@ -2,7 +2,7 @@ import logging
 from datetime import timedelta
 
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 from ...values.toaster_oven import ErdToasterOvenCookMode, ErdToasterOvenSize, ToasterOvenCookSetting
 
 _LOGGER = logging.getLogger(__name__)
@@ -48,7 +48,7 @@ class ToasterOvenCookSettingConverter(ErdReadWriteConverter[ToasterOvenCookSetti
                 raw_string=value,
             )
         except (ValueError, IndexError):
-            _LOGGER.warning(f"Could not decode toaster oven cook setting, raw value {value}")
+            _LOGGER.warning("Could not decode toaster oven cook setting, raw value %s", value)
             return ToasterOvenCookSetting(raw_string=value)
 
     def erd_encode(self, value: ToasterOvenCookSetting) -> str:

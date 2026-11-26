@@ -1,5 +1,5 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_signed_byte
 from ...values.fridge import FridgeSetPointLimits
 
 class FridgeSetPointLimitsConverter(ErdReadOnlyConverter[FridgeSetPointLimits]):

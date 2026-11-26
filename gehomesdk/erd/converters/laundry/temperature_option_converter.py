@@ -1,6 +1,6 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.laundry import ErdTemperatureOption, ErdTemperatureNewOption, TemperatureOption, TEMPERATURE_OPTION_MAP, TEMPERATURENEW_OPTION_MAP
 
 _LOGGER = logging.getLogger(__name__)

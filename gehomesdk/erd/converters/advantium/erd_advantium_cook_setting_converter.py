@@ -1,11 +1,19 @@
 import logging
 from datetime import timedelta
-from typing import List
 
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import (
+    erd_decode_int,
+    erd_decode_timespan,
+    erd_encode_int,
+    erd_encode_timespan,
+)
 from ...values.advantium import ErdAdvantiumCookSetting
-from ...values.advantium.advantium_enums import *
+from ...values.advantium.advantium_enums import (
+    AdvantiumCookAction,
+    AdvantiumCookMode,
+    AdvantiumWarmStatus,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -45,7 +53,7 @@ class ErdAdvantiumCookSettingConverter(ErdReadWriteConverter[ErdAdvantiumCookSet
             _LOGGER.exception("Could not construct cook setting (value: %s), using default.", value)
             return ErdAdvantiumCookSetting(raw_value=value)
     def erd_encode(self, value: ErdAdvantiumCookSetting) -> str:
-        valList: List[str] = [
+        valList: list[str] = [
             erd_encode_int(value.d, 1),
             erd_encode_int(value.cook_action, 1),
             erd_encode_int(value.cook_mode, 1),

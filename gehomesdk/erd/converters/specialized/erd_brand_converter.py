@@ -1,6 +1,5 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
 
 from ...values import ErdBrand
 
@@ -11,5 +10,5 @@ class ErdBrandConverter(ErdReadOnlyConverter[ErdBrand]):
         try:
             return ErdBrand(value)
         except ValueError:
-            _LOGGER.info(f"Unknown brand found, value = {value}")
+            _LOGGER.info("Unknown brand found, value = %s", value)
             return ErdBrand.UNKNOWN

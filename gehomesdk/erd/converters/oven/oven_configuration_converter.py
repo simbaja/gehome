@@ -1,5 +1,5 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.oven import OvenConfiguration, ErdOvenConfiguration
 
 class OvenConfigurationConverter(ErdReadOnlyConverter[OvenConfiguration]):

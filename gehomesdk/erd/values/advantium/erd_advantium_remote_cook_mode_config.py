@@ -1,6 +1,4 @@
-from typing import List, Optional
 from dataclasses import dataclass
-from .advantium_enums import *
 
 @dataclass(repr=True, eq=True)
 class ErdAdvantiumRemoteCookModeConfig:
@@ -39,9 +37,9 @@ class ErdAdvantiumRemoteCookModeConfig:
     microwave_temp_enable: bool = False 
     microwave_sensor_time_enable: bool = False 
     microwave_sensor_temp_enable: bool = False 
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
-    def __init__(self, values: Optional[List[int]], raw_value: Optional[str]) -> None:
+    def __init__(self, values: list[int] | None, raw_value: str | None) -> None:
         self.raw_value = raw_value
 
         if values is None:

@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 from .erd_full_not_full import ErdFullNotFull
 
 class FridgeIceBucketStatus(NamedTuple):
@@ -8,7 +8,7 @@ class FridgeIceBucketStatus(NamedTuple):
     is_present_freezer: bool
     total_status: ErdFullNotFull
    
-    def stringify(self, **kwargs) -> Optional[str]:     
+    def stringify(self, **kwargs) -> str | None:     
         if self.total_status == ErdFullNotFull.FULL:
             return "Full"
         if self.total_status == ErdFullNotFull.NOT_FULL:

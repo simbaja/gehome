@@ -5,14 +5,14 @@ from .erd_configuration import ErdConfigurationEntry, _configuration
 from .erd_codes import ErdCode, ErdCodeType
 from .erd_code_class import ErdCodeClass
 from .erd_data_type import ErdDataType
-from .converters import *
+from .converters.primitives import erd_decode_bytes
 
 _LOGGER = logging.getLogger(__name__)
 
 class ErdEncoder:
     def __init__(self) -> None:
         super().__init__()
-        self._registry: dict[ErdCodeType, ErdConfigurationEntry] = dict((k.erd_code, k) for k in _configuration)
+        self._registry: dict[ErdCodeType, ErdConfigurationEntry] = {k.erd_code: k for k in _configuration}
 
     def translate_code(self, erd_code: ErdCodeType) -> ErdCodeType:
         """
@@ -59,7 +59,7 @@ class ErdEncoder:
             _LOGGER.debug("Unknown ERD Code '%s' and value '%s'",erd_code, erd_value)
             return erd_decode_bytes(erd_value)
         except ValueError:
-            _LOGGER.error(f'Got ValueError {erd_code} - {erd_value}')
+            _LOGGER.error("Got ValueError %s - %s", erd_code, erd_value)
             return erd_decode_bytes(erd_value)
             
     def get_code_class(self, erd_code: ErdCodeType) -> ErdCodeClass:
@@ -108,7 +108,7 @@ class ErdEncoder:
         try:
             return self._registry[erd_code].erd_encode(value)
         except KeyError:
-            _LOGGER.error(f'Attempt to encode unregistered ERD code {erd_code}')
+            _LOGGER.error("Attempt to encode unregistered ERD code %s", erd_code)
             raise
 
     def can_decode(self, erd_code: ErdCodeType) -> bool:

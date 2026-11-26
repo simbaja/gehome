@@ -1,6 +1,6 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.laundry import ErdLaundryCycle
 
 _LOGGER = logging.getLogger(__name__)
@@ -10,5 +10,5 @@ class ErdLaundryCycleConverter(ErdReadOnlyConverter[ErdLaundryCycle]):
         try:
             return ErdLaundryCycle(erd_decode_int(value))
         except (KeyError, ValueError):
-            _LOGGER.info(f"Unknown laundry cycle found, value = {value}")
+            _LOGGER.info("Unknown laundry cycle found, value = %s", value)
             return ErdLaundryCycle.NOT_DEFINED

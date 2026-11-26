@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 class ErdMicrowaveAvailableModes(NamedTuple):
     is_valid: bool   
@@ -7,4 +7,4 @@ class ErdMicrowaveAvailableModes(NamedTuple):
     has_convection_roast: bool
     has_broil: bool
 
-    raw_value: Optional[str]
+    raw_value: str | None

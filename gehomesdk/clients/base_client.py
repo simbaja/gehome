@@ -6,10 +6,17 @@ import asyncio
 from collections import defaultdict
 from datetime import datetime, timedelta
 import logging
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any
+from collections.abc import Callable
 
 from ..erd import ErdCode, ErdCodeType
-from ..exception import *
+from ..exception import (
+    GeAuthFailedError,
+    GeGeneralServerError,
+    GeNeedsReauthenticationError,
+    GeNotAuthenticatedError,
+    GeRequestError,
+)
 from ..ge_appliance import GeAppliance
 from .async_login_flows import async_get_oauth2_token, async_refresh_oauth2_token
 from .const import (
@@ -36,13 +43,13 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         username: str,
         password: str,
         region: str = "US",
-        event_loop: Optional[asyncio.AbstractEventLoop] = None,
-        refresh_token: Optional[str] = None,
+        event_loop: asyncio.AbstractEventLoop | None = None,
+        refresh_token: str | None = None,
     ):
         self.account_username = username
         self.account_password = password
         self.account_region = region
-        self._credentials: Dict[str, str] = {}
+        self._credentials: dict[str, str] = {}
         self._session: ClientSession | None = None
 
         self._access_token: str | None = None
@@ -59,19 +66,19 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         self._retries_since_last_connect = -1
         self._has_successful_connect = False
         self._loop = event_loop
-        self._appliances: Dict[str, GeAppliance] = {} 
+        self._appliances: dict[str, GeAppliance] = {} 
         self._initialize_event_handlers()
 
     @property
-    def credentials(self) -> Dict[str, str]:
+    def credentials(self) -> dict[str, str]:
         return self._credentials
 
     @credentials.setter
-    def credentials(self, credentials: Dict[str, str]):
+    def credentials(self, credentials: dict[str, str]):
         self._credentials = credentials
 
     @property
-    def refresh_token(self) -> Optional[str]:
+    def refresh_token(self) -> str | None:
         """The current OAuth2 refresh token, if any.
 
         The SDK rotates this during logins/reconnects, so the calling
@@ -82,11 +89,11 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         return self._refresh_token
 
     @property
-    def appliances(self) -> Dict[str, GeAppliance]:
+    def appliances(self) -> dict[str, GeAppliance]:
         return self._appliances
 
     @property
-    def user_id(self) -> Optional[str]:
+    def user_id(self) -> str | None:
         if "userId" not in self.credentials:
             raise GeNotAuthenticatedError()
         return self.credentials['userId']
@@ -98,10 +105,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
     @property
     def loop(self) -> asyncio.AbstractEventLoop:
         if self._loop is None:
-            try:
-                self._loop = asyncio.get_running_loop()
-            except RuntimeError:
-                self._loop = asyncio.get_event_loop()
+            self._loop = asyncio.get_running_loop()
         return self._loop
 
     @property
@@ -115,14 +119,14 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         return self._state == GeClientState.CONNECTED
 
     @property
-    def event_handlers(self) -> Dict[str, List[Callable]]:
+    def event_handlers(self) -> dict[str, list[Callable]]:
         return self._event_handlers
 
     async def async_event(self, event: str, *args, **kwargs):
-        _LOGGER.debug(f"received event: {event}, processing callbacks...")
+        _LOGGER.debug("received event: %s, processing callbacks...", event)
         """Schedule event callbacks"""
         for cb in self.event_handlers[event]:
-            _LOGGER.debug(f"scheduling callback: {cb}")
+            _LOGGER.debug("scheduling callback: %s", cb)
             self.loop.create_task(cb(*args, **kwargs))
 
     def add_event_handler(self, event: str, callback: Callable, disposable: bool = False):
@@ -134,7 +138,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         try:
             self.event_handlers[event].remove(callback)
         except Exception:
-            _LOGGER.warning(f"could not remove event handler {event}-{callback}")
+            _LOGGER.warning("could not remove event handler %s-%s", event, callback)
 
     def clear_event_handlers(self):
         self._initialize_event_handlers()
@@ -151,17 +155,17 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         _LOGGER.info('Starting GE Appliances client')
         while not self._disconnect_requested.is_set():
             if self._retries_since_last_connect > MAX_RETRIES:
-                _LOGGER.debug(f'Tried auto-reconnecting {MAX_RETRIES} times, giving up.')
+                _LOGGER.debug("Tried auto-reconnecting %s times, giving up.", MAX_RETRIES)
                 break
             try:
                 await self._async_run_client()
             except GeNeedsReauthenticationError:
                 _LOGGER.info('Reauthentication needed')
             except GeRequestError as err:
-                _LOGGER.info(f'Error executing request {err}')
+                _LOGGER.info("Error executing request %s", err)
             except Exception as err:
                 if not self._has_successful_connect:
-                    _LOGGER.warning(f'Unhandled exception on first connect attempt: {err}, disconnecting')
+                    _LOGGER.warning("Unhandled exception on first connect attempt: %s, disconnecting", err)
                     break
                 _LOGGER.exception(err)
                 _LOGGER.info('Unhandled exception while running client, ignoring and restarting')
@@ -185,11 +189,11 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                     break
                 except (ClientError, asyncio.TimeoutError, GeGeneralServerError, GeRequestError) as err:
                     # Transient network/server errors during reconnect should not kill the loop
-                    _LOGGER.warning(f'Transient error refreshing authentication, will retry: {err}')
+                    _LOGGER.warning("Transient error refreshing authentication, will retry: %s", err)
                     self._retries_since_last_connect += 1
                 except Exception as err:
                     # if there was an auth or fatal error refreshing the authentication, stop and disconnect the client
-                    _LOGGER.warning(f'Error refreshing authentication: {err}')
+                    _LOGGER.warning("Error refreshing authentication: %s", err)
                     break
 
             if not refreshed:
@@ -244,26 +248,26 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                 await self.async_do_refresh_login_flow()
                 return
             except (GeAuthFailedError, GeNeedsReauthenticationError) as exc:
-                _LOGGER.warning(f"Seeded refresh token invalid, falling back to full login: {exc}")
+                _LOGGER.warning("Seeded refresh token invalid, falling back to full login: %s", exc)
         await self.async_do_full_login_flow()
         
-    async def async_do_full_login_flow(self) -> Dict[str, str]:
+    async def async_do_full_login_flow(self) -> dict[str, str]:
         """Do the full login flow for this client"""
         self.credentials = await self._async_do_full_login_flow()
         return self.credentials
 
     @abc.abstractmethod
-    async def _async_do_full_login_flow(self) -> Dict[str, str]:
+    async def _async_do_full_login_flow(self) -> dict[str, str]:
         """Internal full login flow"""
         pass
 
-    async def async_do_refresh_login_flow(self) -> Dict[str, str]:
+    async def async_do_refresh_login_flow(self) -> dict[str, str]:
         """Do the refresh login flow for this client"""
         self.credentials = await self._async_do_refresh_login_flow()
         return self.credentials
 
     @abc.abstractmethod
-    async def _async_do_refresh_login_flow(self) -> Dict[str, str]:
+    async def _async_do_refresh_login_flow(self) -> dict[str, str]:
         """Internal refresh login flow"""
         pass
 
@@ -319,7 +323,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         except KeyError:
             raise GeAuthFailedError(f'Failed to get a token: {oauth_token}')
 
-    async def _maybe_trigger_appliance_init_event(self, data: Tuple[GeAppliance, Dict[ErdCodeType, Any]]) -> None:
+    async def _maybe_trigger_appliance_init_event(self, data: tuple[GeAppliance, dict[ErdCodeType, Any]]) -> None:
         """
         Trigger the appliance_got_type event if appropriate
 
@@ -327,7 +331,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         """
         appliance, state_changes = data
         if ErdCode.APPLIANCE_TYPE in state_changes and not appliance.initialized:
-            _LOGGER.debug(f'Got initial appliance type for {appliance:s}')
+            _LOGGER.debug("Got initial appliance type for %s", appliance)
             appliance.initialized = True
             await self.async_event(EVENT_APPLIANCE_INITIAL_UPDATE, appliance)
 
@@ -339,7 +343,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
             appliance.set_unavailable()
             await self.async_event(EVENT_APPLIANCE_UNAVAILABLE, appliance)
 
-    async def _set_appliance_features(self, appliance: GeAppliance, features: List[str]) -> None:
+    async def _set_appliance_features(self, appliance: GeAppliance, features: list[str]) -> None:
         appliance.features = features
 
     async def _set_state(self, new_state: GeClientState) -> bool:
@@ -352,11 +356,11 @@ class GeBaseClient(metaclass=abc.ABCMeta):
         return False            
 
     def _initialize_event_handlers(self) -> None:
-        self._event_handlers = defaultdict(list)  # type: Dict[str, List[Callable]]
+        self._event_handlers: dict[str, list[Callable[..., Any]]] = defaultdict(list)
         self.add_event_handler(EVENT_STATE_CHANGED, self._on_state_change)
 
     async def _on_state_change(self, old_state: GeClientState, new_state: GeClientState) -> None:
-        _LOGGER.debug(f'Client changed state: {old_state} to {new_state}')
+        _LOGGER.debug("Client changed state: %s to %s", old_state, new_state)
 
         if new_state == GeClientState.CONNECTED:
             await self.async_event(EVENT_CONNECTED, None)

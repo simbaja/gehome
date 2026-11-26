@@ -1,6 +1,6 @@
 from datetime import timedelta
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.common import ErdPresent
 from ...values.fridge import HotWaterStatus, ErdHotWaterStatus, ErdFullNotFull, ErdPodStatus
 

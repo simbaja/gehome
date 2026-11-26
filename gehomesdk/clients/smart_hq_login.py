@@ -12,7 +12,6 @@ import logging
 from aiohttp import ClientSession
 from dataclasses import dataclass, field
 from urllib.parse import urljoin
-from typing import List, Optional
 
 from ..exception import GeAuthFailedError, GeAuthMfaRequiredError
 from .const import (
@@ -41,9 +40,9 @@ class GeLoginResult:
     `GeSmartHqLogin.async_submit_code` before a token is available.
     """
 
-    token: Optional[dict] = None
+    token: dict | None = None
     mfa_required: bool = False
-    mfa_methods: List[str] = field(default_factory=list)
+    mfa_methods: list[str] = field(default_factory=list)
 
 
 class GeSmartHqLogin:
@@ -77,7 +76,7 @@ class GeSmartHqLogin:
 
     def __init__(self, session: ClientSession):
         self._session = session
-        self._csrf: Optional[str] = None
+        self._csrf: str | None = None
         self._mfa_type: str = "email"
 
     async def async_login(

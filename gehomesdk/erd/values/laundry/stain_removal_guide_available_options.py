@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
     
 class ErdStainRemovalGuideAvailableOptions (NamedTuple):
     off_allowed: bool = False
@@ -8,7 +8,7 @@ class ErdStainRemovalGuideAvailableOptions (NamedTuple):
     tomato_allowed: bool = False
     beverages_allowed: bool = False
     oily_allowed: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
     
     def stringify(self, **kwargs):
         return f"StainRemovalGuideAvailableOptions: \

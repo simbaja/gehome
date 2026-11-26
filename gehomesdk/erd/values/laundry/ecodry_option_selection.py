@@ -1,5 +1,5 @@
 import enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 class ErdEcoDryOptionStatus(enum.Enum):
     DISABLED = 0
@@ -11,7 +11,7 @@ class ErdEcoDryOptionStatus(enum.Enum):
 
 class ErdEcoDryOptionSelection (NamedTuple):
     option_status: ErdEcoDryOptionStatus = ErdEcoDryOptionStatus.DISABLED
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
     
     def stringify(self, **kwargs):
         return self.option_status.stringify()

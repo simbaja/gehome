@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 from datetime import timedelta
 from ..common import ErdPresent
 from .erd_hot_water_status import ErdHotWaterStatus
@@ -7,14 +7,14 @@ from .erd_pod_status import ErdPodStatus
 
 class HotWaterStatus(NamedTuple):
     status: ErdHotWaterStatus
-    time_until_ready: Optional[timedelta]
-    current_temp: Optional[int]
+    time_until_ready: timedelta | None
+    current_temp: int | None
     tank_full: ErdFullNotFull
     brew_module: ErdPresent
     pod_status: ErdPodStatus
 
     @property
-    def faulted(self) -> Optional[bool]:
+    def faulted(self) -> bool | None:
         if self.status in [ErdHotWaterStatus.FAULT_NEED_CLEARED, ErdHotWaterStatus.FAULT_LOCKED_OUT]:
             return True
         return False

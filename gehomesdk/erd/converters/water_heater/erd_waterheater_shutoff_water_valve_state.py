@@ -1,6 +1,6 @@
 from ...values import ErdWaterHeaterShutoffWaterValveState
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 
 class ErdWaterHeaterShutoffWaterValveStateConverter(ErdReadWriteConverter[ErdWaterHeaterShutoffWaterValveState]):
     def erd_decode(self, value) -> ErdWaterHeaterShutoffWaterValveState:

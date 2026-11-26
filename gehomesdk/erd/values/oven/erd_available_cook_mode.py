@@ -6,7 +6,7 @@ from .erd_oven_cook_mode import ErdOvenCookMode
 class ErdAvailableCookMode(enum.Enum):
     """
     Available cooking modes.
-    In the XMPP API, they are represented as an index into an array of bytes and a bitmask.
+    In the SmartHQ API, they are represented as an index into an array of bytes and a bitmask.
     Thus these take the form (byte: int, mask: int, cook_mode: ErdOvenCookMode).  See ErdAvailableCookMode.smali
     in the Android app.
 

@@ -1,10 +1,9 @@
 from datetime import timedelta
-from typing import Optional
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_encode_int
 
-class ErdMicrowaveCookTimerConverter(ErdReadWriteConverter[Optional[timedelta]]):
-    def erd_decode(self, value: str) -> Optional[timedelta]:
+class ErdMicrowaveCookTimerConverter(ErdReadWriteConverter[timedelta | None]):
+    def erd_decode(self, value: str) -> timedelta | None:
         """ Decodes the cook time as a time span"""
         try:
             m = int(value[0:2])
@@ -12,7 +11,7 @@ class ErdMicrowaveCookTimerConverter(ErdReadWriteConverter[Optional[timedelta]])
             return timedelta(seconds=m * 60 + s)
         except Exception:
             return None
-    def erd_encode(self, value: Optional[timedelta]) -> str:
+    def erd_encode(self, value: timedelta | None) -> str:
         if value is None:
             return "0000"
         

@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 
 @enum.unique
@@ -27,7 +26,7 @@ class ErdToasterOvenCookMode(enum.Enum):
     PIZZA_WITH_PREFERENCES = 16
     CONVECTION_BAKE = 17
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return self.name.replace("_", " ").title()
 
     def __str__(self) -> str:

@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 
 class ErdWaterFilterAlertTimeSettings(NamedTuple):
@@ -6,5 +6,5 @@ class ErdWaterFilterAlertTimeSettings(NamedTuple):
     low_alert_time: int
     medium_alert_time: int
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return f"high {self.high_alert_time} mins, medium {self.medium_alert_time} mins, low {self.low_alert_time} mins"

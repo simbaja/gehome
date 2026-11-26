@@ -1,5 +1,4 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
 from ...values import ErdWaterFilterLeakValidity
 
 class ErdFilterLeakValidityConverter(ErdReadOnlyConverter[ErdWaterFilterLeakValidity]):

@@ -1,5 +1,4 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
 
 from ...values import ErdEndTone
 

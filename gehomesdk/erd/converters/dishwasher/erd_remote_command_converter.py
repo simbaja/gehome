@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
-from ...values.dishwasher import *
+from ..primitives import erd_decode_int, erd_encode_int
+from ...values.dishwasher import ErdRemoteCommand
 
 class ErdRemoteCommandConverter(ErdReadWriteConverter[ErdRemoteCommand]):
     def erd_decode(self, value: str) -> ErdRemoteCommand:

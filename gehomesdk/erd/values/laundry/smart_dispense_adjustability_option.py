@@ -1,5 +1,5 @@
 import enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 @enum.unique
 class ErdSmartDispenseSubstanceType(enum.Enum):
@@ -29,7 +29,7 @@ class ErdSmartDispenseAdjustabilityOption (NamedTuple):
     substance: ErdSmartDispenseSubstanceType = ErdSmartDispenseSubstanceType.DETERGENT
     bucket: ErdSmartDispenseFlowBucket = ErdSmartDispenseFlowBucket.FLOW_RATE_BUCKET_ONE
     dosage: ErdSmartDispenseDosageType = ErdSmartDispenseDosageType.OFF
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
     
     def stringify(self, **kwargs):
         return f"SmartDispenseAdjustabilityOption: Substance:{self.substance}, Bucket:{self.bucket}, Dosag:{self.dosage}"

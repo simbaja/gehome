@@ -1,6 +1,6 @@
 from ...values import ErdWaterHeaterMinMaxTemperature
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 
 class ErdWaterHeaterMinMaxTemperatureConverter(
     ErdReadOnlyConverter[ErdWaterHeaterMinMaxTemperature]

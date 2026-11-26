@@ -1,5 +1,4 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
 from ...values import ErdWaterSoftenerSaltLevel
 
 class ErdWaterSoftenerSaltLevelConverter(ErdReadOnlyConverter[ErdWaterSoftenerSaltLevel]):

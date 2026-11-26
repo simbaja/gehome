@@ -1,5 +1,4 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
 
 class ErdModelSerialConverter(ErdReadOnlyConverter[str]):
     def erd_decode(self, value) -> str:

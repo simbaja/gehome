@@ -1,12 +1,9 @@
 [tool.ruff]
 target-version = "py314"
 
+[tool.ruff.lint]
+extend-select = ["UP006", "UP007", "UP035", "UP045"]
+
 [tool.ruff.lint.per-file-ignores]
 "**/__init__.py" = ["F401", "F403"]
-"gehomesdk/clients/base_client.py" = ["F403", "F405"]
-"gehomesdk/clients/websocket_client.py" = ["F403", "F405"]
-"gehomesdk/ge_appliance.py" = ["F403", "F405"]
 "gehomesdk/erd/erd_configuration.py" = ["F403", "F405"]
-"gehomesdk/erd/erd_encoder.py" = ["F403", "F405"]
-"gehomesdk/erd/converters/**/*.py" = ["F403", "F405"]
-"gehomesdk/erd/values/**/*.py" = ["F403", "F405"]

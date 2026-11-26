@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
     
 class ErdSmartDispenseAdjustabilityAllowables (NamedTuple):
     detergent_bucket_one_allowed: bool = False
@@ -9,7 +9,7 @@ class ErdSmartDispenseAdjustabilityAllowables (NamedTuple):
     softener_bucket_two_allowed: bool = False
     softener_bucket_three_allowed: bool = False
     softener_bucket_four_allowed: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
     
     def stringify(self, **kwargs):
         return f"SmartDispenseAdjustabilityAllowables: \

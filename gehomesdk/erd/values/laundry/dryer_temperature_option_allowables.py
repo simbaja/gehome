@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
     
 class ErdDryerTemperatureOptionAllowables (NamedTuple):
     temperature_option_disabled_allowed: bool = False
@@ -7,7 +7,7 @@ class ErdDryerTemperatureOptionAllowables (NamedTuple):
     temperature_option_low_allowed: bool = False
     temperature_option_medium_allowed: bool = False
     temperature_option_high_allowed: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
     
     def stringify(self, **kwargs):
         return f"DryerTemperatureOptionAllowables: \

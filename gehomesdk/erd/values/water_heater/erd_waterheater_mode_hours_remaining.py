@@ -1,8 +1,8 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 
 class ErdWaterHeaterModeHoursRemaining(NamedTuple):
     hours: int
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return str(self.hours)

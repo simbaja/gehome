@@ -1,6 +1,5 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
-from ...values.ac import *
+from ..primitives import erd_decode_int, erd_encode_int
 
 # A byte-swapped 16-bit value only counts as a setpoint inside this Fahrenheit window.
 _PLAUSIBLE_MIN_F = 32

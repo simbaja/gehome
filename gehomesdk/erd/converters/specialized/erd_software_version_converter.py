@@ -1,7 +1,7 @@
 from textwrap import wrap
 
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 
 class ErdSoftwareVersionConverter(ErdReadOnlyConverter[str]):
     def erd_decode(self, value) -> str:

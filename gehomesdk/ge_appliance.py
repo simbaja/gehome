@@ -3,10 +3,9 @@
 import enum
 import logging
 from weakref import WeakValueDictionary
-from typing import Any, List, Dict, Optional, Set, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from .erd import ErdCode, ErdCodeType, ErdCodeClass, ErdApplianceType, ErdEncoder, ErdDataType
-from .exception import *
 
 if TYPE_CHECKING:
     from .clients import GeBaseClient
@@ -22,9 +21,9 @@ class GeAppliance:
 
     def __new__(cls, mac_addr: str, client: "GeBaseClient", *args, **kwargs):
         try:
-            obj = cls._appliance_cache[mac_addr]  # type: "GeAppliance"
+            obj: GeAppliance = cls._appliance_cache[mac_addr]
         except KeyError:
-            obj = super(GeAppliance, cls).__new__(cls)
+            obj = super().__new__(cls)
             obj.__init__(mac_addr, client)
             cls._appliance_cache[obj.mac_addr] = obj
             return obj
@@ -37,8 +36,8 @@ class GeAppliance:
         self._available = False
         self._mac_addr = mac_addr.upper()
         self._message_id = 0
-        self._property_cache = {}  # type: Dict[ErdCodeType, Any]
-        self._raw_property_cache = {}  # type: Dict[ErdCodeType, str]
+        self._property_cache: dict[ErdCodeType, Any] = {}
+        self._raw_property_cache: dict[ErdCodeType, str] = {}
         self._features = []
         self.client = client
         self.initialized = False
@@ -49,15 +48,15 @@ class GeAppliance:
         return self._mac_addr.upper()
 
     @property
-    def known_properties(self) -> Set[ErdCodeType]:
+    def known_properties(self) -> set[ErdCodeType]:
         return set(self._property_cache)
 
     @property
-    def features(self) -> List[str]:
+    def features(self) -> list[str]:
         return list(self._features)
 
     @features.setter
-    def features(self, value: List[str]):
+    def features(self, value: list[str]):
         """Sets the features for this appliance"""
         self._features = list(value)        
 
@@ -73,11 +72,11 @@ class GeAppliance:
         await self.client.async_request_update(self)
 
     def set_available(self):
-        _LOGGER.info(f'{self.mac_addr} marked available')
+        _LOGGER.info("%s marked available", self.mac_addr)
         self._available = True
 
     def set_unavailable(self):
-        _LOGGER.warning(f'{self.mac_addr} marked unavailable')
+        _LOGGER.warning("%s marked unavailable", self.mac_addr)
         self._available = False
 
     @property
@@ -85,7 +84,7 @@ class GeAppliance:
         return self._available and self.initialized
 
     @property
-    def appliance_type(self) -> Optional[ErdApplianceType]:
+    def appliance_type(self) -> ErdApplianceType | None:
         return self._property_cache.get(ErdCode.APPLIANCE_TYPE)
 
     def translate_erd_code(self, erd_code: ErdCodeType) -> ErdCodeType:
@@ -130,7 +129,7 @@ class GeAppliance:
         erd_code = self._encoder.translate_code(erd_code)
         return self._property_cache[erd_code]
 
-    def get_raw_erd_value(self, erd_code: ErdCodeType) -> Optional[str]:
+    def get_raw_erd_value(self, erd_code: ErdCodeType) -> str | None:
         """
         Get the raw hex string last received for this ERD, or None if never received.
 
@@ -189,12 +188,12 @@ class GeAppliance:
             state_changed = False
 
         if state_changed:
-            _LOGGER.debug(f'Setting {erd_code} to {value}')
+            _LOGGER.debug("Setting %s to %s", erd_code, value)
         self._property_cache[erd_code] = value
 
         return state_changed
 
-    def update_erd_values(self, erd_values: Dict[ErdCodeType, str]) -> Dict[ErdCodeType, Any]:
+    def update_erd_values(self, erd_values: dict[ErdCodeType, str]) -> dict[ErdCodeType, Any]:
         """
         Set one or more ERD codes value at once
 
@@ -209,7 +208,7 @@ class GeAppliance:
 
         return state_changes
         
-    def stringify_erd_value(self, value: Any, **kwargs) -> Optional[str]:
+    def stringify_erd_value(self, value: Any, **kwargs) -> str | None:
         """
         Stringifies a code value if possible.  If it can't be stringified, returns none.
         By default, enums are stringified using their title-cased name (after replacing 
@@ -230,7 +229,7 @@ class GeAppliance:
         except (ValueError, KeyError):
             return None
 
-    def boolify_erd_value(self, value: Any) -> Optional[bool]:
+    def boolify_erd_value(self, value: Any) -> bool | None:
         """
         Boolifies a code value if possible.  If it can't be boolified, returns none
         """

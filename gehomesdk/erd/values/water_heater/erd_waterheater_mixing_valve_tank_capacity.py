@@ -1,5 +1,5 @@
 import enum
-from typing import Optional, NamedTuple
+from typing import NamedTuple
 
 
 @enum.unique
@@ -9,7 +9,7 @@ class ErdWaterHeaterMixingValveTankCapacity(enum.Enum):
     X_HIGH = 2
     UNKNOWN = -1
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         if self == ErdWaterHeaterMixingValveTankCapacity.UNKNOWN:
             return None
         return self.name.title().replace("_", "-")
@@ -20,5 +20,5 @@ class ErdWaterHeaterMixingValveAvailableTankCapacities(NamedTuple):
     has_x_high: bool
     raw_value: str
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return f"Normal: {self.has_normal}, High: {self.has_high}, X-High: {self.has_x_high}"

@@ -1,7 +1,6 @@
 import logging
-from typing import Union
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 from ...values.laundry import ErdRemoteStartExtendedTumble
 
 _LOGGER = logging.getLogger(__name__)
@@ -14,7 +13,7 @@ class ErdRemoteStartExtendedTumbleConverter(ErdReadWriteConverter[ErdRemoteStart
             _LOGGER.debug("Remote start extended tumble unknown {value}, using default")
             return ErdRemoteStartExtendedTumble.REQUEST_PROCESSED
 
-    def erd_encode(self, value: Union[ErdRemoteStartExtendedTumble, bool, int]) -> str:
+    def erd_encode(self, value: ErdRemoteStartExtendedTumble | bool | int) -> str:
         if isinstance(value, bool):
             enum_val = (
                 ErdRemoteStartExtendedTumble.START_EXTENDED_TUMBLE

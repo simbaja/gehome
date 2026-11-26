@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 from .erd_door_status import ErdDoorStatus
 
 class FridgeDoorStatus(NamedTuple):
@@ -9,12 +9,12 @@ class FridgeDoorStatus(NamedTuple):
     status: str
 
     @property
-    def any_open(self) -> Optional[bool]:
+    def any_open(self) -> bool | None:
         if self.status.lower().endswith("open"):
             return True
         return False    
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return self.status
     
     def __str__(self) -> str:

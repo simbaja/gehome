@@ -1,5 +1,5 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_signed_byte, erd_encode_signed_byte
 from ...values.fridge import FridgeSetPoints
 
 class FridgeSetPointsConverter(ErdReadWriteConverter[FridgeSetPoints]):

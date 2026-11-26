@@ -3,7 +3,7 @@ from aiohttp import BasicAuth, ClientSession, ClientTimeout
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs, urljoin
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..exception import (
     GeAuthFailedError,
@@ -63,13 +63,13 @@ def normalize_html_attr_value(raw: Any) -> str:
     return str(raw)
 
 
-def extract_form_inputs(html: str, form_id: str) -> Dict[str, str]:
+def extract_form_inputs(html: str, form_id: str) -> dict[str, str]:
     soup = BeautifulSoup(html, "html.parser")
     form = soup.find("form", id=form_id)
     if not form:
         return {}
 
-    result: Dict[str, str] = {}
+    result: dict[str, str] = {}
     for i in form.find_all("input"):
         name = normalize_html_attr_value(i.get("name"))
         if not name:
@@ -79,7 +79,7 @@ def extract_form_inputs(html: str, form_id: str) -> Dict[str, str]:
     return result
 
 
-def extract_code_from_location(location: str) -> Optional[str]:
+def extract_code_from_location(location: str) -> str | None:
     if not location:
         return None
     parsed = urlparse(location)
@@ -87,12 +87,12 @@ def extract_code_from_location(location: str) -> Optional[str]:
     return qs.get("code", [None])[0]
 
 
-def extract_mfa_methods(html: str) -> List[str]:
+def extract_mfa_methods(html: str) -> list[str]:
     """Extract the available MFA verification methods from the method
     chooser page (e.g. buttons named ``email_btn``/``sms_btn`` with the
     method as their value)."""
     soup = BeautifulSoup(html, "html.parser")
-    methods: List[str] = []
+    methods: list[str] = []
     for btn in soup.find_all("button"):
         name = normalize_html_attr_value(btn.get("name"))
         value = normalize_html_attr_value(btn.get("value"))
@@ -101,7 +101,7 @@ def extract_mfa_methods(html: str) -> List[str]:
     return methods
 
 
-def extract_csrf_token(html: str) -> Optional[str]:
+def extract_csrf_token(html: str) -> str | None:
     soup = BeautifulSoup(html, "html.parser")
     tag = soup.find("input", attrs={"name": "_csrf"})
     if tag and tag.get("value"):
@@ -193,7 +193,7 @@ async def _handle_response(
             return code
 
         next_url = urljoin(LOGIN_URL, location)
-        _LOGGER.debug(f"Following redirect to {next_url}")
+        _LOGGER.debug("Following redirect to %s", next_url)
 
         async with session.get(
             next_url, allow_redirects=False, timeout=LOGIN_REQUEST_TIMEOUT

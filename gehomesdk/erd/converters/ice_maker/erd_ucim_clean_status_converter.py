@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
-from ...values.ice_maker import *
+from ..primitives import erd_decode_int
+from ...values.ice_maker import ErdUcimCleanStatus
 
 class ErdUcimCleanStatusConverter(ErdReadOnlyConverter[ErdUcimCleanStatus]):
     def erd_decode(self, value: str) -> ErdUcimCleanStatus:

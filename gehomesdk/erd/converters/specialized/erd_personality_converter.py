@@ -1,7 +1,6 @@
 import logging
 
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
 from ...erd_codes import ErdCodeType
 from ...values.common import ErdPersonality
 
@@ -17,7 +16,7 @@ class ErdPersonalityConverter(ErdReadOnlyConverter[ErdPersonality]):
             return ErdPersonality(value)
         except Exception:
             if not self._have_already_seen_unknown_appliance(value):
-                _LOGGER.debug(f"Unknown personality found: {value}, using default")
+                _LOGGER.debug("Unknown personality found: %s, using default", value)
             return ErdPersonality.UNKNOWN
 
     def _have_already_seen_unknown_appliance(self, value):

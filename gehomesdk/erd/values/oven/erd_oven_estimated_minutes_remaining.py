@@ -1,5 +1,5 @@
 import enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 
 @enum.unique
@@ -17,7 +17,7 @@ class ErdOvenEstimatedTimeStatus(enum.Enum):
 class ErdOvenEstimatedMinutesRemaining(NamedTuple):
     minutes_remaining: int = 0
     status: ErdOvenEstimatedTimeStatus = ErdOvenEstimatedTimeStatus.INVALID
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
     def stringify(self, **kwargs) -> str:
         if self.status in (

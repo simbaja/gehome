@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdOimStatus(enum.Enum):
@@ -24,7 +23,7 @@ class ErdOimLightLevel(enum.Enum):
     ON = 1
     DIM = 2
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self != ErdOimLightLevel.OFF
 
     def stringify(self, **kwargs):
@@ -35,7 +34,7 @@ class ErdOimFilterStatus(enum.Enum):
     OK = 0
     EXPIRED = 1
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self != ErdOimFilterStatus.OK
 
     def stringify(self, **kwargs):
@@ -48,7 +47,7 @@ class ErdUcimCleanStatus(enum.Enum):
     CLEAN_SOON = 1
     CLEAN_NOW = 2
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self != ErdUcimCleanStatus.CLEAN
 
     def stringify(self, **kwargs):

@@ -2,7 +2,6 @@
 import logging
 
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
 from ...erd_codes import ErdCodeType
 from ...values import ErdApplianceType
 
@@ -17,7 +16,7 @@ class ErdApplianceTypeConverter(ErdReadOnlyConverter[ErdApplianceType]):
             return ErdApplianceType(value)
         except ValueError:
             if not self._have_already_seen_unknown_appliance(value):
-                _LOGGER.info(f"Unknown appliance type found, value = {value}")
+                _LOGGER.info("Unknown appliance type found, value = %s", value)
             return ErdApplianceType.UNKNOWN
 
     def _have_already_seen_unknown_appliance(self, value):

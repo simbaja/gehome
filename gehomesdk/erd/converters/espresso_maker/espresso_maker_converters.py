@@ -1,11 +1,17 @@
 import logging
 import struct
-from typing import Type
 
 from ..abstract import ErdReadOnlyConverter, ErdReadWriteConverter
 from ..primitives import erd_decode_int, erd_encode_int
 from ...erd_codes import ErdCodeType
-from ...values.espresso_maker import *
+from ...values.espresso_maker import (
+    ErdEspressoBrewParameters,
+    ErdEspressoBrewType,
+    ErdEspressoDrinkParameters,
+    ErdEspressoRange,
+    ErdEspressoSupportedBrewTypes,
+    ErdEspressoSupportedFeatures,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -156,7 +162,7 @@ class ErdEspressoLittleEndianU32Converter(ErdReadOnlyConverter[int]):
 
 class ErdEspressoEnumConverter(ErdReadWriteConverter):
     """Single byte enum; unknown values decode to the enum's UNKNOWN member"""
-    def __init__(self, enum_type: Type, erd_code: ErdCodeType = "Unknown"):
+    def __init__(self, enum_type: type, erd_code: ErdCodeType = "Unknown"):
         super().__init__(erd_code)
         self.enum_type = enum_type
 

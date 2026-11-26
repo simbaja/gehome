@@ -1,7 +1,6 @@
 import logging
-from typing import Union
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 from ...values.laundry import ErdTumbleStatus
 
 _LOGGER = logging.getLogger(__name__)
@@ -13,7 +12,7 @@ class TumbleStatusConverter(ErdReadWriteConverter[ErdTumbleStatus]):
         except (KeyError, ValueError):
             return ErdTumbleStatus.NOT_AVAILABLE
 
-    def erd_encode(self, value: Union[ErdTumbleStatus, bool, int]) -> str:
+    def erd_encode(self, value: ErdTumbleStatus | bool | int) -> str:
         if isinstance(value, bool):
             enum_val = ErdTumbleStatus.ENABLE if value else ErdTumbleStatus.DISABLE
         else:

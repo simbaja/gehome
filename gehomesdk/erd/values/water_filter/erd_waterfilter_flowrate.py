@@ -1,7 +1,7 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 class ErdWaterFilterFlowRate(NamedTuple):
     flow_rate: float
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return "{:.2f}".format(self.flow_rate)

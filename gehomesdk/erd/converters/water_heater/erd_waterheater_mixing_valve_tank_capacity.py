@@ -1,6 +1,6 @@
 from ...values import ErdWaterHeaterMixingValveTankCapacity
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 
 class ErdWaterHeaterMixingValveTankCapacityConverter(ErdReadWriteConverter[ErdWaterHeaterMixingValveTankCapacity]):
     def erd_decode(self, value) -> ErdWaterHeaterMixingValveTankCapacity:

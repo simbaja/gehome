@@ -1,5 +1,5 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.dehumidifier import DehumidifierTargetRange
 
 class DehumidifierTargetRangeConverter(ErdReadOnlyConverter[DehumidifierTargetRange]):

@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
     
 class ErdDownloadedCycleAllowables (NamedTuple):
     basket_clean: bool = False
@@ -117,4 +117,4 @@ class ErdDownloadedCycleAllowables (NamedTuple):
     steam_sanitize: bool = False
     down: bool = False
     night_dry: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None

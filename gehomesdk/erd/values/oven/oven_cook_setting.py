@@ -1,7 +1,14 @@
 from datetime import timedelta
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
-from .const import *
+from .const import (
+    STATE_OVEN_DELAY,
+    STATE_OVEN_OFF,
+    STATE_OVEN_PROBE,
+    STATE_OVEN_SABBATH,
+    STATE_OVEN_TIMED,
+    STATE_OVEN_UNKNOWN,
+)
 from .oven_cook_mode import OvenCookMode 
 from .erd_oven_state import ErdOvenState
 
@@ -15,9 +22,9 @@ class OvenCookSetting(NamedTuple):
     two_temp_cook_temperature: int = 0
     two_temp_cook_time: timedelta = timedelta(0)
     raw_string: str | None = None
-    raw_bytes: Optional[bytes] = None
+    raw_bytes: bytes | None = None
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         """Format OvenCookSetting values nicely."""
         cook_state = self.cook_mode.oven_state
         temp_units = kwargs.get("temp_units", "°")

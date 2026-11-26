@@ -1,6 +1,6 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.cooktop import CooktopStatus, ErdCooktopStatus, Burner
 
 _LOGGER = logging.getLogger(__name__)

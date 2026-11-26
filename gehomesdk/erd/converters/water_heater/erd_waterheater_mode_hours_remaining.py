@@ -1,6 +1,6 @@
 from ...values import ErdWaterHeaterModeHoursRemaining
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_encode_int
 
 class ErdWaterHeaterModeHoursRemainingConverter(
     ErdReadWriteConverter[ErdWaterHeaterModeHoursRemaining]

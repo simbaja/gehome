@@ -24,7 +24,7 @@ from ..exception import GeAuthFailedError
 ### Guidelines & Exceptions
 
 * **Explicit imports in implementation and test files:** Do not add new `from module import *` statements in implementation modules or tests.
-* **Barrel `__init__.py` exports:** Package `__init__.py` files and `erd_encoder.py` / `erd_configuration.py` currently use star imports for re-exporting ERD symbols; preserve existing barrel exports unless refactoring a package intentionally.
+* **Barrel `__init__.py` & registry exports:** Package `__init__.py` files and the central `gehomesdk/erd/erd_configuration.py` registry use star imports (`from .converters import *`) intentionally; keep explicit imports everywhere else.
 * **Avoid unnecessary `from __future__ import annotations`:** Use it only when forward references or circular `TYPE_CHECKING` imports require it.
 
 ## 2. Naming Standards

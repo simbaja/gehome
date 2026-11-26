@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdOnOff(enum.Enum):
@@ -7,5 +6,5 @@ class ErdOnOff(enum.Enum):
     OFF = "00"
     NA = "FF"
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self == ErdOnOff.ON   

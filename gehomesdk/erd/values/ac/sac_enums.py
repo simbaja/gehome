@@ -1,5 +1,5 @@
 import enum
-from typing import Optional, NamedTuple
+from typing import NamedTuple
 
 from .common_enums import ErdAcAvailableModes as ErdSacAvailableModes  # noqa: F401 ### deprecated, use ErdAcAvailableModes
 
@@ -9,7 +9,7 @@ class ErdSacTargetTemperatureRange(NamedTuple):
     max: int
     raw_value: str
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return f"min: {self.min}, max: {self.max}"
 
 
@@ -49,7 +49,7 @@ class ErdSacAlerts(NamedTuple):
     self_clean_second_alert: bool = False
     self_clean_third_alert: bool = False
     self_clean_in_app_banner_alert: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
     def boolify(self) -> bool:
         return any(

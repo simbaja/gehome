@@ -7,7 +7,7 @@ import asyncio
 import logging
 import platform
 import signal
-from typing import Any, Dict, Tuple, Optional
+from typing import Any
 
 from gehomesdk import (
     EVENT_ADD_APPLIANCE,
@@ -20,33 +20,33 @@ from gehomesdk import (
 
 _LOGGER = logging.getLogger(__name__)
 
-async def log_state_change(data: Tuple[GeAppliance, Dict[ErdCodeType, Any]]):
+async def log_state_change(data: tuple[GeAppliance, dict[ErdCodeType, Any]]):
     """Log changes in appliance state"""
     appliance, state_changes = data
     updated_keys = ', '.join([str(s) for s in state_changes])
-    _LOGGER.debug(f'Appliance state change detected in {appliance}. Updated keys: {updated_keys}')
+    _LOGGER.debug("Appliance state change detected in %s. Updated keys: %s", appliance, updated_keys)
     
 async def detect_appliance_type(appliance: GeAppliance):
     """
     Detect the appliance type.
     This should only be triggered once since the appliance type should never change.
     """
-    _LOGGER.debug(f'Appliance state change detected in {appliance}')
+    _LOGGER.debug("Appliance state change detected in %s", appliance)
 
 async def do_periodic_update(appliance: GeAppliance):
     """Request a full state update every minute forever"""
-    _LOGGER.debug(f'Registering update callback for {appliance:s}')
+    _LOGGER.debug("Registering update callback for %s", appliance)
     while True:
         await asyncio.sleep(60 * 1)
-        _LOGGER.debug(f'Requesting update for {appliance:s}')
+        _LOGGER.debug("Requesting update for %s", appliance)
         await appliance.async_request_update()
 
-async def shutdown(sig, client: Optional[GeWebsocketClient], client_task: Optional[asyncio.Task[None]]):
+async def shutdown(sig, client: GeWebsocketClient | None, client_task: asyncio.Task[None] | None):
     #just exit if we don't have a client or task
     if client is None or client_task is None:
         return
 
-    _LOGGER.info(f"Signal caught: {sig}, shutting down...")
+    _LOGGER.info("Signal caught: %s, shutting down...", sig)
 
     # create the group to await
     group = asyncio.gather(client_task)

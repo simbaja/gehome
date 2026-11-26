@@ -1,5 +1,5 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.fridge import FridgeModelInfo
 
 class FridgeModelInfoConverter(ErdReadOnlyConverter[FridgeModelInfo]):

@@ -1,6 +1,6 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.dishwasher import ErdCycleCount
 
 _LOGGER = logging.getLogger(__name__)

@@ -1,7 +1,12 @@
 import logging
 from datetime import timedelta
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import (
+    erd_decode_int,
+    erd_decode_timespan,
+    erd_encode_int,
+    erd_encode_timespan,
+)
 from ...values.oven import OvenCookSetting, ErdOvenCookMode, OVEN_COOK_MODE_MAP
 
 _LOGGER = logging.getLogger(__name__)
@@ -23,7 +28,7 @@ class OvenCookModeConverter(ErdReadWriteConverter[OvenCookSetting]):
                 two_temp_cook_time=erd_decode_timespan(value[22:26]) or timedelta(0),
                 raw_string=value)
         except Exception:
-            _LOGGER.warning(f"Could not decode oven mode {erd_decode_int(value[0:2])}, raw value {value}")
+            _LOGGER.warning("Could not decode oven mode %s, raw value %s", erd_decode_int(value[0:2]), value)
             return OvenCookSetting(
                 raw_string=value
             )

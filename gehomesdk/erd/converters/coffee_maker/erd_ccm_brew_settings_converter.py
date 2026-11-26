@@ -1,7 +1,7 @@
 import logging
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
-from ...values.coffee_maker import *
+from ..primitives import erd_decode_int, erd_encode_int
+from ...values.coffee_maker import ErdCcmBrewSettings, ErdCcmBrewStrength
 
 _LOGGER = logging.getLogger(__name__)
 

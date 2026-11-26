@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
-from ...values.oven import *
+from ..primitives import erd_decode_int, erd_encode_int
+from ...values.oven import ErdOvenLightLevel
 
 class ErdOvenLightLevelConverter(ErdReadWriteConverter[ErdOvenLightLevel]):
     def erd_decode(self, value: str) -> ErdOvenLightLevel:

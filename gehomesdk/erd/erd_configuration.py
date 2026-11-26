@@ -3,6 +3,10 @@ from typing import Any
 from .erd_data_type import ErdDataType
 from .erd_code_class import ErdCodeClass
 from .erd_codes import ErdCode
+from .values.espresso_maker import (
+    ErdEspressoSteamKnobPosition,
+    ErdEspressoWaterHardness,
+)
 from .converters import *
 
 class ErdConfigurationEntry:

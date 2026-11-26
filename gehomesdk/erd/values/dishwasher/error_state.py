@@ -1,6 +1,6 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 class ErdErrorState (NamedTuple):
     id: int = 0
     active: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None

@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
-from ...values.ac import *
+from ..primitives import erd_decode_int, erd_encode_int
+from ...values.ac import ErdAcFanSetting
 
 class ErdAcFanSettingConverter(ErdReadWriteConverter[ErdAcFanSetting]):
     def erd_decode(self, value: str) -> ErdAcFanSetting:

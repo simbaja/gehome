@@ -1,5 +1,4 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
 from ...values.fridge import ErdConvertableDrawerMode
 
 class ErdConvertableDrawerModeConverter(ErdReadWriteConverter[ErdConvertableDrawerMode]):

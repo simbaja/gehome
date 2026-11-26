@@ -1,7 +1,7 @@
 import enum
 from enum import auto
-from typing import NamedTuple, Optional
-from .advantium_enums import *
+from typing import NamedTuple
+from .advantium_enums import AdvantiumCookMode, AdvantiumWarmStatus
 
 @enum.unique
 class CookClass(enum.Enum):
@@ -10,9 +10,9 @@ class CookClass(enum.Enum):
 
 class AdvantiumCookSetting(NamedTuple):
     cook_mode: AdvantiumCookMode = AdvantiumCookMode.NO_MODE
-    warm_status: Optional[AdvantiumWarmStatus] = None
-    target_temperature_120v_f: Optional[int] = None
-    target_temperature_240v_f: Optional[int] = None
-    target_power_level: Optional[int] = None
+    warm_status: AdvantiumWarmStatus | None = None
+    target_temperature_120v_f: int | None = None
+    target_temperature_240v_f: int | None = None
+    target_power_level: int | None = None
     default_cook_time: int = 0
     allow_temperature_set: bool = False

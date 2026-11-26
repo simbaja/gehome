@@ -1,5 +1,4 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
 from ...values.oven import OvenRanges
 
 class OvenRangesConverter(ErdReadOnlyConverter[OvenRanges]):  

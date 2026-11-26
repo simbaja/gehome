@@ -1,6 +1,6 @@
 """ERD Codes for GE appliances"""
 import enum
-from typing import TypeAlias, Union
+from typing import TypeAlias
 
 @enum.unique
 class ErdCode(enum.Enum):
@@ -603,4 +603,4 @@ class ErdCode(enum.Enum):
     RESOURCE_CUMULATIVE_HOT_WATER_ML = "0xd020"      # u32 milliliters (cumulative)
     RESOURCE_CUMULATIVE_COLD_WATER_ML = "0xd021"     # u32 milliliters (cumulative)
     RESOURCE_CUMULATIVE_ENERGY_WH = "0xd030"          # u32 watt-hours (cumulative)
-ErdCodeType: TypeAlias = Union[ErdCode, str]
+ErdCodeType: TypeAlias = ErdCode | str

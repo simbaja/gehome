@@ -1,5 +1,5 @@
 import enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 @enum.unique
 class BaseCycleType(enum.Enum):
@@ -23,7 +23,7 @@ class ErdWasherLinkData (NamedTuple):
     water_extraction_level_index: int = 0
     washer_load_size_index: int = 0
     base_cycle_type: BaseCycleType = BaseCycleType.UNKNOWN
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
     
     def stringify(self, **kwargs):
         return f"Washer Cycle Count:{self.washer_cycle_count}, \

@@ -1,9 +1,19 @@
 import logging
 
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.advantium import ErdAdvantiumCookStatus
-from ...values.advantium.advantium_enums import *
+from ...values.advantium.advantium_enums import (
+    AdvantiumCookAction,
+    AdvantiumCookMode,
+    AdvantiumCoolingFanStatus,
+    AdvantiumDoorStatus,
+    AdvantiumOvenLightStatus,
+    AdvantiumPreheatStatus,
+    AdvantiumSensingActive,
+    AdvantiumTerminationReason,
+    AdvantiumWarmStatus,
+)
 
 _LOGGER = logging.getLogger(__name__)
 

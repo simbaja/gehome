@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdBrand(enum.Enum):
@@ -19,7 +18,7 @@ class ErdBrand(enum.Enum):
     ALLIED = "0C"
     LENNOX = "0D"
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         try:
             return ERD_BRAND_NAME_MAP[self]
         except Exception:

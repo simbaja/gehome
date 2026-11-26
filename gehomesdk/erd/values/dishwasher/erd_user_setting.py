@@ -1,5 +1,5 @@
 import enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 @enum.unique
 class UserSetting(enum.Enum):
@@ -57,4 +57,4 @@ class ErdUserSetting (NamedTuple):
     wash_zone: UserWashZoneSetting = UserWashZoneSetting.BOTH
     delay_hours: int = 0
     wifi_enabled: UserSetting = UserSetting.DISABLE
-    raw_value: Optional[str] = None
+    raw_value: str | None = None

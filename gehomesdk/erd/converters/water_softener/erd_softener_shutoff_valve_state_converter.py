@@ -1,5 +1,5 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 from ...values import ErdWaterSoftenerShutoffValveState
 from ....exception import GeSetErdNotAllowedError
 

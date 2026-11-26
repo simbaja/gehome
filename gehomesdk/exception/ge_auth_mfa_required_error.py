@@ -1,4 +1,3 @@
-from typing import List, Optional
 
 from .ge_auth_failed_error import GeAuthFailedError
 
@@ -24,9 +23,9 @@ class GeAuthMfaRequiredError(GeAuthFailedError):
     def __init__(
         self,
         *args,
-        mfa_methods: Optional[List[str]] = None,
-        csrf_token: Optional[str] = None,
+        mfa_methods: list[str] | None = None,
+        csrf_token: str | None = None,
     ):
         super().__init__(*args)
-        self.mfa_methods: List[str] = mfa_methods or []
-        self.csrf_token: Optional[str] = csrf_token
+        self.mfa_methods: list[str] = mfa_methods or []
+        self.csrf_token: str | None = csrf_token

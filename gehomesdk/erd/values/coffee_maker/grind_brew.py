@@ -1,5 +1,5 @@
 import enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 
 @enum.unique
@@ -26,9 +26,9 @@ class ErdCcmGrindBrewSettings(NamedTuple):
     ounces: int = 10
     number_of_cups: int = 6
     bloom_time: int = 0
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return (
             f"cups: {self.number_of_cups}, "
             f"strength: {self.brew_strength.stringify()}, "

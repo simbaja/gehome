@@ -1,5 +1,5 @@
 from datetime import timedelta
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 from .erd_toaster_oven_cook_mode import ErdToasterOvenCookMode
 from .erd_toaster_oven_size import ErdToasterOvenSize
@@ -11,16 +11,16 @@ class ToasterOvenCookSetting(NamedTuple):
     target temperature, cook time, cook mode, and the mode-specific fields
     (shade, size, count, preferences) used by only some cook modes.
     """
-    cook_mode: Optional[ErdToasterOvenCookMode] = None
+    cook_mode: ErdToasterOvenCookMode | None = None
     temperature: int = 0
     cook_time: timedelta = timedelta(0)
     shade: int = 0
-    size: Optional[ErdToasterOvenSize] = None
+    size: ErdToasterOvenSize | None = None
     item_count: int = 0
     preferences: int = 0
-    raw_string: Optional[str] = None
+    raw_string: str | None = None
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         """Format ToasterOvenCookSetting values nicely."""
         if self.cook_mode is None:
             return None

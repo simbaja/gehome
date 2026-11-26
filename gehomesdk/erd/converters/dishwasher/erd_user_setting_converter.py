@@ -1,6 +1,6 @@
 import logging
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 from ...values.dishwasher.erd_user_setting import (
     ErdUserSetting, 
     UserSetting, 

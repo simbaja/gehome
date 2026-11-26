@@ -1,6 +1,6 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_timespan
 from ...values.advantium import ErdAdvantiumPrecisionMinMax
 
 _LOGGER = logging.getLogger(__name__)

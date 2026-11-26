@@ -1,10 +1,9 @@
-from typing import Set
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_bytes
 from ...values.oven import ErdExtendedCookMode, ErdOvenCookMode
 
-class ErdExtendedCookModeConverter(ErdReadOnlyConverter[Set[ErdOvenCookMode]]):
-    def erd_decode(self, value: str) -> Set[ErdOvenCookMode]:
+class ErdExtendedCookModeConverter(ErdReadOnlyConverter[set[ErdOvenCookMode]]):
+    def erd_decode(self, value: str) -> set[ErdOvenCookMode]:
         if not value:
             return set[ErdOvenCookMode]()
         mode_bytes = [int(i) for i in erd_decode_bytes(value)]

@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdCooktopGasValveLockStatus(enum.Enum):
@@ -9,8 +8,8 @@ class ErdCooktopGasValveLockStatus(enum.Enum):
     LOCKED = 3
     UNKNOWN = 255
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return self.name.replace("_"," ").title()
     
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self == ErdCooktopGasValveLockStatus.LOCKED

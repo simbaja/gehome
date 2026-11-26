@@ -1,5 +1,6 @@
 import asyncio
 import contextlib
+import json
 import logging
 import ssl
 
@@ -7,10 +8,18 @@ from aiohttp import ClientTimeout
 from websockets.asyncio.client import ClientConnection, connect
 from websockets.protocol import State
 from websockets.exceptions import WebSocketException, ConnectionClosed
-from typing import Any, Dict, List, Optional, Tuple, AsyncIterator, AsyncIterable
+from typing import Any
+from collections.abc import AsyncIterator, AsyncIterable
 
 from ..erd import ErdCode, ErdCodeType
-from ..exception import *
+from ..exception import (
+    GeAuthFailedError,
+    GeDuplicateApplianceError,
+    GeGeneralServerError,
+    GeNeedsReauthenticationError,
+    GeNotAuthenticatedError,
+    GeRequestError,
+)
 from ..ge_appliance import GeAppliance
 
 from .async_helpers import CancellableAsyncIterator
@@ -24,11 +33,6 @@ from .const import (
     EVENT_GOT_APPLIANCE_FEATURES,
 )
 from .states import GeClientState
-
-try:
-    import ujson as json # pyright: ignore[reportMissingImports, reportMissingModuleSource]
-except ImportError:
-    import json
 
 ALL_ERD = "allErd"
 API_HOST = API_URL[8:]  # Drop the https://
@@ -66,20 +70,20 @@ class GeWebsocketClient(GeBaseClient):
             username: str, 
             password: str, 
             region: str = "US", 
-            event_loop: Optional[asyncio.AbstractEventLoop] = None, 
-            keepalive: Optional[int] = KEEPALIVE_TIMEOUT, 
-            list_frequency: Optional[int] = LIST_APPLIANCES_FREQUENCY, 
-            ssl_context: Optional[ssl.SSLContext] = None,
-            refresh_token: Optional[str] = None,
+            event_loop: asyncio.AbstractEventLoop | None = None, 
+            keepalive: int | None = KEEPALIVE_TIMEOUT, 
+            list_frequency: int | None = LIST_APPLIANCES_FREQUENCY, 
+            ssl_context: ssl.SSLContext | None = None,
+            refresh_token: str | None = None,
             ):
         super().__init__(username, password, region, event_loop, refresh_token=refresh_token)
-        self._endpoint: Optional[str] = None
-        self._socket: Optional[ClientConnection] = None
-        self._pending_erds: Dict[Tuple[str, str], str]  = {}
-        self._keepalive_timeout: Optional[int] = keepalive
-        self._keepalive_fut: Optional[asyncio.Future] = None
-        self._list_frequency: Optional[int] = list_frequency
-        self._list_fut: Optional[asyncio.Future] = None
+        self._endpoint: str | None = None
+        self._socket: ClientConnection | None = None
+        self._pending_erds: dict[tuple[str, str], str]  = {}
+        self._keepalive_timeout: int | None = keepalive
+        self._keepalive_fut: asyncio.Future | None = None
+        self._list_frequency: int | None = list_frequency
+        self._list_fut: asyncio.Future | None = None
         # Built lazily in _async_ensure_ssl_context(): ssl.create_default_context()
         # reads the system trust store from disk and is synchronous, so calling
         # it here would block the event loop for however long that disk read
@@ -100,7 +104,7 @@ class GeWebsocketClient(GeBaseClient):
             )
         return self._ssl_context
 
-    async def _async_do_full_login_flow(self) -> Dict[str,str]:
+    async def _async_do_full_login_flow(self) -> dict[str,str]:
         """Perform a complete login flow, returning credentials."""
 
         _LOGGER.debug('Getting OAuth2 token')
@@ -109,7 +113,7 @@ class GeWebsocketClient(GeBaseClient):
         _LOGGER.debug('Getting WS credentials')
         return await self._async_get_wss_credentials()
     
-    async def _async_do_refresh_login_flow(self) -> Dict[str, str]:
+    async def _async_do_refresh_login_flow(self) -> dict[str, str]:
         """Perform a refresh login flow, returning credentials"""
 
         _LOGGER.debug('Refreshing OAuth2 token')
@@ -118,7 +122,7 @@ class GeWebsocketClient(GeBaseClient):
         _LOGGER.debug('Getting WS credentials')
         return await self._async_get_wss_credentials()
 
-    async def _async_get_wss_credentials(self) -> Dict[str,str]:
+    async def _async_get_wss_credentials(self) -> dict[str,str]:
         """Get WSS credentials"""
 
         await self._set_state(GeClientState.AUTHORIZING_CLIENT)
@@ -252,7 +256,7 @@ class GeWebsocketClient(GeBaseClient):
 
     async def async_request_update(self, appliance: GeAppliance) -> None:
         """Request an appliance send a full update."""
-        _LOGGER.debug(f"Requesting update for client {appliance.mac_addr}")
+        _LOGGER.debug("Requesting update for client %s", appliance.mac_addr)
         msg_dict = {
             "kind": "websocket#api",
             "action": "api",
@@ -265,7 +269,7 @@ class GeWebsocketClient(GeBaseClient):
 
     async def async_request_message(self, appliance: GeAppliance) -> None:
         """Request an appliance get notification history"""
-        _LOGGER.debug(f"Requesting notification history for client {appliance.mac_addr}")
+        _LOGGER.debug("Requesting notification history for client %s", appliance.mac_addr)
         msg_dict = {
             "kind": "websocket#api",
             "action": "api",
@@ -278,7 +282,7 @@ class GeWebsocketClient(GeBaseClient):
 
     async def async_request_features(self, appliance: GeAppliance) -> None:
         """Request an appliance send features."""
-        _LOGGER.debug(f"Requesting features for client {appliance.mac_addr}")
+        _LOGGER.debug("Requesting features for client %s", appliance.mac_addr)
         msg_dict = {
             "kind": "websocket#api",
             "action": "api",
@@ -337,11 +341,11 @@ class GeWebsocketClient(GeBaseClient):
         """
         Process an incoming message.
         """
-        message_dict = json.loads(message)  # type: Dict
+        message_dict: dict[str, Any] = json.loads(message)
         try:
             kind = message_dict['kind']
         except KeyError:
-            _LOGGER.debug(f"Could not get message kind, skipping message: {message_dict}")
+            _LOGGER.debug("Could not get message kind, skipping message: %s", message_dict)
             return
 
         #if we have a response that indicates success, check it
@@ -350,7 +354,7 @@ class GeWebsocketClient(GeBaseClient):
                 raise GeNeedsReauthenticationError
             raise GeRequestError(message, message_dict.get("code"), message_dict.get("reason"))
 
-        _LOGGER.debug(f"WSS Message received: {message_dict}")
+        _LOGGER.debug("WSS Message received: %s", message_dict)
         if kind.lower() == "publish#erd":
             await self._process_erd_update(message_dict)
         elif kind.lower() == "websocket#api":
@@ -367,12 +371,12 @@ class GeWebsocketClient(GeBaseClient):
             elif f"-{ALL_ERD}" in message_id:
                 await self._process_cache_update(message_dict)
             else:
-                _LOGGER.debug(f"Unknown message received: {message_dict}")
+                _LOGGER.debug("Unknown message received: %s", message_dict)
 
         #added per #867 in websocket project        
         await asyncio.sleep(0)
 
-    async def _process_appliance_list(self, message_dict: Dict) -> None:
+    async def _process_appliance_list(self, message_dict: dict) -> None:
         """
         Process the appliance list.
 
@@ -416,7 +420,7 @@ class GeWebsocketClient(GeBaseClient):
             await self._add_appliance(mac_addr, online)
         await self.async_event(EVENT_GOT_APPLIANCE_LIST, items)
 
-    async def _process_appliance_features(self, message_dict: Dict) -> None:
+    async def _process_appliance_features(self, message_dict: dict) -> None:
         """
         Process the appliance features.
 
@@ -446,13 +450,13 @@ class GeWebsocketClient(GeBaseClient):
             raise ValueError("Not an applianceFeature")
         items = body["features"]
         mac_addr = body["applianceId"].upper()
-        _LOGGER.debug(f'Received features {items} for {mac_addr}')
+        _LOGGER.debug("Received features %s for %s", items, mac_addr)
         if mac_addr in self.appliances:
             await self._set_appliance_features(self.appliances[mac_addr], items)        
 
         await self.async_event(EVENT_GOT_APPLIANCE_FEATURES, items)
 
-    async def _process_cache_update(self, message_dict: Dict) -> None:
+    async def _process_cache_update(self, message_dict: dict) -> None:
         """
         Process an appliance's full cache update.
         
@@ -483,7 +487,7 @@ class GeWebsocketClient(GeBaseClient):
         updates = {i["erd"]: i["value"] for i in body["items"]}
         await self._update_appliance_state(mac_addr, updates)
 
-    async def _process_erd_update(self, message_dict: Dict) -> None:
+    async def _process_erd_update(self, message_dict: dict) -> None:
         """
         Process an ERD update (pseudo-HTTP PUBLISH).
 
@@ -508,7 +512,7 @@ class GeWebsocketClient(GeBaseClient):
         update = {item['erd']: item['value']}
         await self._update_appliance_state(mac_addr, update)
 
-    async def _update_appliance_state(self, mac_addr: str, updates: Dict[ErdCodeType, str]) -> None:
+    async def _update_appliance_state(self, mac_addr: str, updates: dict[ErdCodeType, str]) -> None:
         """Update appliance state, performing callbacks if necessary."""
         try:
             appliance = self.appliances[mac_addr]
@@ -519,7 +523,7 @@ class GeWebsocketClient(GeBaseClient):
             await self.async_event(EVENT_APPLIANCE_STATE_CHANGE, [appliance, state_changes])
         await self.async_event(EVENT_APPLIANCE_UPDATE_RECEIVED, [appliance, updates])
 
-    async def _send_dict(self, msg_dict: Dict[str, Any]) -> None:
+    async def _send_dict(self, msg_dict: dict[str, Any]) -> None:
         """JSON encode a dictionary and send it."""
         payload = json.dumps(msg_dict)
         try:
@@ -559,7 +563,7 @@ class GeWebsocketClient(GeBaseClient):
         msg_dict = {"kind": "websocket#subscribe", "action": "subscribe", "resources": ["/appliance/*/erd/*"]}
         await self._send_dict(msg_dict)   
 
-    async def _subscribe_appliances(self, appliances: List[GeAppliance]) -> None:
+    async def _subscribe_appliances(self, appliances: list[GeAppliance]) -> None:
         """Subscribe to a list of appliances."""
         msg_dict = {
             "kind": "websocket#subscribe",
@@ -598,7 +602,7 @@ class GeWebsocketClient(GeBaseClient):
         if set_online:
             new_appliance.set_available()
 
-        _LOGGER.debug(f'Adding appliance {mac_addr}')
+        _LOGGER.debug("Adding appliance %s", mac_addr)
         self.appliances[mac_addr] = new_appliance
         await self.async_event(EVENT_ADD_APPLIANCE, new_appliance)
         await self.async_request_update(new_appliance)

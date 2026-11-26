@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdWaterSoftenerShutoffValveState(enum.Enum):
@@ -8,5 +7,5 @@ class ErdWaterSoftenerShutoffValveState(enum.Enum):
     TRANSITION = 2
     UNKNOWN = 255
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return self.name.replace("_"," ").title()

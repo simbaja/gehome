@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdOvenWarmingState(enum.Enum):
@@ -9,7 +8,7 @@ class ErdOvenWarmingState(enum.Enum):
     HIGH = 3
     NOT_AVAILABLE = 255
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self != ErdOvenWarmingState.OFF
 
     def stringify(self, **kwargs):

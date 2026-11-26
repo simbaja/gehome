@@ -1,5 +1,4 @@
-from typing import Optional
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 from ..abstract import ErdReadWriteConverter
 from ...values.common import ErdInterfaceLocked
 #user interface locked state
@@ -19,14 +18,14 @@ class ErdLockedConverter(ErdReadWriteConverter[ErdInterfaceLocked]):
             pass
         return erd_encode_int(iv)
         
-class ErdLockedBoolConverter(ErdReadWriteConverter[Optional[bool]]):
+class ErdLockedBoolConverter(ErdReadWriteConverter[bool | None]):
     def erd_decode(self, value: str) -> bool:
         try:
             return bool(ErdInterfaceLocked(erd_decode_int(value)) == ErdInterfaceLocked.LOCKED)
         except ValueError:
             return False
 
-    def erd_encode(self, value: Optional[bool]) -> str:
+    def erd_encode(self, value: bool | None) -> str:
         if value is None:
             return "FF"
         return erd_encode_int(

@@ -1,7 +1,5 @@
-from typing import Union
 
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
 from ...values import ErdWaterFilterManualMode
 
 class ErdFilterManualModeConverter(ErdReadWriteConverter[ErdWaterFilterManualMode]):
@@ -11,7 +9,7 @@ class ErdFilterManualModeConverter(ErdReadWriteConverter[ErdWaterFilterManualMod
         except ValueError:
             return ErdWaterFilterManualMode.NOT_MANUAL
 
-    def erd_encode(self, value: Union[ErdWaterFilterManualMode, str]) -> str:
+    def erd_encode(self, value: ErdWaterFilterManualMode | str) -> str:
         if isinstance(value, ErdWaterFilterManualMode):
             return value.value
         return ErdWaterFilterManualMode(str(value)).value

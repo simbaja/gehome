@@ -1,4 +1,5 @@
-from typing import AsyncIterable, AsyncIterator, TypeVar
+from typing import TypeVar
+from collections.abc import AsyncIterable, AsyncIterator
 import asyncio
 import contextlib
 
@@ -11,7 +12,7 @@ async def CancellableAsyncIterator(source: AsyncIterable[T], cancel_event: async
     """
     aiter = source.__aiter__()
     # create one cancel waiter and reuse it inside the loop
-    cancel_task = asyncio.ensure_future(cancel_event.wait())
+    cancel_task = asyncio.create_task(cancel_event.wait())
     try:
         while True:
             # fast-path: if cancellation already requested, stop

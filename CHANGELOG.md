@@ -14,6 +14,7 @@
 - Added laundry combo option ERDs and fixed `0x2140` definition
 - Added oven door state/control, air fry temperature range, and estimated minutes remaining ERDs
 - Added `AGENTS.md`, `docs/standards/`, Python 3.14 target, `pyright`/`ruff`/`.markdownlint.json` configuration, and reorganized `tests/` to mirror `gehomesdk/`
+- Modernized codebase to Python 3.14+ standards: replaced legacy `typing` / `# type:` comments, converted logger f-strings to lazy `%s` formatting, replaced non-registry star imports with explicit imports, modernized `asyncio` loop/task usage, and removed unused `requests` and optional `ujson` dependencies
 
 ## 2026.8.0
 

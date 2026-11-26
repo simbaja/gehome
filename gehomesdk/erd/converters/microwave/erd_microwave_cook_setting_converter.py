@@ -1,7 +1,6 @@
 import logging
-from typing import List
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 from ...values.microwave import ErdMicrowaveCookSetting
 
 _LOGGER = logging.getLogger(__name__)
@@ -26,7 +25,7 @@ class ErdMicrowaveCookSettingConverter(ErdReadWriteConverter[ErdMicrowaveCookSet
             _LOGGER.exception("Could not construct cook setting, using default.")
             return ErdMicrowaveCookSetting(raw_value=value)
     def erd_encode(self, value: ErdMicrowaveCookSetting) -> str:
-        valList: List[str] = [
+        valList: list[str] = [
             erd_encode_int(value.target_power_level, 1),
             erd_encode_int(value.cook_minutes, 1),
             erd_encode_int(value.cook_seconds, 1)

@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdDishwasherDoorStatus(enum.Enum):
@@ -8,12 +7,12 @@ class ErdDishwasherDoorStatus(enum.Enum):
     OPEN = 0
     NA = 255
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         if self == ErdDishwasherDoorStatus.NA:
             return None
         return self == ErdDishwasherDoorStatus.OPEN
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         if self == ErdDishwasherDoorStatus.NA:
             return None
         return self.name.title()

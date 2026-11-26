@@ -1,5 +1,5 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
+from ..primitives import erd_decode_int, erd_encode_int
 
 class ErdAdvantiumCookTimeAdjustConverter(ErdReadWriteConverter[int]):
     def erd_decode(self, value: str) -> int:

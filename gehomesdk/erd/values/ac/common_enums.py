@@ -1,5 +1,5 @@
 import enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 @enum.unique
 class ErdAcFanSetting(enum.Enum):
@@ -39,7 +39,7 @@ class ErdAcFilterStatus(enum.Enum):
     def stringify(self, **kwargs):
         return self.name.replace("_"," ").title()
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self != ErdAcFilterStatus.OK
 
 @enum.unique
@@ -63,7 +63,7 @@ class ErdAcAvailableModes(NamedTuple):
     has_fan: bool
     raw_value: str
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return (
             f"heat: {self.has_heat}, "
             f"dry: {self.has_dry}, "
@@ -84,7 +84,7 @@ class ErdAcAvailableFanSpeeds(NamedTuple):
     has_reserved: bool
     raw_value: str
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return (
             f"auto: {self.has_auto}, "
             f"high: {self.has_high}, "
@@ -100,7 +100,7 @@ class ErdAcAvailableTurboQuietModes(NamedTuple):
     has_quiet: bool
     raw_value: str
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return (
             f"normal: {self.has_normal}, "
             f"turbo: {self.has_turbo}, "

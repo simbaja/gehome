@@ -1,6 +1,6 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
-from ...values.hood import *
+from ..primitives import erd_decode_int
+from ...values.hood import ErdHoodLightLevelAvailability
 
 class ErdHoodLightLevelAvailabilityConverter(ErdReadOnlyConverter[ErdHoodLightLevelAvailability]):
     def erd_decode(self, value: str) -> ErdHoodLightLevelAvailability:

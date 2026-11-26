@@ -1,9 +1,9 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
     
 class ErdDryerExtendedTumbleOptionAllowables (NamedTuple):
     dryer_extended_tumble_disable_allowed: bool = False
     dryer_extended_tumble_enable_allowed: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
     
     def stringify(self, **kwargs):
         return f"DryerExtendedTumbleOptionAllowables: \

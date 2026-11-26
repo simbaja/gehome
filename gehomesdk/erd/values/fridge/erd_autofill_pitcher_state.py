@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdAutofillPitcherState(enum.Enum):
@@ -7,7 +6,7 @@ class ErdAutofillPitcherState(enum.Enum):
     ENABLED = "01"
     NA = "FF"
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         if(self == ErdAutofillPitcherState.NA):
             return "N/A"
         return self.name.title()

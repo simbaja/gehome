@@ -1,5 +1,5 @@
 import enum
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 @enum.unique
 class ErdDrynessLevel(enum.Enum):
@@ -154,7 +154,7 @@ class ErdLaundryDoorStatus(enum.Enum):
     def stringify(self, **kwargs):
         return self.name.title()      
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self == ErdLaundryDoorStatus.OPEN
 
 @enum.unique
@@ -217,7 +217,7 @@ class ErdSheetUsageConfiguration (NamedTuple):
     medium_load_size: int = 0
     small_load_size: int = 0
     timed_dryer_sheets_load_size: int = 0
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
     def stringify(self, **kwargs):
         return f"S:{self.small_load_size}, M:{self.medium_load_size}, L:{self.large_load_size}, XL:{self.extra_large_load_size}, Timed:{self.timed_dryer_sheets_load_size}"
@@ -225,7 +225,7 @@ class ErdSheetUsageConfiguration (NamedTuple):
 class ErdSmartDispense (NamedTuple):
     loads_left: int = 0
     signal: int = 0
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
 @enum.unique
 class ErdSmartDispenseTankStatus(enum.Enum):
@@ -317,7 +317,7 @@ class ErdTumbleStatus(enum.Enum):
             return "N/A"
         return self.name.replace("_"," ").title()         
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self == ErdTumbleStatus.ENABLE
 
 @enum.unique
@@ -490,7 +490,7 @@ class ErdLaundryControlLockOption(enum.Enum):
     def stringify(self, **kwargs) -> str:
         return self.name.replace("_", " ").title()
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         if self == ErdLaundryControlLockOption.LOCKED:
             return True
         if self == ErdLaundryControlLockOption.UNLOCKED:

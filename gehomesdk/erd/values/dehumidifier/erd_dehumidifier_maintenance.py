@@ -1,7 +1,7 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 class ErdDehumidifierMaintenance (NamedTuple):
     empty_bucket: bool = False
     clean_filter: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 

@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdWaterSoftenerErrorCode(enum.Enum):
@@ -13,7 +12,7 @@ class ErdWaterSoftenerErrorCode(enum.Enum):
     SHUTOFF_VALVE_NOT_CLOSED_TIMEOUT = 6
     SHUTOFF_VALVE_OPENED_TIMEOUT = 7
     
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         if self == ErdWaterSoftenerErrorCode.UNKNOWN:
             return None
         return self.name.replace("_", " ").title()

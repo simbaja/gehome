@@ -1,5 +1,5 @@
 import enum
-from typing import Optional, NamedTuple
+from typing import NamedTuple
 
 
 @enum.unique
@@ -11,7 +11,7 @@ class ErdWaterHeaterMode(enum.Enum):
     VACATION = 4
     UNKNOWN = -1
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         if self == ErdWaterHeaterMode.UNKNOWN:
             return None
         return self.name.title().replace("_", " ")
@@ -24,7 +24,7 @@ class ErdWaterHeaterAvailableModes(NamedTuple):
     has_vacation: bool
     raw_value: str
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return f"Hybrid: {self.has_hybrid}, \
             Standard Electric: {self.has_standard_electric}, \
             E-Heat: {  self.has_e_heat}, \

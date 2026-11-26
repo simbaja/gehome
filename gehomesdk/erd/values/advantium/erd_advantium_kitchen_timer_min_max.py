@@ -1,9 +1,9 @@
 from datetime import timedelta
-from typing import NamedTuple, Optional
+from typing import NamedTuple
 
 
 class ErdAdvantiumKitchenTimerMinMax(NamedTuple):
     """Defines min/max kitchen timer settings"""
-    min_time: Optional[timedelta] = None
-    max_time: Optional[timedelta] = None
-    raw_value: Optional[str] = None
+    min_time: timedelta | None = None
+    max_time: timedelta | None = None
+    raw_value: str | None = None

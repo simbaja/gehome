@@ -1,6 +1,10 @@
 from datetime import timedelta
-from typing import NamedTuple, Optional
-from .advantium_enums import *
+from typing import NamedTuple
+from .advantium_enums import (
+    AdvantiumCookAction,
+    AdvantiumCookMode,
+    AdvantiumWarmStatus,
+)
 
 class ErdAdvantiumCookSetting (NamedTuple):
     d: int = 0  #RANDOM
@@ -20,4 +24,4 @@ class ErdAdvantiumCookSetting (NamedTuple):
     r: int = 0  #NON-MUTABLE
     s: int = 0  #NON-MUTABLE
     warm_status: AdvantiumWarmStatus = AdvantiumWarmStatus.OFF
-    raw_value: Optional[str] = None
+    raw_value: str | None = None

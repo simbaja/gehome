@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class ErdHoodLightLevel(enum.Enum):
@@ -8,7 +7,7 @@ class ErdHoodLightLevel(enum.Enum):
     HIGH = 2
     MED = 3
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self != ErdHoodLightLevel.OFF
 
     def stringify(self, **kwargs):
@@ -21,7 +20,7 @@ class ErdHoodLightLevelNew(enum.Enum):
     L2 = 2
     L3 = 3
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self != ErdHoodLightLevel.OFF
 
     def stringify(self, **kwargs):
@@ -35,7 +34,7 @@ class ErdHoodFanSpeed(enum.Enum):
     HIGH   = 3
     BOOST  = 4
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self != ErdHoodFanSpeed.OFF
 
     def stringify(self, **kwargs):

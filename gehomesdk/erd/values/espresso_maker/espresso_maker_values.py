@@ -1,5 +1,5 @@
 import enum
-from typing import FrozenSet, NamedTuple, Optional
+from typing import NamedTuple
 
 @enum.unique
 class ErdEspressoBrewType(enum.Enum):
@@ -16,7 +16,7 @@ class ErdEspressoBrewType(enum.Enum):
 
     UNKNOWN = 255
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         if self == ErdEspressoBrewType.MY_CUP:
             return "MyCup"
         return self.name.replace("_", " ").title()
@@ -30,7 +30,7 @@ class ErdEspressoWaterHardness(enum.Enum):
 
     UNKNOWN = 255
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return self.name.replace("_", " ").title()
 
 @enum.unique
@@ -41,7 +41,7 @@ class ErdEspressoSteamKnobPosition(enum.Enum):
 
     UNKNOWN = 255
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return self.name.replace("_", " ").title()
 
 class ErdEspressoBrewParameters(NamedTuple):
@@ -50,9 +50,9 @@ class ErdEspressoBrewParameters(NamedTuple):
     brew_type: ErdEspressoBrewType = ErdEspressoBrewType.UNKNOWN
     volume: int = 0                 # mL
     grind_time: float = 0           # seconds
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return f"{self.brew_type.stringify()}, {self.volume} mL, {self.temperature:.1f} C, {self.grind_time:.1f} s grind"
 
 class ErdEspressoDrinkParameters(NamedTuple):
@@ -67,9 +67,9 @@ class ErdEspressoDrinkParameters(NamedTuple):
     max_grind_time: float = 0
     min_volume: int = 0
     max_volume: int = 0
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return f"{self.volume} mL, {self.temperature:.1f} C, {self.grind_time:.1f} s grind"
 
 class ErdEspressoRange(NamedTuple):
@@ -77,24 +77,24 @@ class ErdEspressoRange(NamedTuple):
     value: int = 0
     min: int = 0
     max: int = 0
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return str(self.value)
 
 class ErdEspressoSupportedBrewTypes(NamedTuple):
-    brew_types: FrozenSet[ErdEspressoBrewType] = frozenset()
-    raw_value: Optional[str] = None
+    brew_types: frozenset[ErdEspressoBrewType] = frozenset()
+    raw_value: str | None = None
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         return ", ".join(b.stringify() or "" for b in sorted(self.brew_types, key=lambda b: b.value))
 
 class ErdEspressoSupportedFeatures(NamedTuple):
     my_cup: bool = False
     my_brew: bool = False
     steam: bool = False
-    raw_value: Optional[str] = None
+    raw_value: str | None = None
 
-    def stringify(self, **kwargs) -> Optional[str]:
+    def stringify(self, **kwargs) -> str | None:
         features = [n for n, v in (("MyCup", self.my_cup), ("MyBrew", self.my_brew), ("Steam", self.steam)) if v]
         return ", ".join(features)

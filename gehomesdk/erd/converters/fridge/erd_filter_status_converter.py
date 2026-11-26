@@ -1,5 +1,4 @@
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
 from ...values.fridge import ErdFilterStatus
 
 class ErdFilterStatusConverter(ErdReadOnlyConverter[ErdFilterStatus]):

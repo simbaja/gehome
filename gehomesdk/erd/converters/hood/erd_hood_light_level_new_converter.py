@@ -1,6 +1,6 @@
 from ..abstract import ErdReadWriteConverter
-from ..primitives import *
-from ...values.hood import *
+from ..primitives import erd_decode_int, erd_encode_int
+from ...values.hood import ErdHoodLightLevelNew
 
 class ErdHoodLightLevelNewConverter(ErdReadWriteConverter[ErdHoodLightLevelNew]):
     def erd_decode(self, value: str) -> ErdHoodLightLevelNew:

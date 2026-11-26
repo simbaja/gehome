@@ -1,6 +1,6 @@
 import logging
 from ..abstract import ErdReadOnlyConverter
-from ..primitives import *
+from ..primitives import erd_decode_int
 from ...values.laundry import ErdWashTempLevel, WashTempLevel, WASHTEMP_LEVEL_MAP
 
 _LOGGER = logging.getLogger(__name__)

@@ -1,12 +1,11 @@
 import enum
-from typing import Optional
 
 @enum.unique
 class AdvantiumCoolingFanStatus(enum.Enum):
     OFF = 0
     ON = 1
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self == AdvantiumCoolingFanStatus.ON
 
 @enum.unique
@@ -36,7 +35,7 @@ class AdvantiumDoorStatus(enum.Enum):
     OPEN = 0
     CLOSED = 1
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self == AdvantiumDoorStatus.OPEN    
 
 @enum.unique
@@ -84,7 +83,7 @@ class AdvantiumOvenLightStatus(enum.Enum):
     OFF = 0
     ON = 1
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self == AdvantiumOvenLightStatus.ON    
 
 @enum.unique
@@ -98,5 +97,5 @@ class AdvantiumSensingActive(enum.Enum):
     INACTIVE = 0
     ACTIVE = 1
 
-    def boolify(self) -> Optional[bool]:
+    def boolify(self) -> bool | None:
         return self == AdvantiumSensingActive.ACTIVE    
