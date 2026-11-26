@@ -17,6 +17,6 @@
   "venvPath": ".",
   "venv": ".venv",
   "typeCheckingMode": "standard",
-  "pythonVersion": "3.13",
+  "pythonVersion": "3.14",
   "pythonPlatform": "Windows"
 }

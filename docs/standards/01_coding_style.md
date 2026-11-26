@@ -63,7 +63,7 @@ self._available = True
 
 ## 5. Typing Patterns
 
-* Target **Python 3.13+** compatibility (matches `setup.py` and `.vscode/settings.json` standard type checking).
+* Target **Python 3.14+** compatibility (matches `setup.py`, `pyproject.toml`, and `pyrightconfig.json`).
 * Annotate all public function/method parameters and return types.
 * Avoid `Any` unless dealing with genuinely dynamic JSON or heterogeneous ERD decode outputs.
 * Parametrize generic collections (`dict[str, GeAppliance]`, `list[str]`, `set[ErdCodeType]`). Use modern union syntax (`str | None`) or `Optional[str]` consistently within a file.

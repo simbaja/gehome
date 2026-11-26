@@ -4,7 +4,7 @@ Instructions for AI coding agents working in `gehomesdk`.
 
 ## Project Overview
 
-`gehomesdk` is an asynchronous Python SDK (Python 3.13+) for GE WiFi-enabled (SmartHQ) appliances, primarily used to power Home Assistant integrations (such as `ge_home`) and the `gehome-appliance-data` CLI.
+`gehomesdk` is an asynchronous Python SDK (Python 3.14+) for GE WiFi-enabled (SmartHQ) appliances, primarily used to power Home Assistant integrations (such as `ge_home`) and the `gehome-appliance-data` CLI.
 
 Core subsystems:
 - `gehomesdk/clients/` — Async WebSocket/HTTP clients (`GeBaseClient`, `GeWebsocketClient`), OAuth2/MFA login flows (`GeSmartHqLogin`), client states, and event constants.
