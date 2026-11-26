@@ -32,3 +32,9 @@ from .tumble_status_converter import TumbleStatusConverter
 from .washtemp_level_converter import WashTempLevelConverter
 from .washer_link_data_converter import WasherLinkDataConverter
 from .smart_dispense_tank_size_converter import SmartDispenseTankSizeConverter
+from .combo_option_converters import (
+    ErdDeepFillIncrementalOptionConverter,
+    ErdLaundryControlLockOptionConverter,
+    ErdSoilLevelOptionConverter,
+    ErdWashTempOptionConverter,
+)

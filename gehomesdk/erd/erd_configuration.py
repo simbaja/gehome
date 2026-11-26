@@ -256,8 +256,19 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.LAUNDRY_DRYER_BLOCKED_VENT_FAULT, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_DRYER_SENSOR, ErdDataType.BOOL),
 
     # Laundry - Combo
+    ErdConfigurationEntry(ErdCode.LAUNDRY_CONTROL_LOCK_OPTION, ErdLaundryControlLockOptionConverter(), ErdCodeClass.LAUNDRY_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_DEEP_FILL_INCREMENTAL_OPTION, ErdDeepFillIncrementalOptionConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_EXTRA_RINSE_OPTION, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WATER_TEMP_OPTION, ErdWashTempOptionConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_SOIL_LEVEL_OPTION, ErdSoilLevelOptionConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR),
     ErdConfigurationEntry(ErdCode.LAUNDRY_COMBO_WASHER_TIME_REMAINING, ErdTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
     ErdConfigurationEntry(ErdCode.LAUNDRY_COMBO_DRYER_TIME_REMAINING, ErdTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_COMBO_WASH_MODE_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_COMBO_DRY_MODE_STATUS, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_SMART_HQ_REMOTE_OPTION, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_REMOTE_SPIN_TIME_LEVEL, SpinTimeLevelConverter(), ErdCodeClass.LAUNDRY_WASHER_SENSOR),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_SMART_SOFTENER_DISPENSE_TIME, ErdReadOnlyTimeSpanConverter(uom="seconds"), ErdCodeClass.TIMER, ErdDataType.TIMESPAN),
+    ErdConfigurationEntry(ErdCode.LAUNDRY_WASH_COMPLETE_NOTIFICATION_OPTION, ErdReadOnlyBoolConverter(), ErdCodeClass.LAUNDRY_SENSOR, ErdDataType.BOOL),
 
     # Microwave
     ErdConfigurationEntry(ErdCode.MICROWAVE_REMOTE_ENABLE, ErdReadOnlyBoolConverter(), ErdCodeClass.MICROWAVE_SENSOR, ErdDataType.BOOL),

@@ -260,6 +260,7 @@ class ErdSpinTimeLevel(enum.Enum):
     HIGH = 3
     EXTRA_HIGH = 4
     DISABLE = 5
+    MAX = 6
 
     def stringify(self, **kwargs):
         if self == ErdSpinTimeLevel.DISABLE:
@@ -477,3 +478,76 @@ class ErdDryerExtendedTumbleOptionRequest(enum.Enum):
     DISABLED = 0
     ENABLED = 1
     REQUEST_PROCESSED = 255
+
+
+@enum.unique
+class ErdLaundryControlLockOption(enum.Enum):
+    DISABLED = 0
+    UNLOCKED = 1
+    LOCKED = 2
+    UNKNOWN = 255
+
+    def stringify(self, **kwargs) -> str:
+        return self.name.replace("_", " ").title()
+
+    def boolify(self) -> Optional[bool]:
+        if self == ErdLaundryControlLockOption.LOCKED:
+            return True
+        if self == ErdLaundryControlLockOption.UNLOCKED:
+            return False
+        return None
+
+
+@enum.unique
+class ErdDeepFillIncrementalOption(enum.Enum):
+    OFF = 0
+    INCREMENTAL = 1
+    MAX_FILL = 2
+    UNKNOWN = 255
+
+    def stringify(self, **kwargs) -> str:
+        return self.name.replace("_", " ").title()
+
+
+@enum.unique
+class ErdWashTempOption(enum.Enum):
+    DISABLE = 0
+    TAP_COLD = 1
+    COLD = 2
+    COOL = 3
+    COLORS = 4
+    WARM = 5
+    HOT = 6
+    EXTRA_HOT = 7
+    TEMP_20C = 8
+    TEMP_30C = 9
+    TEMP_40C = 10
+    TEMP_50C = 11
+    TEMP_60C = 12
+    TEMP_70C = 13
+    TEMP_80C = 14
+    TEMP_90C = 15
+    EXTRA_COOL = 16
+    TEPID = 17
+    EXTRA_WARM = 18
+    UNKNOWN = 255
+
+    def stringify(self, **kwargs) -> str:
+        if self.name.startswith("TEMP_") and self.name.endswith("C"):
+            return f"{self.name[5:-1]}°C"
+        return self.name.replace("_", " ").title()
+
+
+@enum.unique
+class ErdSoilLevelOption(enum.Enum):
+    DISABLED = 0
+    EXTRA_LIGHT = 1
+    LIGHT = 2
+    NORMAL = 3
+    HEAVY = 4
+    EXTRA_HEAVY = 5
+    AUTO = 6
+    UNKNOWN = 255
+
+    def stringify(self, **kwargs) -> str:
+        return self.name.replace("_", " ").title()
