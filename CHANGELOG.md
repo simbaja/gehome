@@ -1,11 +1,19 @@
 # GE Home SDK Changelog
 
-## Unreleased
+## 2026.11.0
 
-- Fixed `ADVANTIUM_KITCHEN_TIME_REMAINING` (0x0050) decoding: the value is whole minutes (per GE's public ERD definitions, "Timer: minutes remaining"), not seconds
-- Added `MICROWAVE_POWER_WATTS` (0x5c12, previously `MICROWAVE_UNKNOWN_5C12`): rated microwave power in watts, decoded as an `int`
-- Added ERD codes and converters for espresso makers (0x901c-0x904b): supported brew types and features, current/requested brew parameters, per-drink stored parameters (espresso, americano, lungo, hot water, steam, ristretto, doppio, triple shot, red eye, MyCup) with their limits, steam duration, rinse volume, standby timeout, water hardness, steam knob position, volume until descale, lifetime coffee ground, and status flags (brewing, emptying, empty waste bin, out of beans, descale needed, service door, grinder faults)
-- `ESPRESSO_LIFETIME_COFFEE_GROUND` (0x9045) is decoded little-endian; verified on a Cafe Affetto (+10 g per shot)
+- Fixed `ADVANTIUM_KITCHEN_TIME_REMAINING` (0x0050) decoding: the value is whole minutes (per GE's public ERD definitions, "Timer: minutes remaining"), not seconds (#117)
+- Added `MICROWAVE_POWER_WATTS` (0x5c12, previously `MICROWAVE_UNKNOWN_5C12`): rated microwave power in watts, decoded as an `int` (#117)
+- Added ERD codes and converters for espresso makers (0x901c-0x904b), including brew parameters, per-drink limits, status flags, and little-endian `ESPRESSO_LIFETIME_COFFEE_GROUND` (0x9045) (#115)
+- Bounded login/credential HTTP calls with explicit timeouts and moved default SSL context creation off the event loop thread (#113)
+- Decoded Warm mode from oven available cook modes (`ErdAvailableCookModeConverter`) (#114)
+- Fixed dishwasher user setting (`0x3007`) encoding (#116)
+- Fixed `ErdLockedBoolConverter` encoding for user interface lock (`0x0004`), writable ERD encoders, and transient refresh error handling (propagating network/timeout errors without wiping refresh tokens)
+- Added Cafe Speciality Grind & Brew ERDs and converters, coffee maker descale cycles, dishwasher leak detection, and split AC self-clean ERDs
+- Added water heater tank and outlet temperature ERDs (T1, T2, T6, groundwater)
+- Added laundry combo option ERDs and fixed `0x2140` definition
+- Added oven door state/control, air fry temperature range, and estimated minutes remaining ERDs
+- Added `AGENTS.md`, `docs/standards/`, Python 3.14 target, `pyright`/`ruff`/`.markdownlint.json` configuration, and reorganized `tests/` to mirror `gehomesdk/`
 
 ## 2026.8.0
 
@@ -27,7 +35,7 @@
 ## 2026.7.0
 
 - Added additional energy ERD
-- Added ERD codes and converters for toaster oven appliances 
+- Added ERD codes and converters for toaster oven appliances
 - Native support for the SmartHQ multi-factor authentication (MFA) verification-code challenge via the new `GeSmartHqLogin` class, so applications can complete an emailed/texted code challenge interactively instead of only detecting that MFA is required.
 - `GeBaseClient` (and `GeWebsocketClient`) accept an optional `refresh_token` constructor argument, and expose it via a new `refresh_token` property, so applications can persist/seed the OAuth refresh token and avoid repeating a full (possibly MFA) login on every reconnect. `async_get_credentials` now uses a seeded refresh token first, falling back to the full login flow.
 - Added `async_exchange_authorization_code` helper (factored out of `async_get_oauth2_token`) for reuse by interactive login flows.
@@ -69,7 +77,7 @@
 - Fixed model number decoding (#105) (@kadaan)
 - Added wifi mode enabled (#103) (sgraystar)
 - Fixed login process when dealing with MFA/Terms (@Dan1|1-nz)
- 
+
 ## 2025.11.5
 
 - Added new light level converter for hoods (old and new had mismatched ordering)
