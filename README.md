@@ -336,7 +336,7 @@ The device will then respond to the `GET` with a `response` having a json payloa
 
 Contributions—including those created with AI coding assistants—are welcome, provided they meet the repository's quality and verification standards:
 
-- **Follow project guidelines:** Point your AI tool at [`AGENTS.md`](AGENTS.md) and [`docs/standards/`](docs/standards/) before making changes.
-- **No guessed protocol behavior:** New ERD codes, byte layouts, and converters must be backed by real appliance captures, SmartHQ definitions, or documented protocol sources—not AI assumptions.
-- **Human review & verification required:** Contributors are responsible for all submitted code. Before opening a PR, run the full check suite (`pytest`, `ruff`, and `pyright`) and verify no credentials or OAuth tokens are included.
-- **Disclose in PRs:** Briefly note in your pull request if AI tools were used and whether the changes were tested against a real appliance or offline unit tests only.
+* **Follow project guidelines:** Point your AI tool at [`AGENTS.md`](AGENTS.md) and [`docs/standards/`](docs/standards/) before making changes.
+* **No guessed protocol behavior:** New ERD codes, byte layouts, and converters must be backed by real appliance captures, SmartHQ definitions, or documented protocol sources—not AI assumptions.
+* **Human review & verification required:** Contributors are responsible for all submitted code. Before opening a PR, run the full check suite (`pytest`, `ruff`, and `pyright`) and verify no credentials or OAuth tokens are included.
+* **Disclose in PRs:** Briefly note in your pull request if AI tools were used and whether the changes were tested against a real appliance or offline unit tests only.
