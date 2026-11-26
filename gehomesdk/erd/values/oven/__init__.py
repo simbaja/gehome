@@ -22,3 +22,7 @@ from .erd_oven_estimated_minutes_remaining import (
     ErdOvenEstimatedMinutesRemaining,
     ErdOvenEstimatedTimeStatus,
 )
+from .erd_accent_light import (
+    ErdAccentLightCapabilities,
+    ErdAccentLightSettings,
+)

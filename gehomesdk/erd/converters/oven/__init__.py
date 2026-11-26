@@ -17,3 +17,8 @@ from .erd_oven_door_state_converter import ErdOvenDoorStateConverter
 from .erd_oven_estimated_minutes_remaining_converter import (
     ErdOvenEstimatedMinutesRemainingConverter,
 )
+from .erd_accent_light_converter import (
+    ErdAccentLightCapabilitiesConverter,
+    ErdAccentLightSettingsConverter,
+    ErdAccentLightStatusConverter,
+)
