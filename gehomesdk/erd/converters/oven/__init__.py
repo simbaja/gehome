@@ -13,3 +13,7 @@ from .oven_ranges_converter import OvenRangesConverter
 from .erd_oven_light_level_converter import ErdOvenLightLevelConverter
 from .erd_oven_light_level_availability_converter import ErdOvenLightLevelAvailabilityConverter
 from .erd_oven_warming_state_converter import ErdOvenWarmingStateConverter
+from .erd_oven_door_state_converter import ErdOvenDoorStateConverter
+from .erd_oven_estimated_minutes_remaining_converter import (
+    ErdOvenEstimatedMinutesRemainingConverter,
+)

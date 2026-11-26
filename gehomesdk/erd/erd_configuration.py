@@ -123,6 +123,15 @@ _configuration = [
     ErdConfigurationEntry(ErdCode.HOUR_12_SHUTOFF_ENABLED, ErdBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
     ErdConfigurationEntry(ErdCode.OVEN_CONFIGURATION, OvenConfigurationConverter(), ErdCodeClass.GENERAL),
     ErdConfigurationEntry(ErdCode.OVEN_MODE_MIN_MAX_TEMP, OvenRangesConverter(), ErdCodeClass.OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.OVEN_AIR_FRY_MIN_MAX_TEMP, OvenRangesConverter(), ErdCodeClass.OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.UPPER_OVEN_REQUEST_DOOR_OPEN, ErdBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.UPPER_OVEN_DOOR_STATE, ErdOvenDoorStateConverter(), ErdCodeClass.DOOR),
+    ErdConfigurationEntry(ErdCode.UPPER_OVEN_DOOR_OPEN_REMOTE_ENABLED, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.LOWER_OVEN_REQUEST_DOOR_OPEN, ErdBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.LOWER_OVEN_DOOR_STATE, ErdOvenDoorStateConverter(), ErdCodeClass.DOOR),
+    ErdConfigurationEntry(ErdCode.LOWER_OVEN_DOOR_OPEN_REMOTE_ENABLED, ErdReadOnlyBoolConverter(), ErdCodeClass.OVEN_SENSOR, ErdDataType.BOOL),
+    ErdConfigurationEntry(ErdCode.UPPER_OVEN_ESTIMATED_MINUTES_REMAINING, ErdOvenEstimatedMinutesRemainingConverter(), ErdCodeClass.OVEN_SENSOR),
+    ErdConfigurationEntry(ErdCode.LOWER_OVEN_ESTIMATED_MINUTES_REMAINING, ErdOvenEstimatedMinutesRemainingConverter(), ErdCodeClass.OVEN_SENSOR),
     ErdConfigurationEntry(ErdCode.WARMING_DRAWER_STATE, ErdOvenWarmingStateConverter(), ErdCodeClass.OVEN_SENSOR),
 
     # Toaster Oven
