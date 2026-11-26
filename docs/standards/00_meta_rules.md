@@ -21,6 +21,7 @@ Before considering a change complete:
 * [ ] Offline `pytest` suite passes (`.venv\Scripts\python.exe -m pytest -q`).
 * [ ] Lint check passes (`.venv\Scripts\python.exe -m ruff check gehomesdk tests`).
 * [ ] Workspace type check passes (`pyright`).
+* [ ] Markdown documentation is clean against `.markdownlint.json` rules when editing docs.
 * [ ] Async code paths contain no blocking I/O (`time.sleep`, synchronous `requests` calls).
 * [ ] Public classes, methods, and functions have clear type annotations and docstrings.
 * [ ] New ERD codes are registered in `gehomesdk/erd/erd_configuration.py` and exported cleanly.

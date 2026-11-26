@@ -8,7 +8,7 @@ All Python files **MUST** order imports into three groups separated by **a singl
 2. **Third-party dependencies** (`aiohttp`, `websockets`, `bidict`, `pytest`, etc.)
 3. **Local `gehomesdk` imports**
 
-### Correct
+### Correct Imports
 
 ```python
 import asyncio
@@ -38,17 +38,18 @@ from ..exception import GeAuthFailedError
 ## 3. Comment Style
 
 Comments are **architectural signals**, not narration.
+
 * **Rule:** Explain *why*, never *what*.
 * **Tone:** Neutral, technical, concise.
 
-### Correct
+### Correct Comments
 
 ```python
 # Preserve raw hex bytes alongside decoded values so callers can inspect
 # unparsed or partially supported ERDs without losing wire fidelity.
 ```
 
-### Forbidden
+### Forbidden Comments
 
 ```python
 # Set _available to True
@@ -73,13 +74,17 @@ self._available = True
 Both linting and workspace-wide type checking MUST be run when writing code and MUST pass before considering any task done:
 
 * **Ruff (linting & import/style checks):**
+
   ```powershell
   .venv\Scripts\python.exe -m ruff check gehomesdk tests
   ```
+
 * **Pyright (workspace validation):**
+
   ```powershell
   pyright
   ```
+
   Matches `.vscode/settings.json` (`diagnosticMode: "workspace"`, `typeCheckingMode: "standard"`). Fix reported type errors cleanly rather than silencing them unless interfacing with untyped third-party or dynamic ERD payloads.
 
 ## 7. Hard Red Lines (Forbidden)

@@ -31,6 +31,7 @@ gehomesdk/
 ```
 
 ### Dependency Rules
+
 * `erd/values/` must remain pure data definitions with no client or network imports.
 * `erd/converters/` depends only on `erd/values/` and standard/value helpers—never on `clients/` or `aiohttp`.
 * `ge_appliance.py` depends on `erd/` and `exception/`, interacting with `clients/` only via `GeBaseClient` interface methods.
@@ -55,6 +56,7 @@ flowchart LR
 ```
 
 ### Key Invariants
+
 1. **Dual Cache Fidelity:** `GeAppliance` stores both the decoded Python object (`_property_cache`) and the raw wire hex string (`_raw_property_cache`). Unrecognized ERD codes fall back to raw bytes without crashing.
 2. **Appliance Identity & Priority:** `GeAppliance.__new__` caches instances by uppercase MAC address in a `WeakValueDictionary`. If multiple clients exist, a higher-or-equal `client_priority` updates the appliance's active `client` reference.
 3. **Event-Driven Callbacks:** Clients notify consumers via registered async/sync handlers (`EVENT_CONNECTED`, `EVENT_DISCONNECTED`, `EVENT_GOT_APPLIANCE_LIST`, `EVENT_ADD_APPLIANCE`, `EVENT_APPLIANCE_INITIAL_UPDATE`, `EVENT_STATE_CHANGED`, `EVENT_APPLIANCE_AVAILABLE`, `EVENT_APPLIANCE_UNAVAILABLE`).

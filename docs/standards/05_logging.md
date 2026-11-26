@@ -37,7 +37,8 @@ _LOGGER.debug(f"Unknown ERD Code '{erd_code}' and value '{erd_value}'")
 
 ## 3. Credential & PII Redaction (Non-Negotiable)
 
-**Never log:**
+### Never Log
+
 * Account passwords
 * OAuth2 `access_token`, `refresh_token`, or authorization codes
 * `Authorization` headers, cookies, or MFA verification codes

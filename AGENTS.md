@@ -7,6 +7,7 @@ Instructions for AI coding agents working in `gehomesdk`.
 `gehomesdk` is an asynchronous Python SDK (Python 3.14+) for GE WiFi-enabled (SmartHQ) appliances, primarily used to power Home Assistant integrations (such as `ge_home`) and the `gehome-appliance-data` CLI.
 
 Core subsystems:
+
 - `gehomesdk/clients/` — Async WebSocket/HTTP clients (`GeBaseClient`, `GeWebsocketClient`), OAuth2/MFA login flows (`GeSmartHqLogin`), client states, and event constants.
 - `gehomesdk/ge_appliance.py` — `GeAppliance` data model, `WeakValueDictionary` instance cache, decoded and raw ERD property caches, and state-change dispatch.
 - `gehomesdk/erd/` — ERD protocol definitions (`ErdCode`, `ErdCodeClass`, `ErdDataType`), typed value objects (`values/`), hex-to-Python converters (`converters/`), central registry (`erd_configuration.py`), and `ErdEncoder`.
@@ -17,18 +18,25 @@ Core subsystems:
 Run all commands from the repository root using the project virtual environment:
 
 - **Run test suite:**
+
   ```powershell
   .venv\Scripts\python.exe -m pytest -q
   ```
+
 - **Run a single test file:**
+
   ```powershell
   .venv\Scripts\python.exe -m pytest tests/test_raw_erd_value.py
   ```
+
 - **Lint / check formatting (ruff):**
+
   ```powershell
   .venv\Scripts\python.exe -m ruff check gehomesdk tests
   ```
+
 - **Type check (pyright workspace validation):**
+
   ```powershell
   pyright
   ```
@@ -61,5 +69,5 @@ When designing or reviewing changes, apply the standards in this order:
 - **No network calls in tests:** Unit tests must mock `aiohttp.ClientSession`, websockets, and `GeBaseClient` transport methods.
 - **Async-only I/O:** Never use blocking calls (`time.sleep`, synchronous `requests` inside `async def`) on the event loop.
 - **Preserve ERD compatibility:** Every new `ErdCode` that requires decoding/encoding must have a corresponding entry in `gehomesdk/erd/erd_configuration.py`, and `GeAppliance` must continue preserving raw hex payloads alongside decoded values.
-- **Lint & type-check gate:** Run `ruff` and `pyright` workspace validation when writing code; both (along with `pytest`) must pass before considering a task done.
+- **Lint & type-check gate:** Run `ruff` and `pyright` workspace validation when writing code; both (along with `pytest`) must pass before considering a task done. When editing documentation, ensure Markdown passes `markdownlint` rules (see `.markdownlint.json`).
 - **Scratchpad rule:** Write any temporary scripts, payload dumps, or throwaway analysis to `.scratchpad/` (git-ignored), never to the repository root.

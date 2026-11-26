@@ -3,6 +3,7 @@
 This document defines the **Documentation and Commenting Standards** for `gehomesdk`.
 
 It exists to:
+
 * Preserve protocol and architectural intent over time (especially undocumented SmartHQ/ERD quirks)
 * Maximize scanability in large client and appliance modules
 * Serve as authoritative context for human contributors and AI agents
@@ -44,17 +45,23 @@ message dispatch, and automatic reconnection with backoff.
 Files exceeding ~250 lines or spanning multiple responsibilities (such as `base_client.py`, `websocket_client.py`, `ge_appliance.py`) should use a three-tier visual hierarchy:
 
 ### Tier 1: Major Divisions
+
 Used for major architectural splits within large modules.
+
 * **Style:** Bold Uppercase, Triple Hashes (`# ### SECTION NAME ###`)
 * **Buffer:** 2 blank lines above / below
 
 ### Tier 2: Functional Groups
+
 Used for conceptual grouping within a division.
+
 * **Style:** Mixed case, Triple Dashes (`# --- Group Name ---`)
 * **Buffer:** 1 blank line above / below
 
 ### Tier 3: Collapsible Regions
+
 Used to group 3–5 closely related methods.
+
 * **Style:** `# region Name` ... `# endregion`
 * **Rules:** Do NOT nest regions; include a short summary comment immediately after `# region Name`; always pair every `# region` with `# endregion`.
 
@@ -127,6 +134,7 @@ Unmarked temporal comments are prohibited.
 ## 7. Summary Checklist
 
 Before committing:
+
 * [ ] Module docstring present on non-trivial modules
 * [ ] Public interfaces documented (Google style)
 * [ ] Structural hierarchy applied only where file size/complexity warrants it
