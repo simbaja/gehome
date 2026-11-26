@@ -26,17 +26,32 @@ def test_example_async_behavior() -> None:
 
 ---
 
-## 2. File Naming & Scope
+## 2. Directory Structure & Naming
 
-Place all tests under `tests/` using descriptive `test_<area>.py` names:
+The `tests/` directory MUST mirror the `gehomesdk/` package structure:
+
+```text
+tests/
+├── test_imports.py
+├── test_raw_erd_value.py
+├── test_readme_and_setup.py
+├── clients/
+│   └── test_<client_area>.py
+└── erd/
+    ├── test_<erd_area>.py
+    └── converters/
+        └── <appliance_or_category>/
+            └── test_<converter_or_feature>.py
+```
 
 | Scope | Pattern | Examples |
 | :--- | :--- | :--- |
-| ERD Converters & Values | `tests/test_<appliance_or_feature>_converters.py` | `test_water_heater_converters.py` |
-| Appliance Model | `tests/test_<feature>.py` | `test_raw_erd_value.py` |
-| Client / Auth / Network | `tests/test_<client_area>.py` | `test_base_client_network_errors.py` |
+| ERD Converters & Values | `tests/erd/converters/<category>/test_<feature>_converters.py` | `tests/erd/converters/water_heater/test_water_heater_converters.py` |
+| ERD Registry / Cross-Appliance | `tests/erd/test_<area>.py` | `tests/erd/test_microwave_advantium_erds.py` |
+| Appliance Model | `tests/test_<feature>.py` | `tests/test_raw_erd_value.py` |
+| Client / Auth / Network | `tests/clients/test_<client_area>.py` | `tests/clients/test_base_client_network_errors.py` |
 | Packaging / Imports | `tests/test_imports.py`, `tests/test_readme_and_setup.py` | Existing smoke checks |
-| Bug Regressions | `tests/test_regression_<issue_or_bug>.py` | Dedicated reproduction test |
+| Bug Regressions | `tests/<mirrored_subdir>/test_regression_<issue_or_bug>.py` | Dedicated reproduction test |
 
 ---
 
