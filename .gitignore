@@ -140,3 +140,4 @@ credentials.py
 xmpp_driver.py
 wss_driver.py
 scratch*.py
+.scratchpad/
