@@ -187,7 +187,12 @@ class GeWebsocketClient(GeBaseClient):
                 if not isinstance(err.__cause__, StopAsyncIteration):
                     raise             
             except asyncio.CancelledError:
-                pass
+                # Re-raise if this task itself is being cancelled (e.g., owner shutdown);
+                # swallowing it would cause async_run_client() to sleep and reconnect.
+                # Non-task-cancelling CancelledError from an internal future is still absorbed.
+                task = asyncio.current_task()
+                if task is not None and task.cancelling():
+                    raise
 
         finally:
             await self._teardown_futures()
