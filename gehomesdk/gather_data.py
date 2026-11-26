@@ -61,7 +61,7 @@ async def shutdown(sig, client: Optional[GeWebsocketClient], client_task: Option
 
     await group
 
-    _LOGGER.info(f"Shutdown complete.")        
+    _LOGGER.info("Shutdown complete.")        
 
 def gather_appliance_data(username: str, password: str, region: str):
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)-8s %(message)s')

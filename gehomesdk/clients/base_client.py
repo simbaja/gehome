@@ -133,7 +133,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
     def remove_event_handler(self, event: str, callback: Callable):
         try:
             self.event_handlers[event].remove(callback)
-        except:
+        except Exception:
             _LOGGER.warning(f"could not remove event handler {event}-{callback}")
 
     def clear_event_handlers(self):
@@ -164,7 +164,7 @@ class GeBaseClient(metaclass=abc.ABCMeta):
                     _LOGGER.warning(f'Unhandled exception on first connect attempt: {err}, disconnecting')
                     break
                 _LOGGER.exception(err)
-                _LOGGER.info(f'Unhandled exception while running client, ignoring and restarting')
+                _LOGGER.info('Unhandled exception while running client, ignoring and restarting')
 
             if self._disconnect_requested.is_set():
                 break

@@ -11,7 +11,7 @@ class ErdAcTargetTemperatureConverter(ErdReadWriteConverter[int]):
     def erd_decode(self, value: str) -> int:
         try:
             number = erd_decode_int(value)
-        except:
+        except Exception:
             return 86
 
         # Some AC units report 0x7003 as little-endian 2-byte hex (e.g. "4200" = 66 F)

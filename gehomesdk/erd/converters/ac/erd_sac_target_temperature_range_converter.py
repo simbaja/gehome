@@ -12,5 +12,5 @@ class ErdSacTargetTemperatureRangeConverter(ErdReadOnlyConverter[ErdSacTargetTem
                 min = 60
                 max = 86
             return ErdSacTargetTemperatureRange(min, max, value)
-        except:
+        except Exception:
             return ErdSacTargetTemperatureRange(60, 86, value)

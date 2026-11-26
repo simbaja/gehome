@@ -6,7 +6,7 @@ class ErdAcOperationModeConverter(ErdReadWriteConverter[ErdAcOperationMode]):
     def erd_decode(self, value: str) -> ErdAcOperationMode:
         try:
             return ErdAcOperationMode(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdAcOperationMode.DEFAULT
 
     def erd_encode(self, value: ErdAcOperationMode) -> str:

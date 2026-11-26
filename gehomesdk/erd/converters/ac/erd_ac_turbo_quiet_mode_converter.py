@@ -6,7 +6,7 @@ class ErdAcTurboQuietModeConverter(ErdReadWriteConverter[ErdAcTurboQuietMode]):
     def erd_decode(self, value: str) -> ErdAcTurboQuietMode:
         try:
             return ErdAcTurboQuietMode(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdAcTurboQuietMode.UNAVAILABLE
 
     def erd_encode(self, value: ErdAcTurboQuietMode) -> str:

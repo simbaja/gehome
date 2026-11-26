@@ -7,7 +7,7 @@ _LOGGER = logging.getLogger(__name__)
 
 class ErdAdvantiumMicrowaveMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumMicrowaveMinMax]):
     def erd_decode(self, value: str) -> ErdAdvantiumMicrowaveMinMax:
-        if value == None or value == "" or value == "00000000000000000000": 
+        if value is None or value == "" or value == "00000000000000000000": 
             return ErdAdvantiumMicrowaveMinMax(
                 is_valid = False
             )

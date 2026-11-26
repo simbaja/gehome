@@ -14,5 +14,5 @@ class ErdWaterHeaterAvailableModesConverter(ErdReadOnlyConverter[ErdWaterHeaterA
                 bool((modes >> 4) & 1),
                 value
             )
-        except:
+        except Exception:
             return ErdWaterHeaterAvailableModes(False, False, False, False, False, value)

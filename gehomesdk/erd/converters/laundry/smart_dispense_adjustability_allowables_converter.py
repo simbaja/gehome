@@ -24,6 +24,6 @@ class ErdSmartDispenseAdjustabilityAllowablesConverter(ErdReadOnlyConverter[ErdS
                 softener_bucket_four_allowed = bool((i >> 3) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct smart dispense adjustability allowables, using default.")
             return ErdSmartDispenseAdjustabilityAllowables(raw_value=value)

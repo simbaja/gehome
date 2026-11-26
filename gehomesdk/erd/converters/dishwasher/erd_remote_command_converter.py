@@ -6,7 +6,7 @@ class ErdRemoteCommandConverter(ErdReadWriteConverter[ErdRemoteCommand]):
     def erd_decode(self, value: str) -> ErdRemoteCommand:
         try:
             return ErdRemoteCommand(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdRemoteCommand.UNKNOWN
 
     def erd_encode(self, value: ErdRemoteCommand) -> str:

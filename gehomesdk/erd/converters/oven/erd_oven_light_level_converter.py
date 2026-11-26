@@ -6,7 +6,7 @@ class ErdOvenLightLevelConverter(ErdReadWriteConverter[ErdOvenLightLevel]):
     def erd_decode(self, value: str) -> ErdOvenLightLevel:
         try:
             return ErdOvenLightLevel(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdOvenLightLevel.NOT_AVAILABLE
 
     def erd_encode(self, value: ErdOvenLightLevel) -> str:

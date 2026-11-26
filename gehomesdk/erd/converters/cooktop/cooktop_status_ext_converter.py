@@ -27,7 +27,7 @@ class CooktopStatusExtConverter(ErdReadOnlyConverter[CooktopStatus]):
                 status = ErdCooktopStatus.BURNERS_ON
 
             return CooktopStatus(status, burners, value)
-        except Exception as ex:
+        except Exception:
             _LOGGER.error("Could not convert cooktop status.", exc_info=True)
             return CooktopStatus(ErdCooktopStatus.DASH,{},value)
 

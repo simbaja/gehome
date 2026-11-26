@@ -22,6 +22,6 @@ class ErdDryerDrynessOptionAllowablesConverter(ErdReadOnlyConverter[ErdDryerDryn
                 dryness_option_extradry_allowed = bool((i >> 13) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct dryer dryness option allowables, using default.")
             return ErdDryerDrynessOptionAllowables(raw_value=value)

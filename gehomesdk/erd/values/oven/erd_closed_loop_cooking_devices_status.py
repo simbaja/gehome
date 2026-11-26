@@ -50,7 +50,7 @@ class ErdCloseLoopCookingDevicesStatus:
                 self.t0 = ErdCloseLoopCookingDevicesStatus._y0
                 self.u0 = ErdCloseLoopCookingDevicesStatus._z0
                 pass            
-        except:
+        except Exception:
             self.device_type = self.CookingDeviceType.DEFAULT
             self.r0 = 0
                     
@@ -62,6 +62,6 @@ class ErdCloseLoopCookingDevicesStatus:
                 "02": self.device_type.HESTANT_CUE_PAN,
                 "03": self.device_type.HESTANT_CUE_POT
             }[value[:2]]
-        except:
+        except Exception:
             return self.device_type.DEFAULT
 

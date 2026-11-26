@@ -21,6 +21,6 @@ class ErdCycleCountSettingConverter(ErdReadOnlyConverter[ErdCycleCount]):
 
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct cycle counts, using default.")
             return ErdCycleCount(raw_value=value)

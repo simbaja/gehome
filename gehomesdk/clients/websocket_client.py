@@ -26,7 +26,7 @@ from .const import (
 from .states import GeClientState
 
 try:
-    import ujson as json # pyright: ignore[reportMissingModuleSource]
+    import ujson as json # pyright: ignore[reportMissingImports, reportMissingModuleSource]
 except ImportError:
     import json
 
@@ -327,7 +327,7 @@ class GeWebsocketClient(GeBaseClient):
         raw_erd_code = id_parts[2]
         erd_value = self._pending_erds.get((mac_addr, raw_erd_code))
         if erd_value is not None:
-            _LOGGER.debug(f"")
+            _LOGGER.debug("")
             try:
                 await self._update_appliance_state(mac_addr, {raw_erd_code: erd_value})
             except KeyError:
@@ -345,7 +345,7 @@ class GeWebsocketClient(GeBaseClient):
             return
 
         #if we have a response that indicates success, check it
-        if message_dict.get("success", True) != True or message_dict.get("code", 200) != 200:
+        if not message_dict.get("success", True) or message_dict.get("code", 200) != 200:
             if message_dict.get("code") in [401,403] or message_dict.get("reason") == "Access token expired":
                 raise GeNeedsReauthenticationError
             raise GeRequestError(message, message_dict.get("code"), message_dict.get("reason"))

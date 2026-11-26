@@ -18,6 +18,6 @@ class ErdDryerReduceStaticOptionAllowablesConverter(ErdReadOnlyConverter[ErdDrye
                 dryer_reduce_static_enable_allowed = bool((i >> 9) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct dryer reduce static option allowables, using default.")
             return ErdDryerReduceStaticOptionAllowables(raw_value=value)

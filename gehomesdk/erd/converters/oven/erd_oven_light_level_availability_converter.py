@@ -14,5 +14,5 @@ class ErdOvenLightLevelAvailabilityConverter(ErdReadOnlyConverter[ErdOvenLightLe
                 False,
                 value
             )
-        except:
+        except Exception:
             return ErdOvenLightLevelAvailability(raw_value=value)

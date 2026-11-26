@@ -7,5 +7,5 @@ class ErdDemandResponseStateConverter(ErdReadOnlyConverter[ErdDemandResponseStat
     def erd_decode(self, value: str) -> ErdDemandResponseState:
         try:
             return ErdDemandResponseState(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdDemandResponseState.NOT_AVAILABLE

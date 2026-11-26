@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from urllib.parse import urljoin
 from typing import List, Optional
 
-from ..exception import *
+from ..exception import GeAuthFailedError, GeAuthMfaRequiredError
 from .const import (
     LOGIN_URL,
     MFA_SENDTOTP_PATH,

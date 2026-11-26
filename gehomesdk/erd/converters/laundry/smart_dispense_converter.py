@@ -21,6 +21,6 @@ class SmartDispenseConverter(ErdReadOnlyConverter[ErdSmartDispense]):
                 signal = int_values[1],
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct smart dispense settings, using default.")
             return ErdSmartDispense(raw_value=value)

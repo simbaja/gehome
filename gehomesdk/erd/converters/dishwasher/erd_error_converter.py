@@ -19,6 +19,6 @@ class ErdErrorStateConverter(ErdReadOnlyConverter[ErdErrorState]):
                 active = i != 0,
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct error state, using default.")
             return ErdErrorState(raw_value=value)

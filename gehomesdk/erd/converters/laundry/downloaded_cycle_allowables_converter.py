@@ -134,6 +134,6 @@ class ErdDownloadedCycleAllowablesConverter(ErdReadOnlyConverter[ErdDownloadedCy
                 night_dry = bool((int_values[23] >> 7) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct downloaded cycle allowables, using default.")
             return ErdDownloadedCycleAllowables(raw_value=value)

@@ -20,6 +20,6 @@ class ErdDehumidifierMaintenanceConverter(ErdReadOnlyConverter[ErdDehumidifierMa
                 clean_filter = bool((i & 0x02 ) >> 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct maintenance tasks, using default.")
             return ErdDehumidifierMaintenance(raw_value=value)

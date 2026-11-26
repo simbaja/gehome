@@ -22,7 +22,7 @@ class ErdMicrowaveCookSettingConverter(ErdReadWriteConverter[ErdMicrowaveCookSet
                 cook_seconds=int_values[2],
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct cook setting, using default.")
             return ErdMicrowaveCookSetting(raw_value=value)
     def erd_encode(self, value: ErdMicrowaveCookSetting) -> str:

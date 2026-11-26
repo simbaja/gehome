@@ -13,7 +13,7 @@ class ErdCcmBrewSettingsConverter(ErdReadWriteConverter[ErdCcmBrewSettings]):
             brew_temperature = erd_decode_int(value[2:4])
             number_of_cups = erd_decode_int(value[4:6])
             return ErdCcmBrewSettings(number_of_cups, brew_strength, brew_temperature, value)
-        except:
+        except Exception:
             _LOGGER.exception("Could not construct brew settings, using default.")
             return ErdCcmBrewSettings(raw_value=value)
 

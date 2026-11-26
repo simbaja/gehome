@@ -1,7 +1,6 @@
 import logging
 from ..abstract import ErdReadWriteConverter
 from ..primitives import *
-from ...values.dishwasher import ErdUserSetting
 from ...values.dishwasher.erd_user_setting import (
     ErdUserSetting, 
     UserSetting, 
@@ -45,7 +44,7 @@ class ErdUserSettingConverter(ErdReadWriteConverter[ErdUserSetting]):
                 wifi_enabled = UserSetting((i & 128) >> 7),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct user setting, using default.")
             return ErdUserSetting(raw_value=value)
             
@@ -82,7 +81,7 @@ class ErdUserCycleSettingConverter(ErdReadWriteConverter[UserCycleSetting]):
             i = erd_decode_int(value)
             
             return UserCycleSetting(i)
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct user cycle setting, using default.")
             return UserCycleSetting.UNKNOWN
             
@@ -104,7 +103,7 @@ class ErdUserTemperatureSettingConverter(ErdReadWriteConverter[UserWashTempSetti
             i = erd_decode_int(value)
             
             return UserWashTempSetting(i)
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct user cycle setting, using default.")
             return UserWashTempSetting.UNKNOWN
             
@@ -126,7 +125,7 @@ class ErdUserDryingSettingConverter(ErdReadWriteConverter[UserDryOptionSetting])
             i = erd_decode_int(value)
             
             return UserDryOptionSetting(i)
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct user cycle setting, using default.")
             return UserDryOptionSetting.UNKNOWN
             
@@ -148,7 +147,7 @@ class ErdUserZoneSettingConverter(ErdReadWriteConverter[UserWashZoneSetting]):
             i = erd_decode_int(value)
             
             return UserWashZoneSetting(i)
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct user cycle setting, using default.")
             return UserWashZoneSetting.UNKNOWN
             

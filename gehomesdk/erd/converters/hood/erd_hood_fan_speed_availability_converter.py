@@ -14,5 +14,5 @@ class ErdHoodFanSpeedAvailabilityConverter(ErdReadOnlyConverter[ErdHoodFanSpeedA
                 intVal & 16 != 0,
                 value
             )
-        except:
+        except Exception:
             return ErdHoodFanSpeedAvailability(raw_value=value)

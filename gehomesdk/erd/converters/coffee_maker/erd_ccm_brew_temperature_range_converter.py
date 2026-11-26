@@ -16,5 +16,5 @@ class ErdCcmBrewTemperatureRangeConverter(ErdReadOnlyConverter[ErdCcmBrewTempera
                 min = self.ERD_CCM_BREW_TEMPERATURE_MIN
                 max = self.ERD_CCM_BREW_TEMPERATURE_MAX
             return ErdCcmBrewTemperatureRange(min, max, value)
-        except:
+        except Exception:
             return ErdCcmBrewTemperatureRange(self.ERD_CCM_BREW_TEMPERATURE_MIN, self.ERD_CCM_BREW_TEMPERATURE_MAX, value)

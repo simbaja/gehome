@@ -6,6 +6,6 @@ class ErdOimFilterStatusConverter(ErdReadOnlyConverter[ErdOimFilterStatus]):
     def erd_decode(self, value: str) -> ErdOimFilterStatus:
         try:
             return ErdOimFilterStatus(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdOimFilterStatus.EXPIRED
 

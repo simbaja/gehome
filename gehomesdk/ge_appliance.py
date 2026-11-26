@@ -3,18 +3,13 @@
 import enum
 import logging
 from weakref import WeakValueDictionary
-from typing import Any, List, Dict, Optional, Set, TYPE_CHECKING, Union
+from typing import Any, List, Dict, Optional, Set, TYPE_CHECKING
 
 from .erd import ErdCode, ErdCodeType, ErdCodeClass, ErdApplianceType, ErdEncoder, ErdDataType
 from .exception import *
 
 if TYPE_CHECKING:
     from .clients import GeBaseClient
-
-try:
-    import ujson as json # pyright: ignore[reportMissingModuleSource]
-except ImportError:
-    import json
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -251,7 +246,7 @@ class GeAppliance:
                 return value.boolify()
             else:
                 return None
-        except:
+        except Exception:
             return None
 
     def __str__(self):

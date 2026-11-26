@@ -27,5 +27,5 @@ class CooktopStatusConverter(ErdReadOnlyConverter[CooktopStatus]):
                 burners["rightRear"] = Burner(vals[11], vals[12])
 
             return CooktopStatus(status, burners, value)
-        except:
+        except Exception:
             return CooktopStatus.DEFAULT()

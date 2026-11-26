@@ -23,6 +23,6 @@ class SheetUsageConfigurationConverter(ErdReadOnlyConverter[ErdSheetUsageConfigu
                 timed_dryer_sheets_load_size = int_values[0],
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct sheet usage configuration, using default.")
             return ErdSheetUsageConfiguration(raw_value=value)

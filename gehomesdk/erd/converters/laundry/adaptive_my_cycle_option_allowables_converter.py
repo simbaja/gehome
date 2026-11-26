@@ -18,6 +18,6 @@ class ErdAdaptiveMyCycleOptionAllowablesConverter(ErdReadOnlyConverter[ErdAdapti
                 adaptive_enable_allowed = bool((i >> 9) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct adaptive my cycle option allowables, using default.")
             return ErdAdaptiveMyCycleOptionAllowables(raw_value=value)

@@ -22,7 +22,7 @@ class ErdBrand(enum.Enum):
     def stringify(self, **kwargs) -> Optional[str]:
         try:
             return ERD_BRAND_NAME_MAP[self]
-        except:
+        except Exception:
             return ERD_BRAND_NAME_MAP[ErdBrand.UNKNOWN]
 
 ERD_BRAND_NAME_MAP = {

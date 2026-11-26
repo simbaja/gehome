@@ -1,3 +1,5 @@
+from typing import Any
+
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import erd_decode_int
 from ...values.laundry import (
@@ -9,8 +11,8 @@ from ...values.laundry import (
 
 
 class _EnumOptionConverter(ErdReadOnlyConverter):
-    _enum_cls = None
-    _default = None
+    _enum_cls: type[Any]
+    _default: Any = None
 
     def erd_decode(self, value: str):
         try:

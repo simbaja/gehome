@@ -1,7 +1,7 @@
 import enum
 from typing import Optional, NamedTuple
 
-from .common_enums import ErdAcAvailableModes as ErdSacAvailableModes ### deprecated, use ErdAcAvailableModes
+from .common_enums import ErdAcAvailableModes as ErdSacAvailableModes  # noqa: F401 ### deprecated, use ErdAcAvailableModes
 
 
 class ErdSacTargetTemperatureRange(NamedTuple):

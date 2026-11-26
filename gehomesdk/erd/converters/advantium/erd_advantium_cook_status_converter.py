@@ -33,6 +33,6 @@ class ErdAdvantiumCookStatusConverter(ErdReadOnlyConverter[ErdAdvantiumCookStatu
             )
             _LOGGER.debug("Cook Status for value %s is: %s", value, cook_status)
             return cook_status
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct cook status (value: %s), using default.")
             return ErdAdvantiumCookStatus(raw_value=value)

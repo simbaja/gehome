@@ -10,7 +10,7 @@ class ErdAcAvailableFanSpeedsConverter(ErdReadOnlyConverter[ErdAcAvailableFanSpe
                 modes & 1 == 1, modes & 2 == 2, modes & 4 == 4,
                 modes & 8 == 8, modes & 16 == 16, modes & 32 == 32,
                 value)
-        except:
+        except Exception:
             return ErdAcAvailableFanSpeeds(
                 False, False, False,
                 False, False, False,

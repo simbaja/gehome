@@ -15,7 +15,7 @@ class ErdPersonalityConverter(ErdReadOnlyConverter[ErdPersonality]):
     def erd_decode(self, value) -> ErdPersonality:
         try:
             return ErdPersonality(value)
-        except:
+        except Exception:
             if not self._have_already_seen_unknown_appliance(value):
                 _LOGGER.debug(f"Unknown personality found: {value}, using default")
             return ErdPersonality.UNKNOWN

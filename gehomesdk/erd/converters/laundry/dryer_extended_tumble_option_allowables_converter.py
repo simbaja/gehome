@@ -18,6 +18,6 @@ class ErdDryerExtendedTumbleOptionAllowablesConverter(ErdReadOnlyConverter[ErdDr
                 dryer_extended_tumble_enable_allowed = bool((i >> 9) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct dryer extended tumble option allowables, using default.")
             return ErdDryerExtendedTumbleOptionAllowables(raw_value=value)

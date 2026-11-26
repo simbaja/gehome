@@ -22,6 +22,6 @@ class WasherLinkDataConverter(ErdReadOnlyConverter[ErdWasherLinkData]):
                 base_cycle_type = BaseCycleType(int_values[6]),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct washer link data, using default.")
             return ErdWasherLinkData(raw_value=value)

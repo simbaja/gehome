@@ -5,7 +5,12 @@ from urllib.parse import urlparse, parse_qs, urljoin
 import logging
 from typing import Any, Dict, List, Optional
 
-from ..exception import *
+from ..exception import (
+    GeAuthFailedError,
+    GeAuthMfaRequiredError,
+    GeAuthTermsRequiredError,
+    GeGeneralServerError,
+)
 from .const import (
     LOGIN_COOKIE_DOMAIN,
     LOGIN_REGION_COOKIE_NAME,

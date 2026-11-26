@@ -20,6 +20,6 @@ class ErdRemindersSettingConverter(ErdReadOnlyConverter[ErdReminders]):
                 sanitized = bool((i & 0x04) >> 2),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct reminders, using default.")
             return ErdReminders(raw_value=value)

@@ -134,6 +134,6 @@ class ErdRemoteCycleSelectionAllowablesConverter(ErdReadOnlyConverter[ErdRemoteC
                 night_dry = bool((int_values[23] >> 7) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct remote cycle selection allowables, using default.")
             return ErdRemoteCycleSelectionAllowables(raw_value=value)

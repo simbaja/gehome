@@ -1,5 +1,4 @@
 import argparse
-from asyncio import gather
 
 from .gather_data import gather_appliance_data
 

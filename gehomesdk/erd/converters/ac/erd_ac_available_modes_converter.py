@@ -10,7 +10,7 @@ class ErdAcAvailableModesConverter(ErdReadOnlyConverter[ErdAcAvailableModes]):
                 modes & 1 == 1, modes & 2 == 2, modes & 4 == 4, modes & 8 == 8,
                 modes & 16 == 16, modes & 32 == 32, modes & 64 == 64, modes & 128 == 128,
                 value)
-        except:
+        except Exception:
             return ErdAcAvailableModes(
                 False, False, False, False,
                 False, False, False, False,

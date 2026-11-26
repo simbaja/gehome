@@ -17,6 +17,6 @@ class ErdEcoDryOptionSelectionConverter(ErdReadOnlyConverter[ErdEcoDryOptionSele
                 option_status = ErdEcoDryOptionStatus(i),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct eco dry option selection, using default.")
             return ErdEcoDryOptionSelection(raw_value=value)

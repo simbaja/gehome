@@ -1,4 +1,3 @@
-from datetime import timedelta
 from ..abstract import ErdReadOnlyConverter
 from ..primitives import *
 from ...values import ErdWaterFilterLifeRemaining
@@ -16,6 +15,6 @@ class ErdWaterFilterLifeRemainingConverter(
             return ErdWaterFilterLifeRemaining(
                 life_remaining=pct
             )            
-        except:
+        except Exception:
             return ErdWaterFilterLifeRemaining(0)
 

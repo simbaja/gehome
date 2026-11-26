@@ -21,6 +21,6 @@ class ErdSmartDispenseAdjustabilityOptionConverter(ErdReadOnlyConverter[ErdSmart
                 dosage = ErdSmartDispenseDosageType(int_values[2]),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct smart dispense adjustability option, using default.")
             return ErdSmartDispenseAdjustabilityOption(raw_value=value)

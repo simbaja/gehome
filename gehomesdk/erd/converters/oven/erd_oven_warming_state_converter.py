@@ -6,7 +6,7 @@ class ErdOvenWarmingStateConverter(ErdReadWriteConverter[ErdOvenWarmingState]):
     def erd_decode(self, value: str) -> ErdOvenWarmingState:
         try:
             return ErdOvenWarmingState(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdOvenWarmingState.NOT_AVAILABLE
 
     def erd_encode(self, value: ErdOvenWarmingState) -> str:

@@ -6,7 +6,7 @@ class ErdAcFanSettingConverter(ErdReadWriteConverter[ErdAcFanSetting]):
     def erd_decode(self, value: str) -> ErdAcFanSetting:
         try:
             return ErdAcFanSetting(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdAcFanSetting.DEFAULT
 
     def erd_encode(self, value: ErdAcFanSetting) -> str:

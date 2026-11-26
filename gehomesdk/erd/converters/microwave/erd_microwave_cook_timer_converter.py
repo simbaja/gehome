@@ -10,10 +10,10 @@ class ErdMicrowaveCookTimerConverter(ErdReadWriteConverter[Optional[timedelta]])
             m = int(value[0:2])
             s = int(value[2:4])
             return timedelta(seconds=m * 60 + s)
-        except:
+        except Exception:
             return None
     def erd_encode(self, value: Optional[timedelta]) -> str:
-        if value == None:
+        if value is None:
             return "0000"
         
         try:
@@ -21,5 +21,5 @@ class ErdMicrowaveCookTimerConverter(ErdReadWriteConverter[Optional[timedelta]])
             seconds = (value.seconds % 60)
 
             return erd_encode_int(minutes) + erd_encode_int(seconds)
-        except:
+        except Exception:
             return "0000"    

@@ -6,6 +6,6 @@ class ErdUcimCleanStatusConverter(ErdReadOnlyConverter[ErdUcimCleanStatus]):
     def erd_decode(self, value: str) -> ErdUcimCleanStatus:
         try:
             return ErdUcimCleanStatus(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdUcimCleanStatus.CLEAN
 

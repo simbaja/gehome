@@ -22,7 +22,7 @@ class OvenCookModeConverter(ErdReadWriteConverter[OvenCookSetting]):
                 two_temp_cook_temperature=erd_decode_int(value[18:22]),
                 two_temp_cook_time=erd_decode_timespan(value[22:26]) or timedelta(0),
                 raw_string=value)
-        except:
+        except Exception:
             _LOGGER.warning(f"Could not decode oven mode {erd_decode_int(value[0:2])}, raw value {value}")
             return OvenCookSetting(
                 raw_string=value

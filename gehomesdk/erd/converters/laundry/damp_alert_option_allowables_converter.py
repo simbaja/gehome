@@ -18,6 +18,6 @@ class ErdDampAlertOptionAllowablesConverter(ErdReadOnlyConverter[ErdDampAlertOpt
                 damp_alert_enable_allowed = bool((i >> 9) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct damp alert option allowables, using default.")
             return ErdDampAlertOptionAllowables(raw_value=value)

@@ -7,7 +7,7 @@ _LOGGER = logging.getLogger(__name__)
 
 class ErdAdvantiumPrecisionMinMaxConverter(ErdReadOnlyConverter[ErdAdvantiumPrecisionMinMax]):
     def erd_decode(self, value: str) -> ErdAdvantiumPrecisionMinMax:
-        if value == None or value == "" or value == "00000000000000000000": 
+        if value is None or value == "" or value == "00000000000000000000": 
             return ErdAdvantiumPrecisionMinMax(
                 is_valid = False
             )

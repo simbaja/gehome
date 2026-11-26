@@ -6,7 +6,7 @@ class ErdOimLightLevelConverter(ErdReadWriteConverter[ErdOimLightLevel]):
     def erd_decode(self, value: str) -> ErdOimLightLevel:
         try:
             return ErdOimLightLevel(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdOimLightLevel.OFF
 
     def erd_encode(self, value: ErdOimLightLevel) -> str:

@@ -12,12 +12,12 @@ class ErdMicrowaveStateConverter(ErdReadOnlyConverter[ErdMicrowaveState]):
         try:
             try:
                 status = ErdMicrowaveCookStatus(value[0:2])
-            except:
+            except Exception:
                 status = ErdMicrowaveCookStatus.UNKNOWN
             mode = ErdMicrowaveCookMode(value[2:4])
             try:
                 door = ErdDoorStatus(value[4:6])
-            except:
+            except Exception:
                 door = ErdDoorStatus.NA
                 
             pl = erd_decode_int(value[6:8])
@@ -36,7 +36,7 @@ class ErdMicrowaveStateConverter(ErdReadOnlyConverter[ErdMicrowaveState]):
                 temp,
                 value
             )
-        except:
+        except Exception:
             return ErdMicrowaveState(
                 ErdMicrowaveCookStatus.UNKNOWN, 
                 ErdMicrowaveCookMode.DASH, 

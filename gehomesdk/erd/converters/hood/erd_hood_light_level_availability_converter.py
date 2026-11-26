@@ -13,5 +13,5 @@ class ErdHoodLightLevelAvailabilityConverter(ErdReadOnlyConverter[ErdHoodLightLe
                 intVal & 16 != 0,
                 value
             )
-        except:
+        except Exception:
             return ErdHoodLightLevelAvailability(raw_value=value)

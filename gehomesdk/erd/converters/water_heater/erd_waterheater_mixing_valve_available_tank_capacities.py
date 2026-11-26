@@ -12,5 +12,5 @@ class ErdWaterHeaterMixingValveAvailableTankCapacitiesConverter(ErdReadOnlyConve
                 bool((modes >> 2) & 1),
                 value
             )
-        except:
+        except Exception:
             return ErdWaterHeaterMixingValveAvailableTankCapacities(False, False, False, value)

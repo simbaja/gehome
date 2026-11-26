@@ -23,6 +23,6 @@ class ErdStainRemovalGuideAvailableOptionsConverter(ErdReadOnlyConverter[ErdStai
                 oily_allowed = bool((i >> 14) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct stain removal guide available options, using default.")
             return ErdStainRemovalGuideAvailableOptions(raw_value=value)

@@ -6,7 +6,7 @@ class ErdHoodLightLevelNewConverter(ErdReadWriteConverter[ErdHoodLightLevelNew])
     def erd_decode(self, value: str) -> ErdHoodLightLevelNew:
         try:
             return ErdHoodLightLevelNew(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdHoodLightLevelNew.OFF
 
     def erd_encode(self, value: ErdHoodLightLevelNew) -> str:

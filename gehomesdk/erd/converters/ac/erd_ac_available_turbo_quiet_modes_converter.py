@@ -9,7 +9,7 @@ class ErdAcAvailableTurboQuietModesConverter(ErdReadOnlyConverter[ErdAcAvailable
             return ErdAcAvailableTurboQuietModes(
                 modes & 1 == 1, modes & 2 == 2, modes & 4 == 4,
                 value)
-        except:
+        except Exception:
             return ErdAcAvailableTurboQuietModes(
                 False, False, False,
                 value)

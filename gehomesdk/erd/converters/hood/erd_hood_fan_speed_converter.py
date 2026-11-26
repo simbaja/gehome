@@ -6,7 +6,7 @@ class ErdHoodFanSpeedConverter(ErdReadWriteConverter[ErdHoodFanSpeed]):
     def erd_decode(self, value: str) -> ErdHoodFanSpeed:
         try:
             return ErdHoodFanSpeed(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdHoodFanSpeed.OFF
 
     def erd_encode(self, value: ErdHoodFanSpeed) -> str:

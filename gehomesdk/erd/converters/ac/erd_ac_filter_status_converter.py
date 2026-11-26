@@ -6,6 +6,6 @@ class ErdAcFilterStatusConverter(ErdReadOnlyConverter[ErdAcFilterStatus]):
     def erd_decode(self, value: str) -> ErdAcFilterStatus:
         try:
             return ErdAcFilterStatus(erd_decode_int(value))
-        except:
+        except Exception:
             return ErdAcFilterStatus.DEFAULT
             

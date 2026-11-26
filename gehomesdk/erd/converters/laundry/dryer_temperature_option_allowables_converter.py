@@ -22,6 +22,6 @@ class ErdDryerTemperatureOptionAllowablesConverter(ErdReadOnlyConverter[ErdDryer
                 temperature_option_high_allowed = bool((i >> 13) & 1),
                 raw_value=value
             )
-        except Exception as ex: 
+        except Exception:
             _LOGGER.exception("Could not construct dryer temperature option allowables, using default.")
             return ErdDryerTemperatureOptionAllowables(raw_value=value)
