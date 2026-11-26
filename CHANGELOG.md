@@ -2,6 +2,8 @@
 
 ## 2026.11.0
 
+- Fixed `GeWebsocketClient._async_run_client` swallowing task cancellation so `async_run_client()` terminates immediately on owner shutdown instead of sleeping to reconnect (#118)
+- Added range/oven accent lighting ERDs and converters (`ACCENT_LIGHT_REQUEST` 0x5023, `ACCENT_LIGHT_STATUS` 0x5024, `ACCENT_LIGHT_CAPABILITIES` 0x5025) for brightness, color temperature, and custom RGB color; power on/off remains physical-button only per GE's API (#68)
 - Fixed `ADVANTIUM_KITCHEN_TIME_REMAINING` (0x0050) decoding: the value is whole minutes (per GE's public ERD definitions, "Timer: minutes remaining"), not seconds (#117)
 - Added `MICROWAVE_POWER_WATTS` (0x5c12, previously `MICROWAVE_UNKNOWN_5C12`): rated microwave power in watts, decoded as an `int` (#117)
 - Added ERD codes and converters for espresso makers (0x901c-0x904b), including brew parameters, per-drink limits, status flags, and little-endian `ESPRESSO_LIFETIME_COFFEE_GROUND` (0x9045) (#115)
