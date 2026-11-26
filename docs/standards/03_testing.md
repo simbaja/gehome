@@ -88,3 +88,5 @@ A feature or fix is complete only when:
 * [ ] New or modified behavior has deterministic unit tests in `tests/`.
 * [ ] Edge cases (empty/malformed hex, network/timeout errors, auth errors) are covered.
 * [ ] Full suite passes: `.venv\Scripts\python.exe -m pytest -q`.
+* [ ] Lint check passes: `.venv\Scripts\python.exe -m ruff check gehomesdk tests`.
+* [ ] Workspace type check passes: `pyright`.

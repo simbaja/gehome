@@ -28,6 +28,10 @@ Run all commands from the repository root using the project virtual environment:
   ```powershell
   .venv\Scripts\python.exe -m ruff check gehomesdk tests
   ```
+- **Type check (pyright workspace validation):**
+  ```powershell
+  pyright
+  ```
 
 ## Governance & Standards
 
@@ -57,4 +61,5 @@ When designing or reviewing changes, apply the standards in this order:
 - **No network calls in tests:** Unit tests must mock `aiohttp.ClientSession`, websockets, and `GeBaseClient` transport methods.
 - **Async-only I/O:** Never use blocking calls (`time.sleep`, synchronous `requests` inside `async def`) on the event loop.
 - **Preserve ERD compatibility:** Every new `ErdCode` that requires decoding/encoding must have a corresponding entry in `gehomesdk/erd/erd_configuration.py`, and `GeAppliance` must continue preserving raw hex payloads alongside decoded values.
+- **Lint & type-check gate:** Run `ruff` and `pyright` workspace validation when writing code; both (along with `pytest`) must pass before considering a task done.
 - **Scratchpad rule:** Write any temporary scripts, payload dumps, or throwaway analysis to `.scratchpad/` (git-ignored), never to the repository root.

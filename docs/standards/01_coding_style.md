@@ -68,7 +68,21 @@ self._available = True
 * Avoid `Any` unless dealing with genuinely dynamic JSON or heterogeneous ERD decode outputs.
 * Parametrize generic collections (`dict[str, GeAppliance]`, `list[str]`, `set[ErdCodeType]`). Use modern union syntax (`str | None`) or `Optional[str]` consistently within a file.
 
-## 6. Hard Red Lines (Forbidden)
+## 6. Static Analysis & Linting (`ruff` & `pyright`)
+
+Both linting and workspace-wide type checking MUST be run when writing code and MUST pass before considering any task done:
+
+* **Ruff (linting & import/style checks):**
+  ```powershell
+  .venv\Scripts\python.exe -m ruff check gehomesdk tests
+  ```
+* **Pyright (workspace validation):**
+  ```powershell
+  pyright
+  ```
+  Matches `.vscode/settings.json` (`diagnosticMode: "workspace"`, `typeCheckingMode: "standard"`). Fix reported type errors cleanly rather than silencing them unless interfacing with untyped third-party or dynamic ERD payloads.
+
+## 7. Hard Red Lines (Forbidden)
 
 * Blocking I/O (`time.sleep`, synchronous `requests`) inside `async def` functions.
 * Bare `except:`.
